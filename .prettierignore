@@ -1,0 +1,18 @@
+# 기본적으로 무시할 디렉토리
+node_modules
+.next
+dist
+build
+public
+
+# 마크다운 파일
+*.md
+
+# api 폴더
+api
+
+# 환경변수
+*.env
+
+# 자동 생성 파일
+package-lock.json
