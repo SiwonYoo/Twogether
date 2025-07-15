@@ -1,0 +1,27 @@
+'use client';
+
+import { MoveLeft, ShoppingBag } from 'lucide-react';
+import Link from 'next/link';
+
+function SubHeader() {
+  return (
+    <>
+      <header className="flex justify-between h-15 w-full px-5 bg-white">
+        <h1 className="hidden">Twogether</h1>
+        <button
+          onClick={() => {
+            window.history.go(-1);
+          }}
+        >
+          <MoveLeft size={20} />
+        </button>
+        <h2 className="flex-1 content-center px-4">상세보기</h2>
+        <Link href="/cart" className="self-center">
+          <ShoppingBag color="var(--color-black)" size={20} />
+        </Link>
+      </header>
+    </>
+  );
+}
+
+export default SubHeader;
