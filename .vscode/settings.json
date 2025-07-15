@@ -1,5 +1,13 @@
 {
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
-  "git.ignoreLimitWarning": true
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "git.ignoreLimitWarning": true,
+  // other settings
+  "tailwindCSS.includeLanguages": {
+    "javascript": "javascript",
+    "html": "HTML"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  }
 }
