@@ -28,8 +28,7 @@ export default function BrandPage() {
         </p>
         <br />
         <p>잠옷은 단순한 옷이 아닌</p>
-        <p>가장 편안하고 가장 나다운 시간이 머무는 공간의 일부입니다.</p>
-        <br />
+        <p className="mb-4">가장 편안하고 가장 나다운 시간이 머무는 공간의 일부입니다.</p>
         <p>그래서 우리는</p>
         <p>그 밤이 더 따뜻하고 부드럽게 감싸지길 바라며</p>
         <p>정성스럽게 만들기 시작했습니다.</p>
@@ -41,10 +40,10 @@ export default function BrandPage() {
         <p className="mt-6 mb-3 font-bold">하루의 끝을 위한 편안함</p>
         <p>피부에 닿는 감촉, 여유로운 핏</p>
         <p>하루의 피로를 내려놓기에는 충분합니다.</p>
-        <p className="mt-6 font-bold">취향을 담은 디자인</p>
+        <p className="mt-6 mb-3 font-bold">취향을 담은 디자인</p>
         <p>당신의 취향을 해치지 않는</p>
         <p>미니멀하고 감각적인 스타일을 제안합니다.</p>
-        <p className="mt-6 font-bold">믿을 수 있는 소재와 제작</p>
+        <p className="mt-6 mb-3 font-bold">믿을 수 있는 소재와 제작</p>
         <p>자연에 가까운 소재와 섬세한 봉제</p>
         <p>꼼꼼한 제작 과정을 통해 신뢰를 만듭니다.</p>
       </section>
