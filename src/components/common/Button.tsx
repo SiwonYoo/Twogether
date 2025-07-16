@@ -1,7 +1,7 @@
 import { Judson } from 'next/font/google';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  bg?: 'primary' | 'secondary' | 'light' | 'disabled';
+  bg?: 'primary' | 'secondary' | 'light' | 'white' | 'disabled';
   shape?: 'rounded' | 'square';
   size?: 'sm' | 'lg';
   lang?: 'kor' | 'eng';
@@ -15,7 +15,7 @@ const JudsonFont = Judson({
 /**
  * 버튼 컴포넌트입니다.
  *
- * @param {'primary' | 'secondary' | 'light' | 'disabled'} [bg='primary'] - 버튼 배경색
+ * @param {'primary' | 'secondary' | 'light' | 'white' | 'disabled'} [bg='primary'] - 버튼 배경색
  * @param {'rounded' | 'square'} [shape='rounded'] - 버튼 모양 (둥근 or 각진)
  * @param {'sm' | 'lg'} [size='sm'] - 버튼 크기 (내용 너비 or 전체 너비)
  * @param {'kor' | 'eng'} [lang='kor'] - 언어 설정 (영어일 경우 Judson 폰트 적용)
@@ -23,10 +23,11 @@ const JudsonFont = Judson({
  */
 function Button({ children, bg = 'primary', shape = 'rounded', size = 'sm', lang = 'kor', ...rest }: ButtonProps) {
   const btnColor = {
-    primary: 'bg-primary',
-    secondary: 'bg-secondary-1',
-    light: 'bg-secondary-2',
-    disabled: 'bg-gray-150',
+    primary: 'bg-primary text-white',
+    secondary: 'bg-secondary-1 text-white',
+    light: 'bg-secondary-2 text-white',
+    white: 'bg-white text-primary border-1 border-primary',
+    disabled: 'bg-gray-150 text-white',
   };
 
   const btnShape = {
@@ -41,7 +42,7 @@ function Button({ children, bg = 'primary', shape = 'rounded', size = 'sm', lang
 
   return (
     <button
-      className={`px-6 py-2 text-white cursor-pointer ${btnColor[bg]} ${btnShape[shape]} ${btnSize[size]} ${
+      className={`px-6 py-2 cursor-pointer ${btnColor[bg]} ${btnShape[shape]} ${btnSize[size]} ${
         lang === 'eng' ? JudsonFont.className : null
       }`}
       {...rest}

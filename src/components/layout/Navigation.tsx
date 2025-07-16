@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 function Navigation() {
   return (
-    <nav className="fixed bottom-0 w-full min-w-[400px] max-w-[768px] bg-white">
+    <nav className="fixed bottom-0 w-full min-w-[400px] max-w-[768px] bg-white z-[1]">
       <ul className="flex justify-between h-20">
         <li className="contents">
           <Link href="/menu" className="flex flex-col justify-center items-center content-center flex-1 h-full">
