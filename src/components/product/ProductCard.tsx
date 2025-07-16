@@ -5,6 +5,7 @@ import Link from 'next/link';
 interface ProductCardProps {
   productTitle: string;
   price: number;
+  keys?: number;
 }
 
 /**
@@ -12,10 +13,10 @@ interface ProductCardProps {
  * @param param0 - 제품의 이름과 가격을 담든 매개변수 입니다.
  * @returns
  */
-export default function ProductCard({ productTitle, price }: ProductCardProps) {
+export default function ProductCard({ productTitle, price, keys }: ProductCardProps) {
   return (
     <>
-      <li className="w-[47%]">
+      <li className="w-[47%]" key={keys}>
         <ImgSlider />
         <div className="flex justify-between mt-4">
           <div className="text-left">
