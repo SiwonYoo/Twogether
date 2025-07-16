@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
+import Link from 'next/link';
 
 interface slideDataItmeProps {
   id: number;
@@ -54,7 +55,9 @@ export default function EventSlider() {
           {slideData.map((slide) => {
             return (
               <SwiperSlide key={slide.id}>
-                <Image src={slide.src} alt={slide.alt} className="w-full" width="469" height="216" />
+                <Link href="/community/evnet">
+                  <Image src={slide.src} alt={slide.alt} className="w-full" width="469" height="216" />
+                </Link>
               </SwiperSlide>
             );
           })}
