@@ -1,3 +1,5 @@
+'use client';
+
 import Button from '@/components/common/Button';
 import LinkButton from '@/components/common/LinkButton';
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
