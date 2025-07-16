@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 /* 색관련은 노션페이지 참고*/
-:root {
+@theme {
   /* 보라색 */
   --color-primary: #2e1f42; /* 어두운 보라색 */
   --color-secondary-1: #42257f; /* 중간 보라색 */
@@ -23,3 +23,4 @@
   --color-success: #4caf50;
   --color-warning: #ff9800;
 }
+
