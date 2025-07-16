@@ -2,15 +2,18 @@
 
 import { MoveLeft, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 function SubHeader() {
+  const router = useRouter();
+
   return (
     <>
       <header className="flex justify-between h-15 w-full px-5 bg-white">
         <h1 className="hidden">Twogether</h1>
         <button
           onClick={() => {
-            window.history.go(-1);
+            router.back();
           }}
         >
           <MoveLeft size={20} />
