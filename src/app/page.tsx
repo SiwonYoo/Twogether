@@ -1,8 +1,10 @@
+import { Metadata } from 'next';
+import { Judson } from 'next/font/google'; // 구글 폰트 사용
+
 import EventSlider from '@/app/eventSlider';
 import Button from '@/components/common/Button';
 import ProductCard from '@/components/product/ProductCard';
-import { Metadata } from 'next';
-import { Judson } from 'next/font/google'; // 구글 폰트 사용
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Twogether',
     description: '홈',
-    url: '/menu',
+    url: '/',
   },
 };
 
