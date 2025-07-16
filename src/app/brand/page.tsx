@@ -20,7 +20,7 @@ export default function BrandPage() {
   return (
     <main>
       <Image src="/images/model/main-model1.png" alt="브랜드 모델" width={768} height={512} className="w-full h-auto" />
-      <section className="mb-12 mt-12">
+      <section className="my-12 mx-4">
         <h2 className={`${JudsonFont.className} text-2xl`}>Twogether</h2>
         <p className="mt-4">하루를 함께 마무리하고</p>
         <p>
@@ -34,7 +34,7 @@ export default function BrandPage() {
         <p>정성스럽게 만들기 시작했습니다.</p>
       </section>
       <Image src="/images/model/main-model2.png" width={768} height={500} alt="브랜드 모델" />
-      <section className="flex flex-col justify-center items-center mb-12 mt-12">
+      <section className="flex flex-col justify-center items-center my-12 mx-4">
         <h2 className={`${JudsonFont.className} text-2xl`}>Twogether, </h2>
         <p>당신의 밤과 함께</p>
         <p className="mt-6 mb-3 font-bold">하루의 끝을 위한 편안함</p>
