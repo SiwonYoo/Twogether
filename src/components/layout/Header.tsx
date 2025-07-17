@@ -10,7 +10,7 @@ const JudsonFont = Judson({
 function Header() {
   return (
     <>
-      <header className="flex justify-between h-24 w-full px-5 bg-white">
+      <header className="sticky top-0 flex justify-between h-24 w-full px-5 bg-white z-10">
         <Link href="/" className="content-center text-3xl text-black">
           <h1 className={`${JudsonFont.className}`}>Twogether</h1>
         </Link>
