@@ -23,14 +23,6 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  // api 더미 데이터
-  const mockProducts = [
-    { id: 1, title: '긴 잠옷', price: 135000 },
-    { id: 2, title: '긴 잠옷', price: 135000 },
-  ];
-
-  const limitedProducts = mockProducts.slice(0, 2); // api 에서 2개만 가지고 옴
-
   return (
     <>
       <Image
@@ -62,11 +54,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <ul className="flex justify-between gap-4 flex-wrap items-center mt-4">
-            {limitedProducts.map((product) => (
-              <ProductCard key={product.id} productTitle={product.title} price={product.price} />
-            ))}
-          </ul>
+          <ProductCard />
         </section>
         {/* 배스트 섹션 종로 */}
 
@@ -91,11 +79,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <ul className="flex justify-between gap-4 flex-wrap items-center mt-4">
-            {limitedProducts.map((product) => (
-              <ProductCard key={product.id} productTitle={product.title} price={product.price} />
-            ))}
-          </ul>
+          <ProductCard />
         </section>
         {/* 세일 섹션 종료 */}
 
