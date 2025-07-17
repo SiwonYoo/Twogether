@@ -28,7 +28,7 @@ export default function ShopLayout({
               />
             </p>
 
-            <p>BEST</p>
+            <p className={`${JudsonFont.className}`}>BEST</p>
           </Link>
         </li>
         <li>
@@ -43,7 +43,7 @@ export default function ShopLayout({
               />
             </p>
 
-            <p>short</p>
+            <p className={`${JudsonFont.className}`}>short</p>
           </Link>
         </li>
         <li>
@@ -57,7 +57,7 @@ export default function ShopLayout({
                 alt="여성 잠옷 모델 이미지"
               />
             </p>
-            <p>long</p>
+            <p className={`${JudsonFont.className}`}>long</p>
           </Link>
         </li>
         <li>
@@ -71,7 +71,7 @@ export default function ShopLayout({
                 alt="여성 잠옷 모델 이미지"
               />
             </p>
-            <p>robe</p>
+            <p className={`${JudsonFont.className}`}>robe</p>
           </Link>
         </li>
         <li>
@@ -85,7 +85,7 @@ export default function ShopLayout({
                 alt="여성 잠옷 모델 이미지"
               />
             </p>
-            <p>acc</p>
+            <p className={`${JudsonFont.className}`}>acc</p>
           </Link>
         </li>
       </ul>
