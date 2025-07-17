@@ -1,11 +1,9 @@
-import ImgSlider from '@/app/imgSlider';
-import LikeButton from '@/components/product/LikeButton';
-import Link from 'next/link';
+import ProductCardItem from '@/components/product/ProductCardItem';
 
 interface ProductCardProps {
   productTitle: string;
   price: number;
-  keys?: number;
+  id: number;
 }
 
 /**
@@ -13,21 +11,42 @@ interface ProductCardProps {
  * @param param0 - 제품의 이름과 가격을 담든 매개변수 입니다.
  * @returns
  */
-export default function ProductCard({ productTitle, price, keys }: ProductCardProps) {
+
+export default function ProductCard() {
+  const datas: ProductCardProps[] = [
+    {
+      id: 1,
+      productTitle: '잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷',
+      price: 70000,
+    },
+    {
+      id: 2,
+      productTitle: '긴팔 잠옷',
+      price: 15000,
+    },
+    {
+      id: 3,
+      productTitle: '잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷',
+      price: 70000,
+    },
+    {
+      id: 4,
+      productTitle: '잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷',
+      price: 70000,
+    },
+    {
+      id: 5,
+      productTitle: '잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷잠옷',
+      price: 70000,
+    },
+  ];
   return (
     <>
-      <li className="w-[47%]" key={keys}>
-        <ImgSlider />
-        <div className="flex justify-between mt-4">
-          <div className="text-left">
-            <Link href="/">
-              <h3 className="font-bold">{productTitle}</h3>
-            </Link>
-            <p className="text-[.75rem]">{price}</p>
-          </div>
-          <LikeButton />
-        </div>
-      </li>
+      <ul className="grid grid-cols-2 gap-4 my-4">
+        {datas.map((item) => {
+          return <ProductCardItem productTitle={item.productTitle} price={item.price} key={item.id} />;
+        })}
+      </ul>
     </>
   );
 }
