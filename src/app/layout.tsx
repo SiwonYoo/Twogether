@@ -19,10 +19,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`flex flex-col items-center justify-center min-h-screen bg-white ${pretendard.className} `}>
-        <div className="relative w-full min-w-[400px] max-w-[768px] min-h-dvh bg-white">
+        <div className="flex flex-col relative w-full min-w-[400px] max-w-[768px] min-h-dvh bg-white">
           <Header />
           {/* <SubHeader /> */}
-          {children}
+          <div className="flex-1">{children}</div>
           <Footer />
           <Navigation />
         </div>
