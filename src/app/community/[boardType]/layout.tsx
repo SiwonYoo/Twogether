@@ -12,10 +12,11 @@ export default async function BoardTypeLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { boardType: string };
+  params: Promise<{
+    boardType: string;
+  }>;
 }) {
   const { boardType } = await params;
-
   return (
     <>
       <main className="mx-4">
