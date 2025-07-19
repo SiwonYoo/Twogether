@@ -95,7 +95,7 @@ export default function Home() {
           <h2 className={`text-2xl font-bold my-6 ${JudsonFont.className}`}>INFO</h2>
           <div className="my-2">
             <h3 className="font-bold mb-2">신규회원 5% 쿠폰</h3>
-            <p className="text-[.75rem]">즉시 사용 5% 쿠폰발급</p>
+            <p className="text-[.75rem]">즉시 사용 5% 쿠폰 발급</p>
             <p className="text-[.75rem]">회원가입하러가기</p>
           </div>
           <div className="my-2">
