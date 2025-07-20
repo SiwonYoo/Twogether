@@ -4,6 +4,7 @@ interface CheckBoxProps {
   label: string;
   hideLabel?: boolean;
   checked?: boolean;
+  onChange?: (checked: boolean) => void;
 }
 
 /**
@@ -15,7 +16,7 @@ interface CheckBoxProps {
  * @param {boolean} [hideLabel=false] - true일 경우 라벨은 시각적으로 숨김 처리 (접근성 유지)
  * @param {boolean} [checked=false] - 체크박스 기본 선택 여부
  */
-function CheckBox({ id, name, label, hideLabel = false, checked = false }: CheckBoxProps) {
+function CheckBox({ id, name, label, hideLabel = false, checked = false, onChange }: CheckBoxProps) {
   return (
     <>
       <div className="flex items-center">
@@ -24,8 +25,11 @@ function CheckBox({ id, name, label, hideLabel = false, checked = false }: Check
           id={id}
           name={name}
           value={id}
-          defaultChecked={checked}
+          checked={checked}
           className="appearance-none border-[.0625rem] w-4 h-4 checked:bg-[url(/images/icon/check.svg)] mr-1"
+          onChange={(e) => {
+            if (onChange) onChange(e.target.checked);
+          }}
         />
         <label htmlFor={id} className={`${hideLabel && 'sr-only'}`}>
           {label}
