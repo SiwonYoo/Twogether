@@ -8,10 +8,18 @@ import useCartStore from '@/stores/useCartStore';
 interface CartItemCardProps {
   cartItem: CartItem;
   selected?: boolean;
+  onCheckBoxChange?: (checked: boolean) => void;
 }
 
-export default function CartItemCard({ cartItem, selected = true }: CartItemCardProps) {
+export default function CartItemCard({ cartItem, selected = true, onCheckBoxChange }: CartItemCardProps) {
+  const { updateQuantity, deleteItem } = useCartStore();
+
   const salePrice = (cartItem.price - cartItem.discount) * cartItem.quantity;
+
+  // Counter 수량 변경 시 호출될 함수
+  const onCounterChange = (newQuantity: number) => {
+    updateQuantity(cartItem.id, cartItem.option, newQuantity);
+  };
 
   return (
     <article className="flex flex-col gap-3 px-2 py-3">
@@ -23,6 +31,7 @@ export default function CartItemCard({ cartItem, selected = true }: CartItemCard
           label={`${cartItem.name} 선택 체크박스`}
           hideLabel
           checked={selected}
+          onChange={onCheckBoxChange}
         />
 
         <figure className="shrink-0 self-center">
@@ -44,7 +53,7 @@ export default function CartItemCard({ cartItem, selected = true }: CartItemCard
         </div>
 
         {/* 삭제 버튼 */}
-        <button type="button" className="cursor-pointer">
+        <button type="button" className="cursor-pointer" onClick={() => deleteItem(cartItem.id, cartItem.option)}>
           <LucideX size={24} />
         </button>
       </div>
@@ -60,7 +69,7 @@ export default function CartItemCard({ cartItem, selected = true }: CartItemCard
       {/* 수량 변경 */}
       <div className="flex flex-row items-center justify-between">
         <span className="">수량</span>
-        <Counter quantity={cartItem.quantity} onChange={() => {}} />
+        <Counter quantity={cartItem.quantity} onChange={onCounterChange} />
       </div>
 
       <hr className="border-1 border-gray-100" />
