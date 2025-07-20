@@ -30,19 +30,26 @@ function Login() {
             <fieldset className="contents">
               <legend className="sr-only">로그인</legend>
 
-              <Input id="userId" label="아이디" placeholder="ID" hideLabel={true} />
-              <Input id="userPassword" label="비밀번호" type="password" placeholder="PASSWORD" hideLabel={true} />
+              <Input id="userId" label="아이디" placeholder="ID" hideLabel={true} autoComplete="username" />
+              <Input
+                id="userPassword"
+                label="비밀번호"
+                type="password"
+                placeholder="PASSWORD"
+                hideLabel={true}
+                autoComplete="current-password"
+              />
 
               <div className="flex justify-between mt-4 mb-11">
-                <CheckBox id="rememberUserId" name="rememberUserId" label="아이디 저장" size="sm" />
+                <CheckBox id="rememberUserId" name="rememberUserId" label="아이디 저장" fontSize="sm" />
                 <p className="text-sm">
                   <Link href="#">아이디 찾기</Link> | <Link href="#">비밀번호 찾기</Link>
                 </p>
               </div>
-              <Button type="submit" shape="square" size="lg">
-                로그인
-              </Button>
             </fieldset>
+            <Button type="submit" shape="square" size="lg">
+              로그인
+            </Button>
           </form>
 
           <LinkButton href="/signup/terms" shape="square" size="lg" bg="secondary">
