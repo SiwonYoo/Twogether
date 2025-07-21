@@ -1,5 +1,3 @@
-import { LockKeyhole, LockKeyholeOpen } from 'lucide-react';
-import { Metadata } from 'next';
 import { Judson } from 'next/font/google'; // 구글 폰트 사용
 import Link from 'next/link';
 
@@ -14,7 +12,6 @@ interface userDataProp {
   user: string;
   date: string;
   view: number;
-  lock: boolean;
 }
 interface AdminDataProp {
   _id: number;
@@ -26,11 +23,11 @@ interface AdminDataProp {
 
 export default function QnA() {
   const userData: userDataProp[] = [
-    { _id: 5, title: '문의 드립니다', user: '홍길동', date: '25.08.03', view: 2, lock: false },
-    { _id: 4, title: '문의 드립니다', user: '홍길동', date: '25.08.03', view: 2, lock: false },
-    { _id: 3, title: '문의 드립니다', user: '홍길동', date: '25.08.01', view: 2, lock: true },
-    { _id: 2, title: '문의 드립니다', user: '홍길동', date: '25.08.03', view: 2, lock: false },
-    { _id: 1, title: '문의 드립니다', user: '홍길동', date: '25.08.01', view: 2, lock: true },
+    { _id: 5, title: '문의 드립니다', user: '홍길동', date: '25.08.03', view: 100 },
+    { _id: 4, title: '문의 드립니다', user: '홍길동', date: '25.08.03', view: 100 },
+    { _id: 3, title: '문의 드립니다', user: '홍길동', date: '25.08.01', view: 100 },
+    { _id: 2, title: '문의 드립니다', user: '홍길동', date: '25.08.03', view: 100 },
+    { _id: 1, title: '문의 드립니다', user: '홍길동', date: '25.08.01', view: 100 },
   ];
 
   const adminData: AdminDataProp[] = [
@@ -64,9 +61,8 @@ export default function QnA() {
         {userData.map((item) => {
           return (
             <li key={item._id} className="border-b  border-(--color-gray-250) my-4">
-              <Link href={`/shop/`}>
-                <div className="flex gap-4">
-                  {item.lock ? <LockKeyhole /> : <LockKeyholeOpen />}
+              <Link href={`/my-page/qna/`}>
+                <div>
                   <p>{item.title}</p>
                 </div>
                 <div className="flex gap-4 my-2">
