@@ -23,7 +23,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function Home() {
   return (
     <>
@@ -52,7 +51,7 @@ export default function Home() {
               <p className={`${JudsonFont.className} text-2xl font-bold`}>Twogether</p>
               <p className={`${JudsonFont.className} text-2xl mb-4`}>The Last Episode</p>
               <Link href="/shop/best">
-                <Button>go best</Button>
+                <Button lang="eng">GO BEST</Button>
               </Link>
             </div>
           </div>
@@ -77,7 +76,7 @@ export default function Home() {
               <p className={`${JudsonFont.className} text-2xl font-bold`}>Twogether</p>
               <p className={`${JudsonFont.className} text-2xl mb-4`}>The Last Episode</p>
               <Link href="/shop/sale">
-                <Button>버튼</Button>
+                <Button lang="eng">TO SALE</Button>
               </Link>
             </div>
           </div>
