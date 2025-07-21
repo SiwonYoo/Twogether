@@ -1,4 +1,14 @@
 import LinkButton from '@/components/common/LinkButton';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '회원가입 - Twogether',
+  openGraph: {
+    title: '회원가입 - Twogether',
+    description: '회원가입 성공',
+    url: '/signup/success',
+  },
+};
 
 function Success() {
   return (

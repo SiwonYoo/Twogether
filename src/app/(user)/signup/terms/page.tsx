@@ -1,13 +1,17 @@
-'use client';
-
-import Button from '@/components/common/Button';
 import CheckBox from '@/components/common/CheckBox';
 import LinkButton from '@/components/common/LinkButton';
-import { useRouter } from 'next/navigation';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '회원가입 - Twogether',
+  openGraph: {
+    title: '회원가입 - Twogether',
+    description: '회원가입 이용약관 동의',
+    url: '/signup/terms',
+  },
+};
 
 function Terms() {
-  const router = useRouter();
-
   return (
     <>
       <CheckBox id="terms" label="(필수) 이용약관 동의" name="terms" />
@@ -88,17 +92,10 @@ function Terms() {
         <strong>[부칙]</strong>
         <p>이 약관은 2025년 8월 8일부터 시행합니다.</p>
       </div>
-      <div className="flex gap-5">
-        <Button
-          bg="white"
-          shape="square"
-          size="lg"
-          onClick={() => {
-            router.back();
-          }}
-        >
+      <div className="flex gap-4">
+        <LinkButton href="/login" bg="white" shape="square" size="lg">
           취소
-        </Button>
+        </LinkButton>
         <LinkButton href="/signup/form" shape="square" size="lg">
           다음
         </LinkButton>
