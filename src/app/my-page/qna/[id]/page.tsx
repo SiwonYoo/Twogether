@@ -5,18 +5,24 @@ import Button from '@/components/common/Button';
 
 export function generateMetadata() {
   return {
-    title: `Q&A - Twogether`,
-    description: `Q&A 게시판입니다.`,
+    title: `${posts.title} - Twogether`,
+    description: `${posts.title}`,
     openGraph: {
-      title: `Q&A - Twogether`,
-      description: `Q&A 게시판입니다.`,
-      url: `/my-page/qna`,
-      images: {
-        url: '/images/front-end.png',
-      },
+      title: `${posts.title} - Twogether`,
+      description: `${posts.title}`,
+      url: `/my-page/qna/${posts.id}`,
     },
   };
 }
+
+const posts = {
+  id: '1',
+  type: 'qna',
+  name: '나문희',
+  title: '문의 드립니다.',
+  content: '언제 배송돼요???????????????',
+  createdAt: '25.08.01',
+};
 
 const JudsonFont = Judson({
   subsets: ['latin'],
@@ -24,14 +30,6 @@ const JudsonFont = Judson({
 });
 
 export default function QnaInfoPage() {
-  const posts = {
-    id: '1',
-    type: 'qna',
-    name: '나문희',
-    title: '문의 드립니다.',
-    content: '언제 배송돼요???????????????',
-    createdAt: '25.08.01',
-  };
   return (
     <>
       <main className="mb-25">
