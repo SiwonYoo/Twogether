@@ -8,7 +8,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 function SearchForm() {
   const [searchValue, setSearchValue] = useState('');
   const [recentSearches, setRecentSearches] = useState<string[] | null>(null);
-  const [showResult, setShowResult] = useState<boolean>(false);
+  const [currentValue, setCurrentValue] = useState<string>('');
 
   useEffect(() => {
     const stored = localStorage.getItem('recentSearches');
@@ -28,12 +28,11 @@ function SearchForm() {
         setRecentSearches([searchValue.trim()]);
       }
     }
-    setShowResult(true);
+    setCurrentValue(searchValue);
   };
 
   useEffect(() => {
-    if (recentSearches)
-      localStorage.setItem('recentSearches', /* recentSearches.join('&') */ JSON.stringify(recentSearches));
+    if (recentSearches) localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
   }, [recentSearches]);
 
   return (
@@ -70,7 +69,7 @@ function SearchForm() {
                       item.trim(),
                       ...recentSearches.filter((researchItem) => researchItem !== item.trim()),
                     ]);
-                    setShowResult(true);
+                    setCurrentValue(item);
                   }}
                 >
                   <span className="max-w-15 truncate text-nowrap">{item}</span>
@@ -87,9 +86,9 @@ function SearchForm() {
           })}
       </div>
 
-      <div hidden={!showResult}>
+      <div hidden={!currentValue}>
         <h2 className="mt-6 mb-4 font-bold">
-          &apos;{searchValue}&apos; 검색 결과 <span className="text-secondary-2">16</span>
+          &apos;{currentValue}&apos; 검색 결과 <span className="text-secondary-2">16</span>
         </h2>
         {/* API 정보를 ProductCard에 넘기기 */}
         <div>{<ProductCard />}</div>
