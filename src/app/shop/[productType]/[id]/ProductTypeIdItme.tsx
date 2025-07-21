@@ -9,18 +9,25 @@ const JudsonFont = Judson({
   weight: '400',
 });
 
+interface SizeType {
+  value: string;
+  text: string;
+}
+
 interface ItemType {
   title: string;
   pries: number;
   sale: number;
+  size: SizeType[];
 }
 
 interface ProductTypeIdItmeProps {
   itme: ItemType;
+  selectedValue: string;
 }
 
 // 상품 계산 컨포넌트
-export default function ProductTypeIdItme({ itme }: ProductTypeIdItmeProps) {
+export default function ProductTypeIdItme({ itme, selectedValue }: ProductTypeIdItmeProps) {
   const [priseDate, setPriseDate] = useState(1);
 
   const addDate = () => {
@@ -41,7 +48,7 @@ export default function ProductTypeIdItme({ itme }: ProductTypeIdItmeProps) {
       <div className="flex justify-between items-start">
         <div>
           <h3 className="mb-2">{itme.title}</h3>
-          <p>사이즈</p>
+          <p aria-label={`선택된`}>사이즈: {selectedValue === '' ? '사이즈를 선택해주세요' : selectedValue}</p>
         </div>
         <div className="flex justify-between items-center gap-4">
           <div className="flex justify-between items-center">
