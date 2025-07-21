@@ -1,5 +1,6 @@
 'use client';
 
+import ReviewItem, { ReviewItemProps } from '@/app/my-page/review/ReviewItem';
 import ReviewItme from '@/app/shop/[productType]/[id]/ReviewCom';
 import { Star } from 'lucide-react';
 import { Judson } from 'next/font/google'; // 구글 폰트 사용
@@ -26,39 +27,106 @@ export default function Review() {
     console.log('바뀜 확인');
   };
 
-  const data = [
+  const data: ReviewItemProps[] = [
     {
       _id: 1,
-      user: '구성연',
-      contant: '너무 이뻐요',
-      star: '5',
-      length: '150~160',
-      Weight: '50~60',
-      size: 'free',
-      deta: '25.07.09 13:15',
-      src: '/images/products/short-sleeve/01/model-1.jpg',
+      userName: '구성연',
+      content: '너무 이뻐요',
+      rating: 5,
+      height: '150~160',
+      weight: '50~60',
+      size: 'FREE',
+      createdAt: '25.07.09 13:15',
+      image: '/images/products/short-sleeve/01/model-1.jpg',
+      comment: [
+        {
+          _id: 1,
+          user: '홍길동',
+          content: '크기는 적당한가요?',
+          createdAt: '25.07.03',
+        },
+        {
+          _id: 2,
+          user: '홍길동',
+          content: '색은 어떤가요?',
+          createdAt: '25.07.03',
+        },
+      ],
     },
     {
       _id: 2,
-      user: '홍길동',
-      contant: '색상이랑 두께, 재질 모두 마음에 들어요. 키 168 기준 길이도 딱 맞아요. 고민중이면 사보시는걸 추천드려요',
-      star: '1',
-      length: '150~160',
-      Weight: '50~60',
-      size: 'free',
-      deta: '25.07.09 13:15',
-      src: '/images/products/short-sleeve/01/model-1.jpg',
+      userName: '홍길동',
+      content: '색상이랑 두께, 재질 모두 마음에 들어요. 키 168 기준 길이도 딱 맞아요. 고민중이면 사보시는걸 추천드려요',
+      rating: 1,
+      height: '150~160',
+      weight: '50~60',
+      size: 'FREE',
+      createdAt: '25.07.09 13:15',
+      image: '/images/products/short-sleeve/01/model-1.jpg',
+      comment: [
+        {
+          _id: 1,
+          user: '홍길동',
+          content: '크기는 적당한가요?',
+          createdAt: '25.07.03',
+        },
+        {
+          _id: 2,
+          user: '홍길동',
+          content: '색은 어떤가요?',
+          createdAt: '25.07.03',
+        },
+      ],
     },
     {
       _id: 3,
-      user: '홍길동',
-      contant: '색상이랑 두께, 재질 모두 마음에 들어요. 키 168 기준 길이도 딱 맞아요. 고민중이면 사보시는걸 추천드려요',
-      star: '4',
-      length: '150~160',
-      Weight: '50~60',
-      size: 'free',
-      deta: '25.07.09 13:15',
-      src: '/images/products/short-sleeve/01/model-1.jpg',
+      userName: '홍길동',
+      content: '색상이랑 두께, 재질 모두 마음에 들어요. 키 168 기준 길이도 딱 맞아요. 고민중이면 사보시는걸 추천드려요',
+      rating: 4,
+      height: '150~160',
+      weight: '50~60',
+      size: 'M',
+      createdAt: '25.07.09 13:15',
+      image: '/images/products/short-sleeve/01/model-1.jpg',
+      comment: [
+        {
+          _id: 1,
+          user: '홍길동',
+          content: '크기는 적당한가요?',
+          createdAt: '25.07.03',
+        },
+        {
+          _id: 2,
+          user: '홍길동',
+          content: '색은 어떤가요?',
+          createdAt: '25.07.03',
+        },
+      ],
+    },
+    {
+      _id: 4,
+      userName: '홍길동',
+      content: '색상이랑 두께, 재질 모두 마음에 들어요. 키 168 기준 길이도 딱 맞아요. 고민중이면 사보시는걸 추천드려요',
+      rating: 4,
+      height: '150~160',
+      weight: '50~60',
+      size: 'S',
+      createdAt: '25.07.09 13:15',
+      image: '/images/products/short-sleeve/01/model-1.jpg',
+      comment: [
+        {
+          _id: 1,
+          user: '홍길동',
+          content: '크기는 적당한가요?',
+          createdAt: '25.07.03',
+        },
+        {
+          _id: 2,
+          user: '홍길동',
+          content: '색은 어떤가요?',
+          createdAt: '25.07.03',
+        },
+      ],
     },
   ];
 
@@ -72,29 +140,12 @@ export default function Review() {
 
   // 별점 카운트
   const starCounts = [1, 2, 3, 4, 5].reduce((acc, val) => {
-    acc[val] = data.filter((item) => Number(item.star) === val).length;
+    acc[val] = data.filter((item) => Number(item.rating) === val).length;
     return acc;
   }, {} as Record<number, number>);
 
   // 평균 별점
-  const avgStar = data.reduce((sum, item) => sum + Number(item.star), 0) / data.length;
-
-  const Comments = [
-    {
-      _id: 1,
-      user: '홍길동',
-      content: '크기는 적당한가요?',
-      createdAt: '25.07.03',
-      updatedAt: '25.07.04',
-    },
-    {
-      _id: 2,
-      user: '홍길동',
-      content: '색은 어떤가요?',
-      createdAt: '25.07.03',
-      updatedAt: '25.07.04',
-    },
-  ];
+  const avgStar = data.reduce((sum, item) => sum + Number(item.rating), 0) / data.length;
 
   return (
     <>
@@ -133,16 +184,25 @@ export default function Review() {
 
       {/* 상품 리뷰 시작 */}
       <ul className="flex flex-col items-center gap-4">
-        <ReviewItme
-          data={data}
-          Comments={Comments}
-          likeToggle={likeToggle}
-          likeToggleBtn={likeToggleBtn}
-          toggle={toggle}
-          openToggle={openToggle}
-        />
+        {data.map((itme) => {
+          return (
+            <li key={itme._id} className="w-full">
+              <ReviewItem
+                _id={itme._id}
+                userName={itme.userName}
+                rating={itme.rating}
+                content={itme.content}
+                createdAt={itme.createdAt}
+                height={itme.height}
+                weight={itme.weight}
+                size={itme.size}
+                comment={itme.comment}
+                image={itme.image}
+              />
+            </li>
+          );
+        })}
       </ul>
-
       {/* 상품 리뷰 종료 */}
     </>
   );
