@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 function Login() {
   return (
     <>
-      <main>
+      <main className="mx-4">
         <h2 className={`mt-5 text-2xl text-center ${JudsonFont.className}`}>LOGIN</h2>
         <div className="px-4">
           <form action="" className="flex flex-col gap-2 mt-14 mb-4">
