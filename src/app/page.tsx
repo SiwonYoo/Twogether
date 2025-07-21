@@ -17,10 +17,12 @@ export const metadata: Metadata = {
   title: 'Twogether',
   openGraph: {
     title: 'Twogether',
-    description: '홈',
+    description:
+      'Twogether는 편안함과 감각적인 디자인을 담은 잠옷 전문 쇼핑몰입니다. 당신의 밤을 더욱 특별하고 아늑하게 만들어 줄 다양한 잠옷을 만나보세요.',
     url: '/',
   },
 };
+
 
 export default function Home() {
   return (
