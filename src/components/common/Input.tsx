@@ -1,10 +1,13 @@
 'use client';
 
+import { Search } from 'lucide-react';
+
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
   label: string;
   name?: string;
   hideLabel?: boolean;
+  search?: boolean;
 }
 
 /**
@@ -14,10 +17,11 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
  * @param {string} [label] - 입력 필드 위에 표시될 라벨 텍스트
  * @param {string} name - form 데이터 전송 시 key 이름 (명시하지 않으면 id 값이 들어감)
  * @param {boolean} [hideLabel='false'] - 라벨 표시 여부
+ * @param {boolean} [search] - 검색 아이콘 표시 여부 (text 타입에서만 적용)
  * @param {boolean} [children]
  * @param {React.InputHTMLAttributes<HTMLInputElement>} rest - 기타 input 속성들 (placeholder, value 등)
  */
-function Input({ id, label, name, hideLabel = false, children, ...rest }: InputProps) {
+function Input({ id, label, name, hideLabel = false, search, children, ...rest }: InputProps) {
   return (
     <div>
       <label htmlFor={id} className={`${hideLabel && 'sr-only'}`}>
@@ -30,6 +34,7 @@ function Input({ id, label, name, hideLabel = false, children, ...rest }: InputP
           className="w-full flex-1 p-2 border-b-[.0625rem] border-b-gray-250 focus:outline-none focus:border-primary focus:border-b-2 "
           {...rest}
         />
+        {search ? <Search /> : null}
         {children}
       </div>
     </div>
