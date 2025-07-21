@@ -27,9 +27,6 @@ export function generateMetadata() {
       title: `Q&A - Twogether`,
       description: `Q&A 게시판입니다.`,
       url: `/my-page/qna`,
-      images: {
-        url: '/images/front-end.png',
-      },
     },
   };
 }

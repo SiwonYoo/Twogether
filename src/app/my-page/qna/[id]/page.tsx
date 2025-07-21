@@ -47,7 +47,9 @@ export default function QnaInfoPage() {
         </div>
         <p className="py-10 border-b-1 border-gray-150">{posts.content}</p>
         <div className="flex justify-end gap-4 my-3">
-          <Button shape="square">수정</Button>
+          <Link href={`/my-page/qna/${posts.id}/edit`}>
+            <Button shape="square">수정</Button>
+          </Link>
           <Button shape="square">삭제</Button>
         </div>
         <p className="text-right">* 답변이 달린 후에는 수정이 불가합니다.</p>
