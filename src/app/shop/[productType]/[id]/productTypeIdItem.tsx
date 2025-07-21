@@ -1,8 +1,8 @@
 'use client';
 
 import { X } from 'lucide-react';
-import { useState } from 'react';
 import { Judson } from 'next/font/google'; // 구글 폰트 사용
+import { useState } from 'react';
 
 const JudsonFont = Judson({
   subsets: ['latin'],
@@ -27,7 +27,7 @@ interface ProductTypeIdItmeProps {
 }
 
 // 상품 계산 컨포넌트
-export default function ProductTypeIdItme({ itme, selectedValue }: ProductTypeIdItmeProps) {
+export default function ProductTypeIdItem({ itme, selectedValue }: ProductTypeIdItmeProps) {
   const [priseDate, setPriseDate] = useState(1);
 
   const addDate = () => {
