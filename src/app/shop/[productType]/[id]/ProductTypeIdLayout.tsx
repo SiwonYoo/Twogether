@@ -1,6 +1,6 @@
 'use client';
 
-export default function ProductTypeIdLayout() {
+export default function ProductTypeIdLayout({ onSelectTitle }: { onSelectTitle: (title: string) => void }) {
   const tapData = [
     {
       title: 'Overview',
@@ -19,13 +19,14 @@ export default function ProductTypeIdLayout() {
   return (
     <div>
       <nav className="flex justify-between items-center gap-4">
-        {tapData.map((itme, index) => {
+        {tapData.map((item, index) => {
           return (
             <button
               className="group relative flex-1 p-4 transition-colors delay-100 hover:text-(--color-primary)"
               key={index}
+              onClick={() => onSelectTitle(item.title)}
             >
-              {itme.title}
+              {item.title}
               <span className="absolute bottom-0 left-1/2 h-[2px] w-0 bg-(--color-primary) transition-all duration-300 group-hover:left-0 group-hover:w-full"></span>
             </button>
           );
