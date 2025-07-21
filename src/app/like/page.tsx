@@ -92,11 +92,7 @@ export default function LikePage() {
             return (
               <div key={item.id} className="border-b-1 border-(--color-gray-250) py-2">
                 <h3 className={`font-bold text-2xl ${JudsonFont.className}`}>{item.data}</h3>
-                <ul className="flex justify-between gap-4 flex-wrap items-center mt-4">
-                  {item.item.map((item) => {
-                    return <ProductCard key={item.itemId} productTitle={item.productTitle} price={item.price} />;
-                  })}
-                </ul>
+                <ProductCard />
               </div>
             );
           })}
