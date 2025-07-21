@@ -1,10 +1,9 @@
 'use client';
 
 import ReviewItem, { ReviewItemProps } from '@/app/my-page/review/ReviewItem';
-import ReviewItme from '@/app/shop/[productType]/[id]/ReviewCom';
+
 import { Star } from 'lucide-react';
 import { Judson } from 'next/font/google'; // 구글 폰트 사용
-import { useState } from 'react';
 
 const JudsonFont = Judson({
   subsets: ['latin'],
@@ -12,21 +11,6 @@ const JudsonFont = Judson({
 });
 
 export default function Review() {
-  const [toggle, setToggle] = useState(true);
-  const [likeToggle, setLikeToggle] = useState(false);
-
-  // 댓글 열고 닫기 토글
-  const openToggle = () => {
-    setToggle(!toggle);
-    console.log('바뀜 확인');
-  };
-
-  // 도움 돼요 토글 버튼
-  const likeToggleBtn = () => {
-    setLikeToggle(!likeToggle);
-    console.log('바뀜 확인');
-  };
-
   const data: ReviewItemProps[] = [
     {
       _id: 1,
@@ -107,7 +91,32 @@ export default function Review() {
       _id: 4,
       userName: '홍길동',
       content: '색상이랑 두께, 재질 모두 마음에 들어요. 키 168 기준 길이도 딱 맞아요. 고민중이면 사보시는걸 추천드려요',
-      rating: 4,
+      rating: 3,
+      height: '150~160',
+      weight: '50~60',
+      size: 'S',
+      createdAt: '25.07.09 13:15',
+      image: '/images/products/short-sleeve/01/model-1.jpg',
+      comment: [
+        {
+          _id: 1,
+          user: '홍길동',
+          content: '크기는 적당한가요?',
+          createdAt: '25.07.03',
+        },
+        {
+          _id: 2,
+          user: '홍길동',
+          content: '색은 어떤가요?',
+          createdAt: '25.07.03',
+        },
+      ],
+    },
+    {
+      _id: 5,
+      userName: '홍길동',
+      content: '색상이랑 두께, 재질 모두 마음에 들어요. 키 168 기준 길이도 딱 맞아요. 고민중이면 사보시는걸 추천드려요',
+      rating: 2,
       height: '150~160',
       weight: '50~60',
       size: 'S',
