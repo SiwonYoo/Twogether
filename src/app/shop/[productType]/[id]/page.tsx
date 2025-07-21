@@ -5,6 +5,7 @@ import DropDown from '@/components/common/DropDown';
 import ImgSlider from '@/components/common/imgSlider';
 import LikeButton from '@/components/product/LikeButton';
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 interface ProductDetailPageProps {
   params: Promise<{
@@ -72,14 +73,16 @@ export default function ProductDetailPage() {
               <div className=" bg-(--color-gray-250) p-4">
                 <ProductTypeIdItme itme={itme} />
                 <div className="flex justify-between items-center gap-2">
-                  <div className="flex justify-center items-center border border-(--color-primary) text-center w-1/4  px-6 py-2 bg-(--color-white)">
+                  <div className="flex justify-center items-center border border-(--color-primary) text-center w-1/4  px-6 py-2 bg-(--color-white) relative">
                     <LikeButton />
                   </div>
                   <ShoppingCartAdd />
                   <div className="w-2/3">
-                    <Button shape="square" size="lg">
-                      구매하기
-                    </Button>
+                    <Link href="/order">
+                      <Button shape="square" size="lg">
+                        구매하기
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
