@@ -1,6 +1,6 @@
 'use client';
 
-import ProductTypeIdItem from '@/app/shop/[productType]/[id]/productTypeIdItem';
+import ProductTypeIdItem from '@/app/shop/[productType]/[id]/ProductTypeIdItem';
 import ShoppingCartAdd from '@/app/shop/[productType]/[id]/ShoppingCartAdd';
 import Button from '@/components/common/Button';
 import DropDown from '@/components/common/DropDown';
