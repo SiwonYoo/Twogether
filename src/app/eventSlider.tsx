@@ -55,7 +55,7 @@ export default function EventSlider() {
           {slideData.map((slide) => {
             return (
               <SwiperSlide key={slide.id}>
-                <Link href="/community/evnet">
+                <Link href={`/community/event/${slide.id}`}>
                   <Image src={slide.src} alt={slide.alt} className="w-full" width="469" height="216" />
                 </Link>
               </SwiperSlide>

@@ -1,6 +1,6 @@
 'use client';
 
-import ProductTypeIdItme from '@/app/shop/[productType]/[id]/ProductTypeIdItme';
+import ProductTypeIdItem from '@/app/shop/[productType]/[id]/ProductTypeIdItem';
 import ShoppingCartAdd from '@/app/shop/[productType]/[id]/ShoppingCartAdd';
 import Button from '@/components/common/Button';
 import DropDown from '@/components/common/DropDown';
@@ -41,7 +41,7 @@ export default function ProductSelect({ itme }: productSelectProps) {
         />
       </div>
       <div className=" bg-(--color-gray-250) p-4">
-        <ProductTypeIdItme itme={itme} selectedValue={selectedValue} />
+        <ProductTypeIdItem itme={itme} selectedValue={selectedValue} />
         <div className="flex justify-between items-center gap-2">
           <div className="flex justify-center items-center border border-(--color-primary) text-center w-1/4  px-6 py-2 bg-(--color-white) relative">
             <LikeButton />

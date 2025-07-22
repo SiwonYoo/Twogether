@@ -8,81 +8,60 @@ const JudsonFont = Judson({
   weight: '400',
 });
 export default function ProductTypeList() {
+  const data = [
+    {
+      _id: 1,
+      value: 'BEST',
+      link: 'best',
+      image: '/images/products/short-sleeve/02/detail-1_nukki.png',
+      alt: 'BEST 상품입니다.',
+    },
+    {
+      _id: 2,
+      value: 'SALE',
+      link: 'sale',
+      image: '/images/products/short-sleeve/03/detail-2.png',
+      alt: 'SALE 상품입니다.',
+    },
+    {
+      _id: 3,
+      value: 'SHORT',
+      link: 'shortSleeve',
+      image: '/images/products/short-sleeve/05/detail-1.png',
+      alt: 'SHORT 상품입니다.',
+    },
+    {
+      _id: 4,
+      value: 'LONG',
+      link: 'longSleeve',
+      image: '/images/products/long-sleeve/03/detail-1.png',
+      alt: 'LONG 상품입니다.',
+    },
+    { _id: 5, value: 'ROBE', link: 'robe', image: '/images/products/robe/03/detail-1.png', alt: 'ROBE 상품입니다.' },
+    { _id: 6, value: 'ACC', link: 'acc', image: '/images/products/acc/01/detail-1.png', alt: 'ACC 상품입니다.' },
+  ];
+
   return (
     <>
-      <ul className="grid grid-cols-5 justify-between items-center gap-2 text-center">
-        <li>
-          <Link href="/shop/shortSleeve" className="flex flex-col justify-center items-center gap-2">
-            <p className="bg-(--color-gray-150) rounded-full p-4">
-              <Image
-                src="/images/products/short-sleeve/02/detail-1_nukki.png"
-                // className="w-full"
-                width="100"
-                height="100"
-                alt="여성 잠옷 모델 이미지"
-              />
-            </p>
-
-            <p className={`${JudsonFont.className}`}>BEST</p>
-          </Link>
-        </li>
-        <li>
-          <Link href="/shop/shortSleeve" className="flex flex-col justify-center items-center gap-2">
-            <p className="bg-(--color-gray-150) rounded-full p-4">
-              <Image
-                src="/images/products/short-sleeve/03/detail-2.png"
-                className="w-full"
-                width="100"
-                height="100"
-                alt="여성 잠옷 모델 이미지"
-              />
-            </p>
-
-            <p className={`${JudsonFont.className}`}>short</p>
-          </Link>
-        </li>
-        <li>
-          <Link href="/shop/longSleeve" className="flex flex-col justify-center items-center gap-2 ">
-            <p className="bg-(--color-gray-150) rounded-full p-4">
-              <Image
-                src="/images/products/long-sleeve/03/detail-1.png"
-                className="w-full"
-                width="100"
-                height="100"
-                alt="여성 잠옷 모델 이미지"
-              />
-            </p>
-            <p className={`${JudsonFont.className}`}>long</p>
-          </Link>
-        </li>
-        <li>
-          <Link href="/shop/robe" className="flex flex-col justify-center items-center gap-2 ">
-            <p className="bg-(--color-gray-150) rounded-full p-4">
-              <Image
-                src="/images/products/robe/03/detail-1.png"
-                className="w-full"
-                width="100"
-                height="100"
-                alt="여성 잠옷 모델 이미지"
-              />
-            </p>
-            <p className={`${JudsonFont.className}`}>robe</p>
-          </Link>
-        </li>
-        <li>
-          <Link href="/shop/acc" className="flex flex-col justify-center items-center gap-2 ">
-            <p className="bg-(--color-gray-150) rounded-full p-4">
-              <Image
-                src="/images/products/acc/01/detail-1.png"
-                className="w-full"
-                width="100"
-                height="100"
-                alt="여성 잠옷 모델 이미지"
-              />
-            </p>
-            <p className={`${JudsonFont.className}`}>acc</p>
-          </Link>
-        </li>
+      <ul className="grid grid-cols-3 grid-row-3 justify-between items-center gap-2 text-center mx-4">
+        {data.map((item) => {
+          return (
+            <li key={item._id}>
+              <Link href={`/shop/${item.link}`} className="flex flex-col justify-center items-center gap-2">
+                <p className="bg-(--color-gray-150) rounded-full p-4">
+                  <Image
+                    src={`${item.image}`}
+                    // className="w-full"
+                    width="50"
+                    height="50"
+                    alt={item.alt}
+                  />
+                </p>
+                <p className={`${JudsonFont.className}`}>{item.value}</p>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </>
   );
