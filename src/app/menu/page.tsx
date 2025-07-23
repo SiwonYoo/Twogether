@@ -27,7 +27,7 @@ export default function Menu() {
           </Link>
         </li>
         <li>
-          <Link href="/shop/SALE" className={`${JudsonFont.className} ml-8`}>
+          <Link href="/shop/sale" className={`${JudsonFont.className} ml-8`}>
             SALE
           </Link>
         </li>
