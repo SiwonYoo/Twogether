@@ -1,9 +1,7 @@
 import EventList from '@/app/community/EventList';
 import NoticeList from '@/app/community/NoticeList';
-import Input from '@/components/common/Input';
 import { getPosts } from '@/data/functions/post';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 export async function generateMetadata({ params }: ListPageProps): Promise<Metadata> {
   const { boardType } = await params;
@@ -31,18 +29,30 @@ export default async function CommunityPage({ params }: ListPageProps) {
   const { boardType } = await params;
   const res = await getPosts(boardType);
 
+  const isNoticeBoard = boardType === 'notice';
+  const isEventBoard = boardType === 'event';
+
   return (
     <>
       <ul className="mb-25">
-        {/* 공지 부분은 하드코딩 */}
-
-        {boardType === 'notice' &&
+        {isNoticeBoard &&
           (res.ok ? (
-            res.item.map((post, i) => <NoticeList key={i} post={post} boardType={boardType} />)
+            res.item
+              .slice(-2)
+              .reverse()
+              .map((post, i) => <NoticeList key={i} post={post} boardType={boardType} isNotice />)
           ) : (
             <p>{res.message}</p>
           ))}
-        {boardType === 'event' &&
+
+        {isNoticeBoard &&
+          (res.ok ? (
+            res.item.map((post, i) => <NoticeList key={i} post={post} boardType={boardType} isNotice={false} />)
+          ) : (
+            <p>{res.message}</p>
+          ))}
+
+        {isEventBoard &&
           (res.ok ? (
             res.item.map((post, i) => <EventList key={i} post={post} boardType={boardType} />)
           ) : (
