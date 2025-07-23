@@ -114,7 +114,7 @@ export default function CartListSection() {
             label="전체 선택 체크박스"
             hideLabel
             checked={isAllChecked}
-            onChange={toggleAllCheckBox}
+            onChange={(e) => toggleAllCheckBox(e.target.checked)}
           />
           <label id="all-checked-label" className="font-bold">
             전체 선택 ({checkedIds.length}/{items.length})

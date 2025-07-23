@@ -31,7 +31,7 @@ export default function CartItemCard({ cartItem, selected = true, onCheckBoxChan
           label={`${cartItem.name} 선택 체크박스`}
           hideLabel
           checked={selected}
-          onChange={onCheckBoxChange}
+          onChange={(e) => onCheckBoxChange?.(e.target.checked)}
         />
 
         <figure className="shrink-0 self-center">
