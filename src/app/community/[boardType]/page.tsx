@@ -1,5 +1,6 @@
 import EventList from '@/app/community/EventList';
 import NoticeList from '@/app/community/NoticeList';
+import { getPosts } from '@/data/functions/post';
 import { Metadata } from 'next';
 
 export async function generateMetadata({ params }: ListPageProps): Promise<Metadata> {
@@ -26,11 +27,38 @@ export interface ListPageProps {
 
 export default async function CommunityPage({ params }: ListPageProps) {
   const { boardType } = await params;
+  const res = await getPosts(boardType);
+
+  const isNoticeBoard = boardType === 'notice';
+  const isEventBoard = boardType === 'event';
 
   return (
     <>
-      {boardType === 'event' && <EventList />}
-      {boardType === 'notice' && <NoticeList />}
+      <ul className="mb-25">
+        {isNoticeBoard &&
+          (res.ok ? (
+            res.item
+              .slice(-2)
+              .reverse()
+              .map((post, i) => <NoticeList key={i} post={post} boardType={boardType} isNotice />)
+          ) : (
+            <p>{res.message}</p>
+          ))}
+
+        {isNoticeBoard &&
+          (res.ok ? (
+            res.item.map((post, i) => <NoticeList key={i} post={post} boardType={boardType} isNotice={false} />)
+          ) : (
+            <p>{res.message}</p>
+          ))}
+
+        {isEventBoard &&
+          (res.ok ? (
+            res.item.map((post, i) => <EventList key={i} post={post} boardType={boardType} />)
+          ) : (
+            <p>{res.message}</p>
+          ))}
+      </ul>
     </>
   );
 }
