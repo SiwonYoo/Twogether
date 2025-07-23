@@ -1,6 +1,14 @@
 import { LucideSearch } from 'lucide-react';
 
-export default function ShippingDetailsSection() {
+interface ShippingDetailsSectionProps {
+  shippingData: {
+    name: string;
+    address: string;
+    phone: string;
+  };
+}
+
+export default function ShippingDetailsSection({ shippingData }: ShippingDetailsSectionProps) {
   return (
     <section className="flex flex-col gap-6">
       <h2 className="text-lg">배송지</h2>
@@ -18,6 +26,7 @@ export default function ShippingDetailsSection() {
           <p className="mb-1">배송 메모를 입력해주세요</p>
           <input
             type="text"
+            name="shippingMemo"
             placeholder="배송 메모를 입력해주세요"
             className="w-full px-2 py-1 border rounded-md border-gray-250"
           />
