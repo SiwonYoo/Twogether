@@ -17,7 +17,8 @@ export const metadata: Metadata = {
   title: 'Twogether',
   openGraph: {
     title: 'Twogether',
-    description: '홈',
+    description:
+      'Twogether는 편안함과 감각적인 디자인을 담은 잠옷 전문 쇼핑몰입니다. 당신의 밤을 더욱 특별하고 아늑하게 만들어 줄 다양한 잠옷을 만나보세요.',
     url: '/',
   },
 };
@@ -50,7 +51,7 @@ export default function Home() {
               <p className={`${JudsonFont.className} text-2xl font-bold`}>Twogether</p>
               <p className={`${JudsonFont.className} text-2xl mb-4`}>The Last Episode</p>
               <Link href="/shop/best">
-                <Button>go best</Button>
+                <Button lang="eng">GO BEST</Button>
               </Link>
             </div>
           </div>
@@ -75,7 +76,7 @@ export default function Home() {
               <p className={`${JudsonFont.className} text-2xl font-bold`}>Twogether</p>
               <p className={`${JudsonFont.className} text-2xl mb-4`}>The Last Episode</p>
               <Link href="/shop/sale">
-                <Button>버튼</Button>
+                <Button lang="eng">TO SALE</Button>
               </Link>
             </div>
           </div>

@@ -4,7 +4,11 @@ import { MoveLeft, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-function SubHeader() {
+interface SubHeaderProps {
+  title?: string;
+}
+
+function SubHeader({ title = '상세보기' }: SubHeaderProps) {
   const router = useRouter();
 
   return (
@@ -18,7 +22,7 @@ function SubHeader() {
         >
           <MoveLeft size={20} />
         </button>
-        <h2 className="flex-1 content-center px-4">상세보기</h2>
+        <h2 className="flex-1 content-center px-4">{title}</h2>
         <Link href="/cart" className="self-center">
           <ShoppingBag color="var(--color-black)" size={20} />
         </Link>

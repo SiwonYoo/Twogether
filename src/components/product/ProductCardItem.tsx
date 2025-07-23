@@ -1,4 +1,4 @@
-import ImgSlider from '@/app/imgSlider';
+import ImgSlider from '@/components/common/imgSlider';
 import LikeButton from '@/components/product/LikeButton';
 import Link from 'next/link';
 
