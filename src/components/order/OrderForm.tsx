@@ -83,7 +83,7 @@ export default function OrderForm({ shippingData }: CartFormProps) {
       <TermsSection termInfos={termInfos} agreedTerms={checkedTerms} setAgreedTerms={setCheckedTerms} />
 
       {/* 주문하기 버튼 (submit) */}
-      <Button size="lg" type="submit">
+      <Button size="lg" type="submit" bg={allRequiredChecked ? 'primary' : 'disabled'} disabled={!allRequiredChecked}>
         주문하기
       </Button>
     </form>
