@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { SizeOption } from '@/constants/options';
+import { BASIC_DELIVERY_FEE, DELIVERY_FREE_MIN_PRICE } from '@/constants/money';
 
 /**
  * 장바구니의 상품을 나타내는 인터페이스입니다.
@@ -9,11 +10,12 @@ import { SizeOption } from '@/constants/options';
  * @property {number} price - 상품 가격
  * @property {number} quantity - 상품 수량
  */
-interface CartItem {
+export interface CartItem {
   id: string;
   name: string;
   option: SizeOption;
   price: number;
+  discount: number;
   quantity: number;
 }
 
@@ -27,7 +29,10 @@ interface CartItem {
 interface CartStore {
   items: CartItem[];
   totalPrice: number;
+  deliveryFee: number;
   addItem(item: CartItem): void;
+  deleteItem(id: string, options: SizeOption): void;
+  updateQuantity(id: string, option: SizeOption, quantity: number): void;
 }
 
 /**
@@ -37,6 +42,7 @@ interface CartStore {
 const useCartStore = create<CartStore>((set) => ({
   items: [],
   totalPrice: 0,
+  deliveryFee: 3000,
 
   addItem: (item) =>
     set((state) => {
@@ -57,9 +63,25 @@ const useCartStore = create<CartStore>((set) => ({
         newItems.push(item);
       }
 
-      const newTotalPrice = state.totalPrice + item.price * item.quantity;
+      return { items: newItems };
+    }),
 
-      return { items: newItems, totalPrice: newTotalPrice };
+  deleteItem: (id, option) =>
+    set((state) => {
+      const newItems = state.items.filter((item) => !(item.id === id && item.option === option));
+
+      return { items: newItems };
+    }),
+
+  updateQuantity: (id, option, quantity) =>
+    set((state) => {
+      const updatedItems = state.items.map((item) =>
+        item.id === id && item.option === option ? { ...item, quantity } : item
+      );
+
+      return {
+        items: updatedItems,
+      };
     }),
 }));
 

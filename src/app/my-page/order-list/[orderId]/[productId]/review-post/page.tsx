@@ -10,11 +10,13 @@ export const metadata: Metadata = {
   },
 };
 
-function ReviewPost() {
+async function ReviewPost({ params }: { params: Promise<{ orderId: string; productId: string }> }) {
+  const { orderId, productId } = await params;
+
   return (
     <>
       <main className="px-4">
-        <ReviewPostForm />
+        <ReviewPostForm orderId={orderId} productId={productId} />
       </main>
     </>
   );
