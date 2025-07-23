@@ -1,15 +1,23 @@
 import { Post } from '@/types/post';
 import Link from 'next/link';
 
-export default function NoticeList({ post, boardType }: { post: Post; boardType: string }) {
+export default function NoticeList({
+  post,
+  boardType,
+  isNotice,
+}: {
+  post: Post;
+  boardType: string;
+  isNotice: boolean;
+}) {
   return (
     <>
       {/* 게시판 목록 */}
       <li className="border-b-1 border-b-gray-250">
         <div className="flex gap-7 my-4">
-          <span>{post._id}</span>
+          {isNotice ? <span className="font-bold">공지</span> : <span>{post._id}</span>}
           <Link href={`/community/${boardType}/${post._id}`}>
-            <span>{post.title}</span>
+            {isNotice ? <span className="font-bold">{post.title}</span> : <span>{post.title}</span>}
           </Link>
         </div>
         <div className="flex gap-4 text-sm">
