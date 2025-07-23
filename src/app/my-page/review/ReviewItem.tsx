@@ -1,33 +1,25 @@
 'use client';
 
+import { deleteReview } from '@/data/actions/review';
+import useUserStore from '@/stores/useUserStore';
+import { User } from '@/types';
+import { Review } from '@/types/review';
 import { ChevronDown, ChevronUp, Star, ThumbsUp } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 
-interface CommentItem {
-  _id: number;
-  user: string;
-  content: string;
-  createdAt: string;
+interface ReviewItemProps extends Review {
+  handleDelete: (_id: number, loginUser: User) => void;
 }
 
-export interface ReviewItemProps {
-  _id: number;
-  userName: string;
-  rating: number;
-  content: string;
-  createdAt: string;
-  height: string;
-  weight: string;
-  size: 'FREE' | 'S' | 'M' | 'L';
-  comment?: CommentItem[];
-  image: string;
-}
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-function ReviewItem({ userName, rating, content, createdAt, height, weight, size, comment, image }: ReviewItemProps) {
+function ReviewItem({ handleDelete, _id, rating, user, content, createdAt, extra }: ReviewItemProps) {
   const [fullContent, setFullContent] = useState(false);
   const [commentBox, setCommentBox] = useState(false);
   const [thumbsUp, setThumbsUp] = useState(false);
+
+  const loginUser = useUserStore((state) => state.user) || null;
 
   const showFullContent = () => {
     setFullContent(!fullContent);
@@ -60,12 +52,12 @@ function ReviewItem({ userName, rating, content, createdAt, height, weight, size
         <div className="flex justify-between gap-4">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1">
-              <span>{userName} 님</span>
+              <span>{user.name} 님</span>
               <span className="flex">{ratingStar}</span>
               <span className="flex-1 text-right text-sm text-gray-250">{createdAt}</span>
             </div>
             <p className="text-sm text-gray-250">
-              키 {height} | 몸무게 {weight} | 사이즈 {size}
+              키 {extra.height} | 몸무게 {extra.weight} | 사이즈 {extra.size}
             </p>
             {content.length > 20 ? (
               <div className="flex my-2" onClick={showFullContent}>
@@ -77,7 +69,7 @@ function ReviewItem({ userName, rating, content, createdAt, height, weight, size
             <div className="flex justify-between text-sm">
               <div>
                 <button className="inline-flex items-center gap-1 mr-2" onClick={showComment}>
-                  댓글 {comment?.length ?? 0}
+                  댓글 {extra.comment?.length ?? 0}
                   {commentBox ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                 </button>
                 <button className="inline-flex items-center gap-1" onClick={fillThumbsUp}>
@@ -86,24 +78,38 @@ function ReviewItem({ userName, rating, content, createdAt, height, weight, size
                 </button>
               </div>
               <div>
-                <button>수정</button> | <button>삭제</button>
+                {loginUser && (
+                  <>
+                    <button>수정</button> |{' '}
+                    <button
+                      onClick={() => {
+                        handleDelete(_id, loginUser);
+                      }}
+                    >
+                      삭제
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>
-          <Image
-            src={image}
-            alt="리뷰 이미지"
-            width={80}
-            height={80}
-            className="w-20 max-h-20 aspect-square object-cover rounded-md"
-          />
+          {extra.image && (
+            <Image
+              src={`${API_URL}/${extra.image}`}
+              alt="리뷰 이미지"
+              width={80}
+              height={80}
+              className="w-20 max-h-20 aspect-square object-cover rounded-md"
+            />
+          )}
         </div>
         <div>
           {commentBox &&
-            comment?.map((item) => (
-              <div key={item._id} className="mt-2 pt-2 border-t-[.0625rem] border-gray-150 text-sm">
+            extra.comment &&
+            extra.comment.map((item, idx) => (
+              <div key={idx} className="mt-2 pt-2 border-t-[.0625rem] border-gray-150 text-sm">
                 <div className="flex items-center gap-1 mb-1">
-                  <span>{item.user} 님</span>
+                  <span>{item.user.name}님</span>
                   <span className="flex-1 text-right  text-gray-250">{item.createdAt}</span>
                 </div>
                 <p>{item.content}</p>

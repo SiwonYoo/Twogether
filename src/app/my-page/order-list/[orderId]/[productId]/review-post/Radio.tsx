@@ -7,13 +7,13 @@ export interface RadioItem {
   label: string;
 }
 
-interface RadioProps {
+interface RadioProps extends React.InputHTMLAttributes<HTMLInputElement> {
   legend: string;
   name: string;
   options: RadioItem[];
 }
 
-function Radio({ legend, name, options }: RadioProps) {
+function Radio({ legend, name, options, ...rest }: RadioProps) {
   const [isChecked, setChecked] = useState('');
 
   return (
@@ -34,6 +34,7 @@ function Radio({ legend, name, options }: RadioProps) {
               setChecked(item.value);
             }}
             className="hidden"
+            {...rest}
           />
           {item.label}
         </label>

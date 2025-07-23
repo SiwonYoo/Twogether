@@ -17,7 +17,6 @@ function MypageMain() {
   const router = useRouter();
   const user = useUserStore((state) => state.user);
   const logout = useUserStore((state) => state.logout);
-  console.log(user);
 
   return (
     <>
