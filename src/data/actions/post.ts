@@ -42,16 +42,18 @@ export async function createPost(state: ApiRes<Post> | null, formData: FormData)
   }
 
   // redirect는 예외를 throw 하는 방식이라서 try 문에서 사용하면 catch로 처리되므로 제대로 동작하지 않음
-if (data.ok) {
-  // 캐시 갱신은 원래대로
-  revalidatePath(`/${body.type}`);
+  if (data.ok) {
+    // 캐시 갱신은 원래대로
+    revalidatePath(`/${body.type}`);
 
-  // 리다이렉트는 게시판 유형에 따라 다르게
-  if (body.type === 'qna') {
-    redirect('/my-page/qna');
-  } else {
-    redirect(`/${body.type}`);
+    // 리다이렉트는 게시판 유형에 따라 다르게
+    if (body.type === 'qna') {
+      redirect('/my-page/qna');
+    } else {
+      redirect(`/${body.type}`);
+    }
   }
+  return data;
 }
 
 /**
