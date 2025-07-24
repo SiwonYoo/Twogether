@@ -13,7 +13,7 @@ interface InfoPageProps {
 }
 
 export async function generateMetadata({ params }: InfoPageProps) {
-  const { boardType, id } = params;
+  const { boardType, id } = await params;
   return {
     title: boardType.toUpperCase() + '- Twogether',
     description: boardType.toUpperCase() + '게시판입니다.',
@@ -32,7 +32,7 @@ const JudsonFont = Judson({
 
 export default async function QnaInfoPage({ params }: InfoPageProps) {
   console.log('params : ', params);
-  const { boardType, id } = params;
+  const { boardType, id } = await params;
   console.log('id : ', id);
   const post = await getPost(Number(id));
 
