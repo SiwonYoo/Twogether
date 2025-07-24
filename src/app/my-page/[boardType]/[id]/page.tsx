@@ -2,34 +2,43 @@ import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { Judson } from 'next/font/google';
 import Button from '@/components/common/Button';
+import { Metadata } from 'next';
+import { getPost } from '@/data/functions/post';
 
-export function generateMetadata() {
-  return {
-    title: `${posts.title} - Twogether`,
-    description: `${posts.title}`,
-    openGraph: {
-      title: `${posts.title} - Twogether`,
-      description: `${posts.title}`,
-      url: `/my-page/qna/${posts.id}`,
-    },
+interface InfoPageProps {
+  params: {
+    boardType: string;
+    id: string;
   };
 }
 
-const posts = {
-  id: '1',
-  type: 'qna',
-  name: '나문희',
-  title: '문의 드립니다.',
-  content: '언제 배송돼요???????????????',
-  createdAt: '25.08.01',
-};
+export async function generateMetadata({ params }: InfoPageProps) {
+  const { boardType, id } = params;
+  return {
+    title: boardType.toUpperCase() + '- Twogether',
+    description: boardType.toUpperCase() + '게시판입니다.',
+    openGraph: {
+      title: boardType.toUpperCase() + '- Twogether',
+      description: boardType.toUpperCase() + '게시판입니다.',
+      url: `/my-page/qna/${boardType}/${id}`,
+    },
+  };
+}
 
 const JudsonFont = Judson({
   subsets: ['latin'],
   weight: '400',
 });
 
-export default function QnaInfoPage() {
+export default async function QnaInfoPage({ params }: InfoPageProps) {
+  console.log('params : ', params);
+  const { boardType, id } = params;
+  console.log('id : ', id);
+  const post = await getPost(Number(id));
+
+  if (!post.ok) {
+    return <div>{post.message}</div>;
+  }
   return (
     <>
       <main className="mb-25">
@@ -39,15 +48,15 @@ export default function QnaInfoPage() {
           </Link>
           <h2 className={`${JudsonFont.className} text-2xl`}>Q&A</h2>
         </div>
-        <h3 className="my-4 border-b-1 border-gray-250">{posts.title}</h3>
+        <h3 className="my-4 border-b-1 border-gray-250">{post.item?.title}</h3>
         <div className="flex justify-between gap-8 text-gray-250 mb-6">
-          <p>{posts.name}</p>
-          <p className="mr-auto">조회 0</p>
-          <p>{posts.createdAt}</p>
+          <p>{post.item?.user.name}</p>
+          <p className="mr-auto">조회 {post.item.views}</p>
+          <p>{post.item.createdAt}</p>
         </div>
-        <p className="py-10 border-b-1 border-gray-150">{posts.content}</p>
+        <p className="py-10 border-b-1 border-gray-150">{post.item?.content}</p>
         <div className="flex justify-end gap-4 my-3">
-          <Link href={`/my-page/qna/${posts.id}/edit`}>
+          <Link href={`/my-page/${boardType}/${post.item._id}/edit`}>
             <Button shape="square">수정</Button>
           </Link>
           <Button shape="square">삭제</Button>

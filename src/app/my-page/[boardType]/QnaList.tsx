@@ -6,7 +6,7 @@ export default async function QnaList({ boardType, post }: { boardType: string; 
     <li key={post._id} className="border-b-1 border-b-gray-250">
       <div className="flex gap-7 my-4">
         <span>{post._id}</span>
-        <Link href={`/my-page/qna/${post._id}`}>
+        <Link href={`/my-page/${boardType}/${post._id}`}>
           <span>{post.title}</span>
         </Link>
       </div>
