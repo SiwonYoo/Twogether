@@ -3,6 +3,7 @@
 import { ApiRes, ApiResPromise, Post, PostReply } from '@/types';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { revalidateTag } from 'next/cache';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
@@ -30,6 +31,7 @@ export async function createPost(state: ApiRes<Post> | null, formData: FormData)
       headers: {
         'Content-Type': 'application/json',
         'Client-Id': CLIENT_ID,
+        Authorization: `Bearer ${body.accessToken}`,
       },
       body: JSON.stringify(body),
     });
@@ -54,6 +56,57 @@ export async function createPost(state: ApiRes<Post> | null, formData: FormData)
     }
   }
   return data;
+}
+
+/**
+ * 게시글을 수정하는 함수
+ * @param {ApiRes<Post> | null} state - 이전 상태(사용하지 않음)
+ * @param {FormData} formData - 게시글 정보를 담은 FormData 객체
+ * @returns {Promise<ApiRes<Post>>} - 수정 결과 응답 객체
+ * @description
+ * 게시글을 수정하고, 성공 시 해당 게시글 상세 페이지로 이동합니다.
+ * 실패 시 에러 메시지를 반환합니다.
+ */
+export async function updatePost(state: ApiRes<Post> | null, formData: FormData): ApiResPromise<Post> {
+  const _id = formData.get('_id'); // 게시글 고유 ID
+  const type = formData.get('type'); // 게시판 타입
+  const accessToken = formData.get('accessToken'); // 인증 토큰
+
+  const body = {
+    title: formData.get('title'),
+    content: formData.get('content'),
+  };
+
+  let res: Response;
+  let data: ApiRes<Post>;
+
+  try {
+    // 게시글 수정 API 호출
+    res = await fetch(`${API_URL}/posts/${_id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Client-Id': CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`, // 인증 토큰
+      },
+      body: JSON.stringify(body),
+    });
+
+    data = await res.json();
+  } catch (error) {
+    // 네트워크 오류 처리
+    console.error(error);
+    return { ok: 0, message: '일시적인 네트워크 문제가 발생했습니다.' };
+  }
+
+  // 수정 성공 시 해당 게시글 상세 페이지로 이동
+  if (data.ok) {
+    revalidateTag(`posts/${_id}`); // 게시글 상세 페이지 갱신
+    revalidateTag(`posts?type=${type}`); // 게시글 목록 페이지 갱신
+    redirect(`/${type}/${_id}`);
+  } else {
+    return data;
+  }
 }
 
 /**
