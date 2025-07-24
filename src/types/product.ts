@@ -13,6 +13,12 @@ export interface Product {
   extra: Extra;
 }
 
+export interface ProductDetails {
+  productType: string;
+  id: string;
+  item: Product;
+}
+
 // 상품 리스트에 사용되는 요약 타입
 export interface ProductList {
   _id: number;
@@ -27,6 +33,7 @@ export interface ProductList {
 
 // 상품 대표 이미지
 export interface MainImage {
+  _id?: number;
   path: string;
   name: string;
   originalname: string;
@@ -38,16 +45,12 @@ export interface SizeInfoEntry {
   values: string[];
 }
 
-// 사이즈 정보 묶음
-export interface SizeInfoBlock {
-  defaultSize: SizeInfoEntry[];
-}
 
 // 원단 관련 정보
 export interface FabricInfo {
   label: string;
   values: string[];
-  selected: string | string[];
+  selected: string[];
 }
 
 // 세탁 정보
@@ -60,10 +63,15 @@ export interface WashingInfo {
 export interface Extra {
   isBest: boolean;
   isSale: boolean;
-  category: string[];
+  category: string;
   isLike: boolean;
-  size: string;
-  SizeInfo: SizeInfoBlock[];
+  size: ExtraSize[];
+  SizeInfo: SizeInfoEntry[];
   FabricInfo: FabricInfo[];
   washingInfo: WashingInfo[];
+}
+
+export interface ExtraSize {
+  value: string;
+  text: string;
 }
