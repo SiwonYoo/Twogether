@@ -15,4 +15,5 @@ export interface Review {
     size: string;
     image?: string;
   };
+  product?: { _id: number; image: { path: string; name: string }; name: string };
 }

@@ -1,22 +1,38 @@
 'use client';
 
+import ProductItem from '@/app/my-page/order-list/[orderId]/ProductItem';
+import { orderList } from '@/app/my-page/order-list/dummydata';
+import ReviewDeleteForm from '@/app/my-page/review/ReviewDeleteForm';
 import useUserStore from '@/stores/useUserStore';
-import { User } from '@/types';
 import { Review } from '@/types/review';
 import { ChevronDown, ChevronUp, Star, ThumbsUp } from 'lucide-react';
 import Image from 'next/image';
-import { useState } from 'react';
-
-interface ReviewItemProps extends Review {
-  handleDelete: (_id: number, loginUser: User) => void;
-}
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-function ReviewItem({ handleDelete, _id, rating, user, content, createdAt, extra }: ReviewItemProps) {
+interface ReviewItemProps extends Review {
+  setRefreshKey: Dispatch<SetStateAction<number>>;
+  showProductInfo?: boolean;
+}
+
+function ReviewItem({
+  setRefreshKey,
+  showProductInfo = false,
+  _id,
+  product,
+  rating,
+  user,
+  content,
+  createdAt,
+  extra,
+}: ReviewItemProps) {
   const [fullContent, setFullContent] = useState(false);
   const [commentBox, setCommentBox] = useState(false);
   const [thumbsUp, setThumbsUp] = useState(false);
+  const path = usePathname();
 
   const loginUser = useUserStore((state) => state.user) || null;
 
@@ -44,10 +60,15 @@ function ReviewItem({ handleDelete, _id, rating, user, content, createdAt, extra
       )
     );
   }
-
   return (
     <>
       <div className="p-4 rounded-md border-[.0625rem] border-gray-150">
+        {showProductInfo && (
+          <div className="mb-5">
+            {/* TODO dummydata - 주문 내역 데이터 준비되면 넣을 것 */}
+            {product && <ProductItem item={orderList[0].products[product._id - 1]} />}
+          </div>
+        )}
         <div className="flex justify-between gap-4">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1">
@@ -56,7 +77,20 @@ function ReviewItem({ handleDelete, _id, rating, user, content, createdAt, extra
               <span className="flex-1 text-right text-sm text-gray-250">{createdAt}</span>
             </div>
             <p className="text-sm text-gray-250">
-              키 {extra.height} | 몸무게 {extra.weight} | 사이즈 {extra.size}
+              {extra.height && (
+                <span>
+                  키 {extra.height}
+                  <span aria-hidden> | </span>
+                </span>
+              )}
+
+              {extra.height && (
+                <span>
+                  몸무게 {extra.weight}
+                  <span aria-hidden> | </span>
+                </span>
+              )}
+              {extra.height && <span>사이즈 {extra.size}</span>}
             </p>
             {content.length > 20 ? (
               <div className="flex my-2" onClick={showFullContent}>
@@ -78,16 +112,13 @@ function ReviewItem({ handleDelete, _id, rating, user, content, createdAt, extra
               </div>
               <div>
                 {loginUser && (
-                  <>
-                    <button>수정</button> |{' '}
-                    <button
-                      onClick={() => {
-                        handleDelete(_id, loginUser);
-                      }}
-                    >
-                      삭제
-                    </button>
-                  </>
+                  <div className="flex">
+                    <Link href={`/my-page/review/${_id}/edit-review?redirect=${path}`}>수정</Link>
+                    <span aria-hidden className="mx-1">
+                      |
+                    </span>
+                    <ReviewDeleteForm _id={_id} setRefreshKey={setRefreshKey} />
+                  </div>
                 )}
               </div>
             </div>
