@@ -12,19 +12,22 @@ interface slideDataItmeProps {
   alt: string;
 }
 
+interface imagesUrlProps {
+  productType: string;
+  id: number;
+}
 
-
-export default function ImgSlider() {
+export default function ImgSlider({ productType, id }: imagesUrlProps) {
   // 서버에서 받아오는 데이터를 구현하기 위한 더미데이터. 서버 연결이 필요하면 수정 예정
   const slideData: slideDataItmeProps[] = [
     {
       id: 1,
-      src: '/images/products/long-sleeve/02/model-2.jpg',
+      src: `/images/products/${productType}/02/model-2.jpg`,
       alt: '',
     },
     {
       id: 2,
-      src: '/images/products/long-sleeve/02/model-3.jpg',
+      src: `/images/products/${productType}/02/model-2.jpg`,
       alt: '',
     },
   ];
@@ -33,20 +36,26 @@ export default function ImgSlider() {
     <>
       <div className="swiper-container">
         <Swiper
-          modules={[Autoplay]} // 모듈 등록, 아래 파일 사용시
-          loop={true} // 슬라이드 루프
+          // modules={[Autoplay]} // 모듈 등록, 아래 파일 사용시
+          // loop={true} // 슬라이드 루프
           spaceBetween={0} // 슬라이스 사이 간격
           slidesPerView={1} // 보여질 슬라이스 수
           // onSlideChange={() => console.log('slide change')}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false, // 사용자 상호작용시 슬라이더 일시 정지 비활성
-          }}
+          // autoplay={{
+          //   delay: 3000,
+          //   disableOnInteraction: false, // 사용자 상호작용시 슬라이더 일시 정지 비활성
+          // }}
         >
           {slideData.map((slide) => {
             return (
               <SwiperSlide key={slide.id}>
-                <Image src={slide.src} alt={slide.alt} className="w-full" width="469" height="216" />
+                <Image
+                  src={`/images/products/${productType}/${id}/model-2.jpg`}
+                  alt={slide.alt}
+                  className="w-full"
+                  width="469"
+                  height="216"
+                />
               </SwiperSlide>
             );
           })}
