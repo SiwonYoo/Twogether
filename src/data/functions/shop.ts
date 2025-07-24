@@ -6,7 +6,7 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
 /**
  * Product 정보에 맞는 리뷰 목록을 가져옵니다.
  */
-export async function getProduct(): ApiResPromise<ProductList[]> {
+export async function getProduct(): ApiResPromise<Product[]> {
   try {
     const res = await fetch(`${API_URL}/products/`, {
       headers: {
