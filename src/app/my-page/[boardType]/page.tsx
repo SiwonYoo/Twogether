@@ -53,7 +53,11 @@ export default async function QnaPage({ params }: ListPageProps) {
 
       <ul>
         {res.ok ? (
-          res.item.map((post: Post) => <QnaList key={post._id} post={post} boardType={boardType} />)
+          res.item.length === 0 ? (
+            <p className="mt-20 text-pra font-bold text-center">문의내역이 존재하지 않습니다.</p>
+          ) : (
+            res.item.map((post: Post) => <QnaList key={post._id} post={post} boardType={boardType} />)
+          )
         ) : (
           <p>{res.message}</p>
         )}

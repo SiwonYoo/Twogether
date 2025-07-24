@@ -11,9 +11,9 @@ export default async function QnaList({ boardType, post }: { boardType: string; 
         </Link>
       </div>
       <div className="flex gap-4 text-sm">
-        <span>{post.user._id}</span>
+        <span>{post.user.name}</span>
         <span>{post.createdAt}</span>
-        <span>조회 0</span>
+        <span>조회 {post.views}</span>
       </div>
     </li>
   );
