@@ -14,7 +14,7 @@ export async function getPosts(boardType: string): ApiResPromise<Post[]> {
       headers: {
         'Client-Id': CLIENT_ID,
       },
-      cache: 'force-cache',
+      cache: 'no-store', // force-cache에서 no-store로 바꿔서 게시글 작성 후 목록으로 돌아왔을 때 바로 보이게 가능
     });
     return res.json();
   } catch (error) {

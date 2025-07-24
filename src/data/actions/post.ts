@@ -48,7 +48,7 @@ export async function createPost(state: ApiRes<Post> | null, formData: FormData)
 
     // 리다이렉트는 게시판 유형에 따라 다르게
     if (body.type === 'qna') {
-      redirect('/my-page/qna');
+      redirect(`/my-page/${body.type}`);
     } else {
       redirect(`/${body.type}`);
     }
