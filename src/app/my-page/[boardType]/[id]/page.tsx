@@ -2,8 +2,8 @@ import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { Judson } from 'next/font/google';
 import Button from '@/components/common/Button';
-import { Metadata } from 'next';
 import { getPost } from '@/data/functions/post';
+import DeleteForm from '@/app/my-page/[boardType]/[id]/DeleteForm';
 
 interface InfoPageProps {
   params: {
@@ -31,14 +31,8 @@ const JudsonFont = Judson({
 });
 
 export default async function QnaInfoPage({ params }: InfoPageProps) {
-  console.log('params : ', params);
   const { boardType, id } = await params;
-  console.log('id : ', id);
-  const post = await getPost(Number(id));
-
-  if (!post.ok) {
-    return <div>{post.message}</div>;
-  }
+  const res = await getPost(Number(id));
   return (
     <>
       <main className="mb-25">
@@ -48,30 +42,37 @@ export default async function QnaInfoPage({ params }: InfoPageProps) {
           </Link>
           <h2 className={`${JudsonFont.className} text-2xl`}>Q&A</h2>
         </div>
-        <h3 className="my-4 border-b-1 border-gray-250">{post.item?.title}</h3>
-        <div className="flex justify-between gap-8 text-gray-250 mb-6">
-          <p>{post.item?.user.name}</p>
-          <p className="mr-auto">조회 {post.item.views}</p>
-          <p>{post.item.createdAt}</p>
-        </div>
-        <p className="py-10 border-b-1 border-gray-150">{post.item?.content}</p>
-        <div className="flex justify-end gap-4 my-3">
-          <Link href={`/my-page/${boardType}/${post.item._id}/edit`}>
-            <Button shape="square">수정</Button>
-          </Link>
-          <Button shape="square">삭제</Button>
-        </div>
-        <p className="text-right">* 답변이 달린 후에는 수정이 불가합니다.</p>
-        <div className="h-50 p-1 bg-gray-150">
-          <p>문의 답변 내용</p>
-        </div>
-        <div className="mt-40">
-          <Link href={`/my-page/qna`}>
-            <Button shape="square" size="lg">
-              목록
-            </Button>
-          </Link>
-        </div>
+
+        {res.ok === 0 ? (
+          <p>{res.message}</p>
+        ) : (
+          <>
+            <h3 className="my-4 border-b-1 border-gray-250">{res.item?.title}</h3>
+            <div className="flex justify-between gap-8 text-gray-250 mb-6">
+              <p>{res.item?.user.name}</p>
+              <p className="mr-auto">조회 {res.item?.views}</p>
+              <p>{res.item.createdAt}</p>
+            </div>
+            <p className="py-10 border-b-1 border-gray-150">{res.item?.content}</p>
+            <div className="flex justify-end gap-4 my-3">
+              <Link href={`/my-page/${boardType}/${res.item?.id}/edit`}>
+                <Button shape="square">수정</Button>
+              </Link>
+              <DeleteForm boardType={boardType} id={id} />
+            </div>
+            <p className="text-right">* 답변이 달린 후에는 수정이 불가합니다.</p>
+            <div className="h-50 p-1 bg-gray-150">
+              <p>문의 답변 내용</p>
+            </div>
+            <div className="mt-40">
+              <Link href={`/my-page/qna`}>
+                <Button shape="square" size="lg">
+                  목록
+                </Button>
+              </Link>
+            </div>
+          </>
+        )}
       </main>
     </>
   );
