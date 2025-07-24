@@ -11,10 +11,11 @@ interface RadioProps extends React.InputHTMLAttributes<HTMLInputElement> {
   legend: string;
   name: string;
   options: RadioItem[];
+  selected?: string;
 }
 
-function Radio({ legend, name, options, ...rest }: RadioProps) {
-  const [isChecked, setChecked] = useState('');
+function Radio({ legend, name, options, selected, ...rest }: RadioProps) {
+  const [isChecked, setChecked] = useState(selected || '');
 
   return (
     <fieldset className="my-6">
@@ -30,6 +31,7 @@ function Radio({ legend, name, options, ...rest }: RadioProps) {
             type="radio"
             name={name}
             value={item.value}
+            checked={isChecked === item.value}
             onChange={() => {
               setChecked(item.value);
             }}

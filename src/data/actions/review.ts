@@ -30,6 +30,7 @@ export async function createReview(state: ApiRes<Review> | null, formData: FormD
     }
 
     const raw = Object.fromEntries(formData.entries());
+
     const body = {
       accessToken: raw['accessToken'],
       order_id: Number(raw['order_id']),
@@ -65,14 +66,70 @@ export async function createReview(state: ApiRes<Review> | null, formData: FormD
 }
 
 /**
+ * 리뷰 수정 함수
+ */
+export async function editReview(state: ApiRes<Review> | null, formData: FormData): ApiResPromise<Review> {
+  let res: Response;
+  let data: ApiRes<Review>;
+
+  const attach = formData.get('attach') as File;
+  let image;
+  if (attach.size > 0) {
+    const fileRes = await uploadFile(formData);
+
+    if (fileRes.ok) {
+      image = fileRes.item[0].path;
+    } else {
+      return fileRes;
+    }
+  }
+
+  const raw = Object.fromEntries(formData.entries());
+
+  const _id = raw['_id'];
+  const accessToken = raw['accessToken'];
+  const redirectPath = String(raw['redirect']);
+
+  try {
+    const body = {
+      rating: Number(raw['rating']),
+      content: raw['content'],
+      extra: { height: raw['height'], weight: raw['weight'], size: raw['size'], image: image },
+    };
+
+    res = await fetch(`${API_URL}/replies/${_id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Client-Id': CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    data = await res.json();
+  } catch (error) {
+    console.error(error);
+    return { ok: 0, message: '일시적인 네트워크 에러가 발생했습니다.' };
+  }
+
+  if (data.ok) {
+    revalidateTag(`review/${_id}`);
+    revalidateTag('my-review');
+    redirect(redirectPath !== '' ? redirectPath : '/my-page/review');
+  }
+  return data;
+}
+
+/**
  * 리뷰 삭제 함수
  */
-export async function deleteReview(
-  state: ApiRes<Review> | null,
-  { _id, accessToken }: { _id: number; accessToken: string }
-): ApiResPromise<Pick<Review, '_id'>> {
+export async function deleteReview(state: ApiRes<Review> | null, formData: FormData): ApiResPromise<Review> {
+  const _id = formData.get('_id');
+  const accessToken = formData.get('accessToken');
+
   let res: Response;
-  let data: ApiRes<{ ok: 0 | 1 }>;
+  let data: ApiRes<Review>;
 
   try {
     res = await fetch(`${API_URL}/replies/${_id}`, {
@@ -90,10 +147,7 @@ export async function deleteReview(
   }
 
   if (data.ok) {
-    // revalidateTag('my-review');
-    // redirect(`/my-page/review`);
-    return { ok: 1, item: { _id } };
-  } else {
-    return data;
+    revalidateTag('my-review');
   }
+  return data;
 }
