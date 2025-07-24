@@ -1,39 +1,30 @@
-'use client';
+"use client";
 
-import ProductTypeIdItem from '@/app/shop/[productType]/[id]/ProductTypeIdItem';
-import ShoppingCartAdd from '@/app/shop/[productType]/[id]/ShoppingCartAdd';
-import Button from '@/components/common/Button';
-import DropDown from '@/components/common/DropDown';
-import LikeButton from '@/components/product/LikeButton';
-import Link from 'next/link';
-import { ChangeEvent, useState } from 'react';
+import ProductTypeIdItem from "@/app/shop/[productType]/[id]/ProductTypeIdItem";
+import ShoppingCartAdd from "@/app/shop/[productType]/[id]/ShoppingCartAdd";
+import Button from "@/components/common/Button";
+import DropDown from "@/components/common/DropDown";
+import LinkButton from "@/components/common/LinkButton";
+import LikeButton from "@/components/product/LikeButton";
+import { Product } from "@/types/product";
+import Link from "next/link";
+import { ChangeEvent, useState } from "react";
 
-interface SelectSizeItemProps {
-  value: string;
-  text: string;
+interface ProductSelectProps {
+  item: Product;
+  key: number;
 }
 
-interface SelectSizeProps {
-  title: string;
-  pries: number;
-  sale: number;
-  size: SelectSizeItemProps[];
-}
-
-interface productSelectProps {
-  itme: SelectSizeProps;
-}
-
-export default function ProductSelect({ itme }: productSelectProps) {
-  const [selectedValue, setSelectedSize] = useState<string>('');
+export default function ProductSelect({ item, key }: ProductSelectProps) {
+  const [selectedValue, setSelectedSize] = useState<string>("");
 
   return (
     <>
-      <div className="border my-6 p-4 border-(--color-gray-350)">
+      <div className="border my-6 p-4 border-(--color-gray-350)" key={key}>
         <DropDown
           id="size"
           label="사이즈"
-          items={itme.size}
+          items={item.extra.size}
           placeHolder="사이즈를 선택해주세요"
           onChange={(event: ChangeEvent<HTMLSelectElement>) => {
             setSelectedSize(event.target.value);
@@ -41,18 +32,22 @@ export default function ProductSelect({ itme }: productSelectProps) {
         />
       </div>
       <div className=" bg-(--color-gray-250) p-4">
-        <ProductTypeIdItem itme={itme} selectedValue={selectedValue} />
+        <ProductTypeIdItem item={item} selectedValue={selectedValue} />
         <div className="flex justify-between items-center gap-2">
           <div className="flex justify-center items-center border border-(--color-primary) text-center w-1/4  px-6 py-2 bg-(--color-white) relative">
             <LikeButton />
           </div>
           <ShoppingCartAdd />
           <div className="w-2/3">
-            <Link href="/order">
-              <Button shape="square" size="lg">
-                구매하기
-              </Button>
-            </Link>
+            <LinkButton
+              href={selectedValue !== "" ? "/order" : ""}
+              shape="square"
+              size="lg"
+              bg={selectedValue !== "" ? "primary" : "disabled"}
+              onClick={() => (selectedValue !== "" ? "" : alert("사이즈를 선택해주세요"))}
+            >
+              {selectedValue !== "" ? "구매하기" : "사이즈를 선택해주세요"}
+            </LinkButton>
           </div>
         </div>
       </div>

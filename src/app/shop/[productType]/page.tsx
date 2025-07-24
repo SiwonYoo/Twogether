@@ -1,27 +1,193 @@
-import ProductCard from '@/components/product/ProductCard';
-import { Metadata } from 'next';
+import ProductCardItemLayout from "@/app/shop/[productType]/ProductCardItemLayout";
+import ProductLayout from "@/components/product/ProductLayout";
 
-// 메타데이터
-export const metadata: Metadata = {
-  title: '상품목록 - Twogether',
-  openGraph: {
-    title: '상품목록 - Twogether',
-    description: '상품 목록을 확인할 수 있는 페이지입니다.',
-    url: '/shop',
-  },
-};
-
-// 페이지 인터페이스
 export interface ListPageProps {
   params: Promise<{
     productType: string;
   }>;
 }
+export default async function productPage({ params }: ListPageProps) {
+  const { productType } = await params;
 
-export default async function ProductType() {
+  const data = [
+    {
+      _id: 1,
+      price: 12000,
+      shippingFees: 2500,
+      show: true,
+      active: true,
+      name: "뉴라오 스크런치 다크오렌지 (32수)",
+      quantity: 200,
+      buyQuantity: 198,
+      mainImages: [
+        {
+          _id: 1,
+          path: "/images/products/acc/1/model-1.jpg",
+          name: "model-1.jpg",
+          originalname: "뉴라오 스크런치 다크오렌지 (32수).jpg",
+        },
+        {
+          _id: 2,
+          path: "/images/products/acc/1/model-2.jpg",
+          name: "model-2.jpg",
+          originalname: "뉴라오 스크런치 다크오렌지 (32수).jpg",
+        },
+        {
+          _id: 3,
+          path: "/images/products/acc/1/model-3.jpg",
+          name: "model-3.jpg",
+          originalname: "뉴라오 스크런치 다크오렌지 (32수).jpg",
+        },
+      ],
+      content: "32수 슬럽평직 원단을 사용하여 눈에 보이는 원단감이 부드럽고 피부에 닿는 촉감이 부드러우며 쾌적하고 편한한 착용감을 유지해줍니다",
+      extra: {
+        isBest: true,
+        isSale: false,
+        category: "acc",
+        isLike: false,
+        size: "FREE",
+        SizeInfo: [
+          {
+            defaultSize: [
+              {
+                headers: ["스크런치", "외경"],
+                values: ["FREE(cm)", "20"],
+              },
+            ],
+          },
+        ],
+        FabricInfo: [
+          {
+            label: "두께감",
+            values: ["얇음", "중간", "다소두꺼움"],
+            selected: "얇음",
+          },
+          {
+            label: "원단",
+            values: ["면", "폴리에스테르", "코마사"],
+            selected: ["면"],
+          },
+        ],
+        washingInfo: [
+          {
+            _id: 1,
+            label: "미온수 세탁 및 약하게 단독 세탁",
+          },
+          {
+            _id: 2,
+            label: "건조기 사용 금지, 형태가 변형될 수 있음",
+          },
+          {
+            _id: 3,
+            label: "짙은 색상은 물 빠짐이 있을 수 있으니 밝은 색상과 분리 세탁",
+          },
+          {
+            _id: 4,
+            label: "옷걸이에 걸어 그늘에 건조, 진한 색상의 경우 세탁 후 즉시 탈수 및 건조",
+          },
+          {
+            _id: 5,
+            label: "염소 및 표백제 사용 금지, 변색될 수 있음",
+          },
+          {
+            _id: 6,
+            label: "취급 부주의로 인한 탈색 및 오염, 형태 변질 및 수축된 제품은 보상 불가",
+          },
+        ],
+      },
+    },
+    {
+      _id: 2,
+      price: 4900,
+      shippingFees: 3000,
+      show: true,
+      active: true,
+      name: "미니 스트라이프 스크런치",
+      quantity: 200,
+      buyQuantity: 198,
+      mainImages: [
+        {
+          _id: 1,
+          path: "/images/products/acc/1/model-1.jpg",
+          name: "model-1.jpg",
+          originalname: "미니 스트라이프 스크런치.jpg",
+        },
+        {
+          _id: 2,
+          path: "/images/products/acc/2/model-2.jpg",
+          name: "model-1.jpg",
+          originalname: "미니 스트라이프 스크런치.jpg",
+        },
+        {
+          _id: 3,
+          path: "/images/products/acc/3/model-3.jpg",
+          name: "model-1.jpg",
+          originalname: "미니 스트라이프 스크런치.jpg",
+        },
+      ],
+      content: "파자마뿐만 아니라 일상복에서도 함게 매치학 좋은 스크런치, 부드러운 면 재질로 촉감 좋은 스크런치",
+      extra: {
+        isBest: false,
+        isSale: true,
+        category: "acc",
+        isLike: false,
+        size: "FREE",
+        SizeInfo: [
+          {
+            defaultSize: [
+              {
+                headers: ["스크런치", "외경"],
+                values: ["FREE(cm)", "20"],
+              },
+            ],
+          },
+        ],
+        FabricInfo: [
+          {
+            label: "두께감",
+            values: ["얇음", "중간", "다소두꺼움"],
+            selected: "얇음",
+          },
+          {
+            label: "원단",
+            values: ["면", "폴리에스테르", "코마사"],
+            selected: ["면", "폴리에스테르"],
+          },
+        ],
+        washingInfo: [
+          {
+            _id: 1,
+            label: "미온수 세탁 및 약하게 단독 세탁",
+          },
+          {
+            _id: 2,
+            label: "건조기 사용 금지, 형태가 변형될 수 있음",
+          },
+          {
+            _id: 3,
+            label: "짙은 색상은 물 빠짐이 있을 수 있으니 밝은 색상과 분리 세탁",
+          },
+          {
+            _id: 4,
+            label: "옷걸이에 걸어 그늘에 건조, 진한 색상의 경우 세탁 후 즉시 탈수 및 건조",
+          },
+          {
+            _id: 5,
+            label: "염소 및 표백제 사용 금지, 변색될 수 있음",
+          },
+          {
+            _id: 6,
+            label: "취급 부주의로 인한 탈색 및 오염, 형태 변질 및 수축된 제품은 보상 불가",
+          },
+        ],
+      },
+    },
+  ];
+
   return (
     <>
-      <ProductCard />
+      <ProductLayout productType={productType} />
+      <ProductCardItemLayout productType={productType} data={data} />
     </>
   );
 }

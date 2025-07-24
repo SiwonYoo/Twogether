@@ -1,33 +1,22 @@
-'use client';
+"use client";
 
-import { X } from 'lucide-react';
-import { Judson } from 'next/font/google'; // 구글 폰트 사용
-import { useState } from 'react';
+import { Product } from "@/types/product";
+import { X } from "lucide-react";
+import { Judson } from "next/font/google"; // 구글 폰트 사용
+import { useState } from "react";
 
 const JudsonFont = Judson({
-  subsets: ['latin'],
-  weight: '400',
+  subsets: ["latin"],
+  weight: "400",
 });
 
-interface SizeType {
-  value: string;
-  text: string;
-}
-
-interface ItemType {
-  title: string;
-  pries: number;
-  sale: number;
-  size: SizeType[];
-}
-
-interface ProductTypeIdItmeProps {
-  itme: ItemType;
+interface ProductTypeIdItemProps {
+  item: Product;
   selectedValue: string;
 }
 
 // 상품 계산 컨포넌트
-export default function ProductTypeIdItem({ itme, selectedValue }: ProductTypeIdItmeProps) {
+export default function ProductTypeIdItem({ item, selectedValue }: ProductTypeIdItemProps) {
   const [priseDate, setPriseDate] = useState(1);
 
   const addDate = () => {
@@ -47,8 +36,8 @@ export default function ProductTypeIdItem({ itme, selectedValue }: ProductTypeId
     <>
       <div className="flex justify-between items-start">
         <div>
-          <h3 className="mb-2">{itme.title}</h3>
-          <p aria-label={`선택된`}>사이즈: {selectedValue === '' ? '사이즈를 선택해주세요' : selectedValue}</p>
+          <h3 className="mb-2">{item.name}</h3>
+          <p aria-label={`선택된`}>사이즈: {selectedValue === "" ? "사이즈를 선택해주세요" : selectedValue}</p>
         </div>
         <div className="flex justify-between items-center gap-4">
           <div className="flex justify-between items-center">
@@ -68,7 +57,7 @@ export default function ProductTypeIdItem({ itme, selectedValue }: ProductTypeId
       <div className="flex justify-between my-4">
         <p className={`${JudsonFont.className}`}>TOTAL</p>
         <div>
-          <span className="text-2xl font-bold">{itme.sale * priseDate}</span>
+          <span className="text-2xl font-bold">{item.price * priseDate}</span>
           <span className="text-(--color-gray-350)"> ({priseDate}개)</span>
         </div>
       </div>
