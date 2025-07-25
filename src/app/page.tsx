@@ -25,7 +25,6 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <p>태스트 문구입니다 </p>
       <Image
         src="/images/model/main-model1.png"
         className="w-full"
