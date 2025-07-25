@@ -1,26 +1,22 @@
-"use client";
+'use client';
 
-import ProductTypeIdItem from "@/app/shop/[productType]/[id]/ProductTypeIdItem";
-import ShoppingCartAdd from "@/app/shop/[productType]/[id]/ShoppingCartAdd";
-import Button from "@/components/common/Button";
-import DropDown from "@/components/common/DropDown";
-import LinkButton from "@/components/common/LinkButton";
-import LikeButton from "@/components/product/LikeButton";
-import { Product } from "@/types/product";
-import Link from "next/link";
-import { ChangeEvent, useState } from "react";
+import ProductTypeIdItem from '@/app/shop/[productType]/[id]/ProductTypeIdItem';
+import ShoppingCartAdd from '@/app/shop/[productType]/[id]/ShoppingCartAdd';
+import DropDown from '@/components/common/DropDown';
+import LinkButton from '@/components/common/LinkButton';
+import LikeButton from '@/components/product/LikeButton';
+import { Product } from '@/types/product';
+import { ChangeEvent, useState } from 'react';
 
 interface ProductSelectProps {
   item: Product;
-  key: number;
 }
 
-export default function ProductSelect({ item, key }: ProductSelectProps) {
-  const [selectedValue, setSelectedSize] = useState<string>("");
-
+export default function ProductSelect({ item }: ProductSelectProps) {
+  const [selectedValue, setSelectedSize] = useState<string>('');
   return (
     <>
-      <div className="border my-6 p-4 border-(--color-gray-350)" key={key}>
+      <div className="border my-6 p-4 border-(--color-gray-350)">
         <DropDown
           id="size"
           label="사이즈"
@@ -40,13 +36,13 @@ export default function ProductSelect({ item, key }: ProductSelectProps) {
           <ShoppingCartAdd />
           <div className="w-2/3">
             <LinkButton
-              href={selectedValue !== "" ? "/order" : ""}
+              href={selectedValue !== '' ? '/order' : ''}
               shape="square"
               size="lg"
-              bg={selectedValue !== "" ? "primary" : "disabled"}
-              onClick={() => (selectedValue !== "" ? "" : alert("사이즈를 선택해주세요"))}
+              bg={selectedValue !== '' ? 'primary' : 'disabled'}
+              onClick={() => (selectedValue !== '' ? '' : alert('사이즈를 선택해주세요'))}
             >
-              {selectedValue !== "" ? "구매하기" : "사이즈를 선택해주세요"}
+              {selectedValue !== '' ? '구매하기' : '사이즈를 선택해주세요'}
             </LinkButton>
           </div>
         </div>
