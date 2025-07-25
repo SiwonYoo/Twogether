@@ -1,16 +1,22 @@
-import { ProductDetails } from "@/types/product";
-import { Judson } from "next/font/google"; // 구글 폰트 사용
+import { ProductDetails } from '@/types/product';
+import { Judson } from 'next/font/google'; // 구글 폰트 사용
+import Image from 'next/image';
 const JudsonFont = Judson({
-  subsets: ["latin"],
-  weight: "700",
+  subsets: ['latin'],
+  weight: '700',
 });
 
-export default function DetailsPage({ productType, id, item }: ProductDetails) {
+export default function DetailsPage({ id, item }: ProductDetails) {
+  console.log(item);
   const defaultSizeLayout = () => {
-    return item.extra.SizeInfo.map((size, sizeIdx) => {
+    return item[Number(id)].extra.SizeInfo.map((size, sizeIdx) => {
       const colCount = size.headers.length;
       return (
-        <ul key={sizeIdx} style={{ gridTemplateColumns: `repeat(${colCount}, minmax(0, 1fr))` }} className="grid mb-4 bg-(--color-gray-150) p-2">
+        <ul
+          key={sizeIdx}
+          style={{ gridTemplateColumns: `repeat(${colCount}, minmax(0, 1fr))` }}
+          className="grid mb-4 bg-(--color-gray-150) p-2"
+        >
           {size.headers.map((header, hIdx) => (
             <li key={`h-${sizeIdx}-${hIdx}`} className="text-center p-2 font-bold">
               {header}
@@ -27,7 +33,7 @@ export default function DetailsPage({ productType, id, item }: ProductDetails) {
   };
 
   const fabricLayout = () => {
-    return item.extra.FabricInfo.map((fabric, i) => {
+    return item[Number(id)].extra.FabricInfo.map((fabric, i) => {
       // headers 대신 values.length + 1 만큼 칸을 만든다
       return (
         <ul
@@ -44,7 +50,12 @@ export default function DetailsPage({ productType, id, item }: ProductDetails) {
           {fabric.values.map((v, vi) => {
             const isSel = fabric.selected.includes(v);
             return (
-              <li key={vi} className={`text-center px-2 py-1 rounded ${isSel ? "bg-(--color-primary) text-white" : "bg-[--color-gray-150]"}`}>
+              <li
+                key={vi}
+                className={`text-center px-2 py-1 rounded ${
+                  isSel ? 'bg-(--color-primary) text-white' : 'bg-[--color-gray-150]'
+                }`}
+              >
                 {v}
               </li>
             );
@@ -56,9 +67,10 @@ export default function DetailsPage({ productType, id, item }: ProductDetails) {
 
   const washingLayout = () => {
     return (
-      <ul className="grid grid-cols-3 text-center">
-        {item.extra.washingInfo.map((info) => (
-          <li key={info._id} className="px-4 py-2 bg-(--color-gray-150) rounded">
+      <ul className="grid grid-cols-3 text-center  bg-(--color-gray-150) rounded">
+        {item[Number(id)].extra.washingInfo.map((info) => (
+          <li key={info._id} className="flex justify-center flex-col items-center px-4 py-2">
+            <Image src={info.imgUrl ? info.imgUrl : ''} alt={info.label} width="100" height="100" />
             {info.label}
           </li>
         ))}
