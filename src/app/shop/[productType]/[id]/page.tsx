@@ -1,4 +1,4 @@
-import ProductSelect from '@/app/shop/[productType]/[id]/ProductSelect';
+import ProductSelect from '@/app/shop/[productType]/[id]/productSelect';
 import ImgSlider from '@/components/common/imgSlider';
 import { Metadata } from 'next';
 

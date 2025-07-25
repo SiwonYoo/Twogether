@@ -17,3 +17,18 @@ export async function uploadFile(formData: FormData): ApiResPromise<FileUpload[]
 
   return res.json();
 }
+
+export async function uploadFiles(attaches: File[]): ApiResPromise<FileUpload[]> {
+  const fileForm = new FormData();
+  attaches.map((item) => fileForm.append(`attach`, item));
+
+  const res = await fetch(`${API_URL}/files`, {
+    method: 'POST',
+    headers: {
+      'Client-Id': CLIENT_ID,
+    },
+    body: fileForm,
+  });
+
+  return res.json();
+}

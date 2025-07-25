@@ -123,9 +123,9 @@ function ReviewItem({
               </div>
             </div>
           </div>
-          {extra.image && (
+          {extra.images && (
             <Image
-              src={`${API_URL}/${extra.image}`}
+              src={`${API_URL}/${extra.images[0]}`}
               alt="리뷰 이미지"
               width={80}
               height={80}

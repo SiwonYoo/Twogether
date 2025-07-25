@@ -13,7 +13,7 @@ export interface Review {
     height: string;
     weight: string;
     size: string;
-    image?: string;
+    images?: string[];
   };
   product?: { _id: number; image: { path: string; name: string }; name: string };
 }
