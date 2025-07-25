@@ -19,11 +19,16 @@ export const metadata: Metadata = {
 export default function Menu() {
   return (
     <main className="mx-4">
-      <h2 className={`${JudsonFont.className} mb-5 mt-5 text-4xl`}>BEST</h2>
-      <ul>
+      <h2 className={`${JudsonFont.className} mb-5 mt-5 text-4xl`}>SPECIAL</h2>
+      <ul className="grid grid-cols-2 gap-x-24 gap-y-4 max-w-[400px]">
         <li>
           <Link href="/shop/best" className={`${JudsonFont.className} ml-8`}>
             BEST
+          </Link>
+        </li>
+        <li>
+          <Link href="/shop/sale" className={`${JudsonFont.className} ml-8`}>
+            SALE
           </Link>
         </li>
       </ul>
