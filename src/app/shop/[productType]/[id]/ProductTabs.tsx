@@ -57,7 +57,7 @@ export default function ProductTabs({ productType, id, item }: ProductDetails) {
       <div className="mt-4">
         {activeTab === 'Overview' && (
           <div>
-            <OverviewPage productType={productType} id={id} item={item[Number(id)]} />
+            <OverviewPage productType={productType} id={id} item={item} />
           </div>
         )}
         {activeTab === 'Details' && (
