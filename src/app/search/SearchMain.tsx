@@ -1,7 +1,7 @@
 'use client';
 
 import Input from '@/components/common/Input';
-import ProductCard from '@/components/product/ProductCard';
+
 import { SearchIcon, X } from 'lucide-react';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
@@ -91,7 +91,9 @@ function SearchForm() {
           &apos;{currentValue}&apos; 검색 결과 <span className="text-secondary-2">16</span>
         </h2>
         {/* API 정보를 ProductCard에 넘기기 */}
-        <div>{<ProductCard />}</div>
+        <div>
+          <>{/* 여기 상품 리스트 넘기기 */}</>
+        </div>
       </div>
     </>
   );
