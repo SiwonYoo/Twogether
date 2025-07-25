@@ -1,28 +1,28 @@
-"use client";
-import { Judson } from "next/font/google";
-import { useState, useEffect } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { ProductDetails } from "@/types/product";
-import OverviewPage from "@/app/shop/[productType]/[id]/Overview";
-import DetailsPage from "@/app/shop/[productType]/[id]/Details";
-import ReviewPage from "@/app/shop/[productType]/[id]/Review";
-import QnAPage from "@/app/shop/[productType]/[id]/QnA";
+'use client';
+import { Judson } from 'next/font/google';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import { ProductDetails } from '@/types/product';
+import OverviewPage from '@/app/shop/[productType]/[id]/Overview';
+import DetailsPage from '@/app/shop/[productType]/[id]/Details';
+import ReviewPage from '@/app/shop/[productType]/[id]/Review';
+import QnAPage from '@/app/shop/[productType]/[id]/QnA';
 
 const JudsonFont = Judson({
-  subsets: ["latin"],
-  weight: "400",
+  subsets: ['latin'],
+  weight: '400',
 });
 
 export default function ProductTabs({ productType, id, item }: ProductDetails) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const tabs = ["Overview", "Details", "Review", "Q&A"];
-  const initialTab = searchParams.get("tab") || tabs[0];
+  const tabs = ['Overview', 'Details', 'Review', 'Q&A'];
+  const initialTab = searchParams.get('tab') || tabs[0];
   const [activeTab, setActiveTab] = useState<string>(initialTab);
 
   useEffect(() => {
-    const tabParam = searchParams.get("tab");
+    const tabParam = searchParams.get('tab');
     if (tabParam && tabParam !== activeTab) {
       setActiveTab(tabParam);
     }
@@ -33,6 +33,8 @@ export default function ProductTabs({ productType, id, item }: ProductDetails) {
     // 스크롤 위치 고정 옵션 추가
     router.push(`${pathname}?tab=${encodeURIComponent(tab)}`, { scroll: false });
   };
+
+  console.log(item[Number(id)]);
 
   return (
     <div className="mx-4">
@@ -45,7 +47,7 @@ export default function ProductTabs({ productType, id, item }: ProductDetails) {
               </button>
               <span
                 className={`absolute left-1/2 bottom-0 -translate-x-1/2 w-full
-                  ${activeTab === tab ? "border-b-3 border-(--color-primary)" : "border-b-2 border-(--color-white)"}`}
+                  ${activeTab === tab ? 'border-b-3 border-(--color-primary)' : 'border-b-2 border-(--color-white)'}`}
               ></span>
             </li>
           ))}
@@ -53,22 +55,22 @@ export default function ProductTabs({ productType, id, item }: ProductDetails) {
       </nav>
 
       <div className="mt-4">
-        {activeTab === "Overview" && (
+        {activeTab === 'Overview' && (
           <div>
-            <OverviewPage productType={productType} id={id} item={item} />
+            <OverviewPage productType={productType} id={id} item={item[Number(id)]} />
           </div>
         )}
-        {activeTab === "Details" && (
+        {activeTab === 'Details' && (
           <div>
             <DetailsPage productType={productType} id={id} item={item} />
           </div>
         )}
-        {activeTab === "Review" && (
+        {activeTab === 'Review' && (
           <div>
-            <ReviewPage  />
+            <ReviewPage />
           </div>
         )}
-        {activeTab === "Q&A" && (
+        {activeTab === 'Q&A' && (
           <div>
             <QnAPage productType={productType} id={id} item={item} />
           </div>
