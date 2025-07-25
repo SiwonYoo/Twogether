@@ -1,6 +1,9 @@
-import ProductSelect from "@/app/shop/[productType]/[id]/ProductSelect";
-import ProductTabs from "@/app/shop/[productType]/[id]/ProductTabs";
-import ImgSlider from "@/components/common/imgSlider";
+import ProductSelect from '@/app/shop/[productType]/[id]/ProductSelect';
+import ProductTabs from '@/app/shop/[productType]/[id]/ProductTabs';
+import ImgSlider from '@/components/common/imgSlider';
+import LinkButton from '@/components/common/LinkButton';
+import { getProduct } from '@/data/functions/shop';
+import { Metadata } from 'next';
 
 interface ProductCardItemProps {
   params: Promise<{
@@ -9,123 +12,88 @@ interface ProductCardItemProps {
   }>;
 }
 
+export async function generateMetadata({ params }: ProductCardItemProps): Promise<Metadata> {
+  const { productType, id } = await params;
+  const data = await getProduct({ productType, id: Number(id) });
+  const dataId = Number(id);
+  // 타입체크
+  if (data.ok === 0) {
+    return {};
+  }
+
+  return {
+    title: `${data.item[dataId].name}`,
+    description: `스타일리시한 ${productType}, 지금 Twogether에서 확인해보세요.`,
+    openGraph: {
+      title: `${data.item[dataId].name} - Twogether`,
+      description: `스타일리시한 ${productType}, 지금 Twogether에서 확인해보세요.`,
+      url: `/shop/${productType}`,
+    },
+  };
+}
+
 export default async function ProductDetilPage({ params }: ProductCardItemProps) {
   const { productType, id } = await params;
-  const numericId = Number(id);
-  console.log(id);
+  // console.log(id);
 
-  const data = [
-    {
-      _id: 1,
-      price: 12000,
-      shippingFees: 2500,
-      show: true,
-      active: true,
-      name: "뉴라오 스크런치 다크오렌지 (32수)",
-      quantity: 200,
-      buyQuantity: 198,
-      mainImages: [
-        {
-          _id: 1,
-          path: "/images/products/acc/1/model-1.jpg",
-          name: "model-1.jpg",
-          originalname: "뉴라오 스크런치 다크오렌지 (32수).jpg",
-        },
-        {
-          _id: 2,
-          path: "/images/products/acc/1/model-2.jpg",
-          name: "model-2.jpg",
-          originalname: "뉴라오 스크런치 다크오렌지 (32수).jpg",
-        },
-        {
-          _id: 3,
-          path: "/images/products/acc/1/model-3.jpg",
-          name: "model-3.jpg",
-          originalname: "뉴라오 스크런치 다크오렌지 (32수).jpg",
-        },
-      ],
-      content: "32수 슬럽평직 원단을 사용하여 눈에 보이는 원단감이 부드럽고 피부에 닿는 촉감이 부드러우며 쾌적하고 편한한 착용감을 유지해줍니다",
-      extra: {
-        isBest: true,
-        isSale: false,
-        category: "acc",
-        isLike: false,
-        size: [{ value: "FREE", text: "FREE" }],
-        SizeInfo: [
-          {
-            headers: ["스크런치", "외경"],
-            values: ["FREE(cm)", "20"],
-          },
-        ],
-        FabricInfo: [
-          {
-            label: "두께감",
-            values: ["얇음", "중간", "다소두꺼움"],
-            selected: ["얇음"],
-          },
-          {
-            label: "원단",
-            values: ["면", "폴리에스테르", "코마사"],
-            selected: ["면"],
-          },
-        ],
-        washingInfo: [
-          {
-            _id: 1,
-            label: "미온수 세탁 및 약하게 단독 세탁",
-          },
-          {
-            _id: 2,
-            label: "건조기 사용 금지, 형태가 변형될 수 있음",
-          },
-          {
-            _id: 3,
-            label: "짙은 색상은 물 빠짐이 있을 수 있으니 밝은 색상과 분리 세탁",
-          },
-          {
-            _id: 4,
-            label: "옷걸이에 걸어 그늘에 건조, 진한 색상의 경우 세탁 후 즉시 탈수 및 건조",
-          },
-          {
-            _id: 5,
-            label: "염소 및 표백제 사용 금지, 변색될 수 있음",
-          },
-          {
-            _id: 6,
-            label: "취급 부주의로 인한 탈색 및 오염, 형태 변질 및 수축된 제품은 보상 불가",
-          },
-        ],
-      },
-    },
-  ];
+  const data = await getProduct({ productType, id: Number(id) });
+  if (data.ok === 0) {
+    return (
+      <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
+        <p className="text-3xl mb-4">고객님, 진심으로 사과드립니다.</p>
+        <p className="text-gray-500">서버 문제로 인해 상품 정보 제공에 차질이 발생했습니다.</p>
+        <p className="text-gray-500 my-2">이로 인해 오랜 시간 기다리시게 된 점 깊이 죄송합니다.</p>
+        <p className="text-gray-500">빠른 시일 내에 정상화된 상품을 갖추어 찾아뵐 수 있도록 최선을 다하겠습니다.</p>
+        <p className="text-gray-500 mb-4 mt-2">불편을 드린 점 다시 한번 사과드리며, 너그러운 양해 부탁드립니다.</p>
+
+        <LinkButton href="/">홈으로 바로가기</LinkButton>
+      </div>
+    );
+  }
+
+  // console.log(data.ok === 1 && data.item); // 이 데이터 불러오기는 성공
+  const dataId = Number(id);
 
   return (
     <>
+      {/* 이미지 슬라이드 */}
       <div className="h-[650px] overflow-hidden">
-        <ImgSlider productType={productType} id={numericId} />
+        <ImgSlider productType={productType} id={Number(id)} />
       </div>
-      {data.map((item, index) => {
-        return (
-          <div key={index}>
-            <h2 className="text-2xl font-bold">{item.name}</h2>
-            <p className="mt-4 mb-2">{item.price}</p>
-            <p>여기 세일 금액</p>
-            <p className="mt-2 mb-4">
-              <span>적립금: </span>
-              <span>{Math.floor(item.price * 0.02)} (2%) </span>
-            </p>
-            <p>
-              <span>배송금: </span>
-              <span>
-                {item.shippingFees}원{" (50,000원 이상 구매시 무료 배송)"}
-              </span>
-            </p>
-            <ProductSelect item={item} key={index} />
+      {/* 서버통신이 성공이면 나오는 메시지 */}
+      <div className="mt-6">
+        <h2 className="text-2xl font-bold">{data.item[dataId].name}</h2>
+        <p className={`mt-4 mb-2 ${data.item[dataId].extra.isSale ? '' : 'text-2xl font-bold'}`}>
+          {data.item[dataId].extra.isSale ? (
+            <span className="text-(--color-gray-450) line-through decoration-2 decoration-(--color-error)">
+              {data.item[dataId].price} 원
+            </span>
+          ) : (
+            `${data.item[dataId].price} 원`
+          )}{' '}
+        </p>
+        <p className="font-bold text-2xl">
+          {data.item[dataId].extra.isSale ? `${data.item[dataId].extra.salePrice} 원` : ''}
+        </p>
+        <p className="mt-2 mb-4">
+          <span>적립금: </span>
+          <span>
+            {Math.floor(data.item[dataId].price * 0.02)} {'(2%)'}
+          </span>
+        </p>
+        <p>
+          <span>배송금: </span>
+          <span>
+            {data.item[dataId].shippingFees}원{' (50,000원 이상 구매시 무료 배송)'}
+          </span>
+        </p>
 
-            <ProductTabs productType={productType} id={id} item={item} />
-          </div>
-        );
-      })}
+        {/* 사이즈, 수량 선택 컨포넌트 */}
+        <ProductSelect item={data.item[dataId]} />
+
+        {/* 상품 페이지 디테일 */}
+        <ProductTabs productType={productType} id={id} item={data.item} />
+      </div>{' '}
     </>
   );
 }
