@@ -33,6 +33,7 @@ const JudsonFont = Judson({
 export default async function QnaInfoPage({ params }: InfoPageProps) {
   const { boardType, id } = await params;
   const res = await getPost(Number(id));
+  console.log('delete', res);
   return (
     <>
       <main className="mb-25">
@@ -55,7 +56,7 @@ export default async function QnaInfoPage({ params }: InfoPageProps) {
             </div>
             <p className="py-10 border-b-1 border-gray-150">{res.item?.content}</p>
             <div className="flex justify-end gap-4 my-3">
-              <Link href={`/my-page/${boardType}/${res.item?.id}/edit`}>
+              <Link href={`/my-page/${boardType}/${res.item?._id}/edit`}>
                 <Button shape="square">수정</Button>
               </Link>
               <DeleteForm boardType={boardType} id={id} />

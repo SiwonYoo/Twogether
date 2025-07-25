@@ -1,16 +1,18 @@
 import QnaEditRegist from '@/app/my-page/[boardType]/[id]/edit/RegistForm';
 import { getPost } from '@/data/functions/post';
 
-export function generateMetadata() {
+export async function generateMetadata({ params }: EditPageProps) {
+  const { boardType } = await params;
   return {
-    title: `Twogether`,
+    title: `${boardType} - Twogether`,
   };
 }
 
 interface EditPageProps {
-  params: Promise<{
+  params: {
+    boardType: string;
     id: string;
-  }>;
+  };
 }
 
 export default async function QnaEdit({ params }: EditPageProps) {

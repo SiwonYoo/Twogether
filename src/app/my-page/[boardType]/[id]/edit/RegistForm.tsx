@@ -10,7 +10,7 @@ import { useActionState, useState } from 'react';
 export default function QnaEditRegist({ post }: { post: Post }) {
   const [postState, formAction] = useActionState(updatePost, null);
   const { user } = useUserStore();
-  const [title, setTitle] = useState('[배송] 배송관련 문의드립니다.');
+  const [title, setTitle] = useState(post.title);
 
   return (
     <main>
@@ -25,7 +25,7 @@ export default function QnaEditRegist({ post }: { post: Post }) {
           </label>
           <select
             className="w-full p-3 mb-4 border-1 rounded-md"
-            value={post.title}
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
             id="question-type"
             name="title"

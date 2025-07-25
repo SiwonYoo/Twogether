@@ -8,9 +8,6 @@ import { useActionState } from 'react';
 export default function DeleteForm({ boardType, id }: { boardType: string; id: string }) {
   const { user } = useUserStore();
   const [state, formAction, isLoading] = useActionState(deletePost, null);
-  console.log(state, isLoading);
-  console.log('boardType :', boardType);
-  console.log('id : ', id);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     if (!window.confirm('정말 삭제하시겠습니까?')) event.preventDefault();

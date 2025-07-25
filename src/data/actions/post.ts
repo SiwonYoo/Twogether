@@ -168,7 +168,7 @@ export async function createReply(state: ApiRes<PostReply> | null, formData: For
   let data: ApiRes<PostReply>;
 
   try {
-    res = await fetch(`${API_URL}/posts/${body._id}/replies`, {
+    res = await fetch(`${API_URL}/posts/${body.id}/replies`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -185,7 +185,7 @@ export async function createReply(state: ApiRes<PostReply> | null, formData: For
   }
 
   if (data.ok) {
-    revalidatePath(`/${body.type}/${body._id}/replies`);
+    revalidatePath(`/${body.type}/${body.id}/replies`);
   }
 
   return data;
