@@ -16,7 +16,7 @@ export interface Product {
 export interface ProductDetails {
   productType: string;
   id: string;
-  item: Product;
+  item: Product[];
 }
 
 // 상품 리스트에 사용되는 요약 타입
@@ -45,7 +45,6 @@ export interface SizeInfoEntry {
   values: string[];
 }
 
-
 // 원단 관련 정보
 export interface FabricInfo {
   label: string;
@@ -56,6 +55,7 @@ export interface FabricInfo {
 // 세탁 정보
 export interface WashingInfo {
   _id: number;
+  imgUrl: string;
   label: string;
 }
 
@@ -63,6 +63,7 @@ export interface WashingInfo {
 export interface Extra {
   isBest: boolean;
   isSale: boolean;
+  salePrice?: number;
   category: string;
   isLike: boolean;
   size: ExtraSize[];
