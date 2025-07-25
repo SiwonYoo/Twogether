@@ -43,7 +43,7 @@ export default function ProductLayout({ productType }: ProductLayoutProps) {
                     productType === item.link ? 'bg-(--color-primary)' : 'bg-(--color-gray-250)'
                   } rounded-full p-4`}
                 >
-                  <Image src={item.image} alt="임시" width={100} height={100} />
+                  <Image src={item.image} alt={item.alt} width={100} height={100} />
                 </p>
                 <p className={`${JudsonFont.className}`}>{item.value}</p>
               </Link>
