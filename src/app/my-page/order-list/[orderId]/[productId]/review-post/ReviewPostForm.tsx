@@ -3,19 +3,19 @@
 import Radio, { RadioItem } from '@/app/my-page/order-list/[orderId]/[productId]/review-post/Radio';
 import Rating from '@/app/my-page/order-list/[orderId]/[productId]/review-post/Rating';
 import Button from '@/components/common/Button';
-import { uploadFiles } from '@/data/actions/file';
 import { createReview } from '@/data/actions/review';
 import useUserStore from '@/stores/useUserStore';
+import { ApiRes } from '@/types';
+import { Review } from '@/types/review';
+import { X } from 'lucide-react';
 import Image from 'next/image';
 import { useActionState, useState } from 'react';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 function ReviewPostForm({ orderId, productId }: { orderId: string; productId: string }) {
-  const [state, formAction, isLoading] = useActionState(createReview, null);
+  const [state, formAction, isLoading] = useActionState(uploadAction, null);
   const user = useUserStore((state) => state.user);
   const [previewFiles, setPreviewFiles] = useState<string[]>([]);
-  const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
+  const [selectedfiles, setSelectedFiles] = useState<File[]>([]);
 
   const heightOptions: RadioItem[] = [
     { value: '150 이하', label: '150 이하' },
@@ -40,21 +40,23 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
     { value: 'L', label: 'L' },
   ];
 
-  // 미리보기 이미지
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const files = event.target.files;
-  //   if (!files) return;
-
-  //   setPreviewFiles(Array.from(files).map((item) => URL.createObjectURL(item)));
-  // };
+  async function uploadAction(prevState: ApiRes<Review> | null, formData: FormData) {
+    formData.delete('attach');
+    selectedfiles.forEach((file: File) => formData.append('attach', file));
+    return await createReview(prevState, formData);
+  }
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (!files) return;
-    const fileRes = await uploadFiles(Array.from(files));
-    console.log(fileRes);
-    if (fileRes.ok) fileRes.item.map((item) => setSelectedFiles([...selectedFiles, item.path]));
-    // setPreviewFiles([...previewFiles, ...Array.from(files).map((item) => URL.createObjectURL(item))]);
+    if (files) {
+      setSelectedFiles((prev) => [...prev, ...Array.from(files)]);
+      setPreviewFiles((prev) => [...prev, ...Array.from(files).map((item) => URL.createObjectURL(item))]);
+    }
+  };
+
+  const handleImageDelete = (idx: number) => {
+    setPreviewFiles((prev) => prev.filter((value, prevIdx) => prevIdx !== idx));
+    setSelectedFiles((prev) => prev.filter((value, prevIdx) => prevIdx !== idx));
   };
 
   return (
@@ -64,7 +66,6 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
         <input type="hidden" name="order_id" value={orderId} />
         <input type="hidden" name="product_id" value={productId} />
         <input type="hidden" name="createdAt" value={'24.11.22'} />
-        <input type="hidden" name="images" value={JSON.stringify(selectedFiles)} />
 
         <Radio legend="키 (선택)" name="height" options={heightOptions} />
         <Radio legend="몸무게 (선택)" name="weight" options={weightOptions} />
@@ -74,33 +75,9 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
           <p className="text-error text-sm mb-1">{state?.ok === 0 && state.errors?.rating && '별점을 등록해 주세요'}</p>
         </Rating>
 
-        {/* <fieldset className="my-6">
-          <legend className="mb-1">사진 등록 (선택)</legend>
-          <label
-            htmlFor="attach"
-            className="inline-block px-6 py-2 m-1 rounded-full text-white text-sm cursor-pointer bg-primary"
-          >
-            사진 선택하기
-          </label>
-          <input
-            id="attach"
-            type="file"
-            name="attach"
-            multiple
-            accept="image/*"
-            onChange={handleFileChange}
-            className="inline-block"
-          />
-        </fieldset>
-        <div className="flex gap-4">
-          {previewFiles.map((item, idx) => (
-            <Image key={idx} src={item} alt={`미리보기-${idx}`} width={36} height={36} className="object-cover" />
-          ))}
-        </div> */}
-
         <fieldset className="my-6">
           <legend className="mb-1">사진 등록 (선택)</legend>
-          <div className="flex gap-1">
+          <div className="flex gap-1 mt-1">
             <label
               htmlFor="attach"
               className="inline-block w-15 h-15 content-center text-center text-3xl text-white  cursor-pointer bg-primary"
@@ -116,22 +93,31 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
               onChange={handleFileChange}
               className="hidden"
             />
-            {selectedFiles.map((item, idx) => (
-              <Image
-                key={idx}
-                src={`${API_URL}/${item}`}
-                alt={`미리보기-${idx}`}
-                width={60}
-                height={60}
-                className="object-cover aspect-square"
-              />
+            {previewFiles.map((item, idx) => (
+              <div key={idx} className="relative">
+                <Image
+                  src={item}
+                  alt={`미리보기-${idx}`}
+                  width={60}
+                  height={60}
+                  className="object-cover aspect-square"
+                />
+                <button
+                  onClick={() => {
+                    handleImageDelete(idx);
+                  }}
+                  className="absolute top-1 right-1 rounded-full bg-black opacity-50"
+                >
+                  <X color="white" size={16} />
+                </button>
+              </div>
             ))}
           </div>
         </fieldset>
 
         <fieldset className="my-6">
-          <legend hidden>상품 후기</legend>
-          <label htmlFor="content" className="mb-1">
+          <legend className="mb-1">상품 후기</legend>
+          <label htmlFor="content" className="sr-only">
             상품 후기
           </label>
           <p className="text-error text-sm mb-1">{state?.ok === 0 && state?.errors?.content?.msg}</p>

@@ -17,22 +17,18 @@ export async function createReview(state: ApiRes<Review> | null, formData: FormD
   let data: ApiRes<Review>;
 
   try {
-    // const attaches = formData.getAll('attach') as File[];
-    // let images;
-    // if (attaches.length > 0) {
-    //   const fileRes = await uploadFiles(attaches);
+    const attaches = formData.getAll('attach') as File[];
+    let images;
+    if (attaches.length > 0) {
+      const fileRes = await uploadFiles(attaches);
 
-    //   if (fileRes.ok) {
-    //     images = fileRes.item.map((item) => item.path);
-    //   } else {
-    //     return fileRes;
-    //   }
-    // }
+      if (fileRes.ok) {
+        images = fileRes.item.map((item) => item.path);
+      } else {
+        return fileRes;
+      }
+    }
 
-    const imagesString = formData.getAll('images');
-    console.log(imagesString);
-    if (typeof imagesString[0] !== 'string') throw Error('이미지 오류');
-    const images: string[] = JSON.parse(imagesString[0]);
     const raw = Object.fromEntries(formData.entries());
 
     const body = {
@@ -61,7 +57,6 @@ export async function createReview(state: ApiRes<Review> | null, formData: FormD
   }
 
   if (data.ok) {
-    // revalidatePath(`/my-page/review`);
     revalidateTag('my-review');
     redirect(`/my-page/review`);
   } else {
@@ -76,13 +71,13 @@ export async function editReview(state: ApiRes<Review> | null, formData: FormDat
   let res: Response;
   let data: ApiRes<Review>;
 
-  const attach = formData.get('attach') as File;
-  let image;
-  if (attach.size > 0) {
-    const fileRes = await uploadFile(formData);
+  const attaches = formData.getAll('attach') as File[];
+  let images;
+  if (attaches.length > 0) {
+    const fileRes = await uploadFiles(attaches);
 
     if (fileRes.ok) {
-      image = fileRes.item[0].path;
+      images = fileRes.item.map((item) => item.path);
     } else {
       return fileRes;
     }
@@ -98,7 +93,7 @@ export async function editReview(state: ApiRes<Review> | null, formData: FormDat
     const body = {
       rating: Number(raw['rating']),
       content: raw['content'],
-      extra: { height: raw['height'], weight: raw['weight'], size: raw['size'], image: image },
+      extra: { height: raw['height'], weight: raw['weight'], size: raw['size'], images: images },
     };
 
     res = await fetch(`${API_URL}/replies/${_id}`, {
