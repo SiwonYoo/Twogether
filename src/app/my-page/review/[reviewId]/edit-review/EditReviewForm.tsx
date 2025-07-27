@@ -12,16 +12,32 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useActionState, useState } from 'react';
 
+type formValueType = {
+  height: string | null;
+  weight: string | null;
+  size: string | null;
+  rating: number | null;
+  content: string | null;
+};
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 function EditReviewForm({ review }: { review: Review }) {
   const [state, formAction, isLoading] = useActionState(uploadAction, null);
   const [initialFiles, setInitialFiles] = useState<string[]>(review.extra.images || []);
   const [previewFiles, setPreviewFiles] = useState<string[]>([]);
-  const [selectedfiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const user = useUserStore((state) => state.user);
   const searchParam = useSearchParams();
   const redirect = searchParam.get('redirect');
+
+  const [formValues, setFormValues] = useState<formValueType>({
+    height: review.extra.height ?? null,
+    weight: review.extra.weight ?? null,
+    size: review.extra.size ?? null,
+    rating: review.rating,
+    content: review.content,
+  });
 
   const heightOptions: RadioItem[] = [
     { value: '150 이하', label: '150 이하' },
@@ -40,7 +56,7 @@ function EditReviewForm({ review }: { review: Review }) {
   ];
 
   const sizeOptions: RadioItem[] = [
-    { value: 'free', label: 'FREE' },
+    { value: 'FREE', label: 'FREE' },
     { value: 'S', label: 'S' },
     { value: 'M', label: 'M' },
     { value: 'L', label: 'L' },
@@ -48,15 +64,17 @@ function EditReviewForm({ review }: { review: Review }) {
 
   async function uploadAction(prevState: ApiRes<Review> | null, formData: FormData) {
     formData.delete('attach');
-    selectedfiles.forEach((file: File) => formData.append('attach', file));
+    selectedFiles.forEach((file: File) => formData.append('attach', file));
     return await editReview(prevState, formData);
   }
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (files) {
+    if (files && files.length < 6 - (initialFiles.length + previewFiles.length)) {
       setSelectedFiles((prev) => [...prev, ...Array.from(files)]);
       setPreviewFiles((prev) => [...prev, ...Array.from(files).map((item) => URL.createObjectURL(item))]);
+    } else {
+      alert('사진은 최대 5장까지 첨부할 수 있습니다.');
     }
   };
 
@@ -69,20 +87,36 @@ function EditReviewForm({ review }: { review: Review }) {
     }
   };
 
+  const inputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
     <>
       <form className="mb-6" action={formAction}>
         <input type="hidden" name="accessToken" value={user?.token?.accessToken || ''} />
         <input type="hidden" name="_id" value={review._id} />
-        <input type="hidden" name="updatedAt" value={'24.11.22'} />
         <input type="hidden" name="redirect" value={redirect || ''} />
         <input type="hidden" name="initialFiles" value={JSON.stringify(initialFiles) || []} />
 
-        <Radio legend="키 (선택)" name="height" options={heightOptions} selected={review?.extra?.height} />
-        <Radio legend="몸무게 (선택)" name="weight" options={weightOptions} selected={review?.extra?.weight} />
-        <Radio legend="사이즈" name="size" options={sizeOptions} selected={review?.extra?.size} />
+        <Radio
+          legend="키 (선택)"
+          name="height"
+          options={heightOptions}
+          selected={formValues.height}
+          inputChange={inputChange}
+        />
+        <Radio
+          legend="몸무게 (선택)"
+          name="weight"
+          options={weightOptions}
+          selected={formValues.weight}
+          inputChange={inputChange}
+        />
+        <Radio legend="사이즈" name="size" options={sizeOptions} selected={formValues.size} inputChange={inputChange} />
 
-        <Rating selected={review?.rating}>
+        <Rating selected={Number(formValues.rating)} inputChange={inputChange}>
           <p className="text-error text-sm mb-1">{state?.ok === 0 && state.errors?.rating && '별점을 등록해 주세요'}</p>
         </Rating>
 
@@ -137,8 +171,10 @@ function EditReviewForm({ review }: { review: Review }) {
             name="content"
             id="content"
             className="p-2 h-60 w-full resize-none rounded-lg bg-gray-150 focus:outline-none focus:border-[1px] focus:border-primary"
-            defaultValue={review?.content}
+            value={formValues.content || ''}
+            onChange={inputChange}
             placeholder="200자 이하로 작성해 주세요."
+            maxLength={200}
           />
         </fieldset>
         <Button type="submit" size="lg">

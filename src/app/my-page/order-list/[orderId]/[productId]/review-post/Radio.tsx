@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-
 export interface RadioItem {
   value: string;
   label: string;
@@ -11,12 +9,11 @@ interface RadioProps extends React.InputHTMLAttributes<HTMLInputElement> {
   legend: string;
   name: string;
   options: RadioItem[];
-  selected?: string;
+  selected: string | null;
+  inputChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
-function Radio({ legend, name, options, selected, ...rest }: RadioProps) {
-  const [isChecked, setChecked] = useState(selected || '');
-
+function Radio({ legend, name, options, selected, inputChange, ...rest }: RadioProps) {
   return (
     <fieldset className="my-6">
       <legend className="mb-1">{legend}</legend>
@@ -24,16 +21,16 @@ function Radio({ legend, name, options, selected, ...rest }: RadioProps) {
         <label
           key={item.value}
           className={`inline-block px-6 py-2 m-1 rounded-full text-sm cursor-pointer border-[.0625rem] border-primary ${
-            isChecked === item.value ? 'bg-primary text-white' : 'bg-white text-primary'
+            selected === item.value ? 'bg-primary text-white' : 'bg-white text-primary'
           }`}
         >
           <input
             type="radio"
             name={name}
             value={item.value}
-            checked={isChecked === item.value}
-            onChange={() => {
-              setChecked(item.value);
+            checked={selected === item.value}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              inputChange(event);
             }}
             className="hidden"
             {...rest}

@@ -31,7 +31,7 @@ function ReviewList() {
   ) : (
     <>
       <div className="flex flex-col gap-4">
-        {reviewList?.map((item) => (
+        {reviewList?.toReversed().map((item) => (
           <ReviewItem key={item._id} setRefreshKey={setRefreshKey} showProductInfo review={item}></ReviewItem>
         ))}
       </div>

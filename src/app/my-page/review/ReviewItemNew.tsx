@@ -53,6 +53,7 @@ function ReviewItem({ setRefreshKey, showProductInfo = false, review }: ReviewIt
       )
     );
   }
+
   return (
     <>
       <div className="p-4 rounded-md border-[.0625rem] border-gray-150">
@@ -67,71 +68,79 @@ function ReviewItem({ setRefreshKey, showProductInfo = false, review }: ReviewIt
             <div className="flex items-center gap-1">
               <span>{review.user.name} 님</span>
               <span className="flex">{ratingStar}</span>
-              <span className="flex-1 text-right text-sm text-gray-250">{review.createdAt}</span>
+              <span className="text-sm text-gray-250">{review.createdAt.split(' ')[0].slice(2)}</span>
             </div>
-            <p className="text-sm text-gray-250">
+            <p className="text-xs text-gray-250">
               {review.extra.height && (
                 <span>
                   키 {review.extra.height}
-                  <span aria-hidden> | </span>
+                  {(review.extra.weight || review.extra.size) && <span aria-hidden> | </span>}
                 </span>
               )}
 
-              {review.extra.height && (
+              {review.extra.weight && (
                 <span>
                   몸무게 {review.extra.weight}
-                  <span aria-hidden> | </span>
+                  {review.extra.size && <span aria-hidden> | </span>}
                 </span>
               )}
-              {review.extra.height && <span>사이즈 {review.extra.size}</span>}
+              {review.extra.size && <span>사이즈 {review.extra.size}</span>}
             </p>
             {review.content.length > 20 ? (
               <div className="flex my-2" onClick={showFullContent}>
-                <span className={`${fullContent ? '' : 'overflow-hidden text-ellipsis line-clamp-2'}`}>
+                <span className={`${fullContent ? '' : 'overflow-hidden text-ellipsis line-clamp-2'} text-justify`}>
                   {review.content}
                 </span>
               </div>
             ) : (
               <p className="my-2">{review.content}</p>
             )}
-            <div className="flex justify-between text-sm">
-              <div>
-                <button className="inline-flex items-center gap-1 mr-2" onClick={showComment}>
-                  댓글 {review.extra.comment?.length ?? 0}
-                  {commentBox ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                </button>
-                <button className="inline-flex items-center gap-1" onClick={fillThumbsUp}>
-                  도움돼요
-                  <ThumbsUp size={16} fill={thumbsUp ? '#2E1F42' : 'none'} />
-                </button>
-              </div>
-              <div>
-                {loginUser?._id === review.user._id && (
-                  <div className="flex">
-                    <Link href={`/my-page/review/${review._id}/edit-review?redirect=${path}`}>수정</Link>
-                    <span aria-hidden className="mx-1">
-                      |
-                    </span>
-                    <ReviewDeleteForm _id={review._id} setRefreshKey={setRefreshKey} />
-                  </div>
-                )}
-              </div>
-            </div>
           </div>
           {review.extra.images && review.extra.images.length > 0 && (
             <>
-              <button onClick={() => setModalOpen(true)}>
+              <button onClick={() => setModalOpen(true)} className="relative self-start">
                 <Image
                   src={`${API_URL}/${review.extra.images[0]}`}
                   alt="리뷰 이미지"
                   width={80}
                   height={80}
-                  className="w-20 max-h-20 aspect-square object-cover rounded-md"
+                  className="w-20 aspect-square object-cover rounded-md"
+                  priority
                 />
+                {review.extra.images.length > 1 && (
+                  <span className="absolute right-0 bottom-0 rounded-br-md rounded-tl-md bg-white text-xs p-0.5">
+                    +{review.extra.images.length - 1}
+                  </span>
+                )}
               </button>
               <ReviewImagesModal images={review.extra.images} isOpen={isModalOpen} setOpen={setModalOpen} />
             </>
           )}
+        </div>
+        <div className="flex justify-between pt-4 text-sm">
+          <div>
+            <button className="inline-flex items-center gap-1 mr-2" onClick={showComment}>
+              댓글 {review.extra.comment?.length ?? 0}
+              {commentBox ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </button>
+            <button className="inline-flex items-center gap-1" onClick={fillThumbsUp}>
+              도움돼요
+              <ThumbsUp size={16} fill={thumbsUp ? '#2E1F42' : 'none'} />
+            </button>
+          </div>
+          <div>
+            {loginUser?._id === review.user._id && (
+              <div className="flex">
+                <Link href={`/my-page/review/${review._id}/edit-review?redirect=${path}`} className="hover:underline">
+                  수정
+                </Link>
+                <span aria-hidden className="mx-1">
+                  |
+                </span>
+                <ReviewDeleteForm _id={review._id} setRefreshKey={setRefreshKey} />
+              </div>
+            )}
+          </div>
         </div>
         <div>
           {commentBox &&

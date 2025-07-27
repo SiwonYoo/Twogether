@@ -11,11 +11,26 @@ import { X } from 'lucide-react';
 import Image from 'next/image';
 import { useActionState, useState } from 'react';
 
+type formValueType = {
+  height: string | null;
+  weight: string | null;
+  size: string | null;
+  rating: number | null;
+  content: string | null;
+};
+
 function ReviewPostForm({ orderId, productId }: { orderId: string; productId: string }) {
   const [state, formAction, isLoading] = useActionState(uploadAction, null);
   const user = useUserStore((state) => state.user);
   const [previewFiles, setPreviewFiles] = useState<string[]>([]);
-  const [selectedfiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [formValues, setFormValues] = useState<formValueType>({
+    height: null,
+    weight: null,
+    size: null,
+    rating: null,
+    content: null,
+  });
 
   const heightOptions: RadioItem[] = [
     { value: '150 이하', label: '150 이하' },
@@ -34,7 +49,7 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
   ];
 
   const sizeOptions: RadioItem[] = [
-    { value: 'free', label: 'FREE' },
+    { value: 'FREE', label: 'FREE' },
     { value: 'S', label: 'S' },
     { value: 'M', label: 'M' },
     { value: 'L', label: 'L' },
@@ -42,15 +57,17 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
 
   async function uploadAction(prevState: ApiRes<Review> | null, formData: FormData) {
     formData.delete('attach');
-    selectedfiles.forEach((file: File) => formData.append('attach', file));
+    selectedFiles.forEach((file: File) => formData.append('attach', file));
     return await createReview(prevState, formData);
   }
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (files) {
+    if (files && files.length < 6 - selectedFiles.length) {
       setSelectedFiles((prev) => [...prev, ...Array.from(files)]);
       setPreviewFiles((prev) => [...prev, ...Array.from(files).map((item) => URL.createObjectURL(item))]);
+    } else {
+      alert('사진은 최대 5장까지 첨부할 수 있습니다.');
     }
   };
 
@@ -59,19 +76,35 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
     setSelectedFiles((prev) => prev.filter((value, prevIdx) => prevIdx !== idx));
   };
 
+  const inputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
     <>
       <form className="mb-6" action={formAction}>
         <input type="hidden" name="accessToken" value={user?.token?.accessToken || ''} />
         <input type="hidden" name="order_id" value={orderId} />
         <input type="hidden" name="product_id" value={productId} />
-        <input type="hidden" name="createdAt" value={'24.11.22'} />
 
-        <Radio legend="키 (선택)" name="height" options={heightOptions} />
-        <Radio legend="몸무게 (선택)" name="weight" options={weightOptions} />
-        <Radio legend="사이즈" name="size" options={sizeOptions} />
+        <Radio
+          legend="키 (선택)"
+          name="height"
+          options={heightOptions}
+          selected={formValues.height}
+          inputChange={inputChange}
+        />
+        <Radio
+          legend="몸무게 (선택)"
+          name="weight"
+          options={weightOptions}
+          selected={formValues.weight}
+          inputChange={inputChange}
+        />
+        <Radio legend="사이즈" name="size" options={sizeOptions} selected={formValues.size} inputChange={inputChange} />
 
-        <Rating>
+        <Rating selected={Number(formValues.rating)} inputChange={inputChange}>
           <p className="text-error text-sm mb-1">{state?.ok === 0 && state.errors?.rating && '별점을 등록해 주세요'}</p>
         </Rating>
 
@@ -103,6 +136,7 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
                   className="object-cover aspect-square"
                 />
                 <button
+                  type="button"
                   onClick={() => {
                     handleImageDelete(idx);
                   }}
@@ -125,8 +159,10 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
             name="content"
             id="content"
             className="p-2 h-60 w-full resize-none rounded-lg bg-gray-150 focus:outline-none focus:border-[.0625rem] focus:border-primary"
-            defaultValue={''}
+            value={formValues.content || ''}
+            onChange={inputChange}
             placeholder="200자 이하로 작성해 주세요."
+            maxLength={200}
           />
         </fieldset>
         <Button type="submit" size="lg">

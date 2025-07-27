@@ -15,7 +15,7 @@ function ReviewDeleteForm({ _id, setRefreshKey }: { _id: number; setRefreshKey: 
     <form action={formAction} onSubmit={handleSubmit}>
       <input type="hidden" name="_id" value={_id} />
       <input type="hidden" name="accessToken" value={user?.token?.accessToken} />
-      <button type="submit" className="hover:underline">
+      <button type="submit" className="hover:underline cursor-pointer">
         삭제
       </button>
     </form>
