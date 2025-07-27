@@ -16,7 +16,7 @@ export async function getMyReview(accessToken: string): ApiResPromise<Review[]> 
         'Client-Id': CLIENT_ID,
         Authorization: `Bearer ${accessToken}`, // 인증 토큰
       },
-      cache: 'force-cache',
+      // cache: 'force-cache',
       next: {
         tags: ['my-review'],
       },

@@ -27,7 +27,8 @@ async function EditReview({ params }: { params: Promise<{ reviewId: number }> })
       <main className="px-4">
         {review !== null && (
           <>
-            {review.product && <ProductItem item={orderList[0].products[review.product._id]} />}
+            {/* TODO dummydata - 주문 내역 데이터 넣을 것 */}
+            {<ProductItem item={orderList[0].products[0]} />}
             <EditReviewForm review={review} />
           </>
         )}

@@ -1,6 +1,6 @@
 'use server';
 
-import { uploadFile, uploadFiles } from '@/data/actions/file';
+import { uploadFiles } from '@/data/actions/file';
 import { ApiRes, ApiResPromise } from '@/types';
 import { Review } from '@/types/review';
 import { revalidateTag } from 'next/cache';
@@ -71,13 +71,16 @@ export async function editReview(state: ApiRes<Review> | null, formData: FormDat
   let res: Response;
   let data: ApiRes<Review>;
 
+  const initialFiles = formData.get('initialFiles') as string;
+  let images: string[] = [];
+  if (initialFiles) images = JSON.parse(initialFiles);
   const attaches = formData.getAll('attach') as File[];
-  let images;
+
   if (attaches.length > 0) {
     const fileRes = await uploadFiles(attaches);
 
     if (fileRes.ok) {
-      images = fileRes.item.map((item) => item.path);
+      fileRes.item.forEach((item) => images?.push(item.path));
     } else {
       return fileRes;
     }

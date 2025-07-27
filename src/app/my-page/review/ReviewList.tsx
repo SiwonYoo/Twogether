@@ -5,12 +5,10 @@ import { Review } from '@/types/review';
 import { getMyReview } from '@/data/functions/review';
 import useUserStore from '@/stores/useUserStore';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 function ReviewList() {
   const [reviewList, setReviewList] = useState<Review[] | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
-  const router = useRouter();
 
   const user = useUserStore((state) => state.user);
   const accessToken = user?.token?.accessToken;
@@ -34,7 +32,7 @@ function ReviewList() {
     <>
       <div className="flex flex-col gap-4">
         {reviewList?.map((item) => (
-          <ReviewItem key={item._id} setRefreshKey={setRefreshKey} showProductInfo {...item}></ReviewItem>
+          <ReviewItem key={item._id} setRefreshKey={setRefreshKey} showProductInfo review={item}></ReviewItem>
         ))}
       </div>
     </>

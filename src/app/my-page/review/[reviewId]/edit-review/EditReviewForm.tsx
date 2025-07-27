@@ -5,12 +5,20 @@ import Rating from '@/app/my-page/order-list/[orderId]/[productId]/review-post/R
 import Button from '@/components/common/Button';
 import { editReview } from '@/data/actions/review';
 import useUserStore from '@/stores/useUserStore';
+import { ApiRes } from '@/types';
 import { Review } from '@/types/review';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useActionState } from 'react';
+import { X } from 'lucide-react';
+import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
+import { useActionState, useState } from 'react';
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 function EditReviewForm({ review }: { review: Review }) {
-  const [state, formAction, isLoading] = useActionState(editReview, null);
+  const [state, formAction, isLoading] = useActionState(uploadAction, null);
+  const [initialFiles, setInitialFiles] = useState<string[]>(review.extra.images || []);
+  const [previewFiles, setPreviewFiles] = useState<string[]>([]);
+  const [selectedfiles, setSelectedFiles] = useState<File[]>([]);
   const user = useUserStore((state) => state.user);
   const searchParam = useSearchParams();
   const redirect = searchParam.get('redirect');
@@ -38,6 +46,29 @@ function EditReviewForm({ review }: { review: Review }) {
     { value: 'L', label: 'L' },
   ];
 
+  async function uploadAction(prevState: ApiRes<Review> | null, formData: FormData) {
+    formData.delete('attach');
+    selectedfiles.forEach((file: File) => formData.append('attach', file));
+    return await editReview(prevState, formData);
+  }
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      setSelectedFiles((prev) => [...prev, ...Array.from(files)]);
+      setPreviewFiles((prev) => [...prev, ...Array.from(files).map((item) => URL.createObjectURL(item))]);
+    }
+  };
+
+  const handleImageDelete = (idx: number) => {
+    if (idx < initialFiles.length) {
+      setInitialFiles((prev) => prev.filter((value, prevIdx) => prevIdx !== idx));
+    } else {
+      setPreviewFiles((prev) => prev.filter((value, prevIdx) => prevIdx !== idx - initialFiles.length));
+      setSelectedFiles((prev) => prev.filter((value, prevIdx) => prevIdx !== idx));
+    }
+  };
+
   return (
     <>
       <form className="mb-6" action={formAction}>
@@ -45,6 +76,7 @@ function EditReviewForm({ review }: { review: Review }) {
         <input type="hidden" name="_id" value={review._id} />
         <input type="hidden" name="updatedAt" value={'24.11.22'} />
         <input type="hidden" name="redirect" value={redirect || ''} />
+        <input type="hidden" name="initialFiles" value={JSON.stringify(initialFiles) || []} />
 
         <Radio legend="키 (선택)" name="height" options={heightOptions} selected={review?.extra?.height} />
         <Radio legend="몸무게 (선택)" name="weight" options={weightOptions} selected={review?.extra?.weight} />
@@ -56,13 +88,43 @@ function EditReviewForm({ review }: { review: Review }) {
 
         <fieldset className="my-6">
           <legend className="mb-1">사진 등록 (선택)</legend>
-          <label
-            htmlFor="attach"
-            className="inline-block px-6 py-2 m-1 rounded-full text-white text-sm cursor-pointer bg-primary"
-          >
-            사진 선택하기
-          </label>
-          <input id="attach" type="file" name="attach" className="inline-block" />
+          <div className="flex gap-1 mt-1">
+            <label
+              htmlFor="attach"
+              className="inline-block w-15 h-15 content-center text-center text-3xl text-white  cursor-pointer bg-primary"
+            >
+              +
+            </label>
+            <input
+              id="attach"
+              type="file"
+              name="attach"
+              multiple
+              accept="image/*"
+              onChange={handleFileChange}
+              className="hidden"
+            />
+            {[...initialFiles, ...previewFiles].map((item, idx) => (
+              <div key={idx} className="relative">
+                <Image
+                  src={idx < initialFiles.length ? `${API_URL}/${item}` : item}
+                  alt={`미리보기-${idx}`}
+                  width={60}
+                  height={60}
+                  className="object-cover aspect-square"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleImageDelete(idx);
+                  }}
+                  className="absolute top-1 right-1 rounded-full bg-black opacity-50"
+                >
+                  <X color="white" size={16} />
+                </button>
+              </div>
+            ))}
+          </div>
         </fieldset>
 
         <fieldset className="my-6">
@@ -80,9 +142,17 @@ function EditReviewForm({ review }: { review: Review }) {
           />
         </fieldset>
         <Button type="submit" size="lg">
-          등록
+          수정
         </Button>
       </form>
+      {isLoading && (
+        <div className="fixed flex h-dvh min-w-[400px] max-w-[768px] mx-auto inset-0 justify-center items-center bg-black/50 z-10">
+          <div className="w-full mb-5 text-center text-white">
+            <p className="text-xl font-bold">등록중입니다.</p>
+            <p>잠시만 기다려주세요.</p>
+          </div>
+        </div>
+      )}
     </>
   );
 }

@@ -133,6 +133,15 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
           등록
         </Button>
       </form>
+
+      {isLoading && (
+        <div className="fixed flex h-dvh min-w-[400px] max-w-[768px] mx-auto inset-0 justify-center items-center bg-black/50 z-10">
+          <div className="w-full mb-5 text-center text-white">
+            <p className="text-xl font-bold">등록중입니다.</p>
+            <p>잠시만 기다려주세요.</p>
+          </div>
+        </div>
+      )}
     </>
   );
 }

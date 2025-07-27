@@ -16,7 +16,7 @@ async function OrderListDetail({ params }: { params: Promise<{ orderId: number }
   const { orderId } = await params;
 
   /* 데이터 가져오는 로직으로 수정하기 */
-  const data = orderList[orderId - 1];
+  const data = orderList[orderId];
 
   return (
     <>
