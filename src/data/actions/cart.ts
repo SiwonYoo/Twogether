@@ -105,3 +105,37 @@ export async function deleteCarts(state: ApiRes<Cart> | null, formData: FormData
 
   return data;
 }
+
+export async function addCart(state: ApiRes<Cart> | null, formData: FormData): ApiResPromise<Cart> {
+  const product_id = formData.get('product_id');
+  const quantity = formData.get('quantity');
+  const accessToken = String(formData.get('accessToken') || '');
+
+  let res: Response;
+  let data: ApiRes<Cart>;
+
+  const url = `${API_URL}/carts`;
+  const body = { product_id: Number(product_id), quantity: Number(quantity) };
+
+  try {
+    res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Client-Id': CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    data = await res.json();
+  } catch (error) {
+    return { ok: 0, message: '일시적인 네트워크 문제로 장바구니 추가에 실패했습니다.' };
+  }
+
+  if (data.ok) {
+    // revalidatePath('/cart');
+  }
+
+  return data;
+}
