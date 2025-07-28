@@ -1,4 +1,4 @@
-import ProductSelect from '@/app/shop/[productType]/[id]PproductSelect';
+import ProductSelect from '@/app/shop/[productType]/[id]/ProductSelect';
 import ProductTabs from '@/app/shop/[productType]/[id]/ProductTabs';
 import ImgSlider from '@/components/common/imgSlider';
 import LinkButton from '@/components/common/LinkButton';
