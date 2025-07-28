@@ -1,17 +1,24 @@
 import ProductCardItemLayout from '@/app/shop/[productType]/ProductCardItemLayout';
 import ProductLayout from '@/components/product/ProductLayout';
-import { getProduct, getProducts } from '@/data/functions/shop';
+import { getProducts } from '@/data/functions/shop';
 import { Metadata } from 'next';
 
 export interface ListPageProps {
   params: Promise<{
     productType: string;
+    id: string;
   }>;
 }
 
 export async function generateMetadata({ params }: ListPageProps): Promise<Metadata> {
-  const { productType } = await params;
-  const data = await getProducts();
+  const { productType, id } = await params;
+  const customQuery = encodeURIComponent(
+    JSON.stringify({
+      _id: id,
+      'extra.category': productType,
+    })
+  );
+  const data = await getProducts(customQuery);
 
   // 타입체크
   if (data.ok === 0) {
@@ -31,27 +38,32 @@ export async function generateMetadata({ params }: ListPageProps): Promise<Metad
 }
 
 export default async function productPage({ params }: ListPageProps) {
-  const { productType } = await params;
-  const data = await getProducts();
+  const { productType, id } = await params;
+  const customQuery = encodeURIComponent(
+    JSON.stringify({
+      _id: id,
+      'extra.category': productType,
+    })
+  );
+  const data = await getProducts(customQuery);
   console.log(data.ok === 1 && data.item);
+
+  if (data.ok === 0) {
+    return (
+      <div>
+        {/* 아래 코드는 테스틀 위한 장치 지워야함 */}
+        <>{data.message}</>
+        {/* 실제 사용자들에게 표시될 화면 */}
+        <></>
+      </div>
+    );
+  }
 
   return (
     <>
       <ProductLayout productType={productType} />
-      {data.ok === 0 && (
-        <div>
-          {/* 아래 코드는 테스틀 위한 장치 지워야함 */}
-          <>{data.message}</>
-          {/* 실제 사용자들에게 표시될 화면 */}
-          <></>
-        </div>
-      )}
 
-      {data.ok === 1 && (
-        <>
-          <ProductCardItemLayout productType={productType} data={data} />
-        </>
-      )}
+      <ProductCardItemLayout productType={productType} data={data.item} />
     </>
   );
 }

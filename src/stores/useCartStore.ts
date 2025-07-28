@@ -1,38 +1,17 @@
 import { create } from 'zustand';
 import { SizeOption } from '@/constants/options';
 import { BASIC_DELIVERY_FEE, DELIVERY_FREE_MIN_PRICE } from '@/constants/money';
+import { Cart } from '@/types/cart';
 
-/**
- * 장바구니의 상품을 나타내는 인터페이스입니다.
- * @interface CartItem
- * @property {string} id - 상품 ID
- * @property {string} name - 상품 이름
- * @property {number} price - 상품 가격
- * @property {number} quantity - 상품 수량
- */
-export interface CartItem {
-  id: string;
-  name: string;
-  option: SizeOption;
-  price: number;
-  discount: number;
-  quantity: number;
-}
-
-/**
- * 장바구니 상태를 관리하는 Zustand 스토어입니다.
- * @interface CartStore
- * @property {CartItem[]} items - 장바구니에 담긴 상품 목록
- * @property {number} totalPrice - 장바구니 총 가격(상품 가격 * 수량의 합계)
- * @property {(item: CartItem) => void} addItem - 장바구니에 상품을 추가하는 함수
- */
 interface CartStore {
-  items: CartItem[];
+  items: Cart[];
   totalPrice: number;
   deliveryFee: number;
-  addItem(item: CartItem): void;
-  deleteItem(id: string, options: SizeOption): void;
-  updateQuantity(id: string, option: SizeOption, quantity: number): void;
+  addItem(item: Cart): void;
+  setItems(items: Cart[]): void;
+  deleteItem(id: number, options: string): void;
+  deleteItemByCartId(id: number): void;
+  updateQuantity(id: number, option: string, quantity: number): void;
 }
 
 /**
@@ -51,7 +30,7 @@ const useCartStore = create<CartStore>((set) => ({
 
       // 장바구니에 같은 상품(id, 옵션 동일)이 있으면 수량만 증가
       for (let i = 0; i < newItems.length; i++) {
-        if (newItems[i].id === item.id && newItems[i].option === item.option) {
+        if (newItems[i].product_id === item.product_id && newItems[i].product.extra.size === item.product.extra.size) {
           newItems[i].quantity += item.quantity;
           isFound = true;
           break;
@@ -66,17 +45,30 @@ const useCartStore = create<CartStore>((set) => ({
       return { items: newItems };
     }),
 
+  setItems: (items) => set({ items }),
+
   deleteItem: (id, option) =>
     set((state) => {
-      const newItems = state.items.filter((item) => !(item.id === id && item.option === option));
+      const newItems = state.items.filter(
+        (item) => !(item.product_id === id && item.product.extra.size[0].text === option)
+      );
 
+      console.log('DeleteItem 실행, newItems : ', newItems);
+      return { items: newItems };
+    }),
+
+  deleteItemByCartId: (id) =>
+    set((state) => {
+      const newItems = state.items.filter((item) => !(item._id === id));
+
+      console.log('DeleteItem 실행, newItems : ', newItems);
       return { items: newItems };
     }),
 
   updateQuantity: (id, option, quantity) =>
     set((state) => {
       const updatedItems = state.items.map((item) =>
-        item.id === id && item.option === option ? { ...item, quantity } : item
+        item.product_id === id && item.product.extra.size[0].text === option ? { ...item, quantity } : item
       );
 
       return {

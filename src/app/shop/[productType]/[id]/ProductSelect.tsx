@@ -33,7 +33,7 @@ export default function ProductSelect({ item }: ProductSelectProps) {
           <div className="flex justify-center items-center border border-(--color-primary) text-center w-1/4  px-6 py-2 bg-(--color-white) relative">
             <LikeButton />
           </div>
-          <ShoppingCartAdd />
+          <ShoppingCartAdd product_id={item._id} quantity={item.quantity} />
           <div className="w-2/3">
             <LinkButton
               href={selectedValue !== '' ? '/order' : ''}

@@ -14,18 +14,24 @@ interface ProductCardItemProps {
 
 export async function generateMetadata({ params }: ProductCardItemProps): Promise<Metadata> {
   const { productType, id } = await params;
-  const data = await getProduct({ productType, id: Number(id) });
-  const dataId = Number(id);
+  const customQuery = encodeURIComponent(
+    JSON.stringify({
+      _id: id,
+      'extra.category': productType,
+    })
+  );
+  const data = await getProduct(customQuery);
+
   // 타입체크
   if (data.ok === 0) {
     return {};
   }
-
+  const product = data.item.find((p) => p._id === Number(id));
   return {
-    title: `${data.item[dataId].name}`,
+    title: `${product?.name}`,
     description: `스타일리시한 ${productType}, 지금 Twogether에서 확인해보세요.`,
     openGraph: {
-      title: `${data.item[dataId].name} - Twogether`,
+      title: `${product?.name} - Twogether`,
       description: `스타일리시한 ${productType}, 지금 Twogether에서 확인해보세요.`,
       url: `/shop/${productType}`,
     },
@@ -34,9 +40,15 @@ export async function generateMetadata({ params }: ProductCardItemProps): Promis
 
 export default async function ProductDetilPage({ params }: ProductCardItemProps) {
   const { productType, id } = await params;
-  // console.log(id);
 
-  const data = await getProduct({ productType, id: Number(id) });
+  const customQuery = encodeURIComponent(
+    JSON.stringify({
+      'extra.category': productType,
+      _id: id,
+    })
+  );
+  const data = await getProduct(customQuery);
+
   if (data.ok === 0) {
     return (
       <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
@@ -51,8 +63,11 @@ export default async function ProductDetilPage({ params }: ProductCardItemProps)
     );
   }
 
-  // console.log(data.ok === 1 && data.item); // 이 데이터 불러오기는 성공
-  const dataId = Number(id);
+  const product = data.item.find((p) => p._id === Number(id));
+
+  if (!product) {
+    return <div>에러가 발생했습니다.</div>;
+  }
 
   return (
     <>
@@ -62,38 +77,36 @@ export default async function ProductDetilPage({ params }: ProductCardItemProps)
       </div>
       {/* 서버통신이 성공이면 나오는 메시지 */}
       <div className="mt-6">
-        <h2 className="text-2xl font-bold">{data.item[dataId].name}</h2>
-        <p className={`mt-4 mb-2 ${data.item[dataId].extra.isSale ? '' : 'text-2xl font-bold'}`}>
-          {data.item[dataId].extra.isSale ? (
+        <h2 className="text-2xl font-bold">{product.name}</h2>
+        <p className={`mt-4 mb-2 ${product.extra.isSale ? '' : 'text-2xl font-bold'}`}>
+          {product.extra.isSale ? (
             <span className="text-(--color-gray-450) line-through decoration-2 decoration-(--color-error)">
-              {data.item[dataId].price} 원
+              {product.price} 원
             </span>
           ) : (
-            `${data.item[dataId].price} 원`
+            `${product.price} 원`
           )}{' '}
         </p>
-        <p className="font-bold text-2xl">
-          {data.item[dataId].extra.isSale ? `${data.item[dataId].extra.salePrice} 원` : ''}
-        </p>
+        <p className="font-bold text-2xl">{product.extra.isSale ? `${product.extra.salePrice} 원` : ''}</p>
         <p className="mt-2 mb-4">
           <span>적립금: </span>
           <span>
-            {Math.floor(data.item[dataId].price * 0.02)} {'(2%)'}
+            {Math.floor(Number(product.price) * 0.02)} {'(2%)'}
           </span>
         </p>
         <p>
           <span>배송금: </span>
           <span>
-            {data.item[dataId].shippingFees}원{' (50,000원 이상 구매시 무료 배송)'}
+            {product.shippingFees}원{' (50,000원 이상 구매시 무료 배송)'}
           </span>
         </p>
 
         {/* 사이즈, 수량 선택 컨포넌트 */}
-        <ProductSelect item={data.item[dataId]} />
+        <ProductSelect item={product} />
 
         {/* 상품 페이지 디테일 */}
-        <ProductTabs productType={productType} id={id} item={data.item} />
-      </div>{' '}
+        <ProductTabs productType={productType} product={product} />
+      </div>
     </>
   );
 }
