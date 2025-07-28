@@ -14,7 +14,10 @@ export async function getPosts(boardType: string): ApiResPromise<Post[]> {
       headers: {
         'Client-Id': CLIENT_ID,
       },
-      cache: 'force-cache',
+      cache: 'force-cache', // force-cache에서 no-store로 바꿔서 게시글 작성 후 목록으로 돌아왔을 때 바로 보이게 가능
+      next: {
+        tags: [`posts?type=${boardType}`],
+      },
     });
     return res.json();
   } catch (error) {
@@ -36,6 +39,9 @@ export async function getPost(_id: number): ApiResPromise<Post> {
         'Client-Id': CLIENT_ID,
       },
       cache: 'force-cache',
+      next: {
+        tags: [`posts/${_id}`],
+      },
     });
     return res.json();
   } catch (error) {
@@ -55,6 +61,10 @@ export async function getReplies(_id: number): ApiResPromise<PostReply[]> {
     const res = await fetch(`${API_URL}/posts/${_id}/replies`, {
       headers: {
         'Client-Id': CLIENT_ID,
+      },
+      cache: 'force-cache',
+      next: {
+        tags: [`posts/${_id}/replies`],
       },
     });
     return res.json();
