@@ -9,7 +9,7 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
 /**
  * user 정보에 맞는 리뷰 목록을 가져옵니다.
  */
-export async function getReview(accessToken: string): ApiResPromise<Review[]> {
+export async function getMyReview(accessToken: string): ApiResPromise<Review[]> {
   try {
     const res = await fetch(`${API_URL}/replies`, {
       headers: {
@@ -41,6 +41,25 @@ export async function getAllReview(): ApiResPromise<Review[]> {
       cache: 'no-store',
     });
 
+    return res.json();
+  } catch (error) {
+    console.error(error);
+    return { ok: 0, message: '일시적인 네트워크 문제로 조회에 실패했습니다.' };
+  }
+}
+
+/**
+ * 리뷰 한 건을 가져옵니다.
+ */
+export async function getReview(_id: number): ApiResPromise<Review[]> {
+  try {
+    const res = await fetch(`${API_URL}/replies/${_id}`, {
+      headers: {
+        'Client-Id': CLIENT_ID,
+      },
+      cache: 'force-cache',
+      next: { tags: [`review/${_id}`] },
+    });
     return res.json();
   } catch (error) {
     console.error(error);
