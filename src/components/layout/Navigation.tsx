@@ -28,7 +28,7 @@ function Navigation() {
             {/* <span>찜</span> */}
           </Link>
           <Link
-            href={user ? '/my-page' : '/login'}
+            href={user ? '/my-page' : '/login?redirect=/my-page'}
             className="flex flex-col justify-center items-center content-center flex-1 h-full"
           >
             <User size={20} />
