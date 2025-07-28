@@ -3,12 +3,13 @@
 import Radio, { RadioItem } from '@/app/my-page/order-list/[orderId]/[productId]/review-post/Radio';
 import Rating from '@/app/my-page/order-list/[orderId]/[productId]/review-post/Rating';
 import Button from '@/components/common/Button';
-import { createReview } from '@/data/actions/review';
+import { editReview } from '@/data/actions/review';
 import useUserStore from '@/stores/useUserStore';
 import { ApiRes } from '@/types';
 import { Review } from '@/types/review';
 import { X } from 'lucide-react';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 import { useActionState, useState } from 'react';
 
 type formValueType = {
@@ -19,17 +20,23 @@ type formValueType = {
   content: string | null;
 };
 
-function ReviewPostForm({ orderId, productId }: { orderId: string; productId: string }) {
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+function EditReviewForm({ review }: { review: Review }) {
   const [state, formAction, isLoading] = useActionState(uploadAction, null);
-  const user = useUserStore((state) => state.user);
+  const [initialFiles, setInitialFiles] = useState<string[]>(review.extra.images || []);
   const [previewFiles, setPreviewFiles] = useState<string[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const user = useUserStore((state) => state.user);
+  const searchParam = useSearchParams();
+  const redirect = searchParam.get('redirect');
+
   const [formValues, setFormValues] = useState<formValueType>({
-    height: null,
-    weight: null,
-    size: null,
-    rating: null,
-    content: null,
+    height: review.extra.height ?? null,
+    weight: review.extra.weight ?? null,
+    size: review.extra.size ?? null,
+    rating: review.rating,
+    content: review.content,
   });
 
   const heightOptions: RadioItem[] = [
@@ -58,12 +65,12 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
   async function uploadAction(prevState: ApiRes<Review> | null, formData: FormData) {
     formData.delete('attach');
     selectedFiles.forEach((file: File) => formData.append('attach', file));
-    return await createReview(prevState, formData);
+    return await editReview(prevState, formData);
   }
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (files && files.length < 6 - selectedFiles.length) {
+    if (files && files.length < 6 - (initialFiles.length + previewFiles.length)) {
       setSelectedFiles((prev) => [...prev, ...Array.from(files)]);
       setPreviewFiles((prev) => [...prev, ...Array.from(files).map((item) => URL.createObjectURL(item))]);
     } else {
@@ -72,8 +79,12 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
   };
 
   const handleImageDelete = (idx: number) => {
-    setPreviewFiles((prev) => prev.filter((value, prevIdx) => prevIdx !== idx));
-    setSelectedFiles((prev) => prev.filter((value, prevIdx) => prevIdx !== idx));
+    if (idx < initialFiles.length) {
+      setInitialFiles((prev) => prev.filter((value, prevIdx) => prevIdx !== idx));
+    } else {
+      setPreviewFiles((prev) => prev.filter((value, prevIdx) => prevIdx !== idx - initialFiles.length));
+      setSelectedFiles((prev) => prev.filter((value, prevIdx) => prevIdx !== idx));
+    }
   };
 
   const inputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -85,8 +96,9 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
     <>
       <form className="mb-6" action={formAction}>
         <input type="hidden" name="accessToken" value={user?.token?.accessToken || ''} />
-        <input type="hidden" name="order_id" value={orderId} />
-        <input type="hidden" name="product_id" value={productId} />
+        <input type="hidden" name="_id" value={review._id} />
+        <input type="hidden" name="redirect" value={redirect || ''} />
+        <input type="hidden" name="initialFiles" value={JSON.stringify(initialFiles) || []} />
 
         <Radio
           legend="키 (선택)"
@@ -126,10 +138,10 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
               onChange={handleFileChange}
               className="hidden"
             />
-            {previewFiles.map((item, idx) => (
+            {[...initialFiles, ...previewFiles].map((item, idx) => (
               <div key={idx} className="relative">
                 <Image
-                  src={item}
+                  src={idx < initialFiles.length ? `${API_URL}/${item}` : item}
                   alt={`미리보기-${idx}`}
                   width={60}
                   height={60}
@@ -150,15 +162,15 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
         </fieldset>
 
         <fieldset className="my-6">
-          <legend className="mb-1">상품 후기</legend>
-          <label htmlFor="content" className="sr-only">
+          <legend hidden>상품 후기</legend>
+          <label htmlFor="content" className="mb-1">
             상품 후기
           </label>
           <p className="text-error text-sm mb-1">{state?.ok === 0 && state?.errors?.content?.msg}</p>
           <textarea
             name="content"
             id="content"
-            className="p-2 h-60 w-full resize-none rounded-lg bg-gray-150 focus:outline-none focus:border-[.0625rem] focus:border-primary"
+            className="p-2 h-60 w-full resize-none rounded-lg bg-gray-150 focus:outline-none focus:border-[1px] focus:border-primary"
             value={formValues.content || ''}
             onChange={inputChange}
             placeholder="200자 이하로 작성해 주세요."
@@ -166,10 +178,9 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
           />
         </fieldset>
         <Button type="submit" size="lg">
-          등록
+          수정
         </Button>
       </form>
-
       {isLoading && (
         <div className="fixed flex h-dvh min-w-[400px] max-w-[768px] mx-auto inset-0 justify-center items-center bg-black/50 z-10">
           <div className="w-full mb-5 text-center text-white">
@@ -182,4 +193,4 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
   );
 }
 
-export default ReviewPostForm;
+export default EditReviewForm;

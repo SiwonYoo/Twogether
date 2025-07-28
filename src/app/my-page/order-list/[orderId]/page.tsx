@@ -1,7 +1,7 @@
+import ProductItem from '@/app/my-page/order-list/[orderId]/ProductItem';
 import { orderList } from '@/app/my-page/order-list/dummydata';
 import LinkButton from '@/components/common/LinkButton';
 import { Metadata } from 'next';
-import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: '주문 상세 조회 - Twogether',
@@ -16,7 +16,7 @@ async function OrderListDetail({ params }: { params: Promise<{ orderId: number }
   const { orderId } = await params;
 
   /* 데이터 가져오는 로직으로 수정하기 */
-  const data = orderList[orderId - 1];
+  const data = orderList[orderId];
 
   return (
     <>
@@ -44,29 +44,8 @@ async function OrderListDetail({ params }: { params: Promise<{ orderId: number }
             </p>
             <div className="flex flex-col gap-4 p-5 rounded-lg border-[.0625rem] border-gray-150 text-sm">
               {data.products.map((item) => (
-                <div
-                  key={item._id}
-                  className="flex gap-4 justify-between items-center pb-4 border-b-[.0625rem] border-gray-150"
-                >
-                  <Image
-                    src={item.image}
-                    width={50}
-                    height={50}
-                    alt={item.name}
-                    className="aspect-square object-cover"
-                  />
-                  <div className="flex-1">
-                    <p className="mb-1">{item.name}</p>
-                    <div className="flex justify-between text-sm">
-                      <span>상품 금액</span>
-                      <p>
-                        <s>
-                          <span className="text-gray-350">{item.price}원</span>
-                        </s>
-                        <span className="ml-1 text-error">{item.price}원</span>
-                      </p>
-                    </div>
-                  </div>
+                <div key={item._id}>
+                  <ProductItem item={item} />
                 </div>
               ))}
             </div>
