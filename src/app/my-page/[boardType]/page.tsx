@@ -11,9 +11,9 @@ const JudsonFont = Judson({
 });
 
 export interface ListPageProps {
-  params: {
+  params: Promise<{
     boardType: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: ListPageProps): Promise<Metadata> {

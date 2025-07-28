@@ -9,10 +9,10 @@ export async function generateMetadata({ params }: EditPageProps) {
 }
 
 interface EditPageProps {
-  params: {
+  params: Promise<{
     boardType: string;
     id: string;
-  };
+  }>;
 }
 
 export default async function QnaEdit({ params }: EditPageProps) {

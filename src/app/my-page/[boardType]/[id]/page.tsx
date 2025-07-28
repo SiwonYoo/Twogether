@@ -6,10 +6,10 @@ import { getPost } from '@/data/functions/post';
 import DeleteForm from '@/app/my-page/[boardType]/[id]/DeleteForm';
 
 interface InfoPageProps {
-  params: {
+  params: Promise<{
     boardType: string;
     id: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: InfoPageProps) {

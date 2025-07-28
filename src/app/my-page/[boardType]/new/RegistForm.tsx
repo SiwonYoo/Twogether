@@ -14,13 +14,6 @@ export default function QnaRegist({ boardType }: { boardType: string }) {
   console.log(isLoading, state);
 
   const { user } = useUserStore();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!user) {
-      router.replace(`/login?redirect=${boardType}/new`);
-    }
-  }, [user]);
 
   return (
     <>
