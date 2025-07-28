@@ -6,10 +6,10 @@ const JudsonFont = Judson({
   weight: '700',
 });
 
-export default function DetailsPage({ id, item }: ProductDetails) {
-  console.log(item);
+export default function DetailsPage({ product }: ProductDetails) {
+
   const defaultSizeLayout = () => {
-    return item[Number(id)].extra.SizeInfo.map((size, sizeIdx) => {
+    return product.extra.SizeInfo.map((size, sizeIdx) => {
       const colCount = size.headers.length;
       return (
         <ul
@@ -33,7 +33,7 @@ export default function DetailsPage({ id, item }: ProductDetails) {
   };
 
   const fabricLayout = () => {
-    return item[Number(id)].extra.FabricInfo.map((fabric, i) => {
+    return product.extra.FabricInfo.map((fabric, i) => {
       // headers 대신 values.length + 1 만큼 칸을 만든다
       return (
         <ul
@@ -68,7 +68,7 @@ export default function DetailsPage({ id, item }: ProductDetails) {
   const washingLayout = () => {
     return (
       <ul className="grid grid-cols-3 text-center  bg-(--color-gray-150) rounded">
-        {item[Number(id)].extra.washingInfo.map((info) => (
+        {product.extra.washingInfo.map((info) => (
           <li key={info._id} className="flex justify-center flex-col items-center px-4 py-2">
             <Image src={info.imgUrl ? info.imgUrl : ''} alt={info.label} width="100" height="100" />
             {info.label}

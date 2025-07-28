@@ -6,9 +6,9 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
 /**
  * Product 정보에 맞는 리뷰 목록을 가져옵니다.
  */
-export async function getProducts(): ApiResPromise<Product[]> {
+export async function getProducts(customQuery: string): ApiResPromise<Product[]> {
   try {
-    const res = await fetch(`${API_URL}/products/`, {
+    const res = await fetch(`${API_URL}/products?custom=${customQuery}`, {
       headers: {
         'Client-Id': CLIENT_ID,
       },
@@ -26,15 +26,10 @@ export async function getProducts(): ApiResPromise<Product[]> {
  * @param {number} _id - 게시글의 고유 ID
  * @returns {Promise<ApiRes<Post>>} - 게시글 상세 정보 응답 객체
  */
-interface getProductProps {
-  productType: string;
-  id: number;
-}
 
-export async function getProduct(data: getProductProps): ApiResPromise<Product[]> {
-  const { productType, id } = data;
+export async function getProduct(customQuery: string): ApiResPromise<Product[]> {
   try {
-    const res = await fetch(`${API_URL}/products/?extra.category=${productType}&_id=${id}`, {
+    const res = await fetch(`${API_URL}/products?customQuery=${customQuery}`, {
       headers: {
         'Client-Id': CLIENT_ID,
       },
