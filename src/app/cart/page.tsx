@@ -3,6 +3,7 @@ import Button from '@/components/common/Button';
 import CartListSection from '@/components/cart/CartListSection';
 import InfoSection from '@/components/cart/InfoSection';
 import PriceDetailsSection from '@/components/cart/PriceDetailsSection';
+import CartForm from '@/components/cart/CartForm';
 
 export const metadata: Metadata = {
   title: '장바구니 - Twogether',
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function CartPage() {
   return (
-    <main className="mx-4 mb-50">
+    <main className="mx-4 mb-4">
       {/* 장바구니 상품 목록 */}
       <CartListSection />
 
@@ -26,9 +27,7 @@ export default function CartPage() {
       <PriceDetailsSection />
 
       {/* 선택 상품 주문 버튼 */}
-      <Button shape="square" bg="light" size="lg">
-        선택상품주문
-      </Button>
+      <CartForm />
     </main>
   );
 }
