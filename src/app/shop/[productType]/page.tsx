@@ -1,6 +1,6 @@
 import ProductCardItemLayout from '@/app/shop/[productType]/ProductCardItemLayout';
 import ProductLayout from '@/components/product/ProductLayout';
-import { getProduct, getProducts } from '@/data/functions/shop';
+import { getProducts } from '@/data/functions/shop';
 import { Metadata } from 'next';
 
 export interface ListPageProps {
