@@ -1,11 +1,17 @@
+'use client';
+
 import { Post } from '@/types/post';
 import Link from 'next/link';
 
-export default async function QnaList({ boardType, post }: { boardType: string; post: Post }) {
+interface Props {
+  post: Post;
+  boardType: string;
+}
+
+export default function QnaList({ post, boardType }: Props) {
   return (
-    <li key={post._id} className="border-b-1 border-b-gray-250">
+    <li className="border-b-1 border-b-gray-250">
       <div className="flex gap-7 my-4">
-        <span>{post._id}</span>
         <Link href={`/my-page/${boardType}/${post._id}`}>
           <span>{post.title}</span>
         </Link>
