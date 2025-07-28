@@ -1,27 +1,57 @@
-import ProductCard from '@/components/product/ProductCard';
+import ProductCardItemLayout from '@/app/shop/[productType]/ProductCardItemLayout';
+import ProductLayout from '@/components/product/ProductLayout';
+import { getProduct, getProducts } from '@/data/functions/shop';
 import { Metadata } from 'next';
 
-// 메타데이터
-export const metadata: Metadata = {
-  title: '상품목록 - Twogether',
-  openGraph: {
-    title: '상품목록 - Twogether',
-    description: '상품 목록을 확인할 수 있는 페이지입니다.',
-    url: '/shop',
-  },
-};
-
-// 페이지 인터페이스
 export interface ListPageProps {
   params: Promise<{
     productType: string;
   }>;
 }
 
-export default async function ProductType() {
+export async function generateMetadata({ params }: ListPageProps): Promise<Metadata> {
+  const { productType } = await params;
+  const data = await getProducts();
+
+  // 타입체크
+  if (data.ok === 0) {
+    return {};
+  }
+
+  // data.ok === 1 일시 동작
+  return {
+    title: `${productType} - Twogether`,
+    description: `스타일리시한 ${productType}, 지금 Twogether에서 확인해보세요.`,
+    openGraph: {
+      title: `${productType} - Twogether`,
+      description: `스타일리시한 ${productType}, 지금 Twogether에서 확인해보세요.`,
+      url: `/shop/${productType}`,
+    },
+  };
+}
+
+export default async function productPage({ params }: ListPageProps) {
+  const { productType } = await params;
+  const data = await getProducts();
+  console.log(data.ok === 1 && data.item);
+
   return (
     <>
-      <ProductCard />
+      <ProductLayout productType={productType} />
+      {data.ok === 0 && (
+        <div>
+          {/* 아래 코드는 테스틀 위한 장치 지워야함 */}
+          <>{data.message}</>
+          {/* 실제 사용자들에게 표시될 화면 */}
+          <></>
+        </div>
+      )}
+
+      {data.ok === 1 && (
+        <>
+          <ProductCardItemLayout productType={productType} data={data} />
+        </>
+      )}
     </>
   );
 }

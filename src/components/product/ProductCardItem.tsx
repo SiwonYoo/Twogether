@@ -1,33 +1,34 @@
-import ImgSlider from '@/components/common/imgSlider';
+import ImagesSwiper from '@/components/product/ImagesSwiper';
 import LikeButton from '@/components/product/LikeButton';
+import { Product } from '@/types/product';
 import Link from 'next/link';
 
-interface ProductCardProps {
-  productTitle: string;
-  price: number;
-  keys?: number;
+interface ProductCardItemProps {
+  productType: string;
+  data: Product[];
 }
-
-/**
- * 제품 카드 컨포넌트입니다. api에서 데이터를 받아와 생성됩니다.
- * @param param0 - 제품의 이름과 가격을 담든 매개변수 입니다.
- * @returns
- */
-export default function ProductCardItem({ productTitle, price, keys }: ProductCardProps) {
+export default function ProductCardItem({ productType, data }: ProductCardItemProps) {
+  console.log(productType);
   return (
     <>
-      <li key={keys}>
-        <ImgSlider />
-        <div className="flex justify-between mt-4">
-          <div className="text-left">
-            <Link href="/">
-              <h3 className="font-bold">{productTitle}</h3>
+      {data.map((item, index) => {
+        return (
+          <li key={index}>
+            <Link href={`/shop/${productType}/${item._id}`}>
+              <ImagesSwiper data={data} height={'31.25rem'} />
             </Link>
-            <p className="text-[.75rem]">{price}</p>
-          </div>
-          <LikeButton />
-        </div>
-      </li>
+            <div className="flex justify-between mt-4">
+              <Link href={`/shop/${productType}/${item._id}`}>
+                <div>
+                  <h3 className="font-bold">{item.name}</h3>
+                  <p className="text-[.75rem]">{item.price}</p>
+                </div>
+              </Link>
+              <LikeButton />
+            </div>
+          </li>
+        );
+      })}
     </>
   );
 }
