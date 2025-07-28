@@ -4,6 +4,9 @@ import { Metadata } from 'next';
 import MyQnaList from './MyQnaList';
 import Button from '@/components/common/Button';
 import Link from 'next/link';
+import Input from '@/components/common/Input';
+import SearchForm from '@/components/common/SearchForm';
+import LinkButton from '@/components/common/LinkButton';
 
 const JudsonFont = Judson({
   subsets: ['latin'],
@@ -14,6 +17,9 @@ export interface ListPageProps {
   params: Promise<{
     boardType: string;
   }>;
+  searchParams: {
+    keyword?: string;
+  };
 }
 
 export async function generateMetadata({ params }: ListPageProps): Promise<Metadata> {
@@ -29,9 +35,10 @@ export async function generateMetadata({ params }: ListPageProps): Promise<Metad
   };
 }
 
-export default async function QnaPage({ params }: ListPageProps) {
+export default async function QnaPage({ params, searchParams }: ListPageProps) {
   const { boardType } = await params;
-  const res = await getPosts(boardType);
+  const { keyword } = await searchParams;
+  const res = await getPosts(boardType, keyword);
 
   return (
     <>
@@ -42,10 +49,11 @@ export default async function QnaPage({ params }: ListPageProps) {
 
       {/* 글 작성 버튼 */}
       <div className="text-right mt-4">
-        <Link href={`/my-page/${boardType}/new`}>
-          <Button shape="square">작성</Button>
-        </Link>
+        <LinkButton href={`/my-page/${boardType}/new`} shape="square">
+          작성
+        </LinkButton>
       </div>
+      <SearchForm />
     </>
   );
 }
