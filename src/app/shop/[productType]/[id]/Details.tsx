@@ -7,6 +7,7 @@ const JudsonFont = Judson({
 });
 
 export default function DetailsPage({ product }: ProductDetails) {
+
   const defaultSizeLayout = () => {
     return product.extra.SizeInfo.map((size, sizeIdx) => {
       const colCount = size.headers.length;

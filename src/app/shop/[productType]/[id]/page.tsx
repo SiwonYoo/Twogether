@@ -14,11 +14,10 @@ interface ProductCardItemProps {
 
 export async function generateMetadata({ params }: ProductCardItemProps): Promise<Metadata> {
   const { productType, id } = await params;
-  const _id = Number(id);
   const customQuery = encodeURIComponent(
     JSON.stringify({
-      'extra.category': productType,
       _id: id,
+      'extra.category': productType,
     })
   );
   const data = await getProduct(customQuery);
@@ -28,7 +27,6 @@ export async function generateMetadata({ params }: ProductCardItemProps): Promis
     return {};
   }
   const product = data.item.find((p) => p._id === Number(id));
-
   return {
     title: `${product?.name}`,
     description: `스타일리시한 ${productType}, 지금 Twogether에서 확인해보세요.`,
@@ -66,11 +64,9 @@ export default async function ProductDetilPage({ params }: ProductCardItemProps)
   }
 
   const product = data.item.find((p) => p._id === Number(id));
-  console.log(product);
 
   if (!product) {
-    // (선택) 에러 처리: 제품이 없을 때 보여줄 UI
-    return <div>해당 상품을 찾을 수 없습니다.</div>;
+    return <div>에러가 발생했습니다.</div>;
   }
 
   return (
@@ -95,7 +91,7 @@ export default async function ProductDetilPage({ params }: ProductCardItemProps)
         <p className="mt-2 mb-4">
           <span>적립금: </span>
           <span>
-            {Math.floor(product.price * 0.02)} {'(2%)'}
+            {Math.floor(Number(product.price) * 0.02)} {'(2%)'}
           </span>
         </p>
         <p>
@@ -110,7 +106,7 @@ export default async function ProductDetilPage({ params }: ProductCardItemProps)
 
         {/* 상품 페이지 디테일 */}
         <ProductTabs productType={productType} product={product} />
-      </div>{' '}
+      </div>
     </>
   );
 }

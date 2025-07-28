@@ -4,16 +4,15 @@ import { Product } from '@/types/product';
 
 interface ProductCardItemLayoutProps {
   productType: string;
-  item: Product[];
+  data: Product[];
 }
 
-export default function ProductCardItemLayout({ productType, item }: ProductCardItemLayoutProps) {
-  
+export default function ProductCardItemLayout({ productType, data }: ProductCardItemLayoutProps) {
   // 1productType이 "best"면 isBest 상품만, 아니면 category로 필터
   const filteredData =
     productType === 'best'
-      ? item.filter((item) => item.extra.isBest)
-      : item.filter((item) => item.extra.category === productType);
+      ? data.filter((item) => item.extra.isBest)
+      : data.filter((item) => item.extra.category === productType);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { ProductDetails } from '@/types/product';
+import { Product, ProductDetails } from '@/types/product';
 import { Judson } from 'next/font/google'; // 구글 폰트 사용
 import Image from 'next/image';
 
@@ -8,14 +8,13 @@ const JudsonFont = Judson({
 });
 
 export default function OverviewPage({ productType, product }: ProductDetails) {
-  const id = product._id;
   return (
     <>
       <div>
         <h2 className={`${JudsonFont.className} font-bold text-4xl text-center text-(--color-primary)`}>Twogether</h2>
         <p className="text-center my-4">{product.content}</p>
         <Image
-          src={`/images/products/${productType}/${id}/model-${product._id}.jpg`}
+          src={`/images/products/${productType}/${product._id}/model-${product._id}.jpg`}
           alt={product.content === '' ? `${product.content}` : ''}
           width="1000"
           height="1197"
@@ -25,19 +24,19 @@ export default function OverviewPage({ productType, product }: ProductDetails) {
           <p>{product.content}</p>
         </div>
         <Image
-          src={`/images/products/${productType}/${id}/model-${product._id + 1}.jpg`}
+          src={`/images/products/${productType}/${product._id}/model-${product._id + 1}.jpg`}
           alt={product.content === '' ? `${product.content}` : ''}
           width="1000"
           height="1197"
         />
         <Image
-          src={`/images/products/${productType}/${id}/model-${product._id + 2}.jpg`}
+          src={`/images/products/${productType}/${product._id}/model-${product._id + 2}.jpg`}
           alt={product.content === '' ? `${product.content}` : ''}
           width="1000"
           height="1197"
         />
         <Image
-          src={`/images/products/${productType}/${id}/model-${product._id + 3}.jpg`}
+          src={`/images/products/${productType}/${product._id}/model-${product._id + 3}.jpg`}
           alt={product.content === '' ? `${product.content}` : ''}
           width="1000"
           height="1197"
