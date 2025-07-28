@@ -69,7 +69,7 @@ export default function CartItemCard({ cartItem, selected = true, onCheckBoxChan
         />
 
         <figure className="shrink-0 self-center">
-          <Image src="/images/products/short-sleeve/01/detail-1.jpg" width="80" height="108" alt="상품 썸네일 이미지" />
+          <Image src="/images/products/shortSleeve/1/detail-1.jpg" width="80" height="108" alt="상품 썸네일 이미지" />
           <figcaption className="sr-only">{cartItem.product.name} 이미지</figcaption>
         </figure>
 
