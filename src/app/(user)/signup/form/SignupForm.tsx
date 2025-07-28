@@ -47,14 +47,14 @@ function SignupForm() {
     const currentEmail = getValues('email');
     if (currentEmail === '') return;
     const res = await checkEmail(currentEmail);
-    console.log(res);
     if (res.ok) setEmailAvailable(true);
     else setEmailAvailable(false);
   };
 
   const onSubmit = async (user: User) => {
-    if (isEmailAvailable !== true) {
+    if (isEmailAvailable === null) {
       alert('이메일 중복 여부를 확인해주세요.');
+      return;
     }
     const res = await signup(user);
     if (res.ok) {

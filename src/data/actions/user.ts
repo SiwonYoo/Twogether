@@ -48,7 +48,6 @@ export async function login(loginData: { email: string; password: string }): Api
       body: JSON.stringify(loginData),
     });
     data = await res.json();
-    console.log(data);
   } catch (error) {
     console.error(error);
     return { ok: 0, message: '일시적인 네트워크 문제가 발생했습니다.' };
