@@ -13,7 +13,7 @@ const JudsonFont = Judson({
   weight: '400',
 });
 
-export default function ProductTabs({ productType, id, item }: ProductDetails) {
+export default function ProductTabs({ productType, product }: ProductDetails) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -33,8 +33,6 @@ export default function ProductTabs({ productType, id, item }: ProductDetails) {
     // 스크롤 위치 고정 옵션 추가
     router.push(`${pathname}?tab=${encodeURIComponent(tab)}`, { scroll: false });
   };
-
-  console.log(item[Number(id)]);
 
   return (
     <div className="mx-4">
@@ -57,12 +55,12 @@ export default function ProductTabs({ productType, id, item }: ProductDetails) {
       <div className="mt-4">
         {activeTab === 'Overview' && (
           <div>
-            <OverviewPage productType={productType} id={id} item={item} />
+            <OverviewPage productType={productType} product={product} />
           </div>
         )}
         {activeTab === 'Details' && (
           <div>
-            <DetailsPage productType={productType} id={id} item={item} />
+            <DetailsPage productType={productType} product={product} />
           </div>
         )}
         {activeTab === 'Review' && (
@@ -72,7 +70,7 @@ export default function ProductTabs({ productType, id, item }: ProductDetails) {
         )}
         {activeTab === 'Q&A' && (
           <div>
-            <QnAPage productType={productType} id={id} item={item} />
+            <QnAPage productType={productType} product={product} />
           </div>
         )}
       </div>

@@ -15,8 +15,7 @@ export interface Product {
 
 export interface ProductDetails {
   productType: string;
-  id: string;
-  item: Product[];
+  product: Product;
 }
 
 // 상품 리스트에 사용되는 요약 타입

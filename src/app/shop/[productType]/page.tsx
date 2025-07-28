@@ -63,7 +63,7 @@ export default async function productPage({ params }: ListPageProps) {
     <>
       <ProductLayout productType={productType} />
 
-      <ProductCardItemLayout productType={productType} item={data.item} />
+      <ProductCardItemLayout productType={productType} data={data.item} />
     </>
   );
 }
