@@ -1,4 +1,4 @@
-import { Product, ProductDetails } from '@/types/product';
+import { ProductDetails } from '@/types/product';
 import { Judson } from 'next/font/google'; // 구글 폰트 사용
 import Image from 'next/image';
 
@@ -7,38 +7,38 @@ const JudsonFont = Judson({
   weight: '700',
 });
 
-
-export default function OverviewPage({ productType, id, item }: ProductDetails) {
+export default function OverviewPage({ productType, product }: ProductDetails) {
+  const id = product._id;
   return (
     <>
       <div>
         <h2 className={`${JudsonFont.className} font-bold text-4xl text-center text-(--color-primary)`}>Twogether</h2>
-        <p className="text-center my-4">{item[Number(id)].content}</p>
+        <p className="text-center my-4">{product.content}</p>
         <Image
-          src={`/images/products/${productType}/${id}/model-${item[Number(id)]._id}.jpg`}
-          alt={item[Number(id)].content === '' ? `${item[Number(id)].content}` : ''}
+          src={`/images/products/${productType}/${id}/model-${product._id}.jpg`}
+          alt={product.content === '' ? `${product.content}` : ''}
           width="1000"
           height="1197"
         />
         <div className="my-6">
-          <h3 className="mb-4">{item[Number(id)].name}</h3>
-          <p>{item[Number(id)].content}</p>
+          <h3 className="mb-4">{product.name}</h3>
+          <p>{product.content}</p>
         </div>
         <Image
-          src={`/images/products/${productType}/${id}/model-${item[Number(id)]._id + 1}.jpg`}
-          alt={item[Number(id)].content === '' ? `${item[Number(id)].content}` : ''}
+          src={`/images/products/${productType}/${id}/model-${product._id + 1}.jpg`}
+          alt={product.content === '' ? `${product.content}` : ''}
           width="1000"
           height="1197"
         />
         <Image
-          src={`/images/products/${productType}/${id}/model-${item[Number(id)]._id + 2}.jpg`}
-          alt={item[Number(id)].content === '' ? `${item[Number(id)].content}` : ''}
+          src={`/images/products/${productType}/${id}/model-${product._id + 2}.jpg`}
+          alt={product.content === '' ? `${product.content}` : ''}
           width="1000"
           height="1197"
         />
         <Image
-          src={`/images/products/${productType}/${id}/model-${item[Number(id)]._id + 3}.jpg`}
-          alt={item[Number(id)].content === '' ? `${item[Number(id)].content}` : ''}
+          src={`/images/products/${productType}/${id}/model-${product._id + 3}.jpg`}
+          alt={product.content === '' ? `${product.content}` : ''}
           width="1000"
           height="1197"
         />
