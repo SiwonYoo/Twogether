@@ -51,12 +51,13 @@ function SignupForm() {
     else setEmailAvailable(false);
   };
 
-  const onSubmit = async (user: User) => {
+  const onSubmit = async (user: SignupForm) => {
     if (isEmailAvailable === null) {
       alert('이메일 중복 여부를 확인해주세요.');
       return;
     }
-    const res = await signup(user);
+    const { checkPassword, ...data } = user;
+    const res = await signup(data);
     if (res.ok) {
       router.replace('/signup/success');
     } else if (!res.ok && res) {
