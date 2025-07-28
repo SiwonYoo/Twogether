@@ -25,8 +25,6 @@ function LoginForm() {
   const {
     register,
     handleSubmit,
-    watch,
-    reset,
     setValue,
     getValues,
     formState: { errors, isValid },
@@ -55,7 +53,6 @@ function LoginForm() {
         email: res.item.email,
         name: res.item.name,
         type: res.item.type,
-        // image
         token: {
           accessToken: res.item.token?.accessToken || '',
           refreshToken: res.item.token?.refreshToken || '',
@@ -66,8 +63,7 @@ function LoginForm() {
       alert('로그인이 완료되었습니다.');
 
       const redirect = searchParam.get('redirect');
-      if (redirect) router.replace(redirect);
-      else router.replace('/');
+      router.replace(redirect || '/');
     } else {
       if (!res?.ok && res?.message) {
         alert('아이디와 비밀번호를 확인해주세요.');
@@ -81,11 +77,6 @@ function LoginForm() {
       setValue('email', '');
     }
     setValue('password', '');
-  };
-
-  const handleTogglePassword = () => {
-    setPasswordVisible((prev) => !prev);
-    setValue('password', watch('password'));
   };
 
   return (
@@ -128,7 +119,9 @@ function LoginForm() {
             />
             <button
               type="button"
-              onClick={handleTogglePassword}
+              onClick={() => {
+                setPasswordVisible((prev) => !prev);
+              }}
               className="absolute right-2 top-[50%] translate-y-[-50%]"
             >
               {isPasswordVisible ? <Eye /> : <EyeOff />}

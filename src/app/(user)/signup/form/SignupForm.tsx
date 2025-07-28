@@ -6,7 +6,7 @@ import { signup } from '@/data/actions/user';
 import { checkEmail } from '@/data/functions/user';
 import { User } from '@/types';
 import { useRouter } from 'next/navigation';
-import { useActionState, useEffect, useState, useTransition } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 type SignupForm = {
