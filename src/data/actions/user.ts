@@ -8,27 +8,18 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
 /**
  * 회원가입 함수
  */
-export async function signup(state: ApiRes<User> | null, formData: FormData): ApiResPromise<User> {
+export async function signup(user: User): ApiResPromise<User> {
   let res: Response;
   let data: ApiRes<User>;
 
   try {
-    const body = {
-      /* 관리자 추가할 경우, form 데이터로 받기 */
-      type: 'user',
-      name: formData.get('name'),
-      email: formData.get('email'),
-      password: formData.get('password'),
-      phone: formData.get('phone'),
-    };
-
     res = await fetch(`${API_URL}/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Client-Id': CLIENT_ID,
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(user),
     });
 
     data = await res.json();
@@ -43,9 +34,7 @@ export async function signup(state: ApiRes<User> | null, formData: FormData): Ap
 /**
  * 로그인 함수
  */
-export async function login(state: ApiRes<User> | null, formData: FormData): ApiResPromise<User> {
-  const body = Object.fromEntries(formData.entries());
-
+export async function login(loginData: { email: string; password: string }): ApiResPromise<User> {
   let res: Response;
   let data: ApiRes<User>;
 
@@ -56,9 +45,10 @@ export async function login(state: ApiRes<User> | null, formData: FormData): Api
         'Content-Type': 'application/json',
         'Client-Id': CLIENT_ID,
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(loginData),
     });
     data = await res.json();
+    console.log(data);
   } catch (error) {
     console.error(error);
     return { ok: 0, message: '일시적인 네트워크 문제가 발생했습니다.' };

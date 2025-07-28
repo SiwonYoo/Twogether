@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 function Login() {
   return (
     <>
-      <main className="mx-4">
+      <main className="mx-4 mb-20">
         <h2 className={`mt-5 text-2xl text-center ${JudsonFont.className}`}>LOGIN</h2>
         <div className="px-4">
           <LoginForm />
