@@ -1,4 +1,3 @@
-import ProductCard from '@/components/product/ProductCard';
 import { Metadata } from 'next';
 import { Judson } from 'next/font/google'; // 구글 폰트 사용
 
@@ -92,7 +91,7 @@ export default function LikePage() {
             return (
               <div key={item.id} className="border-b-1 border-(--color-gray-250) py-2">
                 <h3 className={`font-bold text-2xl ${JudsonFont.className}`}>{item.data}</h3>
-                <ProductCard />
+                {/* 여기에 상품 리스트수가 */}
               </div>
             );
           })}

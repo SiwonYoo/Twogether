@@ -18,22 +18,22 @@ export default function EventSlider() {
   const slideData: slideDataItmeProps[] = [
     {
       id: 1,
-      src: '/images/event/event_1.png',
+      src: '/images/event/event_5.png',
       alt: '오픈 기념 프리미엄 세일! 50% 할인 적용',
     },
     {
       id: 2,
-      src: '/images/event/event_2.png',
+      src: '/images/event/event_6.png',
       alt: '회원가입 이벤트  1만원 적립! 8월 31일 종료됩니다.',
     },
     {
       id: 3,
-      src: '/images/event/event_3.png',
+      src: '/images/event/event_7.png',
       alt: '회원 감사이벤트! 리뷰 작성시 쿠폰 증정합니다. 8월 31일 종료됩니다.',
     },
     {
       id: 4,
-      src: '/images/event/event_4.png',
+      src: '/images/event/event_8.png',
       alt: '맞춤 옷 추천! 스타일을 고르면 옷을 추천해드립니다! 8월 31일 종료됩니다.',
     },
   ];
@@ -46,7 +46,7 @@ export default function EventSlider() {
           loop={true} // 슬라이드 루프
           spaceBetween={0} // 슬라이스 사이 간격
           slidesPerView={1} // 보여질 슬라이스 수
-          onSlideChange={() => console.log('slide change')}
+          // onSlideChange={() => console.log('slide change')}
           autoplay={{
             delay: 3000,
             disableOnInteraction: false, // 사용자 상호작용시 슬라이더 일시 정지 비활성

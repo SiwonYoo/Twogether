@@ -3,7 +3,6 @@ import { Judson } from 'next/font/google'; // 구글 폰트 사용
 
 import EventSlider from '@/app/eventSlider';
 import Button from '@/components/common/Button';
-import ProductCard from '@/components/product/ProductCard';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -55,7 +54,8 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <ProductCard />
+
+          {/* 여기에 상품 리스트추가 */}
         </section>
         {/* 배스트 섹션 종로 */}
 
@@ -80,7 +80,8 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <ProductCard />
+
+          {/* 여기에 상품 리스트추가 */}
         </section>
         {/* 세일 섹션 종료 */}
 
