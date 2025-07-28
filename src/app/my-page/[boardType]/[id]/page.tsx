@@ -4,6 +4,7 @@ import { Judson } from 'next/font/google';
 import Button from '@/components/common/Button';
 import { getPost } from '@/data/functions/post';
 import DeleteForm from '@/app/my-page/[boardType]/[id]/DeleteForm';
+import LinkButton from '@/components/common/LinkButton';
 
 interface InfoPageProps {
   params: Promise<{
@@ -56,9 +57,10 @@ export default async function QnaInfoPage({ params }: InfoPageProps) {
             </div>
             <p className="py-10 border-b-1 border-gray-150">{res.item?.content}</p>
             <div className="flex justify-end gap-4 my-3">
-              <Link href={`/my-page/${boardType}/${res.item?._id}/edit`}>
-                <Button shape="square">수정</Button>
-              </Link>
+              <LinkButton href={`/my-page/${boardType}/${res.item?._id}/edit`} shape="square">
+                수정
+              </LinkButton>
+
               <DeleteForm boardType={boardType} id={id} />
             </div>
             <p className="text-right">* 답변이 달린 후에는 수정이 불가합니다.</p>
@@ -66,11 +68,9 @@ export default async function QnaInfoPage({ params }: InfoPageProps) {
               <p>문의 답변 내용</p>
             </div>
             <div className="mt-40">
-              <Link href={`/my-page/qna`}>
-                <Button shape="square" size="lg">
-                  목록
-                </Button>
-              </Link>
+              <LinkButton href={`/my-page/qna`} shape="square" size="lg">
+                목록
+              </LinkButton>
             </div>
           </>
         )}
