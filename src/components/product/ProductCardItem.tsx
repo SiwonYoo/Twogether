@@ -8,7 +8,6 @@ interface ProductCardItemProps {
   data: Product[];
 }
 export default function ProductCardItem({ productType, data }: ProductCardItemProps) {
-  console.log(productType);
   return (
     <>
       {data.map((item, index) => {
@@ -24,7 +23,7 @@ export default function ProductCardItem({ productType, data }: ProductCardItemPr
                   <p className="text-[.75rem]">{item.price}</p>
                 </div>
               </Link>
-              <LikeButton />
+              <LikeButton id={Number(item._id)} />
             </div>
           </li>
         );
