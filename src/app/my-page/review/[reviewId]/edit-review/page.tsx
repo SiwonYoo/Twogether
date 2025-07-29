@@ -5,14 +5,19 @@ import { getReview } from '@/data/functions/review';
 import { Review } from '@/types/review';
 import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: '리뷰 수정 - Twogether',
-  openGraph: {
+export async function generateMetadata({ params }: { params: Promise<{ reviewId: number }> }): Promise<Metadata> {
+  const { reviewId } = await params;
+  return {
     title: '리뷰 수정 - Twogether',
-    description: '리뷰 수정',
-    url: '/my-page/review/[reviewId]/edit-review',
-  },
-};
+    description: 'Twogether의 리뷰 수정 페이지입니다.',
+
+    openGraph: {
+      title: '리뷰 수정 - Twogether',
+      description: 'Twogether의 리뷰 수정 페이지입니다.',
+      url: `/my-page/review/${reviewId}/edit-review`,
+    },
+  };
+}
 
 async function EditReview({ params }: { params: Promise<{ reviewId: number }> }) {
   const { reviewId } = await params;

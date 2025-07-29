@@ -2,10 +2,12 @@ import VerifyForm from '@/app/my-page/edit-profile/verify/VerifyForm';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '회원 정보 수정 - Twogether',
+  title: '개인 정보 수정 - Twogether',
+  description: 'Twogether의 개인 정보 수정 페이지입니다.',
+
   openGraph: {
-    title: '회원 정보 수정 - Twogether',
-    description: '회원 정보 수정 본인 확인',
+    title: '개인 정보 수정 - Twogether',
+    description: 'Twogether의 개인 정보 수정 페이지입니다.',
     url: '/my-page/edit-profile/verify',
   },
 };

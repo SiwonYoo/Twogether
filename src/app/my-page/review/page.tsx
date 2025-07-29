@@ -3,9 +3,11 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: '내가 쓴 리뷰 - Twogether',
+  description: 'Twogether의 내가 쓴 리뷰 페이지입니다.',
+
   openGraph: {
     title: '내가 쓴 리뷰 - Twogether',
-    description: '내가 쓴 리뷰',
+    description: 'Twogether의 내가 쓴 리뷰 페이지입니다.',
     url: '/my-page/review',
   },
 };
