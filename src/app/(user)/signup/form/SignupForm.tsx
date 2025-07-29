@@ -31,7 +31,7 @@ function SignupForm() {
     handleSubmit,
     watch,
     getValues,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<SignupForm>({
     mode: 'onTouched',
     criteriaMode: 'firstError',
@@ -172,6 +172,7 @@ function SignupForm() {
         </fieldset>
         <div className="flex gap-4 mt-11">
           <Button
+            type="button"
             onClick={() => {
               router.replace('/signup/terms');
             }}
@@ -181,7 +182,13 @@ function SignupForm() {
           >
             이전
           </Button>
-          <Button type="submit" shape="square" size="lg">
+          <Button
+            type="submit"
+            shape="square"
+            size="lg"
+            bg={`${!isValid ? 'disabled' : 'primary'}`}
+            disabled={!isValid ? true : false}
+          >
             회원가입
           </Button>
         </div>

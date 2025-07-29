@@ -25,15 +25,15 @@ function EditProfileForm() {
     handleSubmit,
     reset,
     resetField,
+    trigger,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<EditProfileType>({
     mode: 'onTouched',
     criteriaMode: 'firstError',
   });
 
   const onSubmit = async (editData: EditProfileType) => {
-    /* 데이터 전송 */
     if (!user) return;
 
     let res: ApiRes<EditProfileType>;
@@ -56,6 +56,11 @@ function EditProfileForm() {
       reset({ accessToken: user.token?.accessToken, _id: user._id, name: user.name, phone: user.phone });
     }
   }, [user]);
+
+  useEffect(() => {
+    // isPasswordEditable 변화 시 유효성 재검사를 위해 항상 valid한 _id 필드를 트리거한다.
+    trigger('_id');
+  }, [isPasswordEditable]);
 
   const handleReset = (field: 'name' | 'phone') => {
     if (!user) return;
@@ -149,6 +154,7 @@ function EditProfileForm() {
                 placeholder="영문, 숫자 포함 6자 이상 12자 이하"
                 autoComplete="new-password"
                 {...register('password', {
+                  required: isPasswordEditable && '새 비밀번호를 입력해주세요.',
                   pattern: {
                     value: passwordExp,
                     message: '영문/숫자 6자 이상 12자 이하로 입력해주세요.',
@@ -168,6 +174,7 @@ function EditProfileForm() {
                 placeholder="비밀번호를 다시 한 번 입력해 주세요."
                 autoComplete="off"
                 {...register('checkPassword', {
+                  required: isPasswordEditable && '비밀번호를 확인해주세요.',
                   validate: (value) => value === watch('password') || '비밀번호가 일치하지 않습니다.',
                 })}
               />
@@ -175,7 +182,14 @@ function EditProfileForm() {
             </div>
           )}
         </fieldset>
-        <Button type="submit" bg="white" shape="square" size="lg">
+
+        <Button
+          type="submit"
+          shape="square"
+          size="lg"
+          bg={`${!isValid ? 'disabled' : 'white'}`}
+          disabled={!isValid ? true : false}
+        >
           완료
         </Button>
       </form>
