@@ -1,34 +1,44 @@
 'use client';
 
+import { PostLikeList } from '@/data/actions/like';
+import useUserStore from '@/stores/useUserStore';
+import { ApiRes, LikeItem } from '@/types';
 import { Heart } from 'lucide-react';
-import { useState } from 'react';
+import { startTransition, useActionState } from 'react';
 
-export default function LikeButton() {
-  const [state, setState] = useState(false);
-  const [likeText, setLikeText] = useState(true);
+interface LikeButtonProps {
+  id: number;
+}
 
-  const btnClick = () => {
-    setState(!state);
-    setLikeText(!likeText);
-    console.log('제품 찜 완료');
+export default function LikeButton({ id }: LikeButtonProps) {
+  const { user } = useUserStore();
+  const initialState: ApiRes<LikeItem[], never> = {
+    ok: 1,
+    item: [],
   };
 
-  if (likeText === false) {
-    setTimeout(() => {
-      setLikeText(!likeText);
-    }, 1500);
-  }
+  const token = user?.token?.accessToken;
+  const [state, formAction, isPending] = useActionState(async () => {
+    return await PostLikeList(id, String(token));
+  }, initialState);
+  console.log('state', state);
+  console.log('isPending', isPending);
+
+  const add = () =>
+    startTransition(() => {
+      formAction();
+    });
 
   return (
     <>
-      <button onClick={btnClick}>
+      <button onClick={add} disabled={isPending}>
         <Heart fill={state ? '#F44336' : 'none'} stroke={state ? 'none' : '#F44336'} />
       </button>
       <div
         className="absolute left-1/2 -top-[2.5rem] w-full -translate-x-1/2 bg-(--color-white) p-2 rounded-2xl shadow-2xl"
-        hidden={likeText}
+        hidden={!state}
       >
-        {state === true ? <p>찜 완료!</p> : <p>찜 삭제</p>}
+        {state ? <p>찜 완료!</p> : <p>찜 삭제</p>}
       </div>
     </>
   );
