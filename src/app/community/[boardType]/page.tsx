@@ -1,5 +1,6 @@
 import EventList from '@/app/community/EventList';
 import NoticeList from '@/app/community/NoticeList';
+import SearchForm from '@/components/common/SearchForm';
 import { getPosts } from '@/data/functions/post';
 import { Metadata } from 'next';
 
@@ -23,11 +24,15 @@ export interface ListPageProps {
   params: Promise<{
     boardType: string;
   }>;
+  searchParams: {
+    keyword?: string;
+  };
 }
 
-export default async function CommunityPage({ params }: ListPageProps) {
+export default async function CommunityPage({ params, searchParams }: ListPageProps) {
   const { boardType } = await params;
-  const res = await getPosts(boardType);
+  const { keyword } = await searchParams;
+  const res = await getPosts(boardType, keyword);
 
   const isNoticeBoard = boardType === 'notice';
   const isEventBoard = boardType === 'event';
@@ -59,6 +64,9 @@ export default async function CommunityPage({ params }: ListPageProps) {
             <p>{res.message}</p>
           ))}
       </ul>
+      <div className="mb-20">
+        <SearchForm />
+      </div>
     </>
   );
 }

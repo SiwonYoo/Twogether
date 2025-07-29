@@ -41,7 +41,7 @@ export default function QnaEditRegist({ post }: { post: Post }) {
           <textarea
             id="qna-content"
             defaultValue={post.content}
-            className="w-full h-100 resize-none bg-gray-150"
+            className="w-full h-100 px-1 resize-none bg-gray-150"
             name="content"
           />
           <p className="text-primary">{postState?.ok === 0 && postState.errors?.content?.msg}</p>

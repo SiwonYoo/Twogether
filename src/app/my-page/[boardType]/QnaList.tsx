@@ -19,7 +19,6 @@ export default function QnaList({ post, boardType }: Props) {
       <div className="flex gap-4 text-sm">
         <span>{post.user.name}</span>
         <span>{post.createdAt}</span>
-        <span>조회 {post.views}</span>
       </div>
     </li>
   );
