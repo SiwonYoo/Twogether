@@ -4,7 +4,6 @@ import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
 import { signup } from '@/data/actions/user';
 import { checkEmail } from '@/data/functions/user';
-import { User } from '@/types';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -164,7 +163,7 @@ function SignupForm() {
                 required: '휴대폰 번호를 입력해주세요.',
                 pattern: {
                   value: phoneExp,
-                  message: '숫자로 11자 입력해주세요.',
+                  message: '휴대폰 번호 양식에 맞지 않습니다.',
                 },
               })}
             />

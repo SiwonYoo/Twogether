@@ -52,6 +52,7 @@ function LoginForm() {
         _id: res.item._id,
         email: res.item.email,
         name: res.item.name,
+        phone: res.item.phone,
         type: res.item.type,
         token: {
           accessToken: res.item.token?.accessToken || '',

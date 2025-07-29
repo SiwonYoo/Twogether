@@ -14,3 +14,12 @@ export interface User {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface EditProfileType {
+  accessToken: string;
+  _id: number;
+  name: string;
+  phone: string;
+  password?: string;
+  checkPassword?: string;
+}
