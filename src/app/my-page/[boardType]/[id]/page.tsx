@@ -37,7 +37,7 @@ export default async function QnaInfoPage({ params }: InfoPageProps) {
   console.log('delete', res);
   return (
     <>
-      <main className="mb-25">
+      <main className="mb-25 mx-4">
         <div className="flex justify-center items-center relative">
           <Link href={`/my-page/qna`}>
             <ChevronLeft className="absolute left-4 bottom-2 cursor-pointer" />
