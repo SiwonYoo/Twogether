@@ -23,7 +23,10 @@ function Navigation() {
             <House size={20} />
             {/* <span>HOME</span> */}
           </Link>
-          <Link href="/like" className="flex flex-col justify-center items-center content-center flex-1 h-full">
+          <Link
+            href={user ? '/like' : '/login'}
+            className="flex flex-col justify-center items-center content-center flex-1 h-full"
+          >
             <Heart size={20} />
             {/* <span>찜</span> */}
           </Link>
