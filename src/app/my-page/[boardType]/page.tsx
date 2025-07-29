@@ -41,19 +41,19 @@ export default async function QnaPage({ params, searchParams }: ListPageProps) {
   const res = await getPosts(boardType, keyword);
 
   return (
-    <>
+    <main className="mx-4">
       <h2 className={`${JudsonFont.className} text-2xl text-center`}>Q&A</h2>
 
       {/* 로그인한 유저의 게시글만 필터링해서 보여주는 컴포넌트 */}
       {res.ok ? <MyQnaList posts={res.item} boardType={boardType} /> : <p className="text-red-500">{res.message}</p>}
 
       {/* 글 작성 버튼 */}
-      <div className="text-right mt-4">
+      <div className="text-right mt-4 mx-4">
         <LinkButton href={`/my-page/${boardType}/new`} shape="square">
           작성
         </LinkButton>
       </div>
       <SearchForm />
-    </>
+    </main>
   );
 }
