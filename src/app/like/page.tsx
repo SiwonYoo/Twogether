@@ -1,14 +1,6 @@
 // TODO 나중에 로그인 정보가 들어오면 로그인 확인 페이지로 변경해야함.
-import LikePageApi from '@/app/like/LikePageApi';
-import LinkButton from '@/components/common/LinkButton';
-import { getProducts } from '@/data/functions/shop';
+import LikePageIsUser from '@/app/like/LikePageIsUser';
 import { Metadata } from 'next';
-import { Judson } from 'next/font/google';
-
-const JudsonFont = Judson({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-});
 
 export const metadata: Metadata = {
   title: '찜 - Twogether',
@@ -19,27 +11,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function LikePage() {
-  const data = await getProducts();
-
-  // 서버연결이 어려울때 나오는 컨포넌트
-  if (data.ok === 0) {
-    return (
-      <div className="flex justify-center items-center flex-col bg-(--color-gray-150) p-6 rounded-2xl">
-        <h2 className="font-bold text-2xl">고객님 죄송합니다</h2>
-        <p className="mt-2">서버 이슈로 인해 찜한 상품을 불러오지 못했습니다</p>
-        <p className="mt-2">조금 있다가 시도해주시길 바랍니다.</p>
-        <p className="mt-2">Twogether 이용에 불편을 드려 죄송합니다.</p>
-        <LinkButton href="/">홈 화면 바로가기</LinkButton>
-      </div>
-    );
-  }
-
-  // 서버연결이 원할할때 나오는 컨포넌트
+export default function LikePage() {
   return (
-    <main className="mx-4">
-      <h2 className={`font-bold text-4xl text-center ${JudsonFont.className}`}>LIKE</h2>
-      <LikePageApi item={data.item} />
-    </main>
+    <>
+      <LikePageIsUser />
+    </>
   );
 }
