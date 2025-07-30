@@ -6,7 +6,7 @@ import { Metadata } from 'next';
 export interface ListPageProps {
   params: Promise<{
     productType: string;
-    id: string;
+    id: number;
   }>;
 }
 
