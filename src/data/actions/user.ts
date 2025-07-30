@@ -1,6 +1,7 @@
 'use server';
 
-import { ApiRes, ApiResPromise, EditProfileType, User } from '@/types';
+import { uploadFile } from '@/data/actions/file';
+import { ApiRes, ApiResPromise, EditProfileImageType, EditProfileType, LoginDataType, User } from '@/types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
@@ -34,7 +35,7 @@ export async function signup(user: User): ApiResPromise<User> {
 /**
  * 로그인 함수
  */
-export async function login(loginData: { email: string; password: string }): ApiResPromise<User> {
+export async function login(loginData: LoginDataType): ApiResPromise<User> {
   let res: Response;
   let data: ApiRes<User>;
 
@@ -80,5 +81,52 @@ export async function editProfile(editData: EditProfileType): ApiResPromise<Edit
     console.error(error);
     return { ok: 0, message: '일시적인 네트워크 문제가 발생했습니다.' };
   }
+  return data;
+}
+
+export async function editProfileImage({
+  _id,
+  imageFile,
+  accessToken,
+}: EditProfileImageType): ApiResPromise<{ image: string | null }> {
+  let res: Response;
+  let data: ApiRes<{ image: string | null }>;
+
+  try {
+    let body: { image: string | null };
+
+    if (!imageFile) {
+      body = { image: null };
+    } else {
+      const formData = new FormData();
+      formData.append('attach', imageFile);
+
+      let imagePath: string;
+      const fileRes = await uploadFile(formData);
+      if (fileRes.ok) {
+        imagePath = fileRes.item[0].path;
+      } else {
+        return fileRes;
+      }
+
+      body = { image: imagePath };
+    }
+
+    res = await fetch(`${API_URL}/users/${_id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Client-Id': CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    data = await res.json();
+  } catch (error) {
+    console.error(error);
+    return { ok: 0, message: '일시적인 네트워크 문제가 발생했습니다.' };
+  }
+
   return data;
 }

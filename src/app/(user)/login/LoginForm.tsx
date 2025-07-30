@@ -54,6 +54,7 @@ function LoginForm() {
         name: res.item.name,
         phone: res.item.phone,
         type: res.item.type,
+        image: res.item.image,
         token: {
           accessToken: res.item.token?.accessToken || '',
           refreshToken: res.item.token?.refreshToken || '',
