@@ -1,25 +1,27 @@
 import { LucideSearch } from 'lucide-react';
 
 interface ShippingDetailsSectionProps {
-  shippingData: {
-    name: string;
-    address: string;
-    phone: string;
-  };
+  name?: string;
+  address?: string;
+  phone?: string;
 }
 
-export default function ShippingDetailsSection({ shippingData }: ShippingDetailsSectionProps) {
+export default function ShippingDetailsSection({
+  name = '김멋사',
+  address = '서울 종로구 종로3길 17 D1동 16층, 17층[03155]',
+  phone = '010-1234-5678',
+}: ShippingDetailsSectionProps) {
   return (
     <section className="flex flex-col gap-6">
       <h2 className="text-lg">배송지</h2>
 
       <article className="flex flex-col gap-1 shadow rounded-2xl bg-[#ffffff] px-3 py-4">
         <div className="flex flex-row gap-3">
-          <p>김멋사</p>
-          <p>010-1234-5678</p>
+          <p>{name}</p>
+          <p>{phone}</p>
         </div>
         <div className="flex flex-row justify-between mb-6">
-          <p>서울 종로구 종로3길 17 D1동 16층, 17층[03155]</p>
+          <p>{address}</p>
           <LucideSearch />
         </div>
         <div>
