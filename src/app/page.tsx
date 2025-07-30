@@ -6,6 +6,7 @@ import Button from '@/components/common/Button';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import ProductMainPage from '@/app/ProductMainPage';
 
 const JudsonFont = Judson({
   subsets: ['latin'],
@@ -56,6 +57,9 @@ export default function Home() {
           </div>
 
           {/* 여기에 상품 리스트추가 */}
+          <ul className="grid grid-cols-2 gap-4 my-6">
+            <ProductMainPage category="best" />
+          </ul>
         </section>
         {/* 배스트 섹션 종로 */}
 
@@ -81,7 +85,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 여기에 상품 리스트추가 */}
+          <ul className="grid grid-cols-2 gap-4 my-6">
+            <ProductMainPage category="sale" />
+          </ul>
         </section>
         {/* 세일 섹션 종료 */}
 
