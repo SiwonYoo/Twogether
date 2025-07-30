@@ -6,9 +6,11 @@ import OrderFetcher from '@/app/my-page/order-list/OrderFetcher';
 
 export const metadata: Metadata = {
   title: '주문 내역 - Twogether',
+  description: 'Twogether의 주문 내역 확인 페이지입니다.',
+
   openGraph: {
     title: '주문 내역 - Twogether',
-    description: '주문 내역',
+    description: 'Twogether의 주문 내역 확인 페이지입니다.',
     url: '/my-page/order-list',
   },
 };

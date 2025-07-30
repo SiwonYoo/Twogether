@@ -4,9 +4,11 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: '마이페이지 - Twogether',
+  description: 'Twogether의 마이페이지입니다.',
+
   openGraph: {
     title: '마이페이지 - Twogether',
-    description: '마이페이지',
+    description: 'Twogether의 마이페이지입니다.',
     url: '/my-page',
   },
 };

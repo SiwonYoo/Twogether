@@ -3,10 +3,10 @@
 import Button from '@/components/common/Button';
 import { Judson } from 'next/font/google';
 import { ChevronRight } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import useUserStore from '@/stores/useUserStore';
 import { useRouter } from 'next/navigation';
+import EditProfileImage from '@/app/my-page/EditProfileImage';
 
 const JudsonFont = Judson({
   subsets: ['latin'],
@@ -22,13 +22,7 @@ function MypageMain() {
     <>
       <div className="flex flex-col gap-4 mb-20">
         <div className="flex flex-row gap-4 items-center">
-          <Image
-            src="/images/model/main-model2.png"
-            width={44}
-            height={44}
-            alt="프로필 이미지"
-            className="aspect-square rounded-full object-cover"
-          />
+          <EditProfileImage />
           <span>{user?.name} 님</span>
         </div>
         <div className="flex justify-between items-center p-5 rounded-lg border-[.0625rem] border-gray-150 text-sm">

@@ -2,6 +2,7 @@ import LoginForm from '@/app/(user)/login/LoginForm';
 import LinkButton from '@/components/common/LinkButton';
 import { Metadata } from 'next';
 import { Judson } from 'next/font/google';
+import { Suspense } from 'react';
 
 const JudsonFont = Judson({
   subsets: ['latin'],
@@ -10,9 +11,11 @@ const JudsonFont = Judson({
 
 export const metadata: Metadata = {
   title: '로그인 - Twogether',
+  description: 'Twogether에 로그인하고 나만의 스타일을 찾아보세요.',
+
   openGraph: {
     title: '로그인 - Twogether',
-    description: '로그인',
+    description: 'Twogether에 로그인하고 나만의 스타일을 찾아보세요.',
     url: '/login',
   },
 };
@@ -20,10 +23,12 @@ export const metadata: Metadata = {
 function Login() {
   return (
     <>
-      <main className="mx-4">
+      <main className="mx-4 mb-20">
         <h2 className={`mt-5 text-2xl text-center ${JudsonFont.className}`}>LOGIN</h2>
         <div className="px-4">
-          <LoginForm />
+          <Suspense>
+            <LoginForm />
+          </Suspense>
 
           <LinkButton href="/signup/terms" shape="square" size="lg" bg="secondary">
             회원가입
