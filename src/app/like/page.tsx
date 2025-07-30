@@ -1,4 +1,3 @@
-// TODO 나중에 로그인 정보가 들어오면 로그인 확인 페이지로 변경해야함.
 import LikePageIsUser from '@/app/like/LikePageIsUser';
 import { Metadata } from 'next';
 
