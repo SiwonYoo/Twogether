@@ -17,9 +17,9 @@ export interface ListPageProps {
   params: Promise<{
     boardType: string;
   }>;
-  searchParams: {
+  searchParams: Promise<{
     keyword?: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: ListPageProps): Promise<Metadata> {

@@ -24,9 +24,9 @@ export interface ListPageProps {
   params: Promise<{
     boardType: string;
   }>;
-  searchParams: {
+  searchParams: Promise<{
     keyword?: string;
-  };
+  }>;
 }
 
 export default async function CommunityPage({ params, searchParams }: ListPageProps) {
