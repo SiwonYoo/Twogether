@@ -34,7 +34,7 @@ export default function ProductCardItem({ productType, Itemid, data }: ProductCa
             </Link>
             <div className="flex justify-between mt-4">
               <Link href={`/shop/${productType}/${item._id}`}>
-                <div>
+                <div className="text-left">
                   <h3 className="font-bold">{item.name}</h3>
                   <p className="text-[.75rem]">{item.price}</p>
                 </div>
