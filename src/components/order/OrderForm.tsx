@@ -4,19 +4,22 @@ import { FormEvent, useState } from 'react';
 import Button from '@/components/common/Button';
 import ShippingDetailsSection from '@/components/order/ShippingDetailsSection';
 import OrderListSection from '@/components/order/OrderListSection';
+import PriceDetailsSection from '@/components/cart/PriceDetailsSection';
 import PaymentOptionSection from '@/components/order/PaymentOptionSection';
 import TermsSection from '@/components/order/TermsSection';
 import { TermInfo } from '@/components/order/TermsSection';
+import useCartStore from '@/stores/useCartStore';
+import useUserStore from '@/stores/useUserStore';
+import { addOrder } from '@/data/actions/order';
+import { useActionState } from 'react';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { deleteCarts } from '@/data/actions/cart';
 
-interface CartFormProps {
-  shippingData: {
-    name: string;
-    address: string;
-    phone: string;
-  };
-}
+const ADDRESS_NAME = '집';
+const ADDRESS_VALUE = '서울 종로구 종로3길 17 D1동 16층, 17층[03155]';
 
-export default function OrderForm({ shippingData }: CartFormProps) {
+export default function OrderForm() {
   // 결제 방법 상태 관리
   const [selectedPayment, setSelectedPayment] = useState<'credit' | 'bank'>('credit');
 
@@ -61,20 +64,48 @@ export default function OrderForm({ shippingData }: CartFormProps) {
   // 필수 약관이 모두 동의됐는지 (required가 true인 항목(=필수 동의 약관)들이 checkedTerms에서 모두 true인지 검증!)
   const allRequiredChecked = termInfos.filter((term) => term.required).every((term) => checkedTerms[term.title]);
 
-  const submitOrder = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!allRequiredChecked) {
-      return;
+  const { user } = useUserStore();
+  const { items, checkedIds } = useCartStore();
+
+  // items중 체크박스 선택된 놈만
+  const selectedItems = items.filter((item) => checkedIds.includes(item._id));
+
+  // api 제출용
+  const orderItems = selectedItems.map((item) => ({
+    _id: item.product_id,
+    quantity: item.quantity,
+  }));
+
+  const [state, action, isLoading] = useActionState(addOrder, null);
+
+  const router = useRouter();
+
+  // 주문 성공 / 샐피
+  useEffect(() => {
+    if (state?.ok) {
+      // 주문한 아이템들 전역 상태에서 삭제
+      const formData = new FormData();
+      formData.set('cartIDs', checkedIds.join(','));
+      formData.set('accessToken', user?.token?.accessToken || '');
+
+      deleteCarts(null, formData);
+
+      // 주문 완료 페이지로 이동
+      router.replace('/order-complete');
+    } else if (state?.ok === 0 && state?.message) {
+      alert(`주문 실패: ${state.message}`);
     }
-  };
+  }, [state, router]);
 
   return (
-    <form onSubmit={submitOrder} className="flex flex-col gap-6">
+    <form action={action} className="flex flex-col gap-6">
       {/* 배송지 정보 */}
-      <ShippingDetailsSection shippingData={shippingData} />
+      <ShippingDetailsSection name={user?.name} address={user?.address} phone={user?.phone} />
 
       {/* 주문상품 리스트 */}
-      <OrderListSection />
+      <OrderListSection orderItems={selectedItems} />
+
+      <PriceDetailsSection />
 
       {/* 결제 방법 (상태 관리) */}
       <PaymentOptionSection selected={selectedPayment} onChange={setSelectedPayment} />
@@ -86,6 +117,11 @@ export default function OrderForm({ shippingData }: CartFormProps) {
       <Button size="lg" type="submit" bg={allRequiredChecked ? 'primary' : 'disabled'} disabled={!allRequiredChecked}>
         주문하기
       </Button>
+
+      <input type="hidden" name="orderItems" value={JSON.stringify(orderItems)} />
+      <input type="hidden" name="addressName" value={ADDRESS_NAME} />
+      <input type="hidden" name="address" value={user?.address || ADDRESS_VALUE} />
+      <input type="hidden" name="accessToken" value={user?.token?.accessToken || ''} />
     </form>
   );
 }

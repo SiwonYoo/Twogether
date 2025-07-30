@@ -20,7 +20,7 @@ export default function OrderCompletePage() {
       </p>
 
       <div className="flex flex-col gap-4 mt-4">
-        <GotoButton content="주문내역 확인하기" gotoPath="/order" />
+        <GotoButton content="주문내역 확인하기" gotoPath="/my-page/order-list" />
         <GotoButton content="HOME" gotoPath="/" language="eng" />
       </div>
     </div>

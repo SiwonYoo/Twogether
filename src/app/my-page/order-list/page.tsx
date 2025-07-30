@@ -1,6 +1,8 @@
 import { orderList } from '@/app/my-page/order-list/dummydata';
 import OrderSummaryCard from '@/app/my-page/order-list/OrderSummaryCard';
 import { Metadata } from 'next';
+import { getOrders } from '@/data/functions/order';
+import OrderFetcher from '@/app/my-page/order-list/OrderFetcher';
 
 export const metadata: Metadata = {
   title: '주문 내역 - Twogether',
@@ -13,19 +15,12 @@ export const metadata: Metadata = {
   },
 };
 
-function OrderList() {
+async function OrderList() {
   return (
     <>
       <main className="mx-4">
         <div className="mb-20">
-          {orderList.map((orderdetail) => (
-            <OrderSummaryCard
-              key={orderdetail._id}
-              _id={orderdetail._id}
-              date={orderdetail.createdAt}
-              products={orderdetail.products}
-            ></OrderSummaryCard>
-          ))}
+          <OrderFetcher />
         </div>
       </main>
     </>

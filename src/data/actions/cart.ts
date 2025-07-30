@@ -108,7 +108,7 @@ export async function deleteCarts(state: ApiRes<Cart> | null, formData: FormData
 
 export async function addCart(state: ApiRes<Cart> | null, formData: FormData): ApiResPromise<Cart> {
   const product_id = formData.get('product_id');
-  const quantity = formData.get('quantity');
+  const quantity = 10; //formData.get('quantity');
   const accessToken = String(formData.get('accessToken') || '');
 
   let res: Response;
@@ -135,6 +135,7 @@ export async function addCart(state: ApiRes<Cart> | null, formData: FormData): A
 
   if (data.ok) {
     // revalidatePath('/cart');
+  } else {
   }
 
   return data;

@@ -12,11 +12,9 @@ import { deleteCarts } from '@/data/actions/cart';
 
 export default function CartListSection() {
   // 장바구니 전역 상태관리
-  const { items, setItems, deleteItemByCartId } = useCartStore();
+  const { items, setItems, deleteItemByCartId, checkedIds, setCheckedIds } = useCartStore();
   // 장바구니 접기 / 열기 상태관리
   const [isOpen, setIsOpen] = useState<boolean>(true);
-  // 개별 체크박스 상태관리
-  const [checkedIds, setCheckedIds] = useState<number[]>([]);
 
   const { user } = useUserStore();
 
@@ -78,7 +76,13 @@ export default function CartListSection() {
 
   // 개별 체크박스 선택시 호출될 콜백함수. CheckBox 컴포넌트에서 사용
   const toggleCardCheckBox = (id: number, checked: boolean) => {
-    setCheckedIds((prev) => (checked ? [...prev, id] : prev.filter((cid) => cid !== id)));
+    const safeCheckedIds = Array.isArray(checkedIds) ? checkedIds : [];
+
+    if (checked) {
+      setCheckedIds([...safeCheckedIds, id]);
+    } else {
+      setCheckedIds(safeCheckedIds.filter((cid) => cid !== id));
+    }
   };
 
   const isAllChecked = checkedIds.length === items.length;
@@ -125,7 +129,10 @@ export default function CartListSection() {
               cartItem={item}
               selected={checkedIds.includes(item._id)}
               onCheckBoxChange={(checked) => toggleCardCheckBox(item._id, checked)}
-              onDelete={(key) => setCheckedIds((prev) => prev.filter((id) => id !== Number(key)))}
+              onDelete={(key) => {
+                const safeChecked = Array.isArray(checkedIds) ? checkedIds : [];
+                setCheckedIds(safeChecked.filter((id) => id !== Number(key)));
+              }}
               isLast={index === items.length - 1}
             />
           ))}
