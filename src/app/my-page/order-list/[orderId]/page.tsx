@@ -1,6 +1,4 @@
-import ProductItem from '@/app/my-page/order-list/[orderId]/ProductItem';
-import { orderList } from '@/app/my-page/order-list/dummydata';
-import LinkButton from '@/components/common/LinkButton';
+import OrderDetailFetcher from '@/app/my-page/order-list/[orderId]/OrderDetailFetcher';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -15,71 +13,10 @@ export const metadata: Metadata = {
 async function OrderListDetail({ params }: { params: Promise<{ orderId: number }> }) {
   const { orderId } = await params;
 
-  /* 데이터 가져오는 로직으로 수정하기 */
-  const data = orderList[orderId];
-
   return (
     <>
       <main className="mx-4">
-        <div className="flex flex-col gap-4 mb-20">
-          <section>
-            <p className="mb-4">배송지</p>
-            <div className="flex flex-col gap-1 p-5 rounded-lg border-[.0625rem] border-gray-150 text-sm">
-              {/* user_id로 user 정보 받아오기 */}
-              <p>
-                <span className="mr-1">김멋사</span>
-                <span>010-0000-0000</span>
-              </p>
-              <p className="mb-4">{data.address.value}</p>
-              {/* 배송 메모는 API에 없으니 확인해보기 */}
-              <p>배송 메모</p>
-              <div className="rounded-lg border-[.0625rem] border-gray-150 p-2 text-gray-350">
-                <p>문 앞에 두고 가주세요.</p>
-              </div>
-            </div>
-          </section>
-          <section>
-            <p className="mb-4">
-              주문 상품 <span>{data.products.length}</span>개
-            </p>
-            <div className="flex flex-col gap-4 p-5 rounded-lg border-[.0625rem] border-gray-150 text-sm">
-              {data.products.map((item) => (
-                <div key={item._id}>
-                  <ProductItem item={item} />
-                </div>
-              ))}
-            </div>
-          </section>
-          <section>
-            <div className="flex flex-col gap-4 py-4 border-b-[.0625rem] border-gray-150">
-              <div className="flex justify-between">
-                <span>총 상품 금액</span>
-                <span>{data.cost.products.toLocaleString()}원</span>
-              </div>
-              <div className="flex justify-between">
-                <span>총 배송비</span>
-                <span>{data.cost.shippingFees.toLocaleString()}원</span>
-              </div>
-              <div>
-                <div className="flex justify-between mb-2">
-                  <span>총 할인 금액</span>
-                  <span>{data.cost.discount.products.toLocaleString()}원</span>
-                </div>
-                <div className="flex justify-between text-gray-350 text-sm">
-                  <span>- 기간할인</span>
-                  <span>{data.cost.discount.products.toLocaleString()}원</span>
-                </div>
-              </div>
-            </div>
-          </section>
-          <div className="flex justify-between mb-5">
-            <span>결제 금액</span>
-            <span>{data.cost.total.toLocaleString()}원</span>
-          </div>
-          <LinkButton href="/my-page/order-list" size="lg">
-            뒤로 가기
-          </LinkButton>
-        </div>
+        <OrderDetailFetcher orderId={orderId} />
       </main>
     </>
   );

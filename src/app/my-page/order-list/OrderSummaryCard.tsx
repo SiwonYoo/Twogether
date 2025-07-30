@@ -1,6 +1,6 @@
-import { OrderItem } from '@/app/my-page/order-list/dummydata';
 import Button from '@/components/common/Button';
 import LinkButton from '@/components/common/LinkButton';
+import { Product } from '@/types/order';
 import { Judson } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ const JudsonFont = Judson({
 interface OrderSummaryCardProps {
   _id: number;
   date: string;
-  products: OrderItem[];
+  products: Product[];
 }
 
 function OrderSummaryCard({ _id, date, products }: OrderSummaryCardProps) {
@@ -30,7 +30,7 @@ function OrderSummaryCard({ _id, date, products }: OrderSummaryCardProps) {
           <div key={item._id} className="flex flex-col gap-4 py-4 border-b-[.0625rem] border-gray-150">
             <div className="flex">
               <Image
-                src={item.image}
+                src={item.image.path}
                 width={100}
                 height={100}
                 alt={item.name}
@@ -39,7 +39,7 @@ function OrderSummaryCard({ _id, date, products }: OrderSummaryCardProps) {
               <div className="flex flex-col justify-between pl-4 w-full min-w-0">
                 <div className="flex flex-col flex-1">
                   <p className="truncate">{item.name}</p>
-                  <p className="text-sm text-gray-350">사이즈 {item.size}</p>
+                  <p className="text-sm text-gray-350">사이즈 {item.extra.size[0].text}</p>
                 </div>
                 <p className="text-lg text-right font-bold w-full">{item.price.toLocaleString()}원</p>
               </div>
