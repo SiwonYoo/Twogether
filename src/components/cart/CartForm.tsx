@@ -14,7 +14,7 @@ export default function CartForm() {
     // 주문 처리, 폼 제출 들어가야함
 
     // 화면 전환
-    router.replace('/order-complete');
+    router.push('/order');
   };
 
   return (

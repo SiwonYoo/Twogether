@@ -5,6 +5,7 @@ import { Cart } from '@/types/cart';
 
 interface CartStore {
   items: Cart[];
+  checkedIds: number[];
   totalPrice: number;
   deliveryFee: number;
   addItem(item: Cart): void;
@@ -12,6 +13,7 @@ interface CartStore {
   deleteItem(id: number, options: string): void;
   deleteItemByCartId(id: number): void;
   updateQuantity(id: number, option: string, quantity: number): void;
+  setCheckedIds(selectedCartIds: number[]): void;
 }
 
 /**
@@ -20,6 +22,7 @@ interface CartStore {
  */
 const useCartStore = create<CartStore>((set) => ({
   items: [],
+  checkedIds: [],
   totalPrice: 0,
   deliveryFee: 3000,
 
@@ -75,6 +78,8 @@ const useCartStore = create<CartStore>((set) => ({
         items: updatedItems,
       };
     }),
+
+  setCheckedIds: (checkedIds) => set({ checkedIds }),
 }));
 
 export default useCartStore;
