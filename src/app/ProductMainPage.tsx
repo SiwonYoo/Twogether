@@ -1,5 +1,6 @@
 import ProductCardItem from '@/components/product/ProductCardItem';
 import { getProducts } from '@/data/functions/shop';
+import { Product } from '@/types';
 
 interface ProductMainPageProps {
   category: string;
@@ -22,9 +23,17 @@ export default async function ProductMainPage({ category }: ProductMainPageProps
     return null;
   }
 
+  // best, sale 상품을 렌덤으로 보여줌
+  function shuffleArray(array: Product[]): Product[] {
+    return [...array].sort(() => Math.random() - 0.5);
+  }
+
+  const shuffled = shuffleArray(data.item);
+  const selected = shuffled.slice(0, 2);
+
   return (
     <>
-      {data.item.slice(0, 2).map((item) => (
+      {selected.map((item) => (
         <ProductCardItem key={item._id} productType={category} data={[item]} />
       ))}
     </>
