@@ -51,12 +51,38 @@ export default function LikePageIsUser() {
     }
   }, [user]);
 
+  // 찜 상품이 있는지 확인
+  const hasAnyProduct = likes.filter((item) => !!item.product);
+
+  // 찜 상품이 없을 경우
+  if (hasAnyProduct.length === 0) {
+    return (
+      <main className="mx-4">
+        <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
+          <p className="text-3xl mb-4">고객님, 찜한 상품이 없습니다!</p>
+          <p className="text-gray-500">관심 있는 상품을 찜하면 이곳에 보여드릴게요.</p>
+          <p className="text-gray-500 my-2">마음에 드는 상품을 발견하셨다면 하트를 눌러 찜해보세요.</p>
+          <p className="text-gray-500">찜한 상품을 한눈에 모아보고 싶다면, 지금 바로 다양한 상품을 둘러보세요.</p>
+          <p className="text-gray-500 mb-4 mt-2">고객님의 취향에 꼭 맞는 상품을 준비해두고 기다리고 있답니다.</p>
+
+          <LinkButton href="shop/shortSleeve">상품 보러가기</LinkButton>
+        </div>
+      </main>
+    );
+  }
+
+  // 찜 상품이 있을때
   return (
     <main className="mx-4">
       <h2 className={`font-bold text-4xl text-center ${JudsonFont.className}`}>LIKE</h2>
       <ul className="grid grid-cols-2 gap-4 my-6">
         {likes.map((item) => (
-          <ProductCardItem key={item._id} productType={item.product.extra.category} data={[item.product]} />
+          <ProductCardItem
+            key={item._id}
+            productType={item.product.extra.category}
+            Itemid={Number(item._id)}
+            data={[item.product]}
+          />
         ))}
       </ul>
     </main>
