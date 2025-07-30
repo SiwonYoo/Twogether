@@ -114,7 +114,7 @@ function EditProfileImage() {
             <label htmlFor="profileImage" className="contents">
               <div className="px-6 py-2 w-full cursor-pointer bg-primary text-white text-center">사진 선택</div>
             </label>
-            <input id="profileImage" onChange={fileChange} type="file" hidden />
+            <input id="profileImage" type="file" accept="image/*" onChange={fileChange} hidden />
           </div>
         </div>
       </div>
