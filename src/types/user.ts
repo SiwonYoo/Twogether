@@ -6,11 +6,31 @@ export interface User {
   address?: string;
   type: 'user';
   loginType: 'email';
-  image?: string;
+  image?: string | null;
   token?: {
     accessToken: string;
     refreshToken: string;
   };
   createdAt?: string;
   updatedAt?: string;
+}
+
+export interface LoginDataType {
+  email: string;
+  password: string;
+}
+
+export interface EditProfileType {
+  accessToken: string;
+  _id: number;
+  name: string;
+  phone: string;
+  password?: string;
+  checkPassword?: string;
+}
+
+export interface EditProfileImageType {
+  _id: number;
+  imageFile: File | null;
+  accessToken: string;
 }

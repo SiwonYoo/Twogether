@@ -63,7 +63,22 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (files && files.length < 6 - selectedFiles.length) {
+
+    if (!files) return;
+
+    // 최대 용량 설정
+    const maxSizeMB = 1;
+    const maxSizsBytes = maxSizeMB * 1024 * 1024;
+
+    Array.from(files).map((item) => {
+      if (item.size > maxSizsBytes) {
+        alert(`파일 크기는 ${maxSizeMB}MB 이하만 업로드 가능합니다.`);
+        event.target.value = '';
+        return;
+      }
+    });
+
+    if (files.length < 6 - selectedFiles.length) {
       setSelectedFiles((prev) => [...prev, ...Array.from(files)]);
       setPreviewFiles((prev) => [...prev, ...Array.from(files).map((item) => URL.createObjectURL(item))]);
     } else {

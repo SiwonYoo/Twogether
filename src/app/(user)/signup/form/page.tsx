@@ -3,9 +3,11 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: '회원가입 - Twogether',
+  description: 'Twogether에 가입하고 다양한 서비스를 이용해 보세요.',
+
   openGraph: {
     title: '회원가입 - Twogether',
-    description: '회원가입',
+    description: 'Twogether에 가입하고 다양한 서비스를 이용해 보세요.',
     url: '/signup/form',
   },
 };
