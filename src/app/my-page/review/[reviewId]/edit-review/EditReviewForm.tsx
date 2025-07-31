@@ -114,7 +114,6 @@ function EditReviewForm({ review }: { review: Review }) {
         <input type="hidden" name="_id" value={review._id} />
         <input type="hidden" name="redirect" value={redirect || ''} />
         <input type="hidden" name="initialFiles" value={JSON.stringify(initialFiles) || []} />
-        <input type="hidden" name="extra" value={JSON.stringify(review.extra)} />
 
         <Radio
           legend="키 (선택)"

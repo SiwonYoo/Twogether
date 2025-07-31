@@ -2,7 +2,7 @@
 
 import { uploadFiles } from '@/data/actions/file';
 import { ApiRes, ApiResPromise } from '@/types';
-import { Review, ReviewExtra } from '@/types/review';
+import { Review } from '@/types/review';
 import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -91,16 +91,12 @@ export async function editReview(state: ApiRes<Review> | null, formData: FormDat
   const _id = raw['_id'];
   const accessToken = raw['accessToken'];
   const redirectPath = String(raw['redirect']);
-  const prevExtra = { ...JSON.parse(String(raw['extra'])) };
-  const newExtra = { ...prevExtra, height: raw['height'], weight: raw['weight'], size: raw['size'], images: images };
-  console.log(prevExtra);
-  console.log(newExtra);
 
   try {
     const body = {
       rating: Number(raw['rating']),
       content: raw['content'],
-      extra: newExtra,
+      extra: { height: raw['height'], weight: raw['weight'], size: raw['size'], images: images },
     };
 
     res = await fetch(`${API_URL}/replies/${_id}`, {
@@ -154,52 +150,6 @@ export async function deleteReview(state: ApiRes<Review> | null, formData: FormD
 
   if (data.ok) {
     revalidateTag('my-review');
-  }
-  return data;
-}
-
-/**
- * 리뷰 댓글 함수
- */
-export async function postReviewComment(state: ApiRes<Review> | null, formData: FormData): ApiResPromise<Review> {
-  let res: Response;
-  let data: ApiRes<Review>;
-
-  const raw = Object.fromEntries(formData.entries());
-
-  const _id = raw['_id'];
-  const accessToken = raw['accessToken'];
-  const newComment = String(raw['comment']);
-  const userId = Number(raw['userId']);
-  const userName = String(raw['userName']);
-  const prevExtra = { ...JSON.parse(String(raw['extra'])) };
-  const { comment, ...extra }: { comment: ReviewExtra['comment']; extra: ReviewExtra } = prevExtra;
-
-  const newData = { content: newComment, user: { _id: userId, name: userName } };
-  if (comment) comment.push(newData);
-
-  try {
-    const body = { content: raw['content'], extra: { ...extra, comment: comment || [newData] } };
-
-    res = await fetch(`${API_URL}/replies/${_id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Client-Id': CLIENT_ID,
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify(body),
-    });
-
-    data = await res.json();
-  } catch (error) {
-    console.error(error);
-    return { ok: 0, message: '일시적인 네트워크 에러가 발생했습니다.' };
-  }
-
-  if (data.ok) {
-    revalidateTag('my-review');
-    revalidateTag(`review/${_id}`);
   }
   return data;
 }

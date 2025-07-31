@@ -8,15 +8,11 @@ export interface Review {
   user: Pick<User, '_id' | 'name'>;
   content: string;
   createdAt: string;
-  updatedAt: string;
-  extra: ReviewExtra;
+  extra: {
+    height: string;
+    weight: string;
+    size: string;
+    images?: string[];
+  };
   product?: { _id: number; image: { path: string; name: string }; name: string };
-}
-
-export interface ReviewExtra {
-  comment?: [{ content: string; createdAt?: string; user: { _id: number; name: string } }];
-  height: string;
-  weight: string;
-  size: string;
-  images?: string[];
 }
