@@ -1,7 +1,6 @@
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { Judson } from 'next/font/google';
-import Button from '@/components/common/Button';
 import { getPost } from '@/data/functions/post';
 import DeleteForm from '@/app/my-page/[boardType]/[id]/DeleteForm';
 import LinkButton from '@/components/common/LinkButton';
@@ -15,13 +14,25 @@ interface InfoPageProps {
 
 export async function generateMetadata({ params }: InfoPageProps) {
   const { boardType, id } = await params;
+  const post = await getPost(Number(id));
+  if (post.ok) {
+    return {
+      title: `${post.item.title} - Twogether`,
+      description: `${post.item.content} 게시판입니다.`,
+      openGraph: {
+        title: `${boardType} - Twogether`,
+        description: `${boardType} 게시판입니다.`,
+        url: `/community/${boardType}/${id}`,
+      },
+    };
+  }
   return {
-    title: boardType.toUpperCase() + '- Twogether',
-    description: boardType.toUpperCase() + '게시판입니다.',
+    title: '게시글을 찾을 수 없습니다 - Twogether',
+    description: '존재하지 않는 게시글입니다.',
     openGraph: {
-      title: boardType.toUpperCase() + '- Twogether',
-      description: boardType.toUpperCase() + '게시판입니다.',
-      url: `/my-page/qna/${boardType}/${id}`,
+      title: '404 - Twogether',
+      description: '존재하지 않는 게시글입니다.',
+      url: `/community/${boardType}/${id}`,
     },
   };
 }
