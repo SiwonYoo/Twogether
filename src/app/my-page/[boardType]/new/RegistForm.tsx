@@ -2,14 +2,14 @@
 
 import Button from '@/components/common/Button';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { createPost } from '@/data/actions/post';
 import { useActionState } from 'react';
 import useUserStore from '@/stores/useUserStore';
-import { useRouter } from 'next/navigation';
 
 export default function QnaRegist({ boardType }: { boardType: string }) {
   const [title, setTitle] = useState('[배송] 배송관련 문의드립니다.');
+  const [productName, setProductName] = useState(1);
   const [state, formAction, isLoading] = useActionState(createPost, null);
   console.log(isLoading, state);
 
@@ -42,6 +42,18 @@ export default function QnaRegist({ boardType }: { boardType: string }) {
                 <option value="[상품] 상품관련 문의드립니다.">[상품] 상품관련 문의드립니다.</option>
                 <option value="[반품] 반품관련 문의드립니다.">[반품] 반품관련 문의드립니다.</option>
                 <option value="[기타] 기타관련 문의드립니다.">[기타] 기타관련 문의드립니다.</option>
+              </select>
+              <select
+                className="w-full p-3 mb-4 border-1 rounded-md"
+                value={productName}
+                onChange={(e) => setProductName(Number(e.target.value))}
+                id="question-type"
+                name="product_id"
+              >
+                <option value="1">자이푸르 반팔 커플 잠옷 세트</option>
+                <option value="2">러블리민트 실크스킨 반팔 상하의 세트(남녀공용)</option>
+                <option value="3">코코 반팔 남성페어 블랙 (32수)</option>
+                <option value="4">플레인 피치기모 긴팔 상하의 세트(남녀공용)</option>
               </select>
               <label htmlFor="qna-content" className="sr-only">
                 문의 내용 입력
