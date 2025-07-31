@@ -1,6 +1,6 @@
 import Button from '@/components/common/Button';
 import LinkButton from '@/components/common/LinkButton';
-import { Product } from '@/types/order';
+import { OrderProduct } from '@/types/order';
 import { Judson } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ const JudsonFont = Judson({
 interface OrderSummaryCardProps {
   _id: number;
   date: string;
-  products: Product[];
+  products: OrderProduct[];
 }
 
 function OrderSummaryCard({ _id, date, products }: OrderSummaryCardProps) {

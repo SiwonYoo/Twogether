@@ -1,6 +1,6 @@
 import ProductCardItem from '@/components/product/ProductCardItem';
 import { getProducts } from '@/data/functions/shop';
-import { Product } from '@/types';
+import { OrderProduct } from '@/types';
 
 interface ProductMainPageProps {
   category: string;
@@ -24,7 +24,7 @@ export default async function ProductMainPage({ category }: ProductMainPageProps
   }
 
   // best, sale 상품을 렌덤으로 보여줌
-  function shuffleArray(array: Product[]): Product[] {
+  function shuffleArray(array: OrderProduct[]): OrderProduct[] {
     return [...array].sort(() => Math.random() - 0.5);
   }
 
