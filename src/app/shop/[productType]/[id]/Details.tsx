@@ -14,7 +14,7 @@ export default function DetailsPage({ product }: ProductDetails) {
         <ul
           key={sizeIdx}
           style={{ gridTemplateColumns: `repeat(${colCount}, minmax(0, 1fr))` }}
-          className="grid mb-4 bg-(--color-gray-150) p-2"
+          className="grid items-center mb-4 bg-(--color-gray-150) p-1"
         >
           {size.headers.map((header, hIdx) => (
             <li key={`h-${sizeIdx}-${hIdx}`} className="text-center p-2 font-bold">
@@ -40,10 +40,10 @@ export default function DetailsPage({ product }: ProductDetails) {
           style={{
             gridTemplateColumns: `5rem repeat(${fabric.values.length}, minmax(0, 1fr))`,
           }}
-          className="grid gap-2 mb-4"
+          className="grid gap-2 mb-4 items-center"
         >
           {/* 레이블 칸 */}
-          <li className="font-bold flex items-center">{fabric.label}</li>
+          <li className="font-bold w-[4rem]">{fabric.label}</li>
 
           {/* 값 칸들 */}
           {fabric.values.map((v, vi) => {
@@ -51,7 +51,7 @@ export default function DetailsPage({ product }: ProductDetails) {
             return (
               <li
                 key={vi}
-                className={`text-center px-2 py-1 rounded ${
+                className={`text-center py-1 rounded ${
                   isSel ? 'bg-(--color-primary) text-white' : 'bg-[--color-gray-150]'
                 }`}
               >
@@ -78,7 +78,7 @@ export default function DetailsPage({ product }: ProductDetails) {
   };
 
   return (
-    <>
+    <div className="text-[.75rem]">
       {/* 사이즈 안내 시작 */}
       <div>
         <h2 className={`${JudsonFont.className} text-2xl mb-4`}>Size Info</h2>
@@ -99,6 +99,6 @@ export default function DetailsPage({ product }: ProductDetails) {
         <div>{washingLayout()}</div>
       </div>
       {/* 세탁 안내 종료 */}
-    </>
+    </div>
   );
 }
