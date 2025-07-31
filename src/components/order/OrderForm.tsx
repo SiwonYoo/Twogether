@@ -15,11 +15,17 @@ import { useActionState } from 'react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { deleteCarts } from '@/data/actions/cart';
+import { getCarts } from '@/data/functions/cart';
 
 const ADDRESS_NAME = '집';
 const ADDRESS_VALUE = '서울 종로구 종로3길 17 D1동 16층, 17층[03155]';
 
-export default function OrderForm() {
+interface OrderFormProps {
+  isDirectlyOrdered?: boolean;
+  directlyOrderedProductId?: number;
+}
+
+export default function OrderForm({ isDirectlyOrdered = false, directlyOrderedProductId = 0 }: OrderFormProps) {
   // 결제 방법 상태 관리
   const [selectedPayment, setSelectedPayment] = useState<'credit' | 'bank'>('credit');
 
@@ -65,7 +71,29 @@ export default function OrderForm() {
   const allRequiredChecked = termInfos.filter((term) => term.required).every((term) => checkedTerms[term.title]);
 
   const { user } = useUserStore();
-  const { items, checkedIds } = useCartStore();
+  const { items, setItems, checkedIds, setCheckedIds } = useCartStore();
+
+  useEffect(() => {
+    // 상품 상세보기 페이지에서 바로 구매하기로 접근했을 때!
+    if (!isDirectlyOrdered || directlyOrderedProductId === 0) return;
+
+    async function fetchCarts() {
+      try {
+        const res = await getCarts(user?.token?.accessToken || '');
+        console.log('장바구니 데이터 :', res);
+
+        if (res.ok && res.item) {
+          const filtered = res.item.filter((item) => item.product_id === directlyOrderedProductId);
+          setItems(filtered);
+          setCheckedIds(filtered.map((item) => item._id));
+        }
+      } catch (err) {
+        console.error('장바구니 API 호출 실패', err);
+      }
+    }
+
+    fetchCarts();
+  }, [isDirectlyOrdered, directlyOrderedProductId, user?.token?.accessToken]);
 
   // items중 체크박스 선택된 놈만
   const selectedItems = items.filter((item) => checkedIds.includes(item._id));
