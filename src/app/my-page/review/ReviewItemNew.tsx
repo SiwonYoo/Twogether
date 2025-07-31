@@ -15,7 +15,7 @@ import { Dispatch, SetStateAction, useActionState, useState } from 'react';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface ReviewItemProps {
-  setRefreshKey: Dispatch<SetStateAction<number>>;
+  setRefreshKey?: Dispatch<SetStateAction<number>>;
   showProductInfo?: boolean;
   review: Review;
 }
