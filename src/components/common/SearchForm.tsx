@@ -2,12 +2,13 @@
 
 import Input from '@/components/common/Input';
 import { SearchIcon } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
 export default function SearchForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   const [keyword, setKeyword] = useState('');
 
@@ -20,13 +21,15 @@ export default function SearchForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const params = new URLSearchParams(searchParams.toString());
+
+    const boardType = pathname.split('/')[2];
+
+    const params = new URLSearchParams();
+
     if (keyword.trim()) {
       params.set('keyword', keyword.trim());
-    } else {
-      params.delete('keyword');
     }
-    router.push(`?${params.toString()}`);
+    router.push(`/community/${boardType}/search?${params.toString()}`);
   };
 
   return (
