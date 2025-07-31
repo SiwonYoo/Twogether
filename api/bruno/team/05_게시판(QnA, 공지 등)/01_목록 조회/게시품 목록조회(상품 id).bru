@@ -1,0 +1,20 @@
+meta {
+  name: 게시품 목록조회(상품 id)
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url}}/posts?type=qna&custom={"product_id":1}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  type: qna
+  custom: {"product_id":1}
+}
+
+settings {
+  encodeUrl: true
+}
