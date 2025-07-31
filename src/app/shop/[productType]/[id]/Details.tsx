@@ -7,7 +7,6 @@ const JudsonFont = Judson({
 });
 
 export default function DetailsPage({ product }: ProductDetails) {
-
   const defaultSizeLayout = () => {
     return product.extra.SizeInfo.map((size, sizeIdx) => {
       const colCount = size.headers.length;
@@ -70,7 +69,7 @@ export default function DetailsPage({ product }: ProductDetails) {
       <ul className="grid grid-cols-3 text-center  bg-(--color-gray-150) rounded">
         {product.extra.washingInfo.map((info) => (
           <li key={info._id} className="flex justify-center flex-col items-center px-4 py-2">
-            <Image src={info.imgUrl ? info.imgUrl : ''} alt={info.label} width="100" height="100" />
+            <Image src={info.imgUrl ? info.imgUrl : '/'} alt={info.label} width="100" height="100" />
             {info.label}
           </li>
         ))}
