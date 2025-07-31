@@ -8,9 +8,12 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  * @param {string} boardType - 게시판 타입(예: notice, event 등)
  * @returns {Promise<ApiRes<Post[]>>} - 게시글 목록 응답 객체
  */
-export async function getPosts(boardType: string): ApiResPromise<Post[]> {
+export async function getPosts(boardType: string, page = 1, limit = 10): ApiResPromise<Post[]> {
   try {
-    const res = await fetch(`${API_URL}/posts?type=${boardType}`, {
+    const query = new URLSearchParams();
+    query.set('page', page.toString());
+    query.set('limit', limit.toString());
+    const res = await fetch(`${API_URL}/posts?type=${boardType}&${query.toString()}`, {
       headers: {
         'Client-Id': CLIENT_ID,
       },
