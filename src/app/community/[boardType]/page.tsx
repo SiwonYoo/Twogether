@@ -24,15 +24,11 @@ export interface ListPageProps {
   params: Promise<{
     boardType: string;
   }>;
-  searchParams: Promise<{
-    keyword?: string;
-  }>;
 }
 
-export default async function CommunityPage({ params, searchParams }: ListPageProps) {
+export default async function CommunityPage({ params }: ListPageProps) {
   const { boardType } = await params;
-  const { keyword } = await searchParams;
-  const res = await getPosts(boardType, keyword);
+  const res = await getPosts(boardType);
 
   const isNoticeBoard = boardType === 'notice';
   const isEventBoard = boardType === 'event';
