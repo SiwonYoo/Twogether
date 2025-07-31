@@ -1,4 +1,4 @@
-import { ApiResPromise, Post, PostReply } from '@/types';
+import { ApiResPromise, GetPost, Post, PostReply } from '@/types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
@@ -73,6 +73,31 @@ export async function getReplies(_id: number): ApiResPromise<PostReply[]> {
       cache: 'force-cache',
       next: {
         tags: [`posts/${_id}/replies`],
+      },
+    });
+    return res.json();
+  } catch (error) {
+    // 네트워크 오류 처리
+    console.error(error);
+    return { ok: 0, message: '일시적인 네트워크 문제로 등록에 실패했습니다.' };
+  }
+}
+
+/**
+ * 게시판 타입에 해당하는 게시글 목록을 가져옵니다.
+ * @param {string} boardType - 게시판 타입(예: notice, free 등)
+ * @param {string} keyword - 검색 키워드(에: 배송, 반품, 상품, 기타 등)
+ * @returns {Promise<ApiRes<Post[]>>} - 게시글 목록 응답 객체
+ */
+export async function getProductPost(boardType: string, id: number): ApiResPromise<GetPost[]> {
+  try {
+    const res = await fetch(`${API_URL}/posts?type=qna&custom={"product_id":${id}}`, {
+      headers: {
+        'Client-Id': CLIENT_ID,
+      },
+      cache: 'no-store', // force-cache에서 no-store로 바꿔서 게시글 작성 후 목록으로 돌아왔을 때 바로 보이게 가능
+      next: {
+        tags: [`posts?type=${boardType}`],
       },
     });
     return res.json();

@@ -66,3 +66,21 @@ export async function getReview(_id: number): ApiResPromise<Review[]> {
     return { ok: 0, message: '일시적인 네트워크 문제로 조회에 실패했습니다.' };
   }
 }
+/**
+ * 리뷰 한 건을 가져옵니다.
+ */
+export async function getProductReview(_id: number): ApiResPromise<Review[]> {
+  try {
+    const res = await fetch(`${API_URL}/replies/products/${_id}`, {
+      headers: {
+        'Client-Id': CLIENT_ID,
+      },
+      cache: 'force-cache',
+      next: { tags: [`review/${_id}`] },
+    });
+    return res.json();
+  } catch (error) {
+    console.error(error);
+    return { ok: 0, message: '일시적인 네트워크 문제로 조회에 실패했습니다.' };
+  }
+}

@@ -1,0 +1,27 @@
+meta {
+  name: 상품리뷰 등록
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{url}}/replies
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "order_id": 1,
+      "product_id": 11,
+      "rating": 1,
+      "content": "후기 등록 테스트",
+      "extra": {
+        "title": "배송 불만"
+      }
+  }
+}
+
+settings {
+  encodeUrl: true
+}

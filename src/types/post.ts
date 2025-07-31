@@ -63,3 +63,28 @@ export interface PostReply {
  * 답글 작성 폼에서 사용하는 타입 (content만 포함)
  */
 export type PostReplyForm = Pick<PostReply, 'content'>;
+
+export interface GetPost {
+  // 게시글의 고유 ID
+  _id: number;
+  // 게시글 타입
+  type: string;
+  // 게시글 제목
+  title: string;
+  // 게시글 본문 내용
+  content: string;
+  // 게시글 작성자 정보 (id, 이름, 이미지)
+  user: Pick<User, '_id' | 'name' | 'image'>;
+  // 게시글 조회수
+  views: number;
+  // 댓글 개수
+  repliesCount: number;
+  // 댓글 목록
+  replies?: PostReply[];
+  product_id: number;
+  seller_id?: number;
+  // 게시글 생성일
+  createdAt: string;
+  // 게시글 수정일
+  updatedAt: string;
+}

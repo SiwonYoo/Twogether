@@ -65,7 +65,7 @@ export default function ProductTabs({ productType, product }: ProductDetails) {
         )}
         {activeTab === 'Review' && (
           <div>
-            <ReviewPage />
+            <ReviewPage product={product} />
           </div>
         )}
         {activeTab === 'Q&A' && (
