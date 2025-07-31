@@ -13,8 +13,7 @@ function TermsForm() {
   const [error, setError] = useState(false);
 
   const handleNextStep = () => {
-    if (isChecked) router.replace('/signup/form');
-    else setError(!error);
+    router.replace('/signup/form');
   };
 
   return (
@@ -37,7 +36,14 @@ function TermsForm() {
         <LinkButton href="/login" bg="white" shape="square" size="lg">
           취소
         </LinkButton>
-        <Button onClick={handleNextStep} shape="square" size="lg">
+        <Button
+          type="button"
+          onClick={handleNextStep}
+          shape="square"
+          size="lg"
+          bg={`${!isChecked ? 'disabled' : 'primary'}`}
+          disabled={!isChecked ? true : false}
+        >
           다음
         </Button>
       </div>

@@ -1,0 +1,30 @@
+meta {
+  name: 상품 구매
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{url}}/orders
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "products": [
+          {
+              "_id": 1,
+              "quantity": 3
+          },
+          {
+              "_id": 2,
+              "quantity": 5
+          }
+      ],
+      "address": {
+          "name": "집",
+          "value": "경남 하동군 진교면 진교중앙길 40 다금빌라 305호"
+      }
+  }
+}

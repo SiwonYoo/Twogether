@@ -11,9 +11,11 @@ const JudsonFont = Judson({
 
 export const metadata: Metadata = {
   title: '로그인 - Twogether',
+  description: 'Twogether에 로그인하고 나만의 스타일을 찾아보세요.',
+
   openGraph: {
     title: '로그인 - Twogether',
-    description: '로그인',
+    description: 'Twogether에 로그인하고 나만의 스타일을 찾아보세요.',
     url: '/login',
   },
 };

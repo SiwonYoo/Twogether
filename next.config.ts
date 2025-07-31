@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/market/files/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'fesp-api.koyeb.app',
+        port: '',
+        pathname: '/market//files/**',
+      },
     ],
   },
   experimental: {

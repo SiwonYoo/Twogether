@@ -15,12 +15,11 @@ function EditProfile({
   children: React.ReactNode;
 }>) {
   const path = usePathname();
-  console.log(path);
 
   return (
     <>
       <main className="h-full mx-4">
-        <h2 className={`mt-5 text-2xl text-center ${JudsonFont.className}`}>EDIT PROFILE</h2>
+        <h2 className={`text-2xl text-center ${JudsonFont.className}`}>EDIT PROFILE</h2>
         <div className="flex gap-4 justify-center py-6 border-b-2 border-gray-350">
           <span className={path === '/my-page/edit-profile/verify' ? 'text-black' : 'text-gray-250'}>1. 본인인증</span>
           <ChevronRight color={'#B0B0B0'} />

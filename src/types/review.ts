@@ -9,7 +9,6 @@ export interface Review {
   content: string;
   createdAt: string;
   extra: {
-    comment: [{ content: string; createdAt: string; user: { _id: number; name: string } }];
     height: string;
     weight: string;
     size: string;

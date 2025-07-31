@@ -11,6 +11,20 @@ interface ProductCardItemProps {
   height: string;
 }
 
+/**
+ * 상품의 대표 이미지들을 슬라이드 형태로 보여주는 Swiper 컴포넌트입니다.
+ *
+ * - `swiper/react`를 사용하여 슬라이드를 구성합니다.
+ * - 상품 리스트의 각 이미지(`mainImages`)를 순회하며 하나씩 출력합니다.
+ * - 슬라이드는 루프되며, 한 번에 하나의 이미지만 보여줍니다.
+ *
+ * @param {Object} props - 컴포넌트에 전달되는 props
+ * @param {Product[]} props.data - 각 상품의 이미지 배열을 포함한 상품 리스트
+ * @param {string} props.height - 이미지 컨테이너의 높이 (Tailwind 형식 문자열)
+ *
+ * @returns {JSX.Element} Swiper 기반 이미지 슬라이드 JSX
+ */
+
 export default function ImagesSwiper({ data, height }: ProductCardItemProps) {
   return (
     <>

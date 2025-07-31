@@ -4,3 +4,5 @@ export * from './user';
 export * from './cart';
 export * from './file';
 export * from './post';
+export * from './order';
+export * from './like';

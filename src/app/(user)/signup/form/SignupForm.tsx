@@ -4,7 +4,6 @@ import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
 import { signup } from '@/data/actions/user';
 import { checkEmail } from '@/data/functions/user';
-import { User } from '@/types';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -32,7 +31,7 @@ function SignupForm() {
     handleSubmit,
     watch,
     getValues,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<SignupForm>({
     mode: 'onTouched',
     criteriaMode: 'firstError',
@@ -51,12 +50,13 @@ function SignupForm() {
     else setEmailAvailable(false);
   };
 
-  const onSubmit = async (user: User) => {
+  const onSubmit = async (user: SignupForm) => {
     if (isEmailAvailable === null) {
       alert('이메일 중복 여부를 확인해주세요.');
       return;
     }
-    const res = await signup(user);
+    const { checkPassword, ...data } = user;
+    const res = await signup(data);
     if (res.ok) {
       router.replace('/signup/success');
     } else if (!res.ok && res) {
@@ -163,7 +163,7 @@ function SignupForm() {
                 required: '휴대폰 번호를 입력해주세요.',
                 pattern: {
                   value: phoneExp,
-                  message: '숫자로 11자 입력해주세요.',
+                  message: '휴대폰 번호 양식에 맞지 않습니다.',
                 },
               })}
             />
@@ -172,6 +172,7 @@ function SignupForm() {
         </fieldset>
         <div className="flex gap-4 mt-11">
           <Button
+            type="button"
             onClick={() => {
               router.replace('/signup/terms');
             }}
@@ -181,7 +182,13 @@ function SignupForm() {
           >
             이전
           </Button>
-          <Button type="submit" shape="square" size="lg">
+          <Button
+            type="submit"
+            shape="square"
+            size="lg"
+            bg={`${!isValid ? 'disabled' : 'primary'}`}
+            disabled={!isValid ? true : false}
+          >
             회원가입
           </Button>
         </div>

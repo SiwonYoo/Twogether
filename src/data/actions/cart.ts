@@ -108,14 +108,23 @@ export async function deleteCarts(state: ApiRes<Cart> | null, formData: FormData
 
 export async function addCart(state: ApiRes<Cart> | null, formData: FormData): ApiResPromise<Cart> {
   const product_id = formData.get('product_id');
-  const quantity = formData.get('quantity');
+  const quantity = 10; //formData.get('quantity');
   const accessToken = String(formData.get('accessToken') || '');
+
+  console.log('[addCart] 받은 FormData:', {
+    product_id,
+    quantity,
+    accessToken,
+  });
 
   let res: Response;
   let data: ApiRes<Cart>;
 
   const url = `${API_URL}/carts`;
   const body = { product_id: Number(product_id), quantity: Number(quantity) };
+
+  console.log('[addCart] 요청 URL:', url);
+  console.log('[addCart] 요청 바디:', body);
 
   try {
     res = await fetch(url, {
@@ -128,13 +137,23 @@ export async function addCart(state: ApiRes<Cart> | null, formData: FormData): A
       body: JSON.stringify(body),
     });
 
+    console.log('[addCart] 응답 상태 코드:', res.status);
+
     data = await res.json();
+    console.log('[addCart] 응답 데이터:', data);
   } catch (error) {
-    return { ok: 0, message: '일시적인 네트워크 문제로 장바구니 추가에 실패했습니다.' };
+    console.error('[addCart] 에러 발생:', error);
+    return {
+      ok: 0,
+      message: '일시적인 네트워크 문제로 장바구니 추가에 실패했습니다.',
+    };
   }
 
   if (data.ok) {
     // revalidatePath('/cart');
+    console.log('[addCart] 장바구니 추가 성공');
+  } else {
+    console.warn('[addCart] 장바구니 추가 실패:', data.message);
   }
 
   return data;

@@ -27,9 +27,18 @@ function ReviewImagesModal({ isOpen, setOpen, images }: ReviewImagesModalProps) 
     <>
       <div
         hidden={!isOpen}
+        onClick={() => {
+          setOpen(false);
+        }}
         className="fixed flex h-dvh min-w-[400px] max-w-[768px] mx-auto inset-0 justify-center items-center bg-black/70 z-10"
       >
-        <div role="dialog" className="flex flex-col p-8 rounded-4xl z-10 animate-fade-in-scale">
+        <div
+          role="dialog"
+          onClick={(e: React.MouseEvent) => {
+            e.stopPropagation();
+          }}
+          className="flex flex-col p-8 rounded-4xl z-10 animate-fade-in-scale"
+        >
           <div className="flex content-center w-full mb-5">
             <button
               onClick={() => {

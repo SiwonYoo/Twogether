@@ -1,12 +1,31 @@
-import { ApiResPromise, Product } from '@/types';
+import { ApiResPromise, OrderProduct } from '@/types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
 
+/**\
+ * 전체 상품 을 불러옵니다
+ */
+
+export async function getAllProducts(): ApiResPromise<Product[]> {
+  try {
+    const res = await fetch(`${API_URL}/products`, {
+      headers: {
+        'Client-Id': CLIENT_ID,
+      },
+      cache: 'force-cache',
+    });
+    return res.json();
+  } catch (error) {
+    console.error(error);
+    return { ok: 0, message: '일시적인 네트워크 문제로 조회에 실패했습니다.' };
+  }
+}
+
 /**
  * Product 정보에 맞는 리뷰 목록을 가져옵니다.
  */
-export async function getProducts(customQuery: string): ApiResPromise<Product[]> {
+export async function getProducts(customQuery: string): ApiResPromise<OrderProduct[]> {
   try {
     const res = await fetch(`${API_URL}/products?custom=${customQuery}`, {
       headers: {
@@ -27,7 +46,7 @@ export async function getProducts(customQuery: string): ApiResPromise<Product[]>
  * @returns {Promise<ApiRes<Post>>} - 게시글 상세 정보 응답 객체
  */
 
-export async function getProduct(customQuery: string): ApiResPromise<Product[]> {
+export async function getProduct(customQuery: string): ApiResPromise<OrderProduct[]> {
   try {
     const res = await fetch(`${API_URL}/products?customQuery=${customQuery}`, {
       headers: {

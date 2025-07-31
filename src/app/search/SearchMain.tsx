@@ -1,14 +1,19 @@
 'use client';
 
+import SearchResult from '@/app/search/SeachResult';
 import Input from '@/components/common/Input';
+import { getProducts } from '@/data/functions/shop';
+import { OrderProduct } from '@/types';
 
 import { SearchIcon, X } from 'lucide-react';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
 function SearchForm() {
-  const [searchValue, setSearchValue] = useState('');
+  const [inputValue, setInputValue] = useState('');
   const [recentSearches, setRecentSearches] = useState<string[] | null>(null);
   const [currentValue, setCurrentValue] = useState<string>('');
+  const [searchResult, setSearchResult] = useState<OrderProduct[]>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem('recentSearches');
@@ -18,22 +23,46 @@ function SearchForm() {
     }
   }, []);
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-
-    if (recentSearches?.[0] !== searchValue.trim()) {
-      if (recentSearches) {
-        setRecentSearches([searchValue.trim(), ...recentSearches.filter((item) => item !== searchValue.trim())]);
-      } else if (!recentSearches) {
-        setRecentSearches([searchValue.trim()]);
-      }
-    }
-    setCurrentValue(searchValue);
-  };
-
   useEffect(() => {
     if (recentSearches) localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
   }, [recentSearches]);
+
+  useEffect(() => {
+    const searchProducts = async () => {
+      setLoading(true);
+      let searchValue = currentValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      searchValue = searchValue.split(' ').join('|');
+
+      const customQuery = encodeURIComponent(
+        JSON.stringify({
+          $or: [{ name: { $regex: searchValue, $options: 'i' } }, { content: { $regex: searchValue, $options: 'i' } }],
+        })
+      );
+      const result = await getProducts(customQuery);
+
+      if (result.ok && result.item) setSearchResult(result.item);
+      else console.error();
+      setLoading(false);
+    };
+    searchProducts();
+  }, [currentValue]);
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const trimmedValue = inputValue.replace(/\s+/g, ' ').trim();
+
+    setInputValue(trimmedValue);
+    if (trimmedValue === '') return;
+
+    if (recentSearches?.[0] !== inputValue) {
+      const filtered = recentSearches?.filter((item, idx) => item !== trimmedValue) || [];
+      const limited = filtered.slice(0, 4);
+      setRecentSearches([trimmedValue, ...limited]);
+    }
+
+    setCurrentValue(trimmedValue);
+  };
 
   return (
     <>
@@ -43,9 +72,9 @@ function SearchForm() {
             id="search"
             label="검색"
             hideLabel
-            value={searchValue}
+            value={inputValue}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              setSearchValue(event.target.value);
+              setInputValue(event.target.value);
             }}
           />
         </div>
@@ -64,11 +93,8 @@ function SearchForm() {
                   key={idx}
                   className="flex gap-1 items-center w-fit px-3 py-1 rounded-2xl border-[1px] border-gray-250 text-sm"
                   onClick={() => {
-                    setSearchValue(item);
-                    setRecentSearches([
-                      item.trim(),
-                      ...recentSearches.filter((researchItem) => researchItem !== item.trim()),
-                    ]);
+                    setInputValue(item);
+                    setRecentSearches([item, ...recentSearches.filter((researchItem) => researchItem !== item)]);
                     setCurrentValue(item);
                   }}
                 >
@@ -88,11 +114,17 @@ function SearchForm() {
 
       <div hidden={!currentValue}>
         <h2 className="mt-6 mb-4 font-bold">
-          &apos;{currentValue}&apos; 검색 결과 <span className="text-secondary-2">16</span>
+          &apos;{currentValue}&apos; 검색 결과{' '}
+          {!loading && <span className="text-secondary-2">{searchResult?.length}</span>}
         </h2>
-        {/* API 정보를 ProductCard에 넘기기 */}
         <div>
-          <>{/* 여기 상품 리스트 넘기기 */}</>
+          {loading ? (
+            <p className="text-center">검색 중입니다.</p>
+          ) : searchResult?.length === 0 ? (
+            <p className="text-center">검색 결과가 없습니다.</p>
+          ) : (
+            searchResult && <SearchResult data={searchResult} />
+          )}
         </div>
       </div>
     </>
