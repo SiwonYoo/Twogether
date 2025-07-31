@@ -3,6 +3,7 @@ import OrderSummaryCard from '@/app/my-page/order-list/OrderSummaryCard';
 import { Metadata } from 'next';
 import { getOrders } from '@/data/functions/order';
 import OrderFetcher from '@/app/my-page/order-list/OrderFetcher';
+import { Judson } from 'next/font/google';
 
 export const metadata: Metadata = {
   title: '주문 내역 - Twogether',
@@ -15,10 +16,17 @@ export const metadata: Metadata = {
   },
 };
 
+const JudsonFont = Judson({
+  subsets: ['latin'],
+  weight: '700',
+});
+
 async function OrderList() {
   return (
     <>
       <main className="mx-4">
+        <h2 className={`mb-6 text-2xl text-center ${JudsonFont.className}`}>ORDER HISTORY</h2>
+
         <div className="mb-20">
           <OrderFetcher />
         </div>

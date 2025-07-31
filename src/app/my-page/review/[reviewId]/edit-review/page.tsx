@@ -1,5 +1,3 @@
-import ProductItem from '@/app/my-page/order-list/[orderId]/ProductItem';
-import { orderList } from '@/app/my-page/order-list/dummydata';
 import EditReviewForm from '@/app/my-page/review/[reviewId]/edit-review/EditReviewForm';
 import { getReview } from '@/data/functions/review';
 import { Review } from '@/types/review';
@@ -27,13 +25,14 @@ async function EditReview({ params }: { params: Promise<{ reviewId: number }> })
   if (reviewData.ok) review = reviewData.item[0];
   else review = null;
 
+  /* TODO review.order_id, review.product_id로 주문 내역 받아서 item에 담기 */
+
   return (
     <>
       <main className="px-4">
         {review !== null && (
           <>
-            {/* TODO dummydata - 주문 내역 데이터 넣을 것 */}
-            {<ProductItem item={orderList[0].products[0]} />}
+            {/* {<ProductItem item={item} />} */}
             <EditReviewForm review={review} />
           </>
         )}
