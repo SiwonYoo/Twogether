@@ -1,6 +1,7 @@
-import { getPosts } from '@/data/functions/post';
+import LinkButton from '@/components/common/LinkButton';
+import { getPosts, getProductPost } from '@/data/functions/post';
 import useUserStore from '@/stores/useUserStore';
-import { Post } from '@/types';
+import { GetPost, Post } from '@/types';
 import { ProductDetails } from '@/types/product';
 import { Judson } from 'next/font/google'; // 구글 폰트 사용
 import Link from 'next/link';
@@ -13,34 +14,67 @@ const JudsonFont = Judson({
 
 export default function QnA({ productType, product }: ProductDetails) {
   const [NoticePage, setNoticePag] = useState<Post[]>([]);
-  const [qnaPage, setQnaPag] = useState<Post[]>([]);
+  const [qnaPage, setQnaPag] = useState<GetPost[]>([]);
   const { user } = useUserStore();
 
   useEffect(() => {
     async function noticeApi() {
       const res = await getPosts('notice');
       if (res.ok === 0) {
-        return null;
+        return (
+          <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
+            <p className="text-3xl mb-4">고객님, 진심으로 사과드립니다.</p>
+            <p className="text-gray-500">서버 문제로 인해 상품 정보 제공에 차질이 발생했습니다.</p>
+            <p className="text-gray-500 my-2">이로 인해 오랜 시간 기다리시게 된 점 깊이 죄송합니다.</p>
+            <p className="text-gray-500">빠른 시일 내에 정상화된 상품을 갖추어 찾아뵐 수 있도록 최선을 다하겠습니다.</p>
+            <p className="text-gray-500 mb-4 mt-2">불편을 드린 점 다시 한번 사과드리며, 너그러운 양해 부탁드립니다.</p>
+
+            <LinkButton href="/">홈으로 바로가기</LinkButton>
+          </div>
+        );
       }
+
+      function shuffleArray(array: Post[]): Post[] {
+        return [...array].sort(() => Math.random() - 0.5);
+      }
+
+      const shuffled = shuffleArray(res.item);
+      const selected = shuffled.slice(0, 2);
+
       if (res.ok === 1) {
-        setNoticePag(res.item);
+        if (res.item.length === 0) {
+          return (
+            <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
+              <p className="text-3xl mb-4">고객님, 진심으로 사과드립니다.</p>
+              <p className="text-gray-500">서버 문제로 인해 상품 정보 제공에 차질이 발생했습니다.</p>
+              <p className="text-gray-500 my-2">이로 인해 오랜 시간 기다리시게 된 점 깊이 죄송합니다.</p>
+              <p className="text-gray-500">
+                빠른 시일 내에 정상화된 상품을 갖추어 찾아뵐 수 있도록 최선을 다하겠습니다.
+              </p>
+              <p className="text-gray-500 mb-4 mt-2">
+                불편을 드린 점 다시 한번 사과드리며, 너그러운 양해 부탁드립니다.
+              </p>
+
+              <LinkButton href="/">홈으로 바로가기</LinkButton>
+            </div>
+          );
+        }
+        setNoticePag(selected);
       }
-      console.log(res);
     }
 
     async function QnAApi() {
-      const res = await getPosts('qna');
+      const res = await getProductPost('qna', product._id);
       if (res.ok === 0) {
         return null;
       }
       if (res.ok === 1) {
         setQnaPag(res.item);
       }
-      console.log(res);
     }
     noticeApi();
     QnAApi();
-  }, [NoticePage, qnaPage]);
+  }, []);
 
   // 날짜 변환
   function formatToYYMMDD(datetime: string) {
@@ -56,7 +90,7 @@ export default function QnA({ productType, product }: ProductDetails) {
         {/* 공지 */}
         {NoticePage.slice(0, 2).map((item) => {
           return (
-            <li key={item._id} className="border-b border-(--color-gray-250) my-4">
+            <li key={`NoticePage-${item._id}`} className="border-b border-(--color-gray-250) my-4">
               <Link href={`/community/notice/${item._id}`}>
                 <div className="flex gap-4">
                   <p>공지</p>
@@ -72,9 +106,10 @@ export default function QnA({ productType, product }: ProductDetails) {
           );
         })}
 
+        {/* 여기에 qna 들어갈때 본인만 입장 가능하도록 해야함. 나인지 확인하고 들어가도록 */}
         {qnaPage.map((item) => {
           return (
-            <li key={item._id} className="border-b  border-(--color-gray-250) my-4">
+            <li key={`qnaPage-${item._id}`} className="border-b  border-(--color-gray-250) my-4">
               <Link href={`/my-page/qna/${item._id}`}>
                 <div>
                   <p>{item.title}</p>
