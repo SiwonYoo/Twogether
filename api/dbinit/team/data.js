@@ -1141,7 +1141,7 @@ export const initData = async (clientId, nextSeq) => {
         content: '파자마뿐만 아니라 일상복에서도 함게 매치학 좋은 스크런치, 부드러운 면 재질로 촉감 좋은 스크런치',
         extra: {
           isBest: false,
-          isSale: true,
+          isSale: false,
           salePrice: 4900,
           category: 'acc',
           size: [
