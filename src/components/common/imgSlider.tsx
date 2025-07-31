@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
-import { Product } from '@/types';
+import { OrderProduct } from '@/types';
 
 interface slideDataItmeProps {
   id: number;
@@ -16,7 +16,7 @@ interface slideDataItmeProps {
 interface imagesUrlProps {
   productType: string;
   id: number;
-  data: Product;
+  data: OrderProduct;
 }
 
 export default function ImgSlider({ data, productType, id }: imagesUrlProps) {

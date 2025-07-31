@@ -1,5 +1,5 @@
 // 개별 상품 타입
-export interface Product {
+export interface OrderProduct {
   _id: number;
   quantity: number;
   seller_id: number;
@@ -31,7 +31,7 @@ export interface Product {
 // 주문 공통 필드
 export interface Order {
   _id: number;
-  products: Product[];
+  products: OrderProduct[];
   address: { name: string; value: string };
   extra: { shippingMemo: string; paymentMethod: string };
   state: string;

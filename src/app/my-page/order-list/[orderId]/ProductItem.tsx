@@ -1,7 +1,7 @@
-import { Product } from '@/types/order';
+import { OrderProduct } from '@/types/order';
 import Image from 'next/image';
 
-function ProductItem({ item }: { item: Product }) {
+function ProductItem({ item }: { item: OrderProduct }) {
   return (
     <>
       <div className="flex gap-4 justify-between items-center pb-4 border-b-[.0625rem] border-gray-150">

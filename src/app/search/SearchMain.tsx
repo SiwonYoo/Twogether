@@ -3,7 +3,7 @@
 import SearchResult from '@/app/search/SeachResult';
 import Input from '@/components/common/Input';
 import { getProducts } from '@/data/functions/shop';
-import { Product } from '@/types';
+import { OrderProduct } from '@/types';
 
 import { SearchIcon, X } from 'lucide-react';
 import React, { ChangeEvent, useEffect, useState } from 'react';
@@ -12,7 +12,7 @@ function SearchForm() {
   const [inputValue, setInputValue] = useState('');
   const [recentSearches, setRecentSearches] = useState<string[] | null>(null);
   const [currentValue, setCurrentValue] = useState<string>('');
-  const [searchResult, setSearchResult] = useState<Product[]>();
+  const [searchResult, setSearchResult] = useState<OrderProduct[]>();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
