@@ -3,12 +3,12 @@
 import { useState, useEffect } from 'react';
 import LikeAddButton from '@/components/product/LikeAddButton';
 import LikeDelButton from '@/components/product/LikeDelButton';
-import { OrderProduct } from '@/types';
+import { Product } from '@/types';
 import useUserStore from '@/stores/useUserStore';
 import { GetLikeList } from '@/data/functions/like';
 
 interface LikeButtonProps {
-  data?: OrderProduct;
+  data?: Product;
   id?: number; // 상품 ID
   Itemid?: number; // 찜 목록과 비교할 상품 ID
 }
@@ -20,7 +20,7 @@ interface LikeButtonProps {
  * - 찜 여부에 따라 `LikeAddButton` 또는 `LikeDelButton` 컴포넌트를 렌더링합니다.
  *
  * @param {Object} props - 컴포넌트에 전달되는 props
- * @param {OrderProduct} [props.data] - 현재 상품 정보 객체 (찜 상태 비교에 사용)
+ * @param {Product} [props.data] - 현재 상품 정보 객체 (찜 상태 비교에 사용)
  * @param {number} [props.id] - 상품 ID (찜 추가 요청 시 사용)
  * @param {number} [props.Itemid] - 찜 삭제 요청 시 사용될 ID
  *

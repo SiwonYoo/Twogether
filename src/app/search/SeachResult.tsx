@@ -1,9 +1,9 @@
 import ImagesSwiper from '@/components/product/ImagesSwiper';
 import LikeButton from '@/components/product/LikeButton';
-import { OrderProduct } from '@/types';
+import { Product } from '@/types';
 import Link from 'next/link';
 
-function SearchResult({ data }: { data: OrderProduct[] }) {
+function SearchResult({ data }: { data: Product[] }) {
   return (
     <>
       <ul className="grid grid-cols-2 gap-4 my-6">
