@@ -2,9 +2,6 @@ import { getPosts } from '@/data/functions/post';
 import { Judson } from 'next/font/google';
 import { Metadata } from 'next';
 import MyQnaList from './MyQnaList';
-import Button from '@/components/common/Button';
-import Link from 'next/link';
-import Input from '@/components/common/Input';
 import SearchForm from '@/components/common/SearchForm';
 import LinkButton from '@/components/common/LinkButton';
 
@@ -16,9 +13,6 @@ const JudsonFont = Judson({
 export interface ListPageProps {
   params: Promise<{
     boardType: string;
-  }>;
-  searchParams: Promise<{
-    keyword?: string;
   }>;
 }
 
@@ -35,10 +29,9 @@ export async function generateMetadata({ params }: ListPageProps): Promise<Metad
   };
 }
 
-export default async function QnaPage({ params, searchParams }: ListPageProps) {
+export default async function QnaPage({ params }: ListPageProps) {
   const { boardType } = await params;
-  const { keyword } = await searchParams;
-  const res = await getPosts(boardType, keyword);
+  const res = await getPosts(boardType);
 
   return (
     <main className="mx-4">
