@@ -35,6 +35,7 @@ export async function PostLikeList(id: number, token: string): ApiResPromise<Lik
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
+      cache: 'no-store',
     });
 
     return (data = await res.json());
@@ -68,6 +69,7 @@ export async function DeleteLikeList(id: number, token: string): ApiResPromise<L
         'Client-Id': CLIENT_ID,
         Authorization: `Bearer ${token}`,
       },
+      cache: 'no-store',
     });
 
     return (data = await res.json());

@@ -27,6 +27,7 @@ export async function GetLikeList(accessToken: string): ApiResPromise<LikeItem[]
         'Content-Type': 'application/json',
         'Client-Id': CLIENT_ID,
       },
+      cache: 'no-store',
     });
 
     const data = await res.json();
