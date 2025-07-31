@@ -11,17 +11,26 @@ const JudsonFont = Judson({
 });
 
 export async function generateMetadata({ params }: ListPageProps): Promise<Metadata> {
-  const { boardType } = await params;
-  return {
-    title: `${boardType} - Twogether`,
-    description: `${boardType} 게시판입니다.`,
-    openGraph: {
-      title: `${boardType} - Twogether`,
-      description: `${boardType} 게시판입니다.`,
-      url: `/${boardType}`,
-      images: {
-        url: '/images/front-end.png',
+  const { boardType, id } = await params;
+  const post = await getPost(Number(id));
+  if (post.ok) {
+    return {
+      title: `${post.item.title} - Twogether`,
+      description: `${post.item.content} 게시판입니다.`,
+      openGraph: {
+        title: `${boardType} - Twogether`,
+        description: `${boardType} 게시판입니다.`,
+        url: `/community/${boardType}/${id}`,
       },
+    };
+  }
+  return {
+    title: '게시글을 찾을 수 없습니다 - Twogether',
+    description: '존재하지 않는 게시글입니다.',
+    openGraph: {
+      title: '404 - Twogether',
+      description: '존재하지 않는 게시글입니다.',
+      url: `/community/${boardType}/${id}`,
     },
   };
 }

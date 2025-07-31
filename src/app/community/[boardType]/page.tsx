@@ -12,10 +12,7 @@ export async function generateMetadata({ params }: ListPageProps): Promise<Metad
     openGraph: {
       title: `${boardType} - Twogether`,
       description: `${boardType} 게시판입니다.`,
-      url: `/${boardType}`,
-      images: {
-        url: '/images/front-end.png',
-      },
+      url: `/community/${boardType}`,
     },
   };
 }

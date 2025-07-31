@@ -30,10 +30,7 @@ export async function generateMetadata({ params, searchParams }: SearchPageProps
     openGraph: {
       title: `${boardType} - Twogether`,
       description: `${boardType} 게시판`,
-      url: `/${boardType}`,
-      images: {
-        url: '/images/front-end.png',
-      },
+      url: `/community/${boardType}/search?keyword=${keyword}`,
     },
   };
 }
