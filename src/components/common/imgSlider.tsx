@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
+import { Product } from '@/types';
 
 interface slideDataItmeProps {
   id: number;
@@ -15,23 +16,13 @@ interface slideDataItmeProps {
 interface imagesUrlProps {
   productType: string;
   id: number;
+  data: Product;
 }
 
-export default function ImgSlider({ productType, id }: imagesUrlProps) {
-  // 서버에서 받아오는 데이터를 구현하기 위한 더미데이터. 서버 연결이 필요하면 수정 예정
-  const slideData: slideDataItmeProps[] = [
-    {
-      id: 1,
-      src: `/images/products/${productType}/02/model-2.jpg`,
-      alt: '',
-    },
-    {
-      id: 2,
-      src: `/images/products/${productType}/02/model-2.jpg`,
-      alt: '',
-    },
-  ];
+export default function ImgSlider({ data, productType, id }: imagesUrlProps) {
+  console.log(data);
 
+  // 서버에서 받아오는 데이터를 구현하기 위한 더미데이터. 서버 연결이 필요하면 수정 예정
   return (
     <>
       <div className="swiper-container">
@@ -46,16 +37,10 @@ export default function ImgSlider({ productType, id }: imagesUrlProps) {
           //   disableOnInteraction: false, // 사용자 상호작용시 슬라이더 일시 정지 비활성
           // }}
         >
-          {slideData.map((slide) => {
+          {data.mainImages.map((slide) => {
             return (
-              <SwiperSlide key={slide.id}>
-                <Image
-                  src={`/images/products/${productType}/${id}/model-2.jpg`}
-                  alt={slide.alt}
-                  className="w-full"
-                  width="469"
-                  height="216"
-                />
+              <SwiperSlide key={slide._id}>
+                <Image src={slide.path} alt={slide.originalname} className="w-full" width="469" height="216" />
               </SwiperSlide>
             );
           })}
