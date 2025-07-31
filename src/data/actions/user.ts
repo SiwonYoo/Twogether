@@ -84,6 +84,9 @@ export async function editProfile(editData: EditProfileType): ApiResPromise<Edit
   return data;
 }
 
+/**
+ * 프로필 사진 수정 함수
+ */
 export async function editProfileImage({
   _id,
   imageFile,
