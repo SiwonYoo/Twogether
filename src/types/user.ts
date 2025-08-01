@@ -34,3 +34,18 @@ export interface EditProfileImageType {
   imageFile: File | null;
   accessToken: string;
 }
+
+export interface VerifyEmailType {
+  accepted: string[];
+  rejected: [];
+  ehlo: string[];
+  envelopeTime: number;
+  messageTime: number;
+  messageSize: number;
+  response: string;
+  envelope: {
+    from: string;
+    to: string[];
+  };
+  messageId: string;
+}
