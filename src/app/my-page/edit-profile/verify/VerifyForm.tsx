@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 
 const emailExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const verificationCodeExp = /^[A-Z0-9]$/;
+const verificationCodeExp = /^[0-9]$/;
 
 function VerifyForm() {
   const router = useRouter();
@@ -18,20 +18,55 @@ function VerifyForm() {
   const [isEmailSent, setIsEmailSent] = useState<boolean>(false);
   const [verificationCode, setVerificationCode] = useState('');
   const [attemptCount, setAttemptCount] = useState(0);
+  const [leftTime, setLeftTime] = useState(5 * 60);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    createRandomCode();
-  }, []);
-
+  // 랜덤 코드 생성 함수 (숫자 6자리)
   function createRandomCode() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let randomCode = '';
     for (let i = 0; i < 6; i++) {
-      randomCode += chars[Math.floor(Math.random() * 36)];
+      randomCode += Math.floor(Math.random() * 10);
     }
+
     setVerificationCode(randomCode);
+    setLeftTime(5 * 60);
   }
 
+  // 인증 메일 전송 (API) + 인증코드 타이머 설정
+  useEffect(() => {
+    if (verificationCode === '') return;
+
+    const sendEmail = async () => {
+      const res = await verifyEmail(email, verificationCode);
+      if (res.ok) {
+        setIsEmailSent(true);
+      }
+    };
+    sendEmail();
+
+    timerRef.current = setInterval(() => {
+      setLeftTime((prev) => prev - 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(timerRef.current!);
+    };
+  }, [verificationCode]);
+
+  // 남은 시간이 0일 경우, interval clear
+  useEffect(() => {
+    if (leftTime === 0) {
+      setVerificationCode('');
+      clearInterval(timerRef.current!);
+    }
+  }, [leftTime]);
+
+  // 메일을 보낸 상태가 아닐 경우, interval clear
+  useEffect(() => {
+    if (!isEmailSent && timerRef.current) clearInterval(timerRef.current!);
+  }, [isEmailSent]);
+
+  // 코드 입력 함수 (onChange)
   const handleInputCode = (idx: number, event: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = event.target.value;
     if (inputValue && typeof inputValue === 'string') {
@@ -46,6 +81,7 @@ function VerifyForm() {
     }
   };
 
+  // 키 입력 이벤트 핸들러 (백스페이스 처리)
   const handleKeyDown = (idx: number, event: React.KeyboardEvent<HTMLInputElement>) => {
     const inputKey = event.key;
     const inputValues = [...userCode];
@@ -60,27 +96,35 @@ function VerifyForm() {
     }
   };
 
+  // 자동 포커싱
   useEffect(() => {
     if (currentFocusIdx < 0) return;
     inputRefs.current[currentFocusIdx]?.focus();
   }, [currentFocusIdx]);
 
-  const sendEmail = async (event: FormEvent) => {
+  // 이메일 전송 함수 ('이메일 전송' 버튼 클릭 시)
+  const handleClickSendEmail = async (event: FormEvent) => {
     event.preventDefault();
-
-    const res = await verifyEmail(email, verificationCode);
-    if (res.ok) setIsEmailSent(true);
+    createRandomCode();
   };
 
+  // 리셋 함수 ('이메일 재전송' 버튼 클릭 시)
   const verificationReset = () => {
     setIsEmailSent(false);
-    createRandomCode();
     setAttemptCount(0);
     setUserCode([]);
   };
 
+  // 인증 함수 ('인증' 버튼 클릭 시)
   const handleNextStep = (event: FormEvent) => {
     event.preventDefault();
+
+    if (verificationCode === '') {
+      alert(`인증에 실패했습니다. 다시 시도해 주세요.\n(유효 시간 만료)`);
+      verificationReset();
+      return;
+    }
+
     const userCodeFull = userCode.join('');
     if (userCodeFull === verificationCode) {
       alert('인증되었습니다.');
@@ -91,7 +135,7 @@ function VerifyForm() {
         setAttemptCount((prev) => prev + 1);
         setUserCode([]);
       } else {
-        alert(`인증에 실패했습니다. 다시 시도해 주세요.\n(시도 횟수: ${attemptCount + 1}/3)`);
+        alert(`인증에 실패했습니다. 다시 시도해 주세요.\n(시도 횟수 초과)`);
         verificationReset();
       }
     }
@@ -100,7 +144,7 @@ function VerifyForm() {
   return (
     <>
       <div className="flex flex-col gap-10 mb-20">
-        <form onSubmit={sendEmail} className="flex flex-col gap-5">
+        <form onSubmit={handleClickSendEmail} className="flex flex-col gap-5">
           <div>
             <Input
               id="email"
@@ -135,7 +179,13 @@ function VerifyForm() {
           <form onSubmit={handleNextStep} className="flex flex-col gap-5">
             <div>
               <p className="text-center">회원님의 이메일로 인증번호가 전송되었습니다.</p>
-              <p className="text-xs text-gray-350 text-center">인증번호 입력 후 [인증] 버튼을 클릭해 주세요.</p>
+              {leftTime > 0 ? (
+                <p className="text-xs text-center">
+                  {Math.floor(leftTime / 60)}분 {leftTime % 60}초 내에 인증번호 입력 후 [인증] 버튼을 클릭해 주세요.
+                </p>
+              ) : (
+                <p className="text-xs text-error text-center">유효시간이 만료되었습니다. 이메일을 다시 보내주세요.</p>
+              )}
             </div>
             <div className="flex gap-1 self-center">
               {Array.from({ length: 6 }).map((item, idx) => (
@@ -145,6 +195,8 @@ function VerifyForm() {
                     inputRefs.current[idx] = el;
                   }}
                   type="text"
+                  inputMode="numeric"
+                  pattern="\d*"
                   maxLength={1}
                   value={userCode[idx] || ''}
                   onChange={(event) => handleInputCode(idx, event)}
@@ -160,7 +212,7 @@ function VerifyForm() {
               </Button>
               <Button
                 type="submit"
-                bg={userCode.join().length > 10 ? 'primary' : 'disabled'}
+                bg={userCode.join().length > 10 && leftTime > 0 ? 'primary' : 'disabled'}
                 disabled={!(userCode.join().length > 10)}
                 shape="square"
                 size="lg"

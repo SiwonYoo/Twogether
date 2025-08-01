@@ -152,7 +152,20 @@ export async function verifyEmail(emailAddr: string, verificationCode: string): 
     to: emailAddr,
     serviceName: 'Twogether',
     subject: '[Twogether] 이메일 인증 번호입니다.',
-    content: `<div style="margin: 0 auto; max-width: 600px; text-align: center;"><h1>Twogether</h1><h2>개인 정보 수정<br/>인증번호를 알려드립니다.</h2><p>인증번호를 확인하신 후 Twogether에서 이메일 인증을 완료해 주세요.</p><p>개인정보보호를 위해 인증번호는 10분 동안만 유효합니다.</p><p>${verificationCode}</p></div>`,
+    content: `<div style="margin: 0 auto; padding: 20px; max-width: 600px;">
+              <h1 style="color: #2e1f42;"><b>Twogether</b></h1>
+              <hr/>
+              <h2 style="font-size: 20px">인증번호 발송 안내</h2>
+              <p style="margin: 4px 0;">안녕하세요, <b style="color: #2e1f42;">Twogether</b> 입니다.</p>
+              <p style="margin: 4px 0;">아래와 같이 인증번호를 발급해드립니다.</p>
+              <p style="margin: 4px 0;">개인정보보호를 위해 인증번호는 5분 동안만 유효합니다.</p>
+              <div style="padding: 10px; margin-block: 30px; border: 1px #000000 solid; border-radius: 10px; text-align: center;"><b style="font-size: 20px; letter-spacing: 10px;">${verificationCode}</b></div>
+              <div style="padding: 20px; background-color: #ebebeb;">
+              <p style="margin: 4px 0; font-size: 14px;"><b style="color: #2e1f42;">Twogether</b>를 이용해주셔서 감사합니다.</p>
+              <small style="margin: 0; font-size: 12px;">* 고객님 본인이 요청하신 것이 아닌 경우, 고객센터로 문의 바랍니다.</small><br/>
+              <small style="margin: 0; font-size: 12px;">* 본 메일은 발신 전용 메일입니다. 문의사항은 1:1 문의를 이용해 주시기 바랍니다.</small>
+              </div>
+              </div>`,
   };
 
   try {
