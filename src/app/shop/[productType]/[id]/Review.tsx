@@ -2,7 +2,7 @@
 
 import ReviewItem from '@/app/my-page/review/ReviewItemNew';
 import { getProductReview } from '@/data/functions/review';
-import { OrderProduct, ProductDetails } from '@/types';
+import { Product } from '@/types';
 import { Review } from '@/types/review';
 import { Star } from 'lucide-react';
 import { Judson } from 'next/font/google'; // 구글 폰트 사용
@@ -14,7 +14,7 @@ const JudsonFont = Judson({
 });
 
 interface ReviewPageProps {
-  product: OrderProduct;
+  product: Product;
 }
 
 export default function ReviewPage({ product }: ReviewPageProps) {
