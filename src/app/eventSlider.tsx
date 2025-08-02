@@ -33,7 +33,7 @@ export default function EventSlider() {
     },
     {
       id: 4,
-      src: '/images/event/event_8.png',
+      src: '/images/event/event_92.png',
       alt: '맞춤 옷 추천! 스타일을 고르면 옷을 추천해드립니다! 8월 31일 종료됩니다.',
     },
   ];
