@@ -1,13 +1,14 @@
 import LinkButton from '@/components/common/LinkButton';
 import ProductCardItem from '@/components/product/ProductCardItem';
-import { Product } from '@/types/product';
+import { Product } from '@/types';
 
 interface ProductCardItemLayoutProps {
   productType: string;
   data: Product[];
+  likeId: number;
 }
 
-export default function ProductCardItemLayout({ productType, data }: ProductCardItemLayoutProps) {
+export default function ProductCardItemLayout({ productType, data, likeId }: ProductCardItemLayoutProps) {
   // 1productType이 "best"면 isBest 상품만, 아니면 category로 필터
   const dataFilter = data.length;
   let title = '';
@@ -37,9 +38,7 @@ export default function ProductCardItemLayout({ productType, data }: ProductCard
   return (
     <>
       {dataFilter > 0 ? (
-        <ul className="grid grid-cols-2 gap-4 my-6">
-          <ProductCardItem productType={productType} data={data} />
-        </ul>
+        <ProductCardItem productType={productType} data={data} Itemid={likeId} />
       ) : (
         <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
           <p className="text-3xl mb-4">고객님, 정말 죄송합니다.</p>
