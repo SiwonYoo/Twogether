@@ -35,7 +35,6 @@ export interface MainImage {
   _id?: number;
   path: string;
   name: string;
-  originalname: string;
 }
 
 // 사이즈 정보 단위
@@ -54,7 +53,7 @@ export interface FabricInfo {
 // 세탁 정보
 export interface WashingInfo {
   _id: number;
-  imgUrl: string;
+  path: string;
   label: string;
 }
 
