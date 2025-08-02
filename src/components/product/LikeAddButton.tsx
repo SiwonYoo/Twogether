@@ -2,13 +2,14 @@
 
 import { PostLikeList } from '@/data/actions/like';
 import useUserStore from '@/stores/useUserStore';
-import { ApiRes, LikeItem } from '@/types';
+import { ApiRes, LikeItem, Product } from '@/types';
 import { Heart } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import { startTransition, useActionState } from 'react';
 
 interface LikeButtonProps {
   id: number;
+  onSuccess?: () => void;
 }
 
 /**
@@ -24,27 +25,33 @@ interface LikeButtonProps {
  * @returns {JSX.Element} 찜 추가 버튼을 포함하는 JSX 엘리먼트
  */
 
-export default function LikeAddButton({ id }: LikeButtonProps) {
+export default function LikeAddButton({ id, onSuccess }: LikeButtonProps) {
   const { user } = useUserStore();
   const initialState: ApiRes<LikeItem[], never> = {
     ok: 1,
     item: [],
   };
-
   const token = user?.token?.accessToken;
+
   const [_, formAction, isPending] = useActionState(async () => {
     return await PostLikeList(id, String(token));
   }, initialState);
 
-  const add = () => {
+  const add = async () => {
     if (!user) {
       confirm('로그인을 하셔야 이용가능합니다. 로그인 하시겠습니까?');
       redirect('/login');
+      return;
     }
-    startTransition(() => {
-      formAction();
-    });
-    console.log('추가 완료', id);
+    try {
+      startTransition(async () => {
+        const res = await formAction();
+      }); // 비동기 경계 유지
+      console.log('추가 완료', id);
+      onSuccess?.();
+    } catch (e) {
+      console.error('찜 추가 실패', e);
+    }
   };
 
   return (

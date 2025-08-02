@@ -8,6 +8,7 @@ import { startTransition, useActionState, useState } from 'react';
 
 interface LikeButtonProps {
   Itemid: number;
+  onSuccess?: () => void;
 }
 
 /**
@@ -23,7 +24,7 @@ interface LikeButtonProps {
  * @returns {JSX.Element} 찜 삭제 버튼을 포함하는 JSX 엘리먼트
  */
 
-export default function LikeDelButton({ Itemid }: LikeButtonProps) {
+export default function LikeDelButton({ Itemid, onSuccess }: LikeButtonProps) {
   const { user } = useUserStore();
   const initialState: ApiRes<LikeItem[], never> = {
     ok: 1,
@@ -36,13 +37,17 @@ export default function LikeDelButton({ Itemid }: LikeButtonProps) {
     return await DeleteLikeList(Number(Itemid), String(token));
   }, initialState);
 
-  const Del = () => {
-    startTransition(() => {
-      formAction();
-    });
-    revalidateAndRedirectLike();
-
-    console.log('삭제완료', Itemid);
+  const Del = async () => {
+    try {
+      startTransition(async () => {
+        const res = await formAction();
+      }); // 비동기 경계 유지
+      revalidateAndRedirectLike();
+      console.log('삭제완료', Itemid);
+      onSuccess?.();
+    } catch (e) {
+      console.error('찜 삭제 실패', e);
+    }
   };
 
   return (
