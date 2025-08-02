@@ -1,4 +1,4 @@
-import ProductCardItemLayout from '@/app/shop/[productType]/ProductCardItemLayout';
+import ProductCardList from '@/app/shop/[productType]/ProductCardList';
 import LinkButton from '@/components/common/LinkButton';
 import ProductLayout from '@/components/product/ProductLayout';
 import { getProducts } from '@/data/functions/shop';
@@ -7,7 +7,7 @@ import { Metadata } from 'next';
 export interface ListPageProps {
   params: Promise<{
     productType: string;
-    id: number;
+    id: string;
   }>;
 }
 
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: ListPageProps): Promise<Metad
 }
 
 export default async function productPage({ params }: ListPageProps) {
-  const { productType, id } = await params;
+  const { productType } = await params;
   let customQuery = '';
 
   if (productType === 'best') {
@@ -47,11 +47,10 @@ export default async function productPage({ params }: ListPageProps) {
   } else if (productType === 'sale') {
     customQuery = encodeURIComponent(JSON.stringify({ 'extra.isSale': true }));
   } else {
-    customQuery = encodeURIComponent(JSON.stringify({ _id: id, 'extra.category': productType }));
+    customQuery = encodeURIComponent(JSON.stringify({ 'extra.category': `${productType}` }));
   }
 
   const data = await getProducts(customQuery);
-  console.log(data.ok === 1 && data.item);
 
   if (data.ok === 0) {
     return (
@@ -72,7 +71,7 @@ export default async function productPage({ params }: ListPageProps) {
     <>
       <ProductLayout productType={productType} />
 
-      <ProductCardItemLayout productType={productType} data={data.item} />
+      <ProductCardList productType={productType} data={data.item} />
     </>
   );
 }
