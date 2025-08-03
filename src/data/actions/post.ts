@@ -82,6 +82,7 @@ export async function updatePost(state: ApiRes<Post> | null, formData: FormData)
   const body = {
     title: formData.get('title'),
     content: formData.get('content'),
+    product_id: Number(formData.get('product_id')),
   };
 
   let res: Response;
