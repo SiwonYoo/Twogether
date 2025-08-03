@@ -72,8 +72,8 @@ export default function QnaRegist({ boardType }: { boardType: string }) {
               <label htmlFor="qna-content" className="sr-only">
                 문의 내용 입력
               </label>
-              <textarea id="qna-content" className="w-full h-100 resize-none bg-gray-150" name="content" />
-              <p className="text-2xl text-primary">{state?.ok === 0 && state.errors?.content?.msg}</p>
+              <textarea id="qna-content" className="p-1 w-full h-100 resize-none bg-gray-150" name="content" />
+              <p className="text-md text-primary">{state?.ok === 0 && state.errors?.content?.msg}</p>
             </fieldset>
             <div className="flex flex-col gap-2">
               <Button size="lg" shape="square" type="submit">
