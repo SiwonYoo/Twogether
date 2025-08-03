@@ -1,5 +1,6 @@
 'use client';
 
+import ProductItem from '@/app/my-page/order-list/[orderId]/ProductItem';
 import ReviewDeleteForm from '@/app/my-page/review/ReviewDeleteForm';
 import ReviewImagesModal from '@/app/my-page/review/ReviewImagesModal';
 import useUserStore from '@/stores/useUserStore';
@@ -9,8 +10,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Dispatch, SetStateAction, useState } from 'react';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface ReviewItemProps {
   setRefreshKey?: Dispatch<SetStateAction<number>>;
@@ -42,15 +41,20 @@ function ReviewItem({ setRefreshKey, showProductInfo = false, review }: ReviewIt
     );
   }
 
+  let item;
+  if (review.product) {
+    item = {
+      _id: review.product._id,
+      image: { path: review.product.image.path },
+      name: review.product.name,
+      price: review.extra.productPrice,
+    };
+  }
+
   return (
     <>
       <div className="p-4 rounded-md border-[.0625rem] border-gray-150">
-        {showProductInfo && (
-          <div className="mb-5">
-            {/* TODO dummydata - 주문 내역 데이터 넣을 것 */}
-            {/* {review.product && <ProductItem item={item} />} */}
-          </div>
-        )}
+        {showProductInfo && <div className="mb-5">{item && <ProductItem item={item} />}</div>}
         <div className="flex justify-between gap-4">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1">
@@ -87,7 +91,7 @@ function ReviewItem({ setRefreshKey, showProductInfo = false, review }: ReviewIt
             <>
               <button onClick={() => setModalOpen(true)} className="relative self-start">
                 <Image
-                  src={`${API_URL}/${review.extra.images[0]}`}
+                  src={`${review.extra.images[0]}`}
                   alt="리뷰 이미지"
                   width={80}
                   height={80}

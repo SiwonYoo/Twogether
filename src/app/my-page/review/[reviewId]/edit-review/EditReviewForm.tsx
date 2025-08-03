@@ -114,6 +114,7 @@ function EditReviewForm({ review }: { review: Review }) {
         <input type="hidden" name="_id" value={review._id} />
         <input type="hidden" name="redirect" value={redirect || ''} />
         <input type="hidden" name="initialFiles" value={JSON.stringify(initialFiles) || []} />
+        <input type="hidden" name="productPrice" value={review.extra.productPrice} />
 
         <Radio
           legend="키 (선택)"
@@ -156,7 +157,7 @@ function EditReviewForm({ review }: { review: Review }) {
             {[...initialFiles, ...previewFiles].map((item, idx) => (
               <div key={idx} className="relative">
                 <Image
-                  src={idx < initialFiles.length ? `${API_URL}/${item}` : item}
+                  src={idx < initialFiles.length ? `${item}` : item}
                   alt={`미리보기-${idx}`}
                   width={60}
                   height={60}
