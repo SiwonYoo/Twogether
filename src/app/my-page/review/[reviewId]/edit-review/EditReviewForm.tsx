@@ -20,8 +20,6 @@ type formValueType = {
   content: string | null;
 };
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 function EditReviewForm({ review }: { review: Review }) {
   const [state, formAction, isLoading] = useActionState(uploadAction, null);
   const [initialFiles, setInitialFiles] = useState<string[]>(review.extra.images || []);
@@ -130,7 +128,13 @@ function EditReviewForm({ review }: { review: Review }) {
           selected={formValues.weight}
           inputChange={inputChange}
         />
-        <Radio legend="사이즈" name="size" options={sizeOptions} selected={formValues.size} inputChange={inputChange} />
+        <Radio
+          legend="사이즈 (선택)"
+          name="size"
+          options={sizeOptions}
+          selected={formValues.size}
+          inputChange={inputChange}
+        />
 
         <Rating selected={Number(formValues.rating)} inputChange={inputChange}>
           <p className="text-error text-sm mb-1">{state?.ok === 0 && state.errors?.rating && '별점을 등록해 주세요'}</p>
