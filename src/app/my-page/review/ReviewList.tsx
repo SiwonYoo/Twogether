@@ -1,6 +1,6 @@
 'use client';
 
-import ReviewItem from '@/app/my-page/review/ReviewItemNew';
+import ReviewItem from '@/app/my-page/review/ReviewItem';
 import { Review } from '@/types/review';
 import { getMyReview } from '@/data/functions/review';
 import useUserStore from '@/stores/useUserStore';
