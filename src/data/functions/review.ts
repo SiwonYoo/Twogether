@@ -21,6 +21,13 @@ export async function getMyReview(accessToken: string): ApiResPromise<Review[]> 
         tags: ['my-review'],
       },
     });
+
+    // 토큰 만료 처리
+    // {unauthorized: true} 방법도 고려. ApiResPromise 타입 수정 필요
+    if (res.status === 401) {
+      return { ok: 0, message: 'unauthorized' };
+    }
+
     return res.json();
   } catch (error) {
     console.error(error);

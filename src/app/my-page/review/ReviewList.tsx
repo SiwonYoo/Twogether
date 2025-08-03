@@ -5,18 +5,27 @@ import { Review } from '@/types/review';
 import { getMyReview } from '@/data/functions/review';
 import useUserStore from '@/stores/useUserStore';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 function ReviewList() {
   const [reviewList, setReviewList] = useState<Review[] | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
 
   const user = useUserStore((state) => state.user);
+  const logout = useUserStore((state) => state.logout);
+  const router = useRouter();
   const accessToken = user?.token?.accessToken;
 
   useEffect(() => {
     const fetchData = async () => {
       let reviewData;
       if (accessToken) reviewData = await getMyReview(accessToken);
+
+      if (reviewData?.ok === 0 && reviewData.message === 'unauthorized') {
+        logout();
+        router.replace(`/login?redirect=/my-page/review`);
+      }
+
       if (reviewData?.ok) {
         setReviewList(reviewData?.item);
       }
