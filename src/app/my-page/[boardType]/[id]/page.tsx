@@ -4,6 +4,7 @@ import { Judson } from 'next/font/google';
 import { getPost } from '@/data/functions/post';
 import DeleteForm from '@/app/my-page/[boardType]/[id]/DeleteForm';
 import LinkButton from '@/components/common/LinkButton';
+import ProductName from '@/components/post/ProductName';
 
 interface InfoPageProps {
   params: Promise<{
@@ -45,7 +46,7 @@ const JudsonFont = Judson({
 export default async function QnaInfoPage({ params }: InfoPageProps) {
   const { boardType, id } = await params;
   const res = await getPost(Number(id));
-  console.log('delete', res);
+
   return (
     <>
       <main className="mb-25 mx-4">
@@ -66,6 +67,7 @@ export default async function QnaInfoPage({ params }: InfoPageProps) {
               <p className="mr-auto">조회 {res.item?.views}</p>
               <p>{res.item.createdAt}</p>
             </div>
+            <ProductName productId={res.item.product_id} />
             <p className="py-10 border-b-1 border-gray-150">{res.item?.content}</p>
             <div className="flex justify-end gap-4 my-3">
               <LinkButton href={`/my-page/${boardType}/${res.item?._id}/edit`} shape="square">
