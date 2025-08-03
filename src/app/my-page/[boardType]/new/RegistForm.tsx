@@ -2,18 +2,30 @@
 
 import Button from '@/components/common/Button';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createPost } from '@/data/actions/post';
 import { useActionState } from 'react';
 import useUserStore from '@/stores/useUserStore';
+import { Product } from '@/types';
+import { getAllProducts } from '@/data/functions/shop';
 
 export default function QnaRegist({ boardType }: { boardType: string }) {
   const [title, setTitle] = useState('[배송] 배송관련 문의드립니다.');
   const [productName, setProductName] = useState(1);
+  const [products, setProducts] = useState<Product[]>([]);
   const [state, formAction, isLoading] = useActionState(createPost, null);
   console.log(isLoading, state);
 
   const { user } = useUserStore();
+
+  // 전체 상품 목록에서 제품 목록 불러오기
+  useEffect(() => {
+    async function fetchProducts() {
+      const res = await getAllProducts();
+      if (res.ok) setProducts(res.item);
+    }
+    fetchProducts();
+  }, []);
 
   return (
     <>
@@ -26,7 +38,7 @@ export default function QnaRegist({ boardType }: { boardType: string }) {
           <form action={formAction} className="m-4">
             <fieldset>
               <legend className="mb-5 text-2xl font-bold">문의 내용</legend>
-              <label htmlFor="question-type" className="sr-only">
+              <label htmlFor="questionType" className="sr-only">
                 문의 유형 선택
               </label>
               <input type="hidden" name="type" value={boardType} />
@@ -35,7 +47,7 @@ export default function QnaRegist({ boardType }: { boardType: string }) {
                 className="w-full p-3 mb-4 border-1 rounded-md"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                id="question-type"
+                id="questionType"
                 name="title"
               >
                 <option value="[배송] 배송관련 문의드립니다.">[배송] 배송관련 문의드립니다.</option>
@@ -43,17 +55,19 @@ export default function QnaRegist({ boardType }: { boardType: string }) {
                 <option value="[반품] 반품관련 문의드립니다.">[반품] 반품관련 문의드립니다.</option>
                 <option value="[기타] 기타관련 문의드립니다.">[기타] 기타관련 문의드립니다.</option>
               </select>
+              <label htmlFor="selectProduct">제품선택</label>
               <select
                 className="w-full p-3 mb-4 border-1 rounded-md"
                 value={productName}
                 onChange={(e) => setProductName(Number(e.target.value))}
-                id="question-type"
+                id="selectProduct"
                 name="product_id"
               >
-                <option value="1">자이푸르 반팔 커플 잠옷 세트</option>
-                <option value="2">러블리민트 실크스킨 반팔 상하의 세트(남녀공용)</option>
-                <option value="3">코코 반팔 남성페어 블랙 (32수)</option>
-                <option value="4">플레인 피치기모 긴팔 상하의 세트(남녀공용)</option>
+                {products.map((product) => (
+                  <option key={product._id} value={product._id}>
+                    {product.name}
+                  </option>
+                ))}
               </select>
               <label htmlFor="qna-content" className="sr-only">
                 문의 내용 입력
