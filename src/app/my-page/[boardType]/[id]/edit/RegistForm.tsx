@@ -2,15 +2,27 @@
 
 import Button from '@/components/common/Button';
 import { updatePost } from '@/data/actions/post';
+import { getAllProducts } from '@/data/functions/shop';
 import useUserStore from '@/stores/useUserStore';
+import { Product } from '@/types';
 import { Post } from '@/types/post';
 import Link from 'next/link';
-import { useActionState, useState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 
 export default function QnaEditRegist({ post }: { post: Post }) {
   const [postState, formAction] = useActionState(updatePost, null);
   const { user } = useUserStore();
   const [title, setTitle] = useState(post.title);
+  const [productId, setProductId] = useState(post.product_id);
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      const res = await getAllProducts();
+      if (res.ok) setProducts(res.item);
+    }
+    fetchProducts();
+  }, []);
 
   return (
     <main>
@@ -34,6 +46,20 @@ export default function QnaEditRegist({ post }: { post: Post }) {
             <option value="[상품] 상품관련 문의드립니다.">[상품] 상품관련 문의드립니다.</option>
             <option value="[반품] 반품관련 문의드립니다.">[반품] 반품관련 문의드립니다.</option>
             <option value="[기타] 기타관련 문의드립니다.">[기타] 기타관련 문의드립니다.</option>
+          </select>
+          <label htmlFor="selectProduct">제품 선택</label>
+          <select
+            className="w-full p-3 mb-4 border-1 rounded-md"
+            value={productId}
+            onChange={(e) => setProductId(Number(e.target.value))}
+            id="selectProduct"
+            name="product_id"
+          >
+            {products.map((product) => (
+              <option key={product._id} value={product._id}>
+                {product.name}
+              </option>
+            ))}
           </select>
           <label htmlFor="qna-content" className="sr-only">
             문의 내용 입력
