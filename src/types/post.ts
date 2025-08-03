@@ -24,6 +24,8 @@ export interface Post {
   createdAt: string;
   // 게시글 수정일
   updatedAt: string;
+  // 상품 아이디
+  product_id: number;
 }
 
 /**
