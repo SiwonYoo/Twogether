@@ -24,6 +24,12 @@ export async function generateMetadata({ params, searchParams }: SearchPageProps
   const { boardType } = await params;
   const { keyword } = await searchParams;
 
+  if (keyword === undefined) {
+    return {
+      title: `${boardType} : 검색 결과 -Twogether`,
+    };
+  }
+
   return {
     title: `${boardType} : ${keyword} 검색결과 - Twogether`,
     description: `${boardType} : ${boardType} : ${keyword} 검색결과 입니다.`,
@@ -42,9 +48,15 @@ export default async function SearchPage({ params, searchParams }: SearchPagePro
 
   return (
     <main className="mx-4">
-      <h2 className={`mb-4 ${JudsonFont.className} text-2xl text-center`}>
-        <strong>{`"${keyword}"`}</strong> 검색결과
-      </h2>
+      {keyword === undefined ? (
+        <h2 className={`mb-4 ${JudsonFont.className} text-2xl text-center`}>
+          <strong>{`" "`}</strong> 검색결과
+        </h2>
+      ) : (
+        <h2 className={`mb-4 ${JudsonFont.className} text-2xl text-center`}>
+          <strong>{`"${keyword}"`}</strong> 검색결과
+        </h2>
+      )}
 
       {/* boardType의 검색 결과에 따라 보여지는 게시글 목록 */}
 
