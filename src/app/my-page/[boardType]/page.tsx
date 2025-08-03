@@ -4,6 +4,8 @@ import { Metadata } from 'next';
 import MyQnaList from './MyQnaList';
 import SearchForm from '@/components/common/SearchForm';
 import LinkButton from '@/components/common/LinkButton';
+import NotFound from '@/app/not-found';
+import { notFound } from 'next/navigation';
 
 const JudsonFont = Judson({
   subsets: ['latin'],
@@ -32,7 +34,11 @@ export async function generateMetadata({ params }: ListPageProps): Promise<Metad
 export default async function QnaPage({ params }: ListPageProps) {
   const { boardType } = await params;
   const res = await getPosts(boardType);
+  const currentBoardType = ['qna'];
 
+  if (!currentBoardType.includes(boardType)) {
+    notFound();
+  }
   return (
     <main className="mx-4">
       <h2 className={`${JudsonFont.className} text-2xl text-center`}>Q&A</h2>
