@@ -114,7 +114,7 @@ export async function getReplies(_id: number): ApiResPromise<PostReply[]> {
 /**
  * 게시판 타입에 해당하는 게시글 목록을 가져옵니다.
  * @param {string} boardType - 게시판 타입(예: notice, free 등)
- * @param {string} keyword - 검색 키워드(에: 배송, 반품, 상품, 기타 등)
+ * @param {string} id - Q&A 작성시 넣을 상품 아이디 값
  * @returns {Promise<ApiRes<Post[]>>} - 게시글 목록 응답 객체
  */
 export async function getProductPost(boardType: string, id: number): ApiResPromise<GetPost[]> {
