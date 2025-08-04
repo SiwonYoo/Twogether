@@ -16,7 +16,7 @@ function EditProfileImage() {
   const [isOpen, setOpen] = useState(false);
 
   useEffect(() => {
-    if (user?.image) setProfileImage(`${API_URL}/${user?.image}`);
+    if (user?.image) setProfileImage(`${user?.image}`);
   }, [user]);
 
   const fileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
