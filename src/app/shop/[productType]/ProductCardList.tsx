@@ -3,6 +3,7 @@ import ProductCardItemLayout from '@/app/shop/[productType]/ProductCardItemLayou
 import { GetLikeList } from '@/data/functions/like';
 import useUserStore from '@/stores/useUserStore';
 import { LikeItem, Product } from '@/types';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 interface ProductCardItemLayoutProps {
@@ -13,15 +14,18 @@ interface ProductCardItemLayoutProps {
 export default function ProductCardList({ productType, data }: ProductCardItemLayoutProps) {
   const { user } = useUserStore();
   const [likes, setLikes] = useState<LikeItem[]>([]);
+  const router = useRouter();
   useEffect(() => {
     async function fetchLikes() {
-      if (!user?.token?.accessToken) {
+      const token = user?.token?.accessToken;
+      if (!user && !token) {
         return null;
       }
-      const token = user.token.accessToken;
+
       try {
-        const res = await GetLikeList(token);
+        const res = await GetLikeList(String(token));
         if (res.ok === 1) {
+          router.refresh();
           setLikes(res.item);
         }
         return res;
@@ -35,6 +39,14 @@ export default function ProductCardList({ productType, data }: ProductCardItemLa
     } else {
       console.log('사용자가 로그인되지 않았습니다.');
     }
+
+    const likerefresh = setInterval(() => {
+      fetchLikes();
+    }, 1000 * 5);
+
+    return () => {
+      clearInterval(likerefresh);
+    };
   }, [user?.token?.accessToken]);
 
   // product._id 기준으로 like 매핑 (찜돼 있으면 likeId, 아니면 undefined)
@@ -45,6 +57,8 @@ export default function ProductCardList({ productType, data }: ProductCardItemLa
     }
   });
 
+  console.log(likes);
+
   return (
     <>
       <ul className="grid grid-cols-2 gap-4 my-6">
@@ -54,8 +68,8 @@ export default function ProductCardList({ productType, data }: ProductCardItemLa
             <ProductCardItemLayout
               key={product._id ?? `prod-${Math.random()}`}
               productType={productType}
-              data={[product]} // <-- 전체 배열이 아니라 단일 상품
-              likeId={likeId != null ? Number(likeId) : Number()}
+              data={[product]}
+              likeId={Number(likeId)}
             />
           );
         })}
