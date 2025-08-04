@@ -952,8 +952,6 @@
       "name": "할레아 긴팔 로브 레드 (40수)",
       "quantity": 2e24,
       "buyQuantity": 2000,
-      "createdAt": "getTime(-16, -60 * 60 * 3)",
-      "updatedAt": "getTime(-15, -60 * 60 * 45)",
       "mainImages": [
         {
           "_id": 1,
