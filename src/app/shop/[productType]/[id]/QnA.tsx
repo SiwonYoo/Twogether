@@ -1,6 +1,5 @@
 import LinkButton from '@/components/common/LinkButton';
 import { getPosts, getProductPost } from '@/data/functions/post';
-import useUserStore from '@/stores/useUserStore';
 import { GetPost, Post } from '@/types';
 import { ProductDetails } from '@/types/product';
 import { Judson } from 'next/font/google'; // 구글 폰트 사용
@@ -12,10 +11,9 @@ const JudsonFont = Judson({
   weight: '700',
 });
 
-export default function QnA({ productType, product }: ProductDetails) {
-  const [NoticePage, setNoticePag] = useState<Post[]>([]);
+export default function QnA({ product }: ProductDetails) {
+  const [noticePage, setNoticePag] = useState<Post[]>([]);
   const [qnaPage, setQnaPag] = useState<GetPost[]>([]);
-  const { user } = useUserStore();
 
   useEffect(() => {
     async function noticeApi() {
@@ -33,13 +31,6 @@ export default function QnA({ productType, product }: ProductDetails) {
           </div>
         );
       }
-
-      function shuffleArray(array: Post[]): Post[] {
-        return [...array].sort(() => Math.random() - 0.5);
-      }
-
-      const shuffled = shuffleArray(res.item);
-      const selected = shuffled.slice(0, 2);
 
       if (res.ok === 1) {
         if (res.item.length === 0) {
@@ -59,7 +50,7 @@ export default function QnA({ productType, product }: ProductDetails) {
             </div>
           );
         }
-        setNoticePag(selected);
+        setNoticePag(res.item);
       }
     }
 
@@ -77,10 +68,12 @@ export default function QnA({ productType, product }: ProductDetails) {
   }, []);
 
   // 날짜 변환
-  function formatToYYMMDD(datetime: string) {
-    const [datePart] = datetime.split(' ');
+  function formatToYYMMDD(datetime: string | null | undefined) {
+    if (!datetime || typeof datetime !== 'string') return ''; // 입력 유효성 검사
+    const datePart = datetime.split(' ')[0]; // "2025.08.02 12:34:56" -> "2025.08.02"
     const [year, month, day] = datePart.split('.');
-    return `${year.slice(2)}.${month}.${day}`;
+    if (!year || !month || !day) return ''; // 포맷 이상하면 빈 문자열
+    return `${year.slice(-2)}.${month.padStart(2, '0')}.${day.padStart(2, '0')}`;
   }
 
   return (
@@ -88,7 +81,7 @@ export default function QnA({ productType, product }: ProductDetails) {
       <h2 className={`${JudsonFont.className} text-center font-bold text-2xl`}>Q&A</h2>
       <ul>
         {/* 공지 */}
-        {NoticePage.slice(0, 2).map((item) => {
+        {noticePage.map((item) => {
           return (
             <li key={`NoticePage-${item._id}`} className="border-b border-(--color-gray-250) my-4">
               <Link href={`/community/notice/${item._id}`}>
