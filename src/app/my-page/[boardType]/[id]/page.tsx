@@ -2,9 +2,9 @@ import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { Judson } from 'next/font/google';
 import { getPost } from '@/data/functions/post';
-import DeleteForm from '@/app/my-page/[boardType]/[id]/DeleteForm';
 import LinkButton from '@/components/common/LinkButton';
 import ProductName from '@/components/post/ProductName';
+import ButtonSection from '@/app/my-page/[boardType]/[id]/ButtonSection';
 
 interface InfoPageProps {
   params: Promise<{
@@ -69,13 +69,7 @@ export default async function QnaInfoPage({ params }: InfoPageProps) {
             </div>
             <ProductName productId={res.item.product_id} />
             <p className="py-10 border-b-1 border-gray-150">{res.item?.content}</p>
-            <div className="flex justify-end gap-4 my-3">
-              <LinkButton href={`/my-page/${boardType}/${res.item?._id}/edit`} shape="square">
-                수정
-              </LinkButton>
-
-              <DeleteForm boardType={boardType} id={id} />
-            </div>
+            <ButtonSection boardType={boardType} postId={res.item._id} authorId={res.item.user._id} />
             <p className="text-right">* 답변이 달린 후에는 수정이 불가합니다.</p>
             <div className="h-50 p-1 bg-gray-150">
               <p>문의 답변 내용</p>
