@@ -10,8 +10,6 @@ interface ReviewImagesModalProps {
   images: string[];
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 function ReviewImagesModal({ isOpen, setOpen, images }: ReviewImagesModalProps) {
   const [imageIdx, setImageIdx] = useState(0);
 
@@ -50,7 +48,7 @@ function ReviewImagesModal({ isOpen, setOpen, images }: ReviewImagesModalProps) 
             </button>
             <div className="relative">
               <Image
-                src={`${API_URL}/${images[imageIdx]}`}
+                src={`${images[imageIdx]}`}
                 alt="리뷰 이미지"
                 width={240}
                 height={240}

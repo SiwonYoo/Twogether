@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
         pathname: '/market//files/**',
       },
       {
-        protocol: 'https', // 여기 중요 이거 추가해요!
+        protocol: 'https',
         hostname: 'res.cloudinary.com',
         port: '',
         pathname: '**',

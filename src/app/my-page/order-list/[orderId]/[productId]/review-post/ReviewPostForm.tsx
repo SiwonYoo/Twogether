@@ -19,7 +19,15 @@ type formValueType = {
   content: string | null;
 };
 
-function ReviewPostForm({ orderId, productId }: { orderId: string; productId: string }) {
+function ReviewPostForm({
+  orderId,
+  productId,
+  productPrice,
+}: {
+  orderId: number;
+  productId: number;
+  productPrice: number;
+}) {
   const [state, formAction, isLoading] = useActionState(uploadAction, null);
   const user = useUserStore((state) => state.user);
   const [previewFiles, setPreviewFiles] = useState<string[]>([]);
@@ -102,6 +110,7 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
         <input type="hidden" name="accessToken" value={user?.token?.accessToken || ''} />
         <input type="hidden" name="order_id" value={orderId} />
         <input type="hidden" name="product_id" value={productId} />
+        <input type="hidden" name="productPrice" value={productPrice} />
 
         <Radio
           legend="키 (선택)"
@@ -117,7 +126,13 @@ function ReviewPostForm({ orderId, productId }: { orderId: string; productId: st
           selected={formValues.weight}
           inputChange={inputChange}
         />
-        <Radio legend="사이즈" name="size" options={sizeOptions} selected={formValues.size} inputChange={inputChange} />
+        <Radio
+          legend="사이즈 (선택)"
+          name="size"
+          options={sizeOptions}
+          selected={formValues.size}
+          inputChange={inputChange}
+        />
 
         <Rating selected={Number(formValues.rating)} inputChange={inputChange}>
           <p className="text-error text-sm mb-1">{state?.ok === 0 && state.errors?.rating && '별점을 등록해 주세요'}</p>

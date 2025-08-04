@@ -7,8 +7,6 @@ import { SwitchCamera } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 function EditProfileImage() {
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.login);
@@ -45,7 +43,7 @@ function EditProfileImage() {
     const res = await editProfileImage(data);
     if (res.ok) {
       setUser({ ...user, image: res.item.image });
-      setProfileImage(`${API_URL}/${res.item.image}`);
+      setProfileImage(`${res.item.image}`);
     } else {
       setProfileImage('/images/icon/default_profile.svg');
     }

@@ -1,6 +1,6 @@
+import ProductItem from '@/app/my-page/order-list/[orderId]/ProductItem';
 import EditReviewForm from '@/app/my-page/review/[reviewId]/edit-review/EditReviewForm';
 import { getReview } from '@/data/functions/review';
-import { Review } from '@/types/review';
 import { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ reviewId: number }> }): Promise<Metadata> {
@@ -20,22 +20,24 @@ export async function generateMetadata({ params }: { params: Promise<{ reviewId:
 async function EditReview({ params }: { params: Promise<{ reviewId: number }> }) {
   const { reviewId } = await params;
   const reviewData = await getReview(reviewId);
-  let review: Review | null;
 
-  if (reviewData.ok) review = reviewData.item[0];
-  else review = null;
+  if (!reviewData.ok) return;
+  const review = reviewData.item[0];
 
-  /* TODO review.order_id, review.product_id로 주문 내역 받아서 item에 담기 */
+  const item = {
+    _id: review.product_id,
+    image: {
+      path: review.product.image.path,
+    },
+    name: review.product.name,
+    price: review.extra.productPrice,
+  };
 
   return (
     <>
       <main className="px-4">
-        {review !== null && (
-          <>
-            {/* {<ProductItem item={item} />} */}
-            <EditReviewForm review={review} />
-          </>
-        )}
+        <ProductItem item={item} />
+        <EditReviewForm review={review} />
       </main>
     </>
   );

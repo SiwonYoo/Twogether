@@ -1,4 +1,6 @@
 import ReviewPostForm from '@/app/my-page/order-list/[orderId]/[productId]/review-post/ReviewPostForm';
+import ProductItem from '@/app/my-page/order-list/[orderId]/ProductItem';
+import { getProductById } from '@/data/functions/shop';
 import { Metadata } from 'next';
 
 export async function generateMetadata({
@@ -22,13 +24,25 @@ export async function generateMetadata({
 async function ReviewPost({ params }: { params: Promise<{ orderId: string; productId: string }> }) {
   const { orderId, productId } = await params;
 
-  /*  TODO orderId와 productId로 Product 한 건 조회해서 item에 담기 */
+  const data = await getProductById(Number(productId));
+  console.log(data);
+  let item;
+  if (data.ok) {
+    item = {
+      _id: data.item._id,
+      image: { path: data.item.mainImages[0].path },
+      name: data.item.name,
+      price: data.item.price,
+    };
+  }
+
+  if (!item) return;
 
   return (
     <>
       <main className="px-4">
-        {/* <ProductItem item={item} /> */}
-        <ReviewPostForm orderId={orderId} productId={productId} />
+        <ProductItem item={item} />
+        <ReviewPostForm orderId={Number(orderId)} productId={Number(productId)} productPrice={item.price} />
       </main>
     </>
   );
