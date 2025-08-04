@@ -1,5 +1,6 @@
 import ProductSelect from '@/app/shop/[productType]/[id]/ProductSelect';
 import ProductTabs from '@/app/shop/[productType]/[id]/ProductTabs';
+import ShareBtn from '@/app/shop/[productType]/[id]/ShareBtn';
 import ImgSlider from '@/components/common/imgSlider';
 import LinkButton from '@/components/common/LinkButton';
 import { getProduct } from '@/data/functions/shop';
@@ -72,8 +73,9 @@ export default async function ProductDetilPage({ params }: ProductCardItemProps)
   return (
     <>
       {/* 이미지 슬라이드 */}
-      <div className="h-[650px] overflow-hidden">
-        <ImgSlider data={product} productType={productType} id={Number(id)} />
+      <div className="h-[650px] overflow-hidden relative">
+        <ImgSlider data={product} />
+        <ShareBtn />
       </div>
       {/* 서버통신이 성공이면 나오는 메시지 */}
       <div className="mt-6">

@@ -3,26 +3,17 @@ import Image from 'next/image';
 
 // swiper 사용을 위한 임포트
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
+// import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import { Product } from '@/types';
 
-interface slideDataItmeProps {
-  id: number;
-  src: string;
-  alt: string;
-}
 
 interface imagesUrlProps {
-  productType: string;
-  id: number;
   data: Product;
 }
 
-export default function ImgSlider({ data, productType, id }: imagesUrlProps) {
-  console.log(data);
+export default function ImgSlider({ data }: imagesUrlProps) {
 
-  // 서버에서 받아오는 데이터를 구현하기 위한 더미데이터. 서버 연결이 필요하면 수정 예정
   return (
     <>
       <div className="swiper-container">
@@ -40,7 +31,7 @@ export default function ImgSlider({ data, productType, id }: imagesUrlProps) {
           {data.mainImages.map((slide) => {
             return (
               <SwiperSlide key={slide._id}>
-                <Image src={slide.path} alt={slide.originalname} className="w-full" width="469" height="216" />
+                <Image src={slide.path} alt={slide.name} className="w-full" width="469" height="216" />
               </SwiperSlide>
             );
           })}

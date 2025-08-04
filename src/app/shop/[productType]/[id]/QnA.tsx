@@ -12,54 +12,26 @@ const JudsonFont = Judson({
   weight: '700',
 });
 
-export default function QnA({ productType, product }: ProductDetails) {
-  const [NoticePage, setNoticePag] = useState<Post[]>([]);
+export default function QnA({ product }: ProductDetails) {
+  const [noticePage, setNoticePag] = useState<Post[]>([]);
   const [qnaPage, setQnaPag] = useState<GetPost[]>([]);
-  const { user } = useUserStore();
 
+  const [error, setError] = useState('');
+  const { user } = useUserStore();
   useEffect(() => {
+    const token = user?.token?.accessToken;
     async function noticeApi() {
+      if (!user && !token) {
+        return null;
+      }
       const res = await getPosts('notice');
       if (res.ok === 0) {
-        return (
-          <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
-            <p className="text-3xl mb-4">고객님, 진심으로 사과드립니다.</p>
-            <p className="text-gray-500">서버 문제로 인해 상품 정보 제공에 차질이 발생했습니다.</p>
-            <p className="text-gray-500 my-2">이로 인해 오랜 시간 기다리시게 된 점 깊이 죄송합니다.</p>
-            <p className="text-gray-500">빠른 시일 내에 정상화된 상품을 갖추어 찾아뵐 수 있도록 최선을 다하겠습니다.</p>
-            <p className="text-gray-500 mb-4 mt-2">불편을 드린 점 다시 한번 사과드리며, 너그러운 양해 부탁드립니다.</p>
-
-            <LinkButton href="/">홈으로 바로가기</LinkButton>
-          </div>
-        );
+        setError(res.message);
+        return;
       }
-
-      function shuffleArray(array: Post[]): Post[] {
-        return [...array].sort(() => Math.random() - 0.5);
-      }
-
-      const shuffled = shuffleArray(res.item);
-      const selected = shuffled.slice(0, 2);
 
       if (res.ok === 1) {
-        if (res.item.length === 0) {
-          return (
-            <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
-              <p className="text-3xl mb-4">고객님, 진심으로 사과드립니다.</p>
-              <p className="text-gray-500">서버 문제로 인해 상품 정보 제공에 차질이 발생했습니다.</p>
-              <p className="text-gray-500 my-2">이로 인해 오랜 시간 기다리시게 된 점 깊이 죄송합니다.</p>
-              <p className="text-gray-500">
-                빠른 시일 내에 정상화된 상품을 갖추어 찾아뵐 수 있도록 최선을 다하겠습니다.
-              </p>
-              <p className="text-gray-500 mb-4 mt-2">
-                불편을 드린 점 다시 한번 사과드리며, 너그러운 양해 부탁드립니다.
-              </p>
-
-              <LinkButton href="/">홈으로 바로가기</LinkButton>
-            </div>
-          );
-        }
-        setNoticePag(selected);
+        setNoticePag(res.item);
       }
     }
 
@@ -76,11 +48,27 @@ export default function QnA({ productType, product }: ProductDetails) {
     QnAApi();
   }, []);
 
+  if (error) {
+    return (
+      <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
+        <p className="text-3xl mb-4">고객님, 진심으로 사과드립니다.</p>
+        <p className="text-gray-500">서버 문제로 인해 상품 정보 제공에 차질이 발생했습니다.</p>
+        <p className="text-gray-500 my-2">이로 인해 오랜 시간 기다리시게 된 점 깊이 죄송합니다.</p>
+        <p className="text-gray-500">빠른 시일 내에 정상화된 상품을 갖추어 찾아뵐 수 있도록 최선을 다하겠습니다.</p>
+        <p className="text-gray-500 mb-4 mt-2">불편을 드린 점 다시 한번 사과드리며, 너그러운 양해 부탁드립니다.</p>
+
+        <LinkButton href="/">홈으로 바로가기</LinkButton>
+      </div>
+    );
+  }
+
   // 날짜 변환
-  function formatToYYMMDD(datetime: string) {
-    const [datePart] = datetime.split(' ');
+  function formatToYYMMDD(datetime: string | null | undefined) {
+    if (!datetime || typeof datetime !== 'string') return ''; // 입력 유효성 검사
+    const datePart = datetime.split(' ')[0]; // "2025.08.02 12:34:56" -> "2025.08.02"
     const [year, month, day] = datePart.split('.');
-    return `${year.slice(2)}.${month}.${day}`;
+    if (!year || !month || !day) return ''; // 포맷 이상하면 빈 문자열
+    return `${year.slice(-2)}.${month.padStart(2, '0')}.${day.padStart(2, '0')}`;
   }
 
   return (
@@ -88,7 +76,7 @@ export default function QnA({ productType, product }: ProductDetails) {
       <h2 className={`${JudsonFont.className} text-center font-bold text-2xl`}>Q&A</h2>
       <ul>
         {/* 공지 */}
-        {NoticePage.slice(0, 2).map((item) => {
+        {noticePage.map((item) => {
           return (
             <li key={`NoticePage-${item._id}`} className="border-b border-(--color-gray-250) my-4">
               <Link href={`/community/notice/${item._id}`}>

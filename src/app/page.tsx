@@ -32,7 +32,7 @@ export default function Home() {
         height="322"
         alt="여성 잠옷 모델 이미지"
       />
-      <main className="text-center px-4">
+      <main className="text-center">
         {/* 배스트 섹션 시작 */}
         <section className="mt-6">
           <h2 className={`text-2xl font-bold my-6 ${JudsonFont.className}`}>BEST</h2>
@@ -53,7 +53,7 @@ export default function Home() {
             </div>
           </div>
 
-          <ul className="grid grid-cols-2 gap-4 my-6">
+          <ul className="grid grid-cols-2 gap-4 my-6 mx-4">
             <ProductMainPage category="best" />
           </ul>
         </section>
@@ -79,7 +79,7 @@ export default function Home() {
             </div>
           </div>
 
-          <ul className="grid grid-cols-2 gap-4 my-6">
+          <ul className="grid grid-cols-2 gap-4 my-6 mx-4">
             <ProductMainPage category="sale" />
           </ul>
         </section>

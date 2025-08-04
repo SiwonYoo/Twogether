@@ -6,6 +6,8 @@ import { Product } from '@/types';
 import { useEffect, useState } from 'react';
 
 import { Judson } from 'next/font/google';
+import useUserStore from '@/stores/useUserStore';
+
 const JudsonFont = Judson({
   subsets: ['latin'],
   weight: '400',
@@ -14,20 +16,43 @@ const JudsonFont = Judson({
 export default function ShopPage() {
   const [product, productData] = useState<Product[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { user } = useUserStore();
   useEffect(() => {
     async function ProductAllPageApi() {
-      const res = await getAllProducts();
+      const token = user?.token?.accessToken;
 
-      if (res.ok === 0) {
-        setErrorMessage(res.message);
-        return;
+      if (!user && !token) {
+        return null;
       }
+      try {
+        const res = await getAllProducts();
 
-      if (res.ok === 1) {
-        productData(res.item);
+        if (res.ok === 0) {
+          setErrorMessage(res.message);
+          return;
+        }
+
+        if (res.ok === 1) {
+          productData(res.item);
+        }
+      } catch (e) {
+        console.warn(e);
       }
     }
-    ProductAllPageApi();
+
+    if (user && user.token && user.token.accessToken) {;
+      ProductAllPageApi();
+    } else {
+      console.log('사용자가 로그인되지 않았습니다.');
+    }
+
+    const likerefresh = setInterval(() => {
+      ProductAllPageApi();
+    }, 1000 * 5);
+
+    return () => {
+      clearInterval(likerefresh);
+    };
   }, []);
 
   if (errorMessage) {

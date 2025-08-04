@@ -5,15 +5,15 @@ meta {
 }
 
 get {
-  url: {{url}}/posts?type=qna
+  url: {{url}}/posts?type=notice
   body: none
   auth: inherit
 }
 
 params:query {
-  type: qna
+  type: notice
+  ~type: qna
   ~type: event
-  ~type: notice
   ~type: community
   ~type: info
   ~type: music

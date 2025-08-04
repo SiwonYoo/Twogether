@@ -1,16 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import LikeAddButton from '@/components/product/LikeAddButton';
 import LikeDelButton from '@/components/product/LikeDelButton';
 import { Product } from '@/types';
 import useUserStore from '@/stores/useUserStore';
 import { GetLikeList } from '@/data/functions/like';
+import { useRouter } from 'next/navigation';
 
 interface LikeButtonProps {
   data?: Product;
   id?: number; // 상품 ID
-  Itemid?: number; // 찜 목록과 비교할 상품 ID
+  productLikeId?: number; // 찜 목록과 비교할 상품 ID
 }
 
 /**
@@ -27,55 +28,48 @@ interface LikeButtonProps {
  * @returns {JSX.Element | undefined} 찜 버튼 렌더링 요소 또는 undefined (data가 없을 경우)
  */
 
-export default function LikeButton({ id, Itemid, data }: LikeButtonProps) {
-  const [useData, setUseData] = useState(false); // 찜 여부 상태
+export default function LikeButton({ id, productLikeId, data }: LikeButtonProps) {
+  const [isLiked, setIsLiked] = useState(false);
   const { user } = useUserStore();
 
-  useEffect(() => {
-    async function fetchLikes() {
-      const token = user?.token?.accessToken;
-      if (!token) {
-        return console.error('토큰 없음');
+  const fetchLikes = useCallback(async () => {
+    const token = user?.token?.accessToken;
+    if (!token || !data?._id) return;
+    try {
+      const res = await GetLikeList(String(token));
+      if (res.ok === 1 && res.item) {
+        const found = res.item.some((likeItem) => likeItem.product._id === data._id);
+        setIsLiked(found);
       }
-
-      try {
-        const res = await GetLikeList(String(token));
-        if (res.ok === 1 && res.item) {
-          const isLiked = res.item.filter((likeItem) => {
-            return likeItem.product._id === data?._id;
-          });
-          if (isLiked.length === 0) {
-            setUseData(useData);
-          } else if (isLiked.length > 0) {
-            setUseData(!useData);
-          }
-        }
-        return res;
-      } catch (error) {
-        console.error('fetchLikes 에러:', error);
-      }
+    } catch (e) {
+      console.error('fetchLikes 에러:', e);
     }
+  }, [user?.token?.accessToken, data?._id]);
 
-    if (user) {
+  useEffect(() => {
+    if (user && data?._id) {
       fetchLikes();
     }
-  }, []);
+  }, [user, data?._id, fetchLikes]);
 
-  if (!data) {
-    return;
-  }
+  if (!data) return null;
 
   return (
     <>
-      {/* 찜 상태에 따른 렌더링 */}
-      {useData ? (
-        <>
-          <LikeDelButton Itemid={Number(Itemid)} />
-        </>
+      {isLiked ? (
+        <LikeDelButton
+          productLikeId={Number(productLikeId)}
+          onSuccess={() => {
+            fetchLikes();
+          }}
+        />
       ) : (
-        <>
-          <LikeAddButton id={Number(id)} />
-        </>
+        <LikeAddButton
+          id={Number(id)}
+          onSuccess={() => {
+            fetchLikes();
+          }}
+        />
       )}
     </>
   );

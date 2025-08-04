@@ -26,7 +26,7 @@ export default function ShoppingCartAdd({ product_id, quantity }: ShoppingCartAd
 
   return (
     <>
-      <form action={action}>
+      <form action={action} className="block w-1/4">
         <input type="hidden" name="product_id" value={product_id} />
         <input type="hidden" name="quantity" value={quantity} />
         <input type="hidden" name="accessToken" value={user?.token?.accessToken || ''} />
@@ -34,7 +34,7 @@ export default function ShoppingCartAdd({ product_id, quantity }: ShoppingCartAd
         <Button
           type="submit"
           disabled={isLoading}
-          className="flex justify-center items-center border border-primary text-center w-1/4 px-6 py-2 bg-white"
+          className="flex justify-center items-center border border-primary text-center w-full px-6 py-2 bg-white"
         >
           <ShoppingBag />
         </Button>
