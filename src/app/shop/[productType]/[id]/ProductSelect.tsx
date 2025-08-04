@@ -3,7 +3,6 @@
 import ProductTypeIdItem from '@/app/shop/[productType]/[id]/ProductTypeIdItem';
 import ShoppingCartAdd from '@/app/shop/[productType]/[id]/ShoppingCartAdd';
 import DropDown from '@/components/common/DropDown';
-import LikeButton from '@/components/product/LikeButton';
 import { Product } from '@/types/product';
 import { ChangeEvent, useActionState, useState } from 'react';
 import Button from '@/components/common/Button';
@@ -11,6 +10,7 @@ import { addCart } from '@/data/actions/cart';
 import useUserStore from '@/stores/useUserStore';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import LikePages from '@/app/shop/[productType]/[id]/LikePages';
 
 interface ProductSelectProps {
   item: Product;
@@ -27,6 +27,10 @@ export default function ProductSelect({ item }: ProductSelectProps) {
       router.push(`/order?direct=true&product_id=${item._id}`);
     }
   }, [state, router]);
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <>
@@ -45,7 +49,7 @@ export default function ProductSelect({ item }: ProductSelectProps) {
         <ProductTypeIdItem item={item} selectedValue={selectedValue} />
         <div className="flex justify-between items-center gap-2">
           <div className="flex justify-center items-center border border-(--color-primary) text-center w-1/4  px-6 py-2 bg-(--color-white) relative">
-            <LikeButton data={item} id={item._id} />
+            <LikePages data={item} id={item._id} user={user} />
           </div>
           <ShoppingCartAdd product_id={item._id} quantity={item.quantity} />
           <div className="w-2/3">
