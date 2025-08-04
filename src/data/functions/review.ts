@@ -64,7 +64,7 @@ export async function getReview(_id: number): ApiResPromise<Review[]> {
       headers: {
         'Client-Id': CLIENT_ID,
       },
-      cache: 'force-cache',
+      // cache: 'force-cache',
       next: { tags: [`review/${_id}`] },
     });
     return res.json();
