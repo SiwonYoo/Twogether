@@ -38,7 +38,7 @@ export default function ProductCardItemLayout({ productType, data, likeId }: Pro
   return (
     <>
       {dataFilter > 0 ? (
-        <ProductCardItem productType={productType} data={data} Itemid={likeId} />
+        <ProductCardItem productType={productType} data={data} ItemId={likeId}/>
       ) : (
         <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
           <p className="text-3xl mb-4">고객님, 정말 죄송합니다.</p>
