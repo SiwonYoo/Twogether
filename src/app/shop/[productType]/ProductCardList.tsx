@@ -35,6 +35,7 @@ export default function ProductCardList({ productType, data }: ProductCardItemLa
     }
 
     if (user && user.token && user.token.accessToken) {
+      router.refresh();
       fetchLikes();
     } else {
       console.log('사용자가 로그인되지 않았습니다.');

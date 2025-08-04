@@ -48,11 +48,11 @@ export default function LikePages({ id, data, user }: LikeButtonProps) {
     };
   }, [like?._id]);
 
-  console.log('like?._id', like?._id);
+  console.log('삭제 id', like?._id);
 
   return (
     <>
-      <LikeButton data={data} id={id} ItemId={Number(like?._id)} />
+      <LikeButton data={data} id={id} productLikeId={Number(like?._id)} />
     </>
   );
 }

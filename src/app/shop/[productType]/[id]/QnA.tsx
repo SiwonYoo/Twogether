@@ -1,5 +1,6 @@
 import LinkButton from '@/components/common/LinkButton';
 import { getPosts, getProductPost } from '@/data/functions/post';
+import useUserStore from '@/stores/useUserStore';
 import { GetPost, Post } from '@/types';
 import { ProductDetails } from '@/types/product';
 import { Judson } from 'next/font/google'; // 구글 폰트 사용
@@ -15,41 +16,21 @@ export default function QnA({ product }: ProductDetails) {
   const [noticePage, setNoticePag] = useState<Post[]>([]);
   const [qnaPage, setQnaPag] = useState<GetPost[]>([]);
 
+  const [error, setError] = useState('');
+  const { user } = useUserStore();
   useEffect(() => {
+    const token = user?.token?.accessToken;
     async function noticeApi() {
+      if (!user && !token) {
+        return null;
+      }
       const res = await getPosts('notice');
       if (res.ok === 0) {
-        return (
-          <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
-            <p className="text-3xl mb-4">고객님, 진심으로 사과드립니다.</p>
-            <p className="text-gray-500">서버 문제로 인해 상품 정보 제공에 차질이 발생했습니다.</p>
-            <p className="text-gray-500 my-2">이로 인해 오랜 시간 기다리시게 된 점 깊이 죄송합니다.</p>
-            <p className="text-gray-500">빠른 시일 내에 정상화된 상품을 갖추어 찾아뵐 수 있도록 최선을 다하겠습니다.</p>
-            <p className="text-gray-500 mb-4 mt-2">불편을 드린 점 다시 한번 사과드리며, 너그러운 양해 부탁드립니다.</p>
-
-            <LinkButton href="/">홈으로 바로가기</LinkButton>
-          </div>
-        );
+        setError(res.message);
+        return;
       }
 
       if (res.ok === 1) {
-        if (res.item.length === 0) {
-          return (
-            <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
-              <p className="text-3xl mb-4">고객님, 진심으로 사과드립니다.</p>
-              <p className="text-gray-500">서버 문제로 인해 상품 정보 제공에 차질이 발생했습니다.</p>
-              <p className="text-gray-500 my-2">이로 인해 오랜 시간 기다리시게 된 점 깊이 죄송합니다.</p>
-              <p className="text-gray-500">
-                빠른 시일 내에 정상화된 상품을 갖추어 찾아뵐 수 있도록 최선을 다하겠습니다.
-              </p>
-              <p className="text-gray-500 mb-4 mt-2">
-                불편을 드린 점 다시 한번 사과드리며, 너그러운 양해 부탁드립니다.
-              </p>
-
-              <LinkButton href="/">홈으로 바로가기</LinkButton>
-            </div>
-          );
-        }
         setNoticePag(res.item);
       }
     }
@@ -66,6 +47,20 @@ export default function QnA({ product }: ProductDetails) {
     noticeApi();
     QnAApi();
   }, []);
+
+  if (error) {
+    return (
+      <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
+        <p className="text-3xl mb-4">고객님, 진심으로 사과드립니다.</p>
+        <p className="text-gray-500">서버 문제로 인해 상품 정보 제공에 차질이 발생했습니다.</p>
+        <p className="text-gray-500 my-2">이로 인해 오랜 시간 기다리시게 된 점 깊이 죄송합니다.</p>
+        <p className="text-gray-500">빠른 시일 내에 정상화된 상품을 갖추어 찾아뵐 수 있도록 최선을 다하겠습니다.</p>
+        <p className="text-gray-500 mb-4 mt-2">불편을 드린 점 다시 한번 사과드리며, 너그러운 양해 부탁드립니다.</p>
+
+        <LinkButton href="/">홈으로 바로가기</LinkButton>
+      </div>
+    );
+  }
 
   // 날짜 변환
   function formatToYYMMDD(datetime: string | null | undefined) {

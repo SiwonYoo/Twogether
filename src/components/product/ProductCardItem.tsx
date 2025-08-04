@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 interface ProductCardItemProps {
   productType: string;
-  ItemId?: number;
+  productLikeId?: number;
   data: Product[];
 }
 
@@ -23,7 +23,7 @@ interface ProductCardItemProps {
  * @returns {JSX.Element} 상품 목록 UI를 포함한 JSX 엘리먼트
  */
 
-export default function ProductCardItem({ productType, ItemId, data }: ProductCardItemProps) {
+export default function ProductCardItem({ productType, productLikeId, data }: ProductCardItemProps) {
   return (
     <>
       {data.map((item, index) => {
@@ -50,7 +50,7 @@ export default function ProductCardItem({ productType, ItemId, data }: ProductCa
                   </div>
                 </div>
               </Link>
-              <LikeButton data={item} id={Number(item._id)} ItemId={ItemId}  />
+              <LikeButton data={item} id={Number(item._id)} productLikeId={productLikeId} />
             </div>
           </li>
         );

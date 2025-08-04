@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 interface LikeButtonProps {
   data?: Product;
   id?: number; // 상품 ID
-  ItemId?: number; // 찜 목록과 비교할 상품 ID
+  productLikeId?: number; // 찜 목록과 비교할 상품 ID
 }
 
 /**
@@ -28,10 +28,9 @@ interface LikeButtonProps {
  * @returns {JSX.Element | undefined} 찜 버튼 렌더링 요소 또는 undefined (data가 없을 경우)
  */
 
-export default function LikeButton({ id, ItemId, data }: LikeButtonProps) {
+export default function LikeButton({ id, productLikeId, data }: LikeButtonProps) {
   const [isLiked, setIsLiked] = useState(false);
   const { user } = useUserStore();
-  const router = useRouter();
 
   const fetchLikes = useCallback(async () => {
     const token = user?.token?.accessToken;
@@ -39,7 +38,6 @@ export default function LikeButton({ id, ItemId, data }: LikeButtonProps) {
     try {
       const res = await GetLikeList(String(token));
       if (res.ok === 1 && res.item) {
-        router.refresh();
         const found = res.item.some((likeItem) => likeItem.product._id === data._id);
         setIsLiked(found);
       }
@@ -51,7 +49,6 @@ export default function LikeButton({ id, ItemId, data }: LikeButtonProps) {
   useEffect(() => {
     if (user && data?._id) {
       fetchLikes();
-      router.refresh();
     }
   }, [user, data?._id, fetchLikes]);
 
@@ -61,7 +58,7 @@ export default function LikeButton({ id, ItemId, data }: LikeButtonProps) {
     <>
       {isLiked ? (
         <LikeDelButton
-          Itemid={Number(ItemId)}
+          productLikeId={Number(productLikeId)}
           onSuccess={() => {
             fetchLikes();
           }}
@@ -71,7 +68,6 @@ export default function LikeButton({ id, ItemId, data }: LikeButtonProps) {
           id={Number(id)}
           onSuccess={() => {
             fetchLikes();
-            router.refresh();
           }}
         />
       )}

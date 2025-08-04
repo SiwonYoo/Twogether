@@ -4,11 +4,11 @@ import { DeleteLikeList, revalidateAndRedirectLike } from '@/data/actions/like';
 import useUserStore from '@/stores/useUserStore';
 import { ApiRes, LikeItem } from '@/types';
 import { Heart } from 'lucide-react';
-import { startTransition, useActionState, useState } from 'react';
+import { startTransition, useActionState } from 'react';
 
 interface LikeButtonProps {
-  Itemid: number;
-  onSuccess?: () => void;
+  productLikeId: number;
+  onSuccess: () => void;
 }
 
 /**
@@ -24,7 +24,7 @@ interface LikeButtonProps {
  * @returns {JSX.Element} 찜 삭제 버튼을 포함하는 JSX 엘리먼트
  */
 
-export default function LikeDelButton({ Itemid, onSuccess }: LikeButtonProps) {
+export default function LikeDelButton({ productLikeId, onSuccess }: LikeButtonProps) {
   const { user } = useUserStore();
   const initialState: ApiRes<LikeItem[], never> = {
     ok: 1,
@@ -34,7 +34,7 @@ export default function LikeDelButton({ Itemid, onSuccess }: LikeButtonProps) {
   const token = user?.token?.accessToken;
 
   const [_, formAction, isPending] = useActionState(async () => {
-    return await DeleteLikeList(Number(Itemid), String(token));
+    return await DeleteLikeList(Number(productLikeId), String(token));
   }, initialState);
 
   const Del = async () => {
@@ -43,7 +43,7 @@ export default function LikeDelButton({ Itemid, onSuccess }: LikeButtonProps) {
         const res = await formAction();
       }); // 비동기 경계 유지
       revalidateAndRedirectLike();
-      console.log('삭제완료', Itemid);
+      console.log('삭제완료', productLikeId);
       onSuccess?.();
     } catch (e) {
       console.error('찜 삭제 실패', e);

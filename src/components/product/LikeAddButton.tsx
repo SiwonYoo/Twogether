@@ -9,7 +9,7 @@ import { startTransition, useActionState } from 'react';
 
 interface LikeButtonProps {
   id: number;
-  onSuccess?: () => void;
+  onSuccess: () => void;
 }
 
 /**

@@ -90,7 +90,7 @@ export default function LikePageIsUser() {
           <ProductCardItem
             key={item._id}
             productType={item.product.extra.category}
-            ItemId={Number(item._id)}
+            productLikeId={Number(item._id)}
             data={[item.product]}
           />
         ))}
