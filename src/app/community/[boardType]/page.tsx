@@ -12,10 +12,7 @@ export async function generateMetadata({ params }: ListPageProps): Promise<Metad
     openGraph: {
       title: `${boardType} - Twogether`,
       description: `${boardType} 게시판입니다.`,
-      url: `/${boardType}`,
-      images: {
-        url: '/images/front-end.png',
-      },
+      url: `/community/${boardType}`,
     },
   };
 }
@@ -24,15 +21,11 @@ export interface ListPageProps {
   params: Promise<{
     boardType: string;
   }>;
-  searchParams: {
-    keyword?: string;
-  };
 }
 
-export default async function CommunityPage({ params, searchParams }: ListPageProps) {
+export default async function CommunityPage({ params }: ListPageProps) {
   const { boardType } = await params;
-  const { keyword } = await searchParams;
-  const res = await getPosts(boardType, keyword);
+  const res = await getPosts(boardType);
 
   const isNoticeBoard = boardType === 'notice';
   const isEventBoard = boardType === 'event';

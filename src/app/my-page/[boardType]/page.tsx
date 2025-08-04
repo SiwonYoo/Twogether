@@ -2,11 +2,10 @@ import { getPosts } from '@/data/functions/post';
 import { Judson } from 'next/font/google';
 import { Metadata } from 'next';
 import MyQnaList from './MyQnaList';
-import Button from '@/components/common/Button';
-import Link from 'next/link';
-import Input from '@/components/common/Input';
 import SearchForm from '@/components/common/SearchForm';
 import LinkButton from '@/components/common/LinkButton';
+import NotFound from '@/app/not-found';
+import { notFound } from 'next/navigation';
 
 const JudsonFont = Judson({
   subsets: ['latin'],
@@ -17,9 +16,6 @@ export interface ListPageProps {
   params: Promise<{
     boardType: string;
   }>;
-  searchParams: {
-    keyword?: string;
-  };
 }
 
 export async function generateMetadata({ params }: ListPageProps): Promise<Metadata> {
@@ -35,11 +31,14 @@ export async function generateMetadata({ params }: ListPageProps): Promise<Metad
   };
 }
 
-export default async function QnaPage({ params, searchParams }: ListPageProps) {
+export default async function QnaPage({ params }: ListPageProps) {
   const { boardType } = await params;
-  const { keyword } = await searchParams;
-  const res = await getPosts(boardType, keyword);
+  const res = await getPosts(boardType);
+  const currentBoardType = ['qna'];
 
+  if (!currentBoardType.includes(boardType)) {
+    notFound();
+  }
   return (
     <main className="mx-4">
       <h2 className={`${JudsonFont.className} text-2xl text-center`}>Q&A</h2>
