@@ -62,3 +62,23 @@ export async function getProduct(customQuery: string): ApiResPromise<Product[]> 
     return { ok: 0, message: '일시적인 네트워크 문제로 등록에 실패했습니다.' };
   }
 }
+
+/**
+ * _id로 특정 상품의 상세 정보를 조회합니다.
+ * @param {number} _id - 상품 ID
+ */
+export async function getProductById(_id: number): ApiResPromise<Product> {
+  try {
+    const res = await fetch(`${API_URL}/products/${_id}`, {
+      headers: {
+        'Client-Id': CLIENT_ID,
+      },
+      cache: 'force-cache',
+    });
+
+    return res.json();
+  } catch (error) {
+    console.error(error);
+    return { ok: 0, message: '일시적인 네트워크 문제로 등록에 실패했습니다.' };
+  }
+}

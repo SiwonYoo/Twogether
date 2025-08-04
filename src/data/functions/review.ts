@@ -21,6 +21,13 @@ export async function getMyReview(accessToken: string): ApiResPromise<Review[]> 
         tags: ['my-review'],
       },
     });
+
+    // 토큰 만료 처리
+    // {unauthorized: true} 방법도 고려. ApiResPromise 타입 수정 필요
+    if (res.status === 401) {
+      return { ok: 0, message: 'unauthorized' };
+    }
+
     return res.json();
   } catch (error) {
     console.error(error);
@@ -57,7 +64,7 @@ export async function getReview(_id: number): ApiResPromise<Review[]> {
       headers: {
         'Client-Id': CLIENT_ID,
       },
-      cache: 'force-cache',
+      // cache: 'force-cache',
       next: { tags: [`review/${_id}`] },
     });
     return res.json();
@@ -66,8 +73,9 @@ export async function getReview(_id: number): ApiResPromise<Review[]> {
     return { ok: 0, message: '일시적인 네트워크 문제로 조회에 실패했습니다.' };
   }
 }
+
 /**
- * 리뷰 한 건을 가져옵니다.
+ * 특정 상품 _id에 맞는 리뷰 목록을 가져옵니다.
  */
 export async function getProductReview(_id: number): ApiResPromise<Review[]> {
   try {
@@ -75,7 +83,7 @@ export async function getProductReview(_id: number): ApiResPromise<Review[]> {
       headers: {
         'Client-Id': CLIENT_ID,
       },
-      cache: 'force-cache',
+      // cache: 'force-cache',
       next: { tags: [`review/${_id}`] },
     });
     return res.json();

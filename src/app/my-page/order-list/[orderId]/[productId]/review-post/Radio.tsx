@@ -1,5 +1,7 @@
 'use client';
 
+import { RotateCcwIcon } from 'lucide-react';
+
 export interface RadioItem {
   value: string;
   label: string;
@@ -16,7 +18,13 @@ interface RadioProps extends React.InputHTMLAttributes<HTMLInputElement> {
 function Radio({ legend, name, options, selected, inputChange, ...rest }: RadioProps) {
   return (
     <fieldset className="my-6">
-      <legend className="mb-1">{legend}</legend>
+      <div className="flex gap-2 items-center mb-1">
+        <legend>{legend}</legend>
+        <label key={0} aria-label="선택 초기화">
+          <input type="radio" name={name} value={''} onChange={inputChange} className="hidden" {...rest} />
+          <RotateCcwIcon size={16} />
+        </label>
+      </div>
       {options.map((item) => (
         <label
           key={item.value}
@@ -29,9 +37,7 @@ function Radio({ legend, name, options, selected, inputChange, ...rest }: RadioP
             name={name}
             value={item.value}
             checked={selected === item.value}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              inputChange(event);
-            }}
+            onChange={inputChange}
             className="hidden"
             {...rest}
           />

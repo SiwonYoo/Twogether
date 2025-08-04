@@ -12,7 +12,8 @@ export interface Review {
     height: string;
     weight: string;
     size: string;
+    productPrice: number;
     images?: string[];
   };
-  product?: { _id: number; image: { path: string; name: string }; name: string };
+  product: { _id: number; image: { _id: number; path: string; name: string }; name: string };
 }

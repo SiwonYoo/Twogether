@@ -1,14 +1,22 @@
-import { OrderProduct } from '@/types/order';
 import Image from 'next/image';
 
-function ProductItem({ item }: { item: OrderProduct }) {
+interface ProductItemProps {
+  _id: number;
+  image: {
+    path: string;
+  };
+  name: string;
+  price: number;
+}
+
+function ProductItem({ item }: { item: ProductItemProps }) {
   return (
     <>
       <div className="flex gap-4 justify-between items-center pb-4 border-b-[.0625rem] border-gray-150">
         <Image src={item.image.path} width={50} height={50} alt={item.name} className="aspect-square object-cover" />
         <div className="flex-1 min-w-0">
           <p className="mb-1 truncate">{item.name}</p>
-          <div className="flex justify-between text-sm">
+          <div className="flex gap-2 text-sm">
             <span>상품 금액</span>
             <p>
               <s>

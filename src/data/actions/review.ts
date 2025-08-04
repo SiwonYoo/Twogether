@@ -37,7 +37,13 @@ export async function createReview(state: ApiRes<Review> | null, formData: FormD
       product_id: Number(raw['product_id']),
       rating: Number(raw['rating']),
       content: raw['content'],
-      extra: { height: raw['height'], weight: raw['weight'], size: raw['size'], images: images },
+      extra: {
+        height: raw['height'],
+        weight: raw['weight'],
+        size: raw['size'],
+        productPrice: Number(raw['productPrice']),
+        images: images,
+      },
     };
 
     res = await fetch(`${API_URL}/replies`, {
@@ -96,7 +102,13 @@ export async function editReview(state: ApiRes<Review> | null, formData: FormDat
     const body = {
       rating: Number(raw['rating']),
       content: raw['content'],
-      extra: { height: raw['height'], weight: raw['weight'], size: raw['size'], images: images },
+      extra: {
+        height: raw['height'],
+        weight: raw['weight'],
+        size: raw['size'],
+        productPrice: Number(raw['productPrice']),
+        images: images,
+      },
     };
 
     res = await fetch(`${API_URL}/replies/${_id}`, {

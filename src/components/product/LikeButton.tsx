@@ -21,7 +21,7 @@ interface LikeButtonProps {
  * - 찜 여부에 따라 `LikeAddButton` 또는 `LikeDelButton` 컴포넌트를 렌더링합니다.
  *
  * @param {Object} props - 컴포넌트에 전달되는 props
- * @param {OrderProduct} [props.data] - 현재 상품 정보 객체 (찜 상태 비교에 사용)
+ * @param {Product} [props.data] - 현재 상품 정보 객체 (찜 상태 비교에 사용)
  * @param {number} [props.id] - 상품 ID (찜 추가 요청 시 사용)
  * @param {number} [props.Itemid] - 찜 삭제 요청 시 사용될 ID
  *
