@@ -5,8 +5,9 @@ import Link from 'next/link';
 
 interface ProductCardItemProps {
   productType: string;
-  Itemid?: number;
+  ItemId?: number;
   data: Product[];
+  onUnlike?: () => void;
 }
 
 /**
@@ -23,7 +24,7 @@ interface ProductCardItemProps {
  * @returns {JSX.Element} 상품 목록 UI를 포함한 JSX 엘리먼트
  */
 
-export default function ProductCardItem({ productType, Itemid, data }: ProductCardItemProps) {
+export default function ProductCardItem({ productType, ItemId, data, onUnlike }: ProductCardItemProps) {
   return (
     <>
       {data.map((item, index) => {
@@ -50,7 +51,7 @@ export default function ProductCardItem({ productType, Itemid, data }: ProductCa
                   </div>
                 </div>
               </Link>
-              <LikeButton data={item} id={Number(item._id)} Itemid={Number(Itemid)} />
+              <LikeButton data={item} id={Number(item._id)} ItemId={ItemId} onUnlike={() => onUnlike?.()} />
             </div>
           </li>
         );

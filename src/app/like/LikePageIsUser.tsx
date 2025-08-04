@@ -49,6 +49,13 @@ export default function LikePageIsUser() {
     } else {
       console.log('사용자가 로그인되지 않았습니다.');
     }
+    const likerefresh = setInterval(() => {
+      fetchLikes();
+    }, 1000 * 5);
+
+    return () => {
+      clearInterval(likerefresh);
+    };
   }, [user]);
 
   // 찜 상품이 있는지 확인
@@ -80,7 +87,7 @@ export default function LikePageIsUser() {
           <ProductCardItem
             key={item._id}
             productType={item.product.extra.category}
-            Itemid={Number(item._id)}
+            ItemId={Number(item._id)}
             data={[item.product]}
           />
         ))}
