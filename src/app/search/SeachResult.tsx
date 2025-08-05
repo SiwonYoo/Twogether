@@ -1,5 +1,5 @@
 import ImagesSwiper from '@/components/product/ImagesSwiper';
-import LikeButton from '@/components/product/LikeButton';
+import LikeToggleButton from '@/components/product/LikeButton';
 import { Product } from '@/types';
 import Link from 'next/link';
 
@@ -15,12 +15,23 @@ function SearchResult({ data }: { data: Product[] }) {
               </Link>
               <div className="flex justify-between mt-4">
                 <Link href={`/shop/${item.extra.category}/${item._id}`}>
-                  <div>
+                  <div className="text-left">
                     <h3 className="font-bold">{item.name}</h3>
-                    <p className="text-[.75rem]">{item.price}</p>
+                    <div className="flex items-center gap-2">
+                      <p
+                        className={`text-[.75rem] ${
+                          item.extra.isSale
+                            ? 'text-(--color-gray-450) line-through decoration-2 decoration-(--color-error)'
+                            : ''
+                        }`}
+                      >
+                        {item.price}
+                      </p>
+                      <p className="text-[.75rem]">{item.extra.isSale ? item.extra.salePrice : ''}</p>
+                    </div>
                   </div>
                 </Link>
-                {<LikeButton data={item} id={Number(item._id)} />}
+                {<LikeToggleButton data={item} />}
               </div>
             </li>
           );
