@@ -31,6 +31,9 @@ export default function ProductTypeIdItem({ item, selectedValue }: ProductTypeId
     }
   };
 
+  const unitPrice = item.extra?.isSale && item.extra.salePrice != null ? item.extra.salePrice : item.price;
+  const totalPrice = unitPrice * priseDate;
+
   return (
     <>
       <div className="flex justify-between items-start">
@@ -56,9 +59,7 @@ export default function ProductTypeIdItem({ item, selectedValue }: ProductTypeId
       <div className="flex justify-between my-4">
         <p className={`${JudsonFont.className}`}>TOTAL</p>
         <div>
-          <span className="text-2xl font-bold">
-            {item.extra.isSale ? item.extra.salePrice : item.price * priseDate} 원
-          </span>
+          <span className="text-2xl font-bold">{totalPrice} 원</span>
           <span className="text-(--color-gray-350)"> ({priseDate}개)</span>
         </div>
       </div>

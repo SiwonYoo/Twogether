@@ -23,7 +23,7 @@
       "loginType": "email",
       "image": "files/team/favicon.svg",
       "extra": {
-        "birthday": "03-23"
+        "birthday": "08-08"
       }
     },
     {
@@ -36,7 +36,7 @@
       "loginType": "email",
       "image": "files/team/favicon.svg",
       "extra": {
-        "birthday": "03-23"
+        "birthday": "11-16"
       }
     },
     {
@@ -49,7 +49,7 @@
       "loginType": "email",
       "image": "files/team/favicon.svg",
       "extra": {
-        "birthday": "03-23"
+        "birthday": "05-18"
       }
     },
     {
@@ -62,7 +62,7 @@
       "loginType": "email",
       "image": "files/team/favicon.svg",
       "extra": {
-        "birthday": "03-23"
+        "birthday": "06-22"
       }
     },
     {
@@ -75,7 +75,7 @@
       "loginType": "email",
       "image": "files/team/favicon.svg",
       "extra": {
-        "birthday": "03-23"
+        "birthday": "08-07"
       }
     }
   ],
@@ -1297,7 +1297,81 @@
     }
   ],
   "order": {},
-  "review": {},
+
+  "review": [
+    {
+      "user_id": 2,
+      "user": {
+        "_id": 2,
+        "name": "구성연",
+        "image": "files/team/favicon.svg"
+      },
+      "order_id": 1,
+      "product_id": 1,
+      "rating": 5,
+      "content": "커플룩으로 맞췄는데 색감이 너무 예쁘고 잘 어울려서 만족해요. 스트라이프 패턴도 과하지 않고 귀여워요. 여유 있는 핏이라 둘 다 편하게 입고, 주머니도 있어서 실용적이에요. 소재도 가볍고 시원해서 여름에 딱이에요!",
+      "extra": {
+        "height": "161-170",
+        "weight": "51-60",
+        "size": "M",
+        "productPrice": 39900
+      }
+    },
+    {
+      "user_id": 3,
+      "user": {
+        "_id": 3,
+        "name": "김준성",
+        "image": "files/team/favicon.svg"
+      },
+      "order_id": 1,
+      "product_id": 1,
+      "rating": 5,
+      "content": "처음에는 반신반의하면서 구매했는데 막상 사용해보니 생각보다 훨씬 만족스럽습니다. 디자인도 깔끔하고 마감도 괜찮아요. 여러모로 기대 이상이었고, 실용성도 좋아서 자주 손이 가는 제품이에요.",
+      "extra": {
+        "height": "181 이상",
+        "weight": "71-80",
+        "size": "M",
+        "productPrice": 39900
+      }
+    },
+    {
+      "user_id": 4,
+      "user": {
+        "_id": 4,
+        "name": "유시원",
+        "image": "files/team/favicon.svg"
+      },
+      "order_id": 1,
+      "product_id": 4,
+      "rating": 4,
+      "content": "색감이 은근히 잘 어울려서 입었을 때 부담스럽지 않고 예뻐요. 핏이 여유 있어서 활동하기 편하고, 바지에 주머니까지 있어서 생각보다 실용적이에요. 원단도 가볍고 피부에 달라붙지 않아서 여름에도 시원하게 입기 좋아요.",
+      "extra": {
+        "height": "181 이상",
+        "weight": "71-80",
+        "size": "L",
+        "productPrice": 39900
+      }
+    },
+    {
+      "user_id": 5,
+      "user": {
+        "_id": 5,
+        "name": "최승진",
+        "image": "files/team/favicon.svg"
+      },
+      "order_id": 1,
+      "product_id": 1,
+      "rating": 5,
+      "content": "배송도 빠르게 도착했고, 포장 상태도 깔끔해서 기분 좋게 받았습니다. 실제로 보니 사진보다 더 고급스러운 느낌이 들고, 사용해보니 기능도 잘 작동해서 만족스럽습니다. 주변에도 추천하고 싶어요.",
+      "extra": {
+        "height": "181 이상",
+        "weight": "71-80",
+        "size": "L",
+        "productPrice": 39900
+      }
+    }
+  ],
   "cart": {},
   "bookmark": {},
   "post": [

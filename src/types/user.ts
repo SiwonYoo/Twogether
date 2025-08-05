@@ -49,3 +49,12 @@ export interface VerifyEmailType {
   };
   messageId: string;
 }
+
+export interface GetAllUsersType {
+  _id: number;
+  email: string;
+  name: string;
+  phone: string;
+  type: string;
+  loginType: string;
+}

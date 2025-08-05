@@ -63,36 +63,18 @@ export default function LikePageIsUser() {
           <p className="text-gray-500 my-2">마음에 드는 상품을 발견하셨다면 하트를 눌러 찜해보세요.</p>
           <p className="text-gray-500">찜한 상품을 한눈에 모아보고 싶다면, 지금 바로 다양한 상품을 둘러보세요.</p>
           <p className="text-gray-500 mb-4 mt-2">고객님의 취향에 꼭 맞는 상품을 준비해두고 기다리고 있답니다.</p>
-          <LinkButton href="shop/shortSleeve">상품 보러가기</LinkButton>
+          <LinkButton href="/shop">상품 보러가기</LinkButton>
         </div>
       </main>
     );
   }
 
-  if (!user?.token?.accessToken) {
-    return (
-      <div className="flex justify-center items-center flex-col bg-(--color-gray-150) p-6 rounded-2xl">
-        <h2 className="font-bold text-2xl">고객님 죄송합니다</h2>
-        <p className="mt-2">서버 이슈로 인해 찜한 상품을 불러오지 못했습니다</p>
-        <p className="mt-2">조금 있다가 시도해주시길 바랍니다.</p>
-        <p className="mt-2">Twogether 이슈에 불편을 드려 죄송합니다.</p>
-        <LinkButton href="/">홈 화면 바로가기</LinkButton>
-      </div>
-    );
-  }
-
-  // 찜 상품이 있을때
   return (
     <main className="mx-4">
       <h2 className={`font-bold text-4xl text-center ${JudsonFont.className}`}>LIKE</h2>
       <ul className="grid grid-cols-2 gap-4 my-6">
         {likes.map((item) => (
-          <ProductCardItem
-            key={item._id}
-            productType={item.product.extra.category}
-            productLikeId={Number(item._id)}
-            data={[item.product]}
-          />
+          <ProductCardItem key={item._id} productType={item.product.extra.category} data={[item.product]} />
         ))}
       </ul>
     </main>
