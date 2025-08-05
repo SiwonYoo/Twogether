@@ -3,36 +3,36 @@
 import Button from '@/components/common/Button';
 import { Product } from '@/types';
 import { Share } from 'lucide-react';
-import React, { useEffect } from 'react';
+// import React, { useEffect } from 'react';
 
 interface ShareBtn {
   data: Product;
 }
 
 export default function KakaoShareButton({ data }: ShareBtn) {
-  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+  //   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const { Kakao } = window;
+  //   useEffect(() => {
+  //     if (typeof window !== 'undefined') {
+  //       const { Kakao } = window;
 
-      if (!Kakao.isInitialized()) {
-        Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
-      }
-    }
-  }, []);
+  //       if (!Kakao.isInitialized()) {
+  //         Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
+  //       }
+  //     }
+  //   }, []);
 
   const handleShare = () => {
-    const { Kakao } = window;
-
-    Kakao.Share.sendDefault({
-      objectType: 'text',
-      text: data.name,
-      link: {
-        mobileWebUrl: shareUrl,
-        webUrl: shareUrl,
-      },
-    });
+    console.log('콘솔 찍힘');
+    //     const { Kakao } = window;
+    //     Kakao.Share.sendDefault({
+    //       objectType: 'text',
+    //       text: data.name,
+    //       link: {
+    //         mobileWebUrl: shareUrl,
+    //         webUrl: shareUrl,
+    //       },
+    //     });
   };
 
   return (
