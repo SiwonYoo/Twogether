@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 
 import { Judson } from 'next/font/google';
 import useUserStore from '@/stores/useUserStore';
-import useLikeStore from '@/stores/useLikeStore';
 
 const JudsonFont = Judson({
   subsets: ['latin'],
