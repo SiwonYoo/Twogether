@@ -29,10 +29,6 @@ export default function ProductSelect({ item }: ProductSelectProps) {
     }
   }, [state, router]);
 
-  if (!user) {
-    return null;
-  }
-
   return (
     <>
       <div className="border my-6 p-4 border-(--color-gray-350)">
