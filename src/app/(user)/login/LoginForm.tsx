@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form';
 const emailExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const passwordExp = /^[A-Za-z0-9]{6,12}$/;
 
-type LoginForm = {
+type LoginFormType = {
   email: string;
   password: string;
 };
@@ -28,7 +28,7 @@ function LoginForm() {
     setValue,
     getValues,
     formState: { errors, isValid },
-  } = useForm<LoginForm>({
+  } = useForm<LoginFormType>({
     mode: 'onTouched',
     criteriaMode: 'firstError',
     defaultValues: { email: '', password: '' },
@@ -45,7 +45,7 @@ function LoginForm() {
     }
   }, []);
 
-  const onSubmit = async (loginData: LoginForm) => {
+  const onSubmit = async (loginData: LoginFormType) => {
     const res = await login(loginData);
     if (res?.ok) {
       setUser({
@@ -142,9 +142,9 @@ function LoginForm() {
                 setRememberEmail((prev) => !prev);
               }}
             />
-            <p className="text-sm">
-              <Link href="#">이메일 찾기</Link> | <Link href="#">비밀번호 찾기</Link>
-            </p>
+            <Link href="/find-email" className="text-sm">
+              이메일 찾기
+            </Link>
           </div>
         </fieldset>
         <Button

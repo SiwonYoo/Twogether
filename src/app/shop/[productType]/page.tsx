@@ -1,4 +1,4 @@
-import ProductCardList from '@/app/shop/[productType]/ProductCardList';
+import ProductCardItemLayout from '@/app/shop/[productType]/ProductCardItemLayout';
 import LinkButton from '@/components/common/LinkButton';
 import ProductLayout from '@/components/product/ProductLayout';
 import { getProducts } from '@/data/functions/shop';
@@ -69,9 +69,23 @@ export default async function productPage({ params }: ListPageProps) {
 
   return (
     <>
+      {/* 상품 카테고리 시작 */}
       <ProductLayout productType={productType} />
+      {/* 상품 카테고리 종료 */}
 
-      <ProductCardList productType={productType} data={data.item} />
+      {/* 상품 렌더링 시작 */}
+      <ul className="grid grid-cols-2 gap-4 my-6">
+        {data.item.map((product) => {
+          return (
+            <ProductCardItemLayout
+              productType={productType}
+              key={product._id ?? `prod-${Math.random()}`}
+              data={[product]}
+            />
+          );
+        })}
+      </ul>
+      {/* 상품작렌더링 종료 */}
     </>
   );
 }

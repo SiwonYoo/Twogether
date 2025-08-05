@@ -49,7 +49,9 @@ export default function Home() {
             <div className="absolute right-[2.625rem] top-1/2 -translate-y-1/2 text-white">
               <p className={`${JudsonFont.className} text-2xl font-bold`}>Twogether</p>
               <p className={`${JudsonFont.className} text-2xl mb-4`}>The Last Episode</p>
-              <LinkButton href="/shop/best">GO BEST</LinkButton>
+              <LinkButton href="/shop/best" lang="eng">
+                GO BEST
+              </LinkButton>
             </div>
           </div>
 
@@ -75,7 +77,9 @@ export default function Home() {
             <div className="absolute left-[2.625rem] top-1/2 -translate-y-1/2 text-white">
               <p className={`${JudsonFont.className} text-2xl font-bold`}>Twogether</p>
               <p className={`${JudsonFont.className} text-2xl mb-4`}>The Last Episode</p>
-              <LinkButton href="/shop/sale">TO SALE</LinkButton>
+              <LinkButton href="/shop/best" lang="eng">
+                TO SALE
+              </LinkButton>
             </div>
           </div>
 

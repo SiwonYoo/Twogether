@@ -10,7 +10,7 @@ import { addCart } from '@/data/actions/cart';
 import useUserStore from '@/stores/useUserStore';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import LikePages from '@/app/shop/[productType]/[id]/LikePages';
+import LikeToggleButton from '@/components/product/LikeButton';
 
 interface ProductSelectProps {
   item: Product;
@@ -55,7 +55,7 @@ export default function ProductSelect({ item }: ProductSelectProps) {
         />
         <div className="flex justify-between items-center gap-2">
           <div className="flex justify-center items-center border border-(--color-primary) text-center w-1/4  px-6 py-2 bg-(--color-white) relative">
-            <LikePages data={item} id={item._id} user={user} />
+            <LikeToggleButton data={item} />
           </div>
           <ShoppingCartAdd product_id={item._id} quantity={priseDate} />
           <div className="w-2/3">

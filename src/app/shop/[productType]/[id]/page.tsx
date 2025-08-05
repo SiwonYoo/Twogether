@@ -1,6 +1,6 @@
 import ProductSelect from '@/app/shop/[productType]/[id]/ProductSelect';
 import ProductTabs from '@/app/shop/[productType]/[id]/ProductTabs';
-import ShareBtn from '@/app/shop/[productType]/[id]/ShareBtn';
+import KakaoShareButton from '@/app/shop/[productType]/[id]/ShareBtn';
 import ImgSlider from '@/components/common/imgSlider';
 import LinkButton from '@/components/common/LinkButton';
 import { getProduct } from '@/data/functions/shop';
@@ -25,7 +25,15 @@ export async function generateMetadata({ params }: ProductCardItemProps): Promis
 
   // 타입체크
   if (data.ok === 0) {
-    return {};
+    return {
+      title: '상품조회 실패',
+      description: `스타일리시한 ${productType}, 지금 Twogether에서 확인해보세요.`,
+      openGraph: {
+        title: `상품조회 실패 - Twogether`,
+        description: `스타일리시한 ${productType}, 지금 Twogether에서 확인해보세요.`,
+        url: `/shop/${productType}`,
+      },
+    };
   }
   const product = data.item.find((p) => p._id === Number(id));
   return {
@@ -58,7 +66,6 @@ export default async function ProductDetilPage({ params }: ProductCardItemProps)
         <p className="text-gray-500 my-2">이로 인해 오랜 시간 기다리시게 된 점 깊이 죄송합니다.</p>
         <p className="text-gray-500">빠른 시일 내에 정상화된 상품을 갖추어 찾아뵐 수 있도록 최선을 다하겠습니다.</p>
         <p className="text-gray-500 mb-4 mt-2">불편을 드린 점 다시 한번 사과드리며, 너그러운 양해 부탁드립니다.</p>
-
         <LinkButton href="/">홈으로 바로가기</LinkButton>
       </div>
     );
@@ -67,7 +74,16 @@ export default async function ProductDetilPage({ params }: ProductCardItemProps)
   const product = data.item.find((p) => p._id === Number(id));
 
   if (!product) {
-    return <div>에러가 발생했습니다.</div>;
+    return (
+      <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
+        <p className="text-3xl mb-4">고객님, 진심으로 사과드립니다.</p>
+        <p className="text-gray-500">서버 문제로 인해 상품 정보 제공에 차질이 발생했습니다.</p>
+        <p className="text-gray-500 my-2">이로 인해 오랜 시간 기다리시게 된 점 깊이 죄송합니다.</p>
+        <p className="text-gray-500">빠른 시일 내에 정상화된 상품을 갖추어 찾아뵐 수 있도록 최선을 다하겠습니다.</p>
+        <p className="text-gray-500 mb-4 mt-2">불편을 드린 점 다시 한번 사과드리며, 너그러운 양해 부탁드립니다.</p>
+        <LinkButton href="/">홈으로 바로가기</LinkButton>
+      </div>
+    );
   }
 
   return (
@@ -75,7 +91,7 @@ export default async function ProductDetilPage({ params }: ProductCardItemProps)
       {/* 이미지 슬라이드 */}
       <div className="h-[650px] overflow-hidden relative">
         <ImgSlider data={product} />
-        <ShareBtn />
+        <KakaoShareButton data={product} productType={productType} id={id} />
       </div>
       {/* 서버통신이 성공이면 나오는 메시지 */}
       <div className="mt-6">
