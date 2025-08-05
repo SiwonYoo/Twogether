@@ -40,7 +40,7 @@ export default function ShopPage() {
       }
     }
 
-    if (user && user.token && user.token.accessToken) {;
+    if (user && user.token && user.token.accessToken) {
       ProductAllPageApi();
     } else {
       console.log('사용자가 로그인되지 않았습니다.');
