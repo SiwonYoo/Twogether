@@ -5,6 +5,7 @@ import Input from '@/components/common/Input';
 import LinkButton from '@/components/common/LinkButton';
 import { getAllUsers } from '@/data/functions/user';
 import { GetAllUsersType } from '@/types';
+import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -30,6 +31,8 @@ function FindEmailForm() {
   const [userList, setUserList] = useState<GetAllUsersType[]>([]);
   const [foundEmail, setFoundEmail] = useState('');
   const [isFound, setIsFound] = useState<boolean>(false);
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect');
 
   useEffect(() => {
     async function getUserList() {
@@ -120,9 +123,15 @@ function FindEmailForm() {
               <p className="mb-4">고객님의 이메일 정보입니다.</p>
               <p className="text-primary font-bold">{foundEmail}</p>
             </div>
-            <LinkButton href={'/login'} shape="square" size="lg" lang="eng">
-              LOGIN
-            </LinkButton>
+            {redirect ? (
+              <LinkButton href={redirect} shape="square" size="lg" bg="white">
+                이메일 인증 문제 해결하기
+              </LinkButton>
+            ) : (
+              <LinkButton href={'/login'} shape="square" size="lg" lang="eng">
+                LOGIN
+              </LinkButton>
+            )}
           </div>
         )}
       </div>

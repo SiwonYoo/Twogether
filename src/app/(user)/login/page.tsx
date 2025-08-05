@@ -25,7 +25,7 @@ function Login() {
     <>
       <main className="mx-4 mb-20">
         <h2 className={`mt-5 text-2xl text-center ${JudsonFont.className}`}>LOGIN</h2>
-        <div className="px-4">
+        <div className="flex flex-col px-4">
           <Suspense>
             <LoginForm />
           </Suspense>
@@ -33,6 +33,15 @@ function Login() {
           <LinkButton href="/signup/terms" shape="square" size="lg" bg="secondary">
             회원가입
           </LinkButton>
+
+          <hr className="self-center w-10 mt-8 mb-6 border-1" />
+
+          <div className="w-full text-center">
+            <p className="mb-5">인증 메일을 받지 못하셨나요?</p>
+            <LinkButton href="/resend-verification" shape="square" size="lg" bg="white">
+              이메일 인증 문제 해결하기
+            </LinkButton>
+          </div>
         </div>
       </main>
     </>
