@@ -108,7 +108,7 @@ export async function deleteCarts(state: ApiRes<Cart> | null, formData: FormData
 
 export async function addCart(state: ApiRes<Cart> | null, formData: FormData): ApiResPromise<Cart> {
   const product_id = formData.get('product_id');
-  const quantity = 10; //formData.get('quantity');
+  const quantity = formData.get('quantity');
   const accessToken = String(formData.get('accessToken') || '');
 
   console.log('[addCart] 받은 FormData:', {
