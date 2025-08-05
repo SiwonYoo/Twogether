@@ -2,7 +2,7 @@
 
 import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
-import { signup } from '@/data/actions/user';
+import { signup, verifySignUpEmail } from '@/data/actions/user';
 import { checkEmail } from '@/data/functions/user';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -55,10 +55,14 @@ function SignupForm() {
       alert('이메일 중복 여부를 확인해주세요.');
       return;
     }
+
     const { checkPassword, ...data } = user;
     const res = await signup(data);
+
     if (res.ok) {
-      router.replace('/signup/success');
+      const verifyEmailRes = await verifySignUpEmail(getValues('email'));
+
+      if (verifyEmailRes.ok) router.replace('/signup/success');
     } else if (!res.ok && res) {
       console.log(res.message);
     }

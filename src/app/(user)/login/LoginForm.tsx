@@ -68,7 +68,7 @@ function LoginForm() {
       router.replace(redirect || '/');
     } else {
       if (!res?.ok && res?.message) {
-        alert('아이디와 비밀번호를 확인해주세요.');
+        alert(res.message);
       }
     }
 
