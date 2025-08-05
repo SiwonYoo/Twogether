@@ -52,26 +52,26 @@ export default function ProductTabs({ productType, product }: ProductDetails) {
         </ul>
       </nav>
 
-      <div className="mt-4">
+      <div className="my-4">
         {activeTab === 'Overview' && (
-          <div>
+          <>
             <OverviewPage productType={productType} product={product} />
-          </div>
+          </>
         )}
         {activeTab === 'Details' && (
-          <div>
+          <>
             <DetailsPage productType={productType} product={product} />
-          </div>
+          </>
         )}
         {activeTab === 'Review' && (
-          <div>
+          <>
             <ReviewPage product={product} />
-          </div>
+          </>
         )}
         {activeTab === 'Q&A' && (
-          <div>
+          <>
             <QnAPage productType={productType} product={product} />
-          </div>
+          </>
         )}
       </div>
     </div>

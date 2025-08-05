@@ -40,11 +40,11 @@ export default function ImagesSwiper({ data, height }: ProductCardItemProps) {
             disableOnInteraction: false, // 사용자 상호작용시 슬라이더 일시 정지 비활성
           }}
         >
-          {data.map((item) =>
+          {data.map((item, index) =>
             item.mainImages.map((img, dataIndex) => {
               return (
                 <>
-                  <SwiperSlide key={`Swiper-${dataIndex}`}>
+                  <SwiperSlide key={`Swiper-${index}-${dataIndex}`}>
                     <div className={`h-[${height}]`}>
                       <Image
                         src={img.path}

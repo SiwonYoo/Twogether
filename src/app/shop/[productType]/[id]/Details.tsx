@@ -69,7 +69,7 @@ export default function DetailsPage({ product }: ProductDetails) {
       <ul className="grid grid-cols-3 text-center  bg-(--color-gray-150) rounded">
         {product.extra.washingInfo.map((info) => (
           <li key={info._id} className="flex justify-center flex-col items-center px-4 py-2">
-            <Image src={info.path ? info.path : '/'} alt={info.label} width="100" height="100" />
+            <Image src={`/images/washing_info/washing_info_${info._id}.png`} alt={info.label} width="50" height="50" />
             {info.label}
           </li>
         ))}

@@ -64,6 +64,7 @@ export interface Extra {
   salePrice?: number;
   category: string;
   isLike: boolean;
+  productImg: string[];
   size: ExtraSize[];
   SizeInfo: SizeInfoEntry[];
   FabricInfo: FabricInfo[];

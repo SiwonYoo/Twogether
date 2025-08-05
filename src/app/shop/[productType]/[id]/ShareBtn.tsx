@@ -63,7 +63,13 @@ export default function KakaoShareButton({ data, productType, id }: ShareBtn) {
         {hover ? (
           <Share size={32} />
         ) : (
-          <Image src="/images/icon/kakao.svg" width={32} height={32} alt="카카오톡으로 공유하기" />
+          <Image
+            src="/images/icon/kakao.svg"
+            width={32}
+            height={32}
+            alt="카카오톡으로 공유하기"
+            priority
+          />
         )}
       </Button>
     </>
