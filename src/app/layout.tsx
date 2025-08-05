@@ -10,6 +10,13 @@ const pretendard = localFont({
 });
 
 import Mainlayout from '@/app/Mainlayout';
+import Script from 'next/script';
+
+// declare global {
+//   interface Window {
+//     Kakao: any;
+//   }
+// }
 
 export default function RootLayout({
   children,
@@ -18,6 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <Script src="https://developers.kakao.com/sdk/js/kakao.js" strategy="afterInteractive" />
       <body className={`flex flex-col items-center justify-center min-h-screen bg-white ${pretendard.className} `}>
         <div className="flex flex-col relative w-full min-w-[400px] max-w-[768px] min-h-dvh bg-white">
           <Mainlayout />
