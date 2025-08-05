@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Twogether의 이메일 찾기 페이지입니다.',
 
   openGraph: {
-    title: '이메이 찾기 - Twogether',
+    title: '이메일 찾기 - Twogether',
     description: 'Twogether의 이메일 찾기 페이지입니다.',
     url: '/find-email',
   },

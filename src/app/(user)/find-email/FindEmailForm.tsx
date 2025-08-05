@@ -47,7 +47,7 @@ function FindEmailForm() {
       if (item.name === getValues('name') && item.phone === getValues('phone')) {
         const fullEmail = item.email.split('@');
         const maskedEmail = fullEmail[0].slice(0, 2) + '*'.repeat(fullEmail[0].length - 2);
-        setFoundEmail(maskedEmail + fullEmail[1]);
+        setFoundEmail(maskedEmail + '@' + fullEmail[1]);
         setIsFound(true);
         flag = true;
       }
