@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form';
 
 const nameExp = /^[^\d]*$/;
 const phoneExp = /^(01[016789]{1})[0-9]{4}[0-9]{4}$/;
-const passwordExp = /^[A-Za-z0-9]{6,12}$/;
+const passwordExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
 
 function EditProfileForm() {
   const router = useRouter();
@@ -157,7 +157,7 @@ function EditProfileForm() {
                   required: isPasswordEditable && '새 비밀번호를 입력해주세요.',
                   pattern: {
                     value: passwordExp,
-                    message: '영문/숫자 6자 이상 12자 이하로 입력해주세요.',
+                    message: '영문, 숫자 포함 6자 이상 12자 이하로 입력해주세요.',
                   },
                 })}
               />

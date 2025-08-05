@@ -196,6 +196,7 @@ export async function verifySignUpEmail(emailAddr: string): ApiResPromise<Verify
   const body = {
     to: emailAddr,
     serviceName: 'Twogether',
+    // TODO 배포 주소로 수정
     serviceUrl: 'http://localhost:3000/login',
     subject: '[Twogether] 이메일 인증 안내입니다.',
     content: `<div style="margin: 0 auto; padding: 20px; max-width: 600px;">
@@ -206,7 +207,7 @@ export async function verifySignUpEmail(emailAddr: string): ApiResPromise<Verify
               <p style="margin: 4px 0;">회원가입을 진행해 주셔서 감사합니다.</p>
               <p style="margin: 4px 0;">아래 버튼을 클릭하여 이메일 인증을 완료해 주세요.</p>
               </div>`,
-    expiresIn: '1m',
+    expiresIn: '10m',
   };
 
   try {
