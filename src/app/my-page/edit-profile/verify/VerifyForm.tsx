@@ -178,7 +178,7 @@ function VerifyForm() {
         {isEmailSent && (
           <form onSubmit={handleNextStep} className="flex flex-col gap-5">
             <div>
-              <p className="text-center">회원님의 이메일로 인증번호가 전송되었습니다.</p>
+              <p className="text-center">고객님의 이메일로 인증번호가 전송되었습니다.</p>
               {leftTime > 0 ? (
                 <p className="text-xs text-center">
                   {Math.floor(leftTime / 60)}분 {leftTime % 60}초 내에 인증번호 입력 후 [인증] 버튼을 클릭해 주세요.

@@ -71,7 +71,7 @@ function EditProfileForm() {
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         <fieldset className="contents">
-          <legend className="sr-only">회원 정보 수정</legend>
+          <legend className="sr-only">개인 정보 수정</legend>
           <input type="hidden" {...register('accessToken')} />
           <input type="hidden" {...register('_id')} />
           <div>

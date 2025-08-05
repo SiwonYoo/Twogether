@@ -17,7 +17,7 @@ function Success() {
     <>
       <div className="min-h-full flex flex-col gap-4 items-center">
         <p className="text-center">
-          회원정보 수정이 완료되었습니다.
+          개인 정보 수정이 완료되었습니다.
           <br />
           쇼핑을 즐겨주세요.
         </p>
