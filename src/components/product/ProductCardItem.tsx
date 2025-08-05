@@ -26,7 +26,7 @@ export default function ProductCardItem({ productType, data }: ProductCardItemPr
     <>
       {data.map((item, index) => {
         return (
-          <li key={index}>
+          <li key={`ProductItem-${index}`}>
             <Link href={`/shop/${productType}/${item._id}`} className="block h-[15.625rem]">
               <ImagesSwiper data={data} height={'15.625rem'} />
             </Link>
