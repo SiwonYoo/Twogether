@@ -30,13 +30,13 @@ export interface Cart {
       _id: number;
       path: string;
       name: string;
-      originalname: string;
     };
     extra: {
       isBest: boolean;
       isSale: boolean;
       category: string;
       isLike: boolean;
+      salePrice: number;
       size: {
         value: string;
         text: string;

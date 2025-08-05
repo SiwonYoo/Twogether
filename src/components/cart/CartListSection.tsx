@@ -19,6 +19,10 @@ export default function CartListSection() {
   const { user } = useUserStore();
 
   useEffect(() => {
+    document.body.style.overflow = '';
+  }, []);
+
+  useEffect(() => {
     const userLocalStorage = localStorage.getItem('user');
     let accessToken = '';
 

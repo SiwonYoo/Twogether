@@ -22,7 +22,7 @@ export default function CartItemCard({ cartItem, selected = true, onCheckBoxChan
   const { user } = useUserStore();
   const { updateQuantity, deleteItem } = useCartStore();
 
-  const salePrice = (cartItem.product.price - 0) * cartItem.quantity;
+  const salePrice = cartItem.product.extra.salePrice * cartItem.quantity;
 
   const quantityFormRef = useRef<HTMLFormElement>(null);
   const deleteFormRef = useRef<HTMLFormElement>(null);
@@ -69,14 +69,16 @@ export default function CartItemCard({ cartItem, selected = true, onCheckBoxChan
         />
 
         <figure className="shrink-0 self-center">
-          <Image src="/images/products/shortSleeve/1/detail-1.jpg" width="80" height="108" alt="상품 썸네일 이미지" />
+          <Image src={cartItem.product.image.path} width="80" height="108" alt="상품 썸네일 이미지" />
           <figcaption className="sr-only">{cartItem.product.name} 이미지</figcaption>
         </figure>
 
         <div className="flex flex-col justify-center text-xs gap-2 h-[6.75rem] w-full">
           <p>{cartItem.product.name}</p>
           <p>{cartItem.product.price.toLocaleString()}원</p>
-          <p className="text-error">-{(0).toLocaleString()}원</p>
+          <p className="text-error">
+            -{(cartItem.product.price - cartItem.product.extra.salePrice).toLocaleString()}원
+          </p>
         </div>
 
         {/* 삭제 버튼 폼 */}

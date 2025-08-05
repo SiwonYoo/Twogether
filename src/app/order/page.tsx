@@ -1,14 +1,13 @@
 import OrderForm from '@/components/order/OrderForm';
 
-interface OrderPageProps {
-  searchParams: {
-    [key: string]: string | undefined;
-  };
-}
-
-export default function OrderPage({ searchParams }: OrderPageProps) {
-  const isDirect = searchParams.direct === 'true';
-  const product_id = Number(searchParams.product_id);
+export default async function OrderPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+}) {
+  const params = await searchParams;
+  const isDirect = params.direct === 'true';
+  const product_id = Number(params.product_id);
 
   return (
     <main className="mx-4 mb-4 flex flex-col gap-6">
