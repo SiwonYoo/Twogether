@@ -43,7 +43,6 @@ function ResendVerificationForm() {
 
     const resVerifySignUpEmail = await verifySignUpEmail(emailValue);
     if (resVerifySignUpEmail.ok) setSentEmail(true);
-    console.log(resVerifySignUpEmail);
 
     setLoading(false);
   };
