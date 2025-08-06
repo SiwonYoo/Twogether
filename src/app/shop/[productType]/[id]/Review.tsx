@@ -54,7 +54,7 @@ export default function ReviewPage({ product }: ReviewPageProps) {
       <h2 className={`${JudsonFont.className} text-2xl my-4`}>Review ({reviews.length})</h2>
 
       {/* 상품 별점 계산 시작 */}
-      <div className="flex justify-center items-center gap-10 my-6">
+      <article className="flex justify-center items-center gap-8 my-6">
         <div className="flex items-center gap-2">
           <Star fill="var(--color-primary)" />
           <p className={`${JudsonFont.className} font-bold text-5xl`}>{avgStar.toFixed(1)}</p>
@@ -65,20 +65,20 @@ export default function ReviewPage({ product }: ReviewPageProps) {
             const percentage = reviews.length ? (count / reviews.length) * 100 : 0;
             const label = starAvg.find((s) => s._id === star)?.value || '';
             return (
-              <li key={star} className="flex items-center gap-1 my-1">
-                <span className="w-24">{label}</span>
+              <li key={star} className="flex items-center gap-2 my-1">
+                <span className="w-19">{label}</span>
                 <div className="relative flex-1 w-[6.25rem] min-w-[6.25rem] max-w-[10.625rem] h-2 bg-(--color-gray-250) rounded">
                   <span
                     className={`${JudsonFont.className} absolute top-0 left-0 h-2 bg-primary rounded`}
                     style={{ width: `${percentage}%` }}
                   />
                 </div>
-                <span className={`${JudsonFont.className} text-right`}>{count}개</span>
+                <span className={`${JudsonFont.className} text-right`}>{count}</span>
               </li>
             );
           })}
         </ul>
-      </div>
+      </article>
       {/* 상품 별점 계산 종료 */}
 
       {/* 상품 리뷰 조회 시작 */}
