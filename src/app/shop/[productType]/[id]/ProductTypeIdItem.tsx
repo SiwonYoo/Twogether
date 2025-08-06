@@ -41,7 +41,7 @@ export default function ProductTypeIdItem({
     <>
       <div className="flex justify-between items-start">
         <div>
-          <h3 className="mb-2">{item.name}</h3>
+          <h2 className="mb-2">{item.name}</h2>
           <p aria-label={`선택된`}>사이즈: {selectedValue || '사이즈를 선택해주세요'}</p>
         </div>
         <div className="flex justify-between items-center gap-4">

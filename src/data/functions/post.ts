@@ -8,7 +8,7 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  * @param {string} boardType - 게시판 타입(예: notice, event 등)
  * @returns {Promise<ApiRes<Post[]>>} - 게시글 목록 응답 객체
  */
-export async function getPosts(boardType: string, page = 1, limit = 10): ApiResPromise<Post[]> {
+export async function getPosts(boardType: string, page = 1, limit = 5): ApiResPromise<Post[]> {
   try {
     const query = new URLSearchParams();
     query.set('page', page.toString());
@@ -43,8 +43,6 @@ export async function getSearchPosts(boardType: string, keyword: string = ''): A
     //keyword가 공백이 아니라면 query에 keyword 값 추가
 
     query.set('keyword', keyword.trim());
-
-    console.log(query);
 
     const res = await fetch(`${API_URL}/posts?type=${boardType}&keyword=${keyword}`, {
       headers: {
@@ -133,5 +131,40 @@ export async function getProductPost(boardType: string, id: number): ApiResPromi
     // 네트워크 오류 처리
     console.error(error);
     return { ok: 0, message: '일시적인 네트워크 문제로 등록에 실패했습니다.' };
+  }
+}
+
+// Q&A 전용
+
+export async function getUserPosts(
+  boardType: string,
+  accessToken: string,
+  page = 1,
+  limit = 5,
+  keyword?: string
+): ApiResPromise<Post[]> {
+  try {
+    const query = new URLSearchParams();
+    query.set('type', boardType);
+    query.set('page', page.toString());
+    query.set('limit', limit.toString());
+    if (keyword) {
+      query.set('keyword', keyword);
+    }
+    const res = await fetch(`${API_URL}/posts/users?${query.toString()}`, {
+      headers: {
+        'Client-Id': CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      cache: 'no-store', // force-cache에서 no-store로 바꿔서 게시글 작성 후 목록으로 돌아왔을 때 바로 보이게 가능
+      next: {
+        tags: [`posts?type=${boardType}`],
+      },
+    });
+    return res.json();
+  } catch (error) {
+    // 네트워크 오류 처리
+    console.error(error);
+    return { ok: 0, message: '일시적인 네트워크 문제로 목록을 불러오는데 실패했습니다.' };
   }
 }

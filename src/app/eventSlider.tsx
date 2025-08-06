@@ -10,12 +10,6 @@ import { useEffect, useState } from 'react';
 import { getSearchPosts } from '@/data/functions/post';
 import { Post } from '@/types';
 
-interface slideDataItmeProps {
-  id: number;
-  src: string;
-  alt: string;
-}
-
 export default function EventSlider() {
   const [eventSilderState, setEventSilderState] = useState<Post[]>([]);
 
@@ -52,7 +46,7 @@ export default function EventSlider() {
                 <Link href={`/community/event/${slide._id}`}>
                   <Image
                     src={`/images/event/event_${slide._id}.png`}
-                    alt={slide.title}
+                    alt={slide.content}
                     className="w-full"
                     width="469"
                     height="216"

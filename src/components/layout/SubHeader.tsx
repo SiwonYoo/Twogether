@@ -1,15 +1,25 @@
 'use client';
 
 import { MoveLeft, ShoppingBag } from 'lucide-react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import useUserStore from '@/stores/useUserStore';
 
 interface SubHeaderProps {
   title?: string;
 }
 
 function SubHeader({ title = '상세보기' }: SubHeaderProps) {
+  const { isLoggedIn } = useUserStore();
   const router = useRouter();
+
+  const onCartClick = () => {
+    if (!isLoggedIn) {
+      alert('로그인이 필요한 서비스 입니다.');
+      router.push('/login?redirect=/cart');
+    } else {
+      router.push('/cart');
+    }
+  };
 
   return (
     <>
@@ -23,9 +33,9 @@ function SubHeader({ title = '상세보기' }: SubHeaderProps) {
           <MoveLeft size={20} />
         </button>
         <h2 className="flex-1 content-center px-4">{title}</h2>
-        <Link href="/cart" className="self-center">
+        <button onClick={onCartClick} className="content-center hover:cursor-pointer">
           <ShoppingBag color="var(--color-black)" size={20} />
-        </Link>
+        </button>
       </header>
     </>
   );

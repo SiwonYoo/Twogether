@@ -28,7 +28,7 @@ export async function signup(user: User): ApiResPromise<User> {
         'Content-Type': 'application/json',
         'Client-Id': CLIENT_ID,
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify({ ...user, extra: { emailConfirm: false } }),
     });
 
     data = await res.json();
@@ -143,7 +143,8 @@ export async function editProfileImage({
 }
 
 /**
- * 이메일 인증 함수
+ * 이메일 인증 함수 (일반 이메일 전송)
+ * @description '개인 정보 수정' 페이지에서 사용합니다.
  */
 export async function verifyEmail(emailAddr: string, verificationCode: string): Promise<ApiRes<VerifyEmailType>> {
   let res: Response;
@@ -161,7 +162,7 @@ export async function verifyEmail(emailAddr: string, verificationCode: string): 
               <p style="margin: 4px 0;">개인정보보호를 위해 인증번호는 5분 동안만 유효합니다.</p>
               <div style="padding: 10px; margin-block: 30px; border: 1px #000000 solid; border-radius: 10px; text-align: center;"><b style="font-size: 20px; letter-spacing: 10px;">${verificationCode}</b></div>
               <div style="padding: 20px; background-color: #ebebeb;">
-              <p style="margin: 4px 0; font-size: 14px;"><b style="color: #2e1f42;">Twogether</b>를 이용해주셔서 감사합니다.</p>
+              <p style="margin: 4px 0; font-size: 14px;"><b style="color: #2e1f42;">Twogether</b>를 이용해 주셔서 감사합니다.</p>
               <small style="margin: 0; font-size: 12px;">* 고객님 본인이 요청하신 것이 아닌 경우, 고객센터로 문의 바랍니다.</small><br/>
               <small style="margin: 0; font-size: 12px;">* 본 메일은 발신 전용 메일입니다. 문의사항은 1:1 문의를 이용해 주시기 바랍니다.</small>
               </div>
@@ -185,4 +186,42 @@ export async function verifyEmail(emailAddr: string, verificationCode: string): 
   }
 
   return data;
+}
+
+/**
+ * 이메일 인증 함수 (인증 이메일 전송)
+ * @description '회원가입' 페이지에서 사용합니다.
+ */
+export async function verifySignUpEmail(emailAddr: string): ApiResPromise<VerifyEmailType> {
+  const body = {
+    to: emailAddr,
+    serviceName: 'Twogether',
+    // TODO 배포 주소로 수정
+    serviceUrl: 'http://localhost:3000/login',
+    subject: '[Twogether] 이메일 인증 안내입니다.',
+    content: `<div style="margin: 0 auto; padding: 20px; max-width: 600px;">
+              <h1 style="color: #2e1f42;"><b>Twogether</b></h1>
+              <hr/>
+              <h2 style="font-size: 20px">이메일 인증 안내</h2>
+              <p style="margin: 4px 0;">안녕하세요, <b style="color: #2e1f42;">Twogether</b> 입니다.</p>
+              <p style="margin: 4px 0;">회원가입을 진행해 주셔서 감사합니다.</p>
+              <p style="margin: 4px 0;">아래 버튼을 클릭하여 이메일 인증을 완료해 주세요.</p>
+              </div>`,
+    expiresIn: '10m',
+  };
+
+  try {
+    const res = await fetch(`${API_URL}/email/verify`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Client-Id': CLIENT_ID,
+      },
+      body: JSON.stringify(body),
+    });
+    return res.json();
+  } catch (error) {
+    console.error(error);
+    return { ok: 0, message: '일시적인 네트워크 문제가 발생했습니다.' };
+  }
 }

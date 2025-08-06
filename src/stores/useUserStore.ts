@@ -3,19 +3,6 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 /**
- * 사용자 정보를 나타내는 인터페이스입니다.
- * @interface UserInfo
- * @property {string} id - 사용자 ID
- * @property {string} name - 사용자 이름
- * @property {string} email - 사용자 이메일
- */
-// interface UserInfo {
-//   id: string;
-//   name: string;
-//   email: string;
-// }
-
-/**
  * 사용자 상태를 관리하는 Zustand 스토어입니다.
  * @interface UserStore
  * @property {UserInfo | null} user - 로그인한 사용자 정보
@@ -24,7 +11,7 @@ import { persist } from 'zustand/middleware';
  * @property {() => void} logout - 로그아웃(사용자 등록 해제) 함수
  */
 interface UserStore {
-  user: User | null; // 확인 UserInfo -> User
+  user: User | null;
   isLoggedIn: boolean;
   login(user: User): void;
   logout(): void;

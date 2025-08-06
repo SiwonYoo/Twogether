@@ -1,40 +1,93 @@
-// components/ProductName.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getAllProducts } from '@/data/functions/shop';
+import { getProductById } from '@/data/functions/shop';
+import { Product } from '@/types/product';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function ProductName({ productId }: { productId: number }) {
-  const [name, setName] = useState('');
-  const [type, setType] = useState('');
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchProduct() {
-      const res = await getAllProducts();
-      if (!res.ok) {
-        setError(res.message);
-        return;
+      try {
+        setLoading(true);
+        // 특정 상품만 가져오기
+        const res = await getProductById(productId);
+
+        if (res.ok) {
+          setProduct(res.item);
+          setError(null);
+        } else {
+          setError(res.message);
+          setProduct(null);
+        }
+      } catch (err) {
+        setError('상품 정보를 불러오는데 실패했습니다.');
+        setProduct(null);
+      } finally {
+        setLoading(false);
       }
-      const product = res.item.find((p) => p._id === productId);
-      const productType = res.item.find((p) => p.extra.category);
-      setName(product?.name ?? '상품명을 찾을 수 없습니다.');
-      setType(productType?.extra.category ?? '');
     }
+
     fetchProduct();
   }, [productId]);
 
-  if (error) return <p className="text-primary">{error}</p>;
+  // 로딩 중
+  if (loading) {
+    return (
+      <div className="flex items-center gap-4 h-25 p-4">
+        <p>상품 정보 로딩중...</p>
+      </div>
+    );
+  }
 
+  // 에러
+  if (error) {
+    return (
+      <div className="flex items-center gap-4 h-25 p-4 bg-gray-150">
+        <p className="text-primary">{error}</p>
+      </div>
+    );
+  }
+
+  // 상품을 찾을 수 없음
+  if (!product) {
+    return (
+      <div className="flex items-center gap-4 h-25 p-4 bg-gray-150">
+        <p>상품을 찾을 수 없습니다.</p>
+      </div>
+    );
+  }
+
+  // 정상적인 상품 정보 표시
   return (
-    <div className="flex items-center gap-4 h-25 p-4 bg-gray-150">
-      <Link href={`/shop/${type}/${productId}`}>
-        <p>
-          <strong>문의상품: </strong>
-          {name}
-        </p>
-      </Link>
-    </div>
+    <Link href={`/shop/${product.extra?.category || 'unknown'}/${productId}`}>
+      <div className="flex gap-4 p-4 border-1 border-gray-150">
+        {/* 이미지가 있을 때만 렌더링 */}
+        {product.mainImages?.[0]?.path && (
+          <Image
+            src={product.mainImages[0].path}
+            alt={product.name}
+            width={100}
+            height={100}
+            priority
+            className="bg-white object-cover"
+            // style 제거하거나 height props 제거
+          />
+        )}
+        <div className="flex flex-col flex-1">
+          <p>{product.name}</p>
+          {/* 사이즈 배열 안전성 체크 */}
+          {product.extra?.size?.[0]?.value && (
+            <p className="text-gray-250 text-sm">사이즈 {product.extra.size[0].value}</p>
+          )}
+          <p className="text-lg font-bold mt-auto">{product.price.toLocaleString()}원</p>
+        </div>
+      </div>
+    </Link>
   );
 }
