@@ -188,7 +188,7 @@ function ReviewPostForm({
           <textarea
             name="content"
             id="content"
-            className="p-2 h-60 w-full resize-none rounded-lg bg-gray-150 focus:outline-none focus:border-[.0625rem] focus:border-primary"
+            className="p-4 h-60 w-full resize-none rounded-lg bg-gray-150 focus:outline-none focus:border-[.0625rem] focus:border-primary"
             value={formValues.content || ''}
             onChange={inputChange}
             placeholder="200자 이하로 작성해 주세요."
