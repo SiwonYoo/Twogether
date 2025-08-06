@@ -11,7 +11,7 @@ function SearchResult({ data }: { data: Product[] }) {
           return (
             <li key={index}>
               <Link href={`/shop/${item.extra.category}/${item._id}`}>
-                <ImagesSwiper data={data} height={'31.25rem'} />
+                <ImagesSwiper data={item} height={'31.25rem'} />
               </Link>
               <div className="flex justify-between mt-4">
                 <Link href={`/shop/${item.extra.category}/${item._id}`}>
