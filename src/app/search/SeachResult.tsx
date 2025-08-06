@@ -10,8 +10,8 @@ function SearchResult({ data }: { data: Product[] }) {
         {data.map((item, index) => {
           return (
             <li key={index}>
-              <Link href={`/shop/${item.extra.category}/${item._id}`}>
-                <ImagesSwiper data={item} height={'31.25rem'} />
+              <Link href={`/shop/${item.extra.category}/${item._id}`} className="block h-[15.625rem]">
+                <ImagesSwiper data={item} height={'15.625rem'} />
               </Link>
               <div className="flex justify-between mt-4">
                 <Link href={`/shop/${item.extra.category}/${item._id}`}>

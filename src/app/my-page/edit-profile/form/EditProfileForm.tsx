@@ -56,8 +56,11 @@ function EditProfileForm() {
   // 휴대폰 중복 확인 (실시간, 정규식 만족 시)
   useEffect(() => {
     const currentPhone = getValues('phone');
-    if (currentPhone === user?.phone) return;
     if (!phoneExp.test(currentPhone)) return;
+    if (currentPhone === user?.phone) {
+      if (isPhoneAvailable === false) setPhoneAvailable(true);
+      return;
+    }
 
     let isPhoneDuplicated = false;
 
