@@ -35,7 +35,7 @@ export default function ProductTabs({ productType, product }: ProductDetails) {
   };
 
   return (
-    <div className="mx-4">
+    <div className="m-4">
       <nav className="my-6">
         <ul className="grid grid-cols-4 justify-between items-center gap-4">
           {tabs.map((tab, index) => (
@@ -52,7 +52,7 @@ export default function ProductTabs({ productType, product }: ProductDetails) {
         </ul>
       </nav>
 
-      <div className="my-4">
+      <>
         {activeTab === 'Overview' && (
           <>
             <OverviewPage productType={productType} product={product} />
@@ -73,7 +73,7 @@ export default function ProductTabs({ productType, product }: ProductDetails) {
             <QnAPage productType={productType} product={product} />
           </>
         )}
-      </div>
+      </>
     </div>
   );
 }
