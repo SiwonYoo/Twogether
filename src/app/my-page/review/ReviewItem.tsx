@@ -55,7 +55,11 @@ function ReviewItem({ setRefreshKey, showProductInfo = false, review }: ReviewIt
           image: { path: data.item.mainImages[0].path },
           name: data.item.name,
           price: data.item.price,
-          extra: { salePrice: data.item.extra.salePrice, isSale: data.item.extra.isSale },
+          extra: {
+            salePrice: data.item.extra.salePrice,
+            isSale: data.item.extra.isSale,
+            category: data.item.extra.category,
+          },
         });
       }
     }
@@ -68,7 +72,7 @@ function ReviewItem({ setRefreshKey, showProductInfo = false, review }: ReviewIt
       <div className="p-4 rounded-md border-[.0625rem] border-gray-150">
         {showProductInfo && productData && (
           <div className="mb-5">
-            <ProductItem item={productData} />
+            <ProductItem item={productData} withLink />
           </div>
         )}
         {showProductInfo && !productData && (

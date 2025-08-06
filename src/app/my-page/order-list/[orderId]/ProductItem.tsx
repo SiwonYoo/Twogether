@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export interface ProductItemProps {
   _id: number;
@@ -10,10 +11,11 @@ export interface ProductItemProps {
   extra: {
     isSale?: boolean;
     salePrice?: number;
+    category?: string;
   };
 }
 
-function ProductItem({ item }: { item: ProductItemProps }) {
+function ProductItem({ item, withLink = false }: { item: ProductItemProps; withLink?: boolean }) {
   return (
     <>
       <div className="flex gap-4 justify-between items-center pb-4 border-b-[.0625rem] border-gray-150">
@@ -25,7 +27,13 @@ function ProductItem({ item }: { item: ProductItemProps }) {
           className="rounded-md aspect-square object-cover"
         />
         <div className="flex-1 min-w-0">
-          <p className="mb-1 truncate">{item.name}</p>
+          {withLink ? (
+            <Link href={`/shop/${item.extra.category}/${item._id}`}>
+              <p className="mb-1 truncate">{item.name}</p>
+            </Link>
+          ) : (
+            <p className="mb-1 truncate">{item.name}</p>
+          )}
           <div className="flex gap-2 text-sm">
             <span>상품 금액</span>
             {item.extra.isSale && item.extra.salePrice ? (
