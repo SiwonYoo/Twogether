@@ -120,7 +120,7 @@ export default async function ProductDetilPage({ params }: ProductCardItemProps)
         </p>
 
         {/* 사이즈, 수량 선택 컨포넌트 */}
-        <ProductSelect item={product} quantity={} />
+        <ProductSelect item={product} />
 
         {/* 상품 페이지 디테일 */}
         <ProductTabs productType={productType} product={product} />
