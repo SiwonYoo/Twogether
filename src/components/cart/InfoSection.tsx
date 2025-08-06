@@ -20,7 +20,7 @@ export default function InfoSection() {
             장바구니와 관심상품을 이용하여 원하시는 상품만 주문하거나 관심상품으로 등록하실 수 있습니다.
           </InfoListItem>
           <InfoListItem>
-            파일첨부 옵션은 동일상품을 장바구니에 추가할 경우 마지막에 업로드 한 파일로 교체됩니다.
+            같은 상품을 장바구니에 추가하면, 기존에 담긴 수량에 새로 추가된 수량이 합산됩니다.
           </InfoListItem>
         </ul>
       </article>

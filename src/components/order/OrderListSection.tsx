@@ -1,10 +1,10 @@
 'use client';
 
 import OrderItemCard from '@/components/order/OrderItemCard';
-import { Cart } from '@/types';
+import { Cart, Product } from '@/types';
 
 interface OrderListSectionProps {
-  orderItems: Cart[];
+  orderItems: Product[];
 }
 export default function OrderListSection({ orderItems }: OrderListSectionProps) {
   return (
@@ -15,7 +15,7 @@ export default function OrderListSection({ orderItems }: OrderListSectionProps) 
         {orderItems.length > 0 ? (
           orderItems.map((item) => (
             <li key={item._id}>
-              <OrderItemCard cartItem={item} />
+              <OrderItemCard orderItem={item} />
             </li>
           ))
         ) : (

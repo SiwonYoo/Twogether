@@ -24,7 +24,7 @@ export default function CartPage() {
       <InfoSection />
 
       {/* 가격 상세 정보 */}
-      <PriceDetailsSection />
+      <PriceDetailsSection where="cart" />
 
       {/* 선택 상품 주문 버튼 */}
       <CartForm />
