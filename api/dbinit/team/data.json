@@ -93,6 +93,11 @@
           "_id": 2,
           "path": "uploadFiles/products_shortSleeve_1_detail-2.webp",
           "name": "products_shortSleeve_1_detail-2.webp"
+        },
+        {
+          "_id": 3,
+          "path": "uploadFiles/products_shortSleeve_1_model-1.webp",
+          "name": "products_shortSleeve_1_model-1.webp"
         }
       ],
       "content": "핑크색 바탕에 그린 세로 스트라이프 패턴, 남녀공용으로 편안한 핏, 바지 양옆 주머니가 있어 실용성 추가, 가볍고 몸에 달라붙지 않아 불편함 최소화",
@@ -101,7 +106,15 @@
         "isSale": false,
         "salePrice": 39900,
         "category": "shortSleeve",
-        "productImg": ["uploadFiles/products_shortSleeve_1_model-1.webp"],
+        "productImg": [
+          "uploadFiles/products_shortSleeve_1_model-1.webp",
+          "uploadFiles/products_shortSleeve_1_model-2.webp",
+          "uploadFiles/products_shortSleeve_1_model-3.webp",
+          "uploadFiles/products_shortSleeve_1_model-4.webp",
+          "uploadFiles/products_shortSleeve_1_model-5.webp",
+          "uploadFiles/products_shortSleeve_1_model-6.webp",
+          "uploadFiles/products_shortSleeve_1_model-7.webp"
+        ],
         "size": [
           {
             "value": "FREE",
@@ -192,6 +205,7 @@
       "name": "러블리민트 실크스킨 반팔 상하의 세트(남녀공용)",
       "quantity": 2e24,
       "buyQuantity": 0,
+
       "mainImages": [
         {
           "_id": 1,
@@ -202,6 +216,11 @@
           "_id": 2,
           "path": "uploadFiles/products_shortSleeve_2_model-1.webp",
           "name": "products_shortSleeve_2_model-1.webp"
+        },
+        {
+          "_id": 3,
+          "path": "uploadFiles/products_shortSleeve_2_model-2.webp",
+          "name": "products_shortSleeve_2_model-2.webp"
         }
       ],
       "content": "러블리민트 실크스킨 파자마 반팔 상하의 세트, 유니크한 컬러 배색에 동일 컬러 파이핑 포인트로 조화로운 디자인 연출, 착용 시 불편함을 최소화한 자체 개발 세미 루즈 실루엣, 상하의 포켓으로 더욱 극대화한 실용성, 거슬림 없는 착용감을 위한 주머니 로고 라벨 디테일",
@@ -210,7 +229,15 @@
         "isSale": true,
         "salePrice": 19900,
         "category": "shortSleeve",
-        "productImg": ["uploadFiles/products_shortSleeve_2_model-1.webp"],
+        "productImg": [
+          "uploadFiles/products_shortSleeve_2_model-1.webp",
+          "uploadFiles/products_shortSleeve_2_model-2.webp",
+          "uploadFiles/products_shortSleeve_2_model-3.webp",
+          "uploadFiles/products_shortSleeve_2_model-4.webp",
+          "uploadFiles/products_shortSleeve_2_model-5.webp",
+          "uploadFiles/products_shortSleeve_2_model-6.webp",
+          "uploadFiles/products_shortSleeve_2_model-7.webp"
+        ],
         "size": [
           {
             "value": "FREE",
@@ -311,6 +338,11 @@
           "_id": 2,
           "path": "uploadFiles/products_shortSleeve_3_detail-2.webp",
           "name": "products_shortSleeve_3_detail-2.webp"
+        },
+        {
+          "_id": 3,
+          "path": "uploadFiles/products_shortSleeve_3_detail-3.webp",
+          "name": "products_shortSleeve_3_detail-3.webp"
         }
       ],
       "content": "군더더기 없이 깔끔한 실루엣이 돋보이는 페어 스타일 파자마로, 심플하면서도 세련된 디자인이 특징입니다. 넉넉한 통으로 디자인된 소매와 바지가 편안한 활동감을 선사합니다. 또한, 바지에 포켓을 추가해 실용성을 더욱 높였습니다.",
@@ -319,7 +351,17 @@
         "isSale": true,
         "salePrice": 29900,
         "category": "shortSleeve",
-        "productImg": ["uploadFiles/products_shortSleeve_3_model-1.webp"],
+        "productImg": [
+          "uploadFiles/products_shortSleeve_3_model-1.webp",
+          "uploadFiles/products_shortSleeve_3_model-2.webp",
+          "uploadFiles/products_shortSleeve_3_model-3.webp",
+          "uploadFiles/products_shortSleeve_3_model-4.webp",
+          "uploadFiles/products_shortSleeve_3_model-5.webp",
+          "uploadFiles/products_shortSleeve_3_model-6.webp",
+          "uploadFiles/products_shortSleeve_3_model-7.webp",
+          "uploadFiles/products_shortSleeve_3_model-8.webp",
+          "uploadFiles/products_shortSleeve_3_model-9.webp"
+        ],
         "size": [
           {
             "value": "FREE",
@@ -420,6 +462,11 @@
           "_id": 2,
           "path": "uploadFiles/products_longSleeve_1_model-1.webp",
           "name": "products_longSleeve_1_model-1.webp"
+        },
+        {
+          "_id": 3,
+          "path": "uploadFiles/products_longSleeve_1_model-2.webp",
+          "name": "products_longSleeve_1_model-2.webp"
         }
       ],
       "content": "그레이 바탕에 화이트 세로 스트라이프 패턴 남녀공용으로 편안한 핏 바지 양옆 주머니가 있어 실용성 추가 가볍고 몸에 달라붙지 않아 불편함 최소화",
@@ -428,7 +475,14 @@
         "isSale": false,
         "salePrice": 39900,
         "category": "longSleeve",
-        "productImg": ["uploadFiles/products_longSleeve_1_model-1.webp"],
+        "productImg": [
+          "uploadFiles/products_longSleeve_1_model-1.webp",
+          "uploadFiles/products_longSleeve_1_model-2.webp",
+          "uploadFiles/products_longSleeve_1_model-3.webp",
+          "uploadFiles/products_longSleeve_1_model-4.webp",
+          "uploadFiles/products_longSleeve_1_model-5.webp",
+          "uploadFiles/products_longSleeve_1_model-6.webp"
+        ],
         "size": [
           {
             "value": "FREE",
@@ -519,6 +573,7 @@
       "name": "플레인 피치기모 긴팔 상하의 세트(남녀공용)",
       "quantity": 2e24,
       "buyQuantity": 1,
+
       "mainImages": [
         {
           "_id": 1,
@@ -529,6 +584,11 @@
           "_id": 2,
           "path": "uploadFiles/products_longSleeve_2_model-2.webp",
           "name": "products_longSleeve_2_model-2.webp"
+        },
+        {
+          "_id": 3,
+          "path": "uploadFiles/products_longSleeve_2_model-3.webp",
+          "name": "products_longSleeve_2_model-3.webp"
         }
       ],
       "content": "티세르의 첫번째 컬렉션 베이직 실루엣의 스탠다드 파자마로 착용했을 때의 가장 편한 패턴을 연구해 제작된 디자인입니다, 베이직한 디자인에 화이트 파이핑 라인으로 포인트를 주었으며 파이핑 라인과 같은 단추 컬러로 조화로운 디자인을 연출해주었습니다, 얇은 기모 원단으로 봄 가을 겨울 3계절 모두 착용하기 좋은 원단이며 상/하의 주머니를 제작해 실용성과 편의성을 더했습니다",
@@ -537,7 +597,14 @@
         "isSale": true,
         "salePrice": 29900,
         "category": "longSleeve",
-        "productImg": ["uploadFiles/products_longSleeve_2_model-1.webp"],
+        "productImg": [
+          "uploadFiles/products_longSleeve_2_model-1.webp",
+          "uploadFiles/products_longSleeve_2_model-2.webp",
+          "uploadFiles/products_longSleeve_2_model-3.webp",
+          "uploadFiles/products_longSleeve_2_model-4.webp",
+          "uploadFiles/products_longSleeve_2_model-5.webp",
+          "uploadFiles/products_longSleeve_2_model-6.webp"
+        ],
         "size": [
           {
             "value": "FREE",
@@ -628,6 +695,7 @@
       "name": "플로이 긴팔 투피스 바이올렛 (피치기모)",
       "quantity": 2e24,
       "buyQuantity": 2000,
+
       "mainImages": [
         {
           "_id": 1,
@@ -638,6 +706,11 @@
           "_id": 2,
           "path": "uploadFiles/products_longSleeve_3_detail-2.webp",
           "name": "products_longSleeve_3_detail-2.webp"
+        },
+        {
+          "_id": 3,
+          "path": "uploadFiles/products_longSleeve_3_detail-3.webp",
+          "name": "products_longSleeve_3_detail-3.webp"
         }
       ],
       "content": "우유 한 방울 떨어뜨린 듯 몽글몽글한 보랏빛 색감에 앞가슴 부분 망레이스 디테일로 넥 라인이 돋보입니다 소매와 밑단 프릴로 전체적인 무드가 사랑스럽게 완성되었고 원단 자체에서 오는 은은하면서 고급스러운 감성이 느껴집니다 다른 원단보다 다소 두께감과 무게감이 있고 신축성이 있는 제품이라 허리밴드가 일반 파자마보다 작습니다 밴딩이라 착용하실 때 무리는 없으나 상세 사이즈 참고 후 구매하시길 바랍니다",
@@ -646,7 +719,20 @@
         "isSale": false,
         "salePrice": 86000,
         "category": "longSleeve",
-        "productImg": ["uploadFiles/products_longSleeve_3_model-1.webp"],
+        "productImg": [
+          "uploadFiles/products_longSleeve_3_model-1.webp",
+          "uploadFiles/products_longSleeve_3_model-2.webp",
+          "uploadFiles/products_longSleeve_3_model-3.webp",
+          "uploadFiles/products_longSleeve_3_model-4.webp",
+          "uploadFiles/products_longSleeve_3_model-5.webp",
+          "uploadFiles/products_longSleeve_3_model-6.webp",
+          "uploadFiles/products_longSleeve_3_model-7.webp",
+          "uploadFiles/products_longSleeve_3_model-8.webp",
+          "uploadFiles/products_longSleeve_3_model-9.webp",
+          "uploadFiles/products_longSleeve_3_model-10.webp",
+          "uploadFiles/products_longSleeve_3_model-11.webp",
+          "uploadFiles/products_longSleeve_3_model-12.webp"
+        ],
         "size": [
           {
             "value": "FREE",
@@ -737,6 +823,7 @@
       "name": "[1+1] 아쥬르 스트라이프 로브",
       "quantity": 2e24,
       "buyQuantity": 2000,
+
       "mainImages": [
         {
           "_id": 1,
@@ -747,6 +834,11 @@
           "_id": 2,
           "path": "uploadFiles/products_robe_1_model-2.webp",
           "name": "products_robe_1_model-2.webp"
+        },
+        {
+          "_id": 2,
+          "path": "uploadFiles/products_robe_1_model-3.webp",
+          "name": "products_robe_1_model-3.webp"
         }
       ],
       "content": "부담스럽지 않은 깔끔한 두께의 스트라이프, 남녀공용으로 편안한 핏과 뛰어난 신축성, 부드러운 촉감과 뛰어난 보온성, 여행지·집·수영장 어디서든 입을 수 있는 라운지로브",
@@ -755,7 +847,16 @@
         "isSale": true,
         "salePrice": 115900,
         "category": "robe",
-        "productImg": ["uploadFiles/products_robe_1_model-1.webp"],
+        "productImg": [
+          "uploadFiles/products_robe_1_model-1.webp",
+          "uploadFiles/products_robe_1_model-2.webp",
+          "uploadFiles/products_robe_1_model-3.webp",
+          "uploadFiles/products_robe_1_model-4.webp",
+          "uploadFiles/products_robe_1_model-5.webp",
+          "uploadFiles/products_robe_1_model-6.webp",
+          "uploadFiles/products_robe_1_model-7.webp",
+          "uploadFiles/products_robe_1_model-8.webp"
+        ],
         "size": [
           {
             "value": "FREE",
@@ -846,6 +947,7 @@
       "name": "리프 긴팔 로브 딥블루 (32수)",
       "quantity": 2e24,
       "buyQuantity": 2000,
+
       "mainImages": [
         {
           "_id": 1,
@@ -864,7 +966,19 @@
         "isSale": false,
         "salePrice": 64000,
         "category": "robe",
-        "productImg": ["uploadFiles/products_robe_2_model-1.webp"],
+        "productImg": [
+          "uploadFiles/products_robe_2_model-1.webp",
+          "uploadFiles/products_robe_2_model-2.webp",
+          "uploadFiles/products_robe_2_model-3.webp",
+          "uploadFiles/products_robe_2_model-4.webp",
+          "uploadFiles/products_robe_2_model-5.webp",
+          "uploadFiles/products_robe_2_model-6.webp",
+          "uploadFiles/products_robe_2_model-7.webp",
+          "uploadFiles/products_robe_2_model-8.webp",
+          "uploadFiles/products_robe_2_model-9.webp",
+          "uploadFiles/products_robe_2_model-10.webp",
+          "uploadFiles/products_robe_2_model-11.webp"
+        ],
         "size": [
           {
             "value": "FREE",
@@ -961,6 +1075,11 @@
           "_id": 2,
           "path": "uploadFiles/products_robe_3_detail-2.webp",
           "name": "products_robe_3_detail-2.webp"
+        },
+        {
+          "_id": 3,
+          "path": "uploadFiles/products_robe_3_detail-3.webp",
+          "name": "products_robe_3_detail-3.webp"
         }
       ],
       "content": "정열적인 페이즐리 문양으로 뜨거운 여름의 향기가 나는 파자마입니다. 반복되는 페이즐리 문양과 핫 썸머를 겨냥한 컬러감이 포인트로 편하게 걸쳐서 입을 수 있는 로브 형식의 파자마입니다. 지즈만의 개성 있는 분위기를 연출하였습니다.",
@@ -969,7 +1088,25 @@
         "isSale": true,
         "salePrice": 79900,
         "category": "robe",
-        "productImg": ["uploadFiles/products_robe_3_model-1.webp"],
+        "productImg": [
+          "uploadFiles/products_robe_3_model-1.webp",
+          "uploadFiles/products_robe_3_model-2.webp",
+          "uploadFiles/products_robe_3_model-3.webp",
+          "uploadFiles/products_robe_3_model-4.webp",
+          "uploadFiles/products_robe_3_model-5.webp",
+          "uploadFiles/products_robe_3_model-6.webp",
+          "uploadFiles/products_robe_3_model-7.webp",
+          "uploadFiles/products_robe_3_model-8.webp",
+          "uploadFiles/products_robe_3_model-9.webp",
+          "uploadFiles/products_robe_3_model-10.webp",
+          "uploadFiles/products_robe_3_model-11.webp",
+          "uploadFiles/products_robe_3_model-12.webp",
+          "uploadFiles/products_robe_3_model-13.webp",
+          "uploadFiles/products_robe_3_model-14.webp",
+          "uploadFiles/products_robe_3_model-15.webp",
+          "uploadFiles/products_robe_3_model-16.webp",
+          "uploadFiles/products_robe_3_model-17.webp"
+        ],
         "size": [
           {
             "value": "FREE",
@@ -1074,7 +1211,7 @@
         "isSale": false,
         "salePrice": 12000,
         "category": "acc",
-        "productImg": ["uploadFiles/products_acc_1_model-1.webp"],
+        "productImg": ["uploadFiles/products_acc_1_model-1.webp", "uploadFiles/products_acc_1_model-2.webp", "uploadFiles/products_acc_1_model-3.webp"],
         "size": [
           {
             "value": "FREE",
@@ -1136,6 +1273,7 @@
       "name": "미니 스트라이프 스크런치",
       "quantity": 2e24,
       "buyQuantity": 0,
+
       "mainImages": [
         {
           "_id": 1,
@@ -1154,7 +1292,7 @@
         "isSale": false,
         "salePrice": 4900,
         "category": "acc",
-        "productImg": ["uploadFiles/products_acc_2_model-1.webp"],
+        "productImg": ["uploadFiles/products_acc_2_model-1.webp", "uploadFiles/products_acc_2_model-2.webp"],
         "size": [
           {
             "value": "FREE",
@@ -1211,6 +1349,7 @@
       "name": "푸엘라 로고 크루삭스",
       "quantity": 2e24,
       "buyQuantity": 1,
+
       "mainImages": [
         {
           "_id": 1,
@@ -1229,7 +1368,7 @@
         "isSale": true,
         "salePrice": 1500,
         "category": "acc",
-        "productImg": ["uploadFiles/products_acc_3_model-1.webp"],
+        "productImg": ["uploadFiles/products_acc_3_model-1.webp", "uploadFiles/products_acc_3_model-2.webp", "uploadFiles/products_acc_3_model-3.webp"],
         "size": [
           {
             "value": "FREE",
@@ -1284,6 +1423,7 @@
     }
   ],
   "order": {},
+
   "review": [
     {
       "user_id": 3,
@@ -1476,8 +1616,7 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1490,8 +1629,7 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1504,8 +1642,7 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1518,8 +1655,7 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1532,8 +1668,7 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1546,8 +1681,7 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1560,8 +1694,7 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1574,8 +1707,7 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1588,8 +1720,7 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1602,8 +1733,7 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1616,8 +1746,7 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1630,8 +1759,7 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1644,8 +1772,7 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1658,8 +1785,7 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1672,8 +1798,7 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1686,8 +1811,7 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1700,8 +1824,7 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1714,8 +1837,7 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1728,8 +1850,7 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1742,8 +1863,7 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1756,8 +1876,7 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1770,8 +1889,7 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1784,8 +1902,7 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1798,8 +1915,7 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1812,8 +1928,7 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1826,8 +1941,7 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1840,8 +1954,7 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1854,8 +1967,7 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1868,8 +1980,7 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1882,8 +1993,7 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1896,8 +2006,7 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1910,8 +2019,7 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1924,8 +2032,7 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1938,8 +2045,7 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1952,8 +2058,7 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1966,8 +2071,7 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1980,8 +2084,7 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -1994,8 +2097,7 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -2008,8 +2110,7 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -2022,8 +2123,7 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -2036,8 +2136,7 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -2050,8 +2149,7 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -2064,8 +2162,7 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -2078,8 +2175,7 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -2092,8 +2188,7 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -2106,8 +2201,7 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -2120,8 +2214,7 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     },
     {
       "type": "qna",
@@ -2134,8 +2227,7 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      },
-      "views": 0
+      }
     }
   ],
   "code": [
