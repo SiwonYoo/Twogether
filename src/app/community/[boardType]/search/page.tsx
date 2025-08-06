@@ -1,7 +1,6 @@
 import EventList from '@/app/community/EventList';
 import NoticeList from '@/app/community/NoticeList';
-import MyQnaList from '@/app/my-page/[boardType]/MyQnaList';
-import SearchForm from '@/components/common/SearchForm';
+import SearchForm from '@/components/post/SearchForm';
 import { getSearchPosts } from '@/data/functions/post';
 import { Metadata } from 'next';
 import { Judson } from 'next/font/google';
@@ -14,6 +13,7 @@ const JudsonFont = Judson({
 export interface SearchPageProps {
   params: Promise<{
     boardType: string;
+    userId?: string;
   }>;
   searchParams: Promise<{
     keyword: string;
@@ -47,38 +47,60 @@ export default async function SearchPage({ params, searchParams }: SearchPagePro
   const res = await getSearchPosts(boardType, keyword);
 
   return (
-    <main className="mx-4">
-      {keyword === undefined ? (
-        <h2 className={`mb-4 ${JudsonFont.className} text-2xl text-center`}>
-          <strong>{`" "`}</strong> 검색결과
-        </h2>
-      ) : (
-        <h2 className={`mb-4 ${JudsonFont.className} text-2xl text-center`}>
-          <strong>{`"${keyword}"`}</strong> 검색결과
-        </h2>
+    <div className="container mx-auto px-4 py-8">
+      {/* 페이지 제목 */}
+      <h2 className="text-2xl font-bold mb-6">{boardType === 'notice' ? '공지사항' : '이벤트'} 검색</h2>
+
+      {/* 검색 폼 */}
+      <div className="mb-8">
+        <SearchForm />
+      </div>
+
+      {/* 검색어 표시 */}
+      {keyword && (
+        <div className="mb-6">
+          <p className="text-gray-600">
+            <span className="font-semibold text-black">{keyword}</span> 검색 결과
+          </p>
+        </div>
       )}
 
-      {/* boardType의 검색 결과에 따라 보여지는 게시글 목록 */}
-
-      <ul>
-        {res.ok ? (
-          boardType === 'qna' ? (
-            <MyQnaList posts={res.item} boardType={boardType} />
-          ) : boardType === 'notice' ? (
-            res.item.map((post, i) => <NoticeList key={i} post={post} boardType={boardType} isNotice={false} />)
-          ) : boardType === 'event' ? (
-            res.item.map((post, i) => <EventList key={i} post={post} boardType={boardType} />)
-          ) : (
-            <p>지원되지 않는 게시판 타입입니다.</p>
-          )
-        ) : (
+      {/* 에러 메시지 */}
+      {!res.ok && (
+        <div className="text-center py-8">
           <p className="text-red-500">{res.message}</p>
-        )}
-      </ul>
+        </div>
+      )}
 
-      {/* 글 작성 버튼 */}
-      <div className="text-right mt-4 mx-4"></div>
-      <SearchForm />
-    </main>
+      {/* 검색 결과 */}
+      {res.ok && keyword && (
+        <ul>
+          {res.item.length > 0 ? (
+            boardType === 'notice' ? (
+              res.item.map((post, i) => (
+                <NoticeList key={post._id || i} post={post} boardType={boardType} isNotice={false} />
+              ))
+            ) : boardType === 'event' ? (
+              res.item.map((post, i) => <EventList key={post._id || i} post={post} boardType={boardType} />)
+            ) : (
+              <li className="text-center py-8">
+                <p className="text-gray-500">지원되지 않는 게시판 타입입니다.</p>
+              </li>
+            )
+          ) : (
+            <li className="text-center py-8">
+              <p className="text-gray-500">검색 결과가 없습니다.</p>
+            </li>
+          )}
+        </ul>
+      )}
+
+      {/* 검색어가 없을 때 안내 메시지 */}
+      {!keyword && res.ok && (
+        <div className="text-center py-8">
+          <p className="text-gray-500">검색어를 입력해주세요.</p>
+        </div>
+      )}
+    </div>
   );
 }
