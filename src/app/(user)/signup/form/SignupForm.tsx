@@ -163,10 +163,10 @@ function SignupForm() {
             </Input>
             {errors.email && <p className="text-error text-sm mt-1">{errors.email.message}</p>}
             {!errors.email && isEmailAvailable && (
-              <p className="text-success text-sm mb-1">사용 가능한 이메일입니다.</p>
+              <p className="text-success text-sm mt-1">사용 가능한 이메일입니다.</p>
             )}
             {!errors.email && isEmailAvailable === false && (
-              <p className="text-error text-sm mb-1">이미 등록된 이메일입니다.</p>
+              <p className="text-error text-sm mt-1">이미 등록된 이메일입니다.</p>
             )}
           </div>
 
@@ -222,10 +222,10 @@ function SignupForm() {
                 중복 확인
               </Button>
             </Input>
-            {errors.phone && <p className="text-error text-sm mb-1">{errors.phone.message}</p>}
-            {!errors.phone && isPhoneAvailable && <p className="text-success text-sm mb-1">사용 가능한 번호입니다.</p>}
+            {errors.phone && <p className="text-error text-sm mt-1">{errors.phone.message}</p>}
+            {!errors.phone && isPhoneAvailable && <p className="text-success text-sm mt-1">사용 가능한 번호입니다.</p>}
             {!errors.phone && isPhoneAvailable === false && (
-              <p className="text-error text-sm mb-1">이미 등록된 번호입니다.</p>
+              <p className="text-error text-sm mt-1">이미 등록된 번호입니다.</p>
             )}
           </div>
         </fieldset>

@@ -4,8 +4,9 @@ import Button from '@/components/common/Button';
 import CheckBox from '@/components/common/CheckBox';
 import Input from '@/components/common/Input';
 import { editProfile } from '@/data/actions/user';
+import { getAllUsers } from '@/data/functions/user';
 import useUserStore from '@/stores/useUserStore';
-import { ApiRes, EditProfileType } from '@/types';
+import { ApiRes, EditProfileType, GetAllUsersType } from '@/types';
 import { RotateCcwIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -19,12 +20,15 @@ function EditProfileForm() {
   const router = useRouter();
   const [isPasswordEditable, setIsPasswordEditable] = useState<boolean>(false);
   const user = useUserStore((state) => state.user);
+  const [userList, setUserList] = useState<GetAllUsersType[]>([]);
+  const [isPhoneAvailable, setPhoneAvailable] = useState<boolean | null>(null);
   const setUser = useUserStore((state) => state.login);
   const {
     register,
     handleSubmit,
     reset,
     resetField,
+    getValues,
     trigger,
     watch,
     formState: { errors, isValid },
@@ -33,8 +37,58 @@ function EditProfileForm() {
     criteriaMode: 'firstError',
   });
 
+  // 첫 렌더링 시 유저 정보 GET
+  useEffect(() => {
+    async function getUserList() {
+      const data = await getAllUsers();
+      if (data.ok) setUserList(data.item);
+    }
+    getUserList();
+  }, []);
+
+  // 기존 정보로 초기화
+  useEffect(() => {
+    if (user) {
+      reset({ accessToken: user.token?.accessToken, _id: user._id, name: user.name, phone: user.phone });
+    }
+  }, [user]);
+
+  // 휴대폰 중복 확인 (실시간, 정규식 만족 시)
+  useEffect(() => {
+    const currentPhone = getValues('phone');
+    if (currentPhone === user?.phone) return;
+    if (!phoneExp.test(currentPhone)) return;
+
+    let isPhoneDuplicated = false;
+
+    userList.map((item) => {
+      if (item.phone === getValues('phone')) {
+        setPhoneAvailable(false);
+        isPhoneDuplicated = true;
+      }
+    });
+
+    if (!isPhoneDuplicated) setPhoneAvailable(true);
+  }, [watch('phone')]);
+
+  // isPasswordEditable 변화 시 유효성 재검사를 위해 항상 valid한 _id 필드를 트리거함
+  useEffect(() => {
+    trigger('_id');
+  }, [isPasswordEditable]);
+
+  // name, phone 필드 초기화 (reset 버튼 클릭 시)
+  const handleReset = (field: 'name' | 'phone') => {
+    if (!user) return;
+    resetField(field);
+  };
+
+  // 폼 제출 이벤트 ('완료' 버튼 클릭 시)
   const onSubmit = async (editData: EditProfileType) => {
     if (!user) return;
+    if (!isPhoneAvailable) {
+      alert('이미 등록된 휴대폰 번호입니다. 다시 입력해 주세요.');
+      return;
+    }
 
     let res: ApiRes<EditProfileType>;
     if (isPasswordEditable) {
@@ -49,22 +103,6 @@ function EditProfileForm() {
       setUser({ ...user, name: editData.name, phone: editData.phone });
       router.replace('/my-page/edit-profile/success');
     } else console.error('등록에 실패했습니다.');
-  };
-
-  useEffect(() => {
-    if (user) {
-      reset({ accessToken: user.token?.accessToken, _id: user._id, name: user.name, phone: user.phone });
-    }
-  }, [user]);
-
-  useEffect(() => {
-    // isPasswordEditable 변화 시 유효성 재검사를 위해 항상 valid한 _id 필드를 트리거한다.
-    trigger('_id');
-  }, [isPasswordEditable]);
-
-  const handleReset = (field: 'name' | 'phone') => {
-    if (!user) return;
-    resetField(field);
   };
 
   return (
@@ -132,7 +170,11 @@ function EditProfileForm() {
                 <RotateCcwIcon className="cursor-pointer text-gray-250 hover:text-black" />
               </button>
             </div>
-            {errors.phone && <p className="text-error text-sm mb-1">{errors.phone.message}</p>}
+            {errors.phone && <p className="text-error text-sm mt-1">{errors.phone.message}</p>}
+            {!errors.phone && isPhoneAvailable && <p className="text-success text-sm mt-1">사용 가능한 번호입니다.</p>}
+            {!errors.phone && isPhoneAvailable === false && (
+              <p className="text-error text-sm mt-1">이미 등록된 번호입니다.</p>
+            )}
           </div>
 
           <CheckBox
