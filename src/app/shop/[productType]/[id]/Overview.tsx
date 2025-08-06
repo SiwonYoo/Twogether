@@ -32,18 +32,14 @@ export default function OverviewPage({ productType, product }: ProductDetails) {
           <h3 className="mb-4 font-bold text-2xl">{product.name}</h3>
           <p>{product.content}</p>
         </div>
-        {/* TODO db에 아직 이미지를 안넣어서 데이터 없음, 즉 502에러가 나와서 조건문을 사용 => DB에 이미지 넣으면 조건문 삭제 예정 */}
-        {product.extra?.productImg?.length ? (
-          <ul className="flex flex-col gap-4  w-full">
-            {product.extra.productImg.map((item, index) => (
-              <li key={`productImg-${index}`}>
-                <Image src={item} width={1000} height={1000} alt="상품 설명" />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>보여 드릴 이미지가 없어요</p>
-        )}
+
+        <ul className="flex flex-col gap-4  w-full">
+          {product.extra.productImg.map((item, index) => (
+            <li key={`productImg-${index}`}>
+              <Image src={item} width={1000} height={1000} alt="상품 설명" />
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
