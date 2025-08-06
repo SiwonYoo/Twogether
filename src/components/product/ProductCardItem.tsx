@@ -28,7 +28,7 @@ export default function ProductCardItem({ productType, data }: ProductCardItemPr
         return (
           <li key={`ProductItem-${index}`}>
             <Link href={`/shop/${productType}/${item._id}`} className="block h-[15.625rem]">
-              <ImagesSwiper data={data} height={'15.625rem'} />
+              <ImagesSwiper data={item} height={'15.625rem'} />
             </Link>
             <div className="flex justify-between mt-4">
               <Link href={`/shop/${productType}/${item._id}`}>

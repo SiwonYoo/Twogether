@@ -8,7 +8,7 @@ import { Product } from '@/types/product';
 import { Autoplay } from 'swiper/modules';
 
 interface ProductCardItemProps {
-  data: Product[];
+  data: Product;
   height: string;
 }
 
@@ -40,25 +40,23 @@ export default function ImagesSwiper({ data, height }: ProductCardItemProps) {
             disableOnInteraction: false, // 사용자 상호작용시 슬라이더 일시 정지 비활성
           }}
         >
-          {data.map((item) =>
-            item.mainImages.map((img, dataIndex) => {
-              return (
-                <>
-                  <SwiperSlide key={`Swiper-${dataIndex}`}>
-                    <div className={`h-[${height}]`}>
-                      <Image
-                        src={img.path}
-                        alt={item.content === '' ? `${item.content}` : ''}
-                        className="w-full h-full object-cover"
-                        width="469"
-                        height="216"
-                      />
-                    </div>
-                  </SwiperSlide>
-                </>
-              );
-            })
-          )}
+          {data.mainImages.map((img, dataIndex) => {
+            return (
+              <>
+                <SwiperSlide key={`Swiper-${img.path}-${dataIndex}`}>
+                  <div className={`h-[${height}]`}>
+                    <Image
+                      src={img.path}
+                      alt={data.content === '' ? `${data.content}` : ''}
+                      className="w-full h-full object-cover"
+                      width="469"
+                      height="216"
+                    />
+                  </div>
+                </SwiperSlide>
+              </>
+            );
+          })}
         </Swiper>
       </div>
     </>

@@ -47,7 +47,7 @@ function SearchForm() {
     searchProducts();
   }, [currentValue]);
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     const trimmedValue = inputValue.replace(/\s+/g, ' ').trim();
