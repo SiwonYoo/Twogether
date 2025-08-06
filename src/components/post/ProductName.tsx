@@ -66,18 +66,25 @@ export default function ProductName({ productId }: { productId: number }) {
   // 정상적인 상품 정보 표시
   return (
     <Link href={`/shop/${product.extra?.category || 'unknown'}/${productId}`}>
-      <div className="flex gap-4 p-4  border-1 border-gray-150">
-        <Image
-          src={`${product.mainImages[0].path}`}
-          alt={product.name}
-          width={100}
-          height={100}
-          priority
-          className="bg-white"
-        />
+      <div className="flex gap-4 p-4 border-1 border-gray-150">
+        {/* 이미지가 있을 때만 렌더링 */}
+        {product.mainImages?.[0]?.path && (
+          <Image
+            src={product.mainImages[0].path}
+            alt={product.name}
+            width={100}
+            height={100}
+            priority
+            className="bg-white object-cover"
+            // style 제거하거나 height props 제거
+          />
+        )}
         <div className="flex flex-col flex-1">
           <p>{product.name}</p>
-          <p className="text-gray-250 text-sm">사이즈 {product.extra.size[0].value}</p>
+          {/* 사이즈 배열 안전성 체크 */}
+          {product.extra?.size?.[0]?.value && (
+            <p className="text-gray-250 text-sm">사이즈 {product.extra.size[0].value}</p>
+          )}
           <p className="text-lg font-bold mt-auto">{product.price.toLocaleString()}원</p>
         </div>
       </div>
