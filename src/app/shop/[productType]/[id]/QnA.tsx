@@ -37,7 +37,6 @@ export default function QnA({ product }: ProductDetails) {
       }
       if (res.ok === 1) {
         setQnaPag(res.item);
-        console.log(res.item);
       }
     }
     noticeApi();
