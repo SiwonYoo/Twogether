@@ -20,6 +20,7 @@ export default function ProductTabs({ productType, product }: ProductDetails) {
   const tabs = ['Overview', 'Details', 'Review', 'Q&A'];
   const initialTab = searchParams.get('tab') || tabs[0];
   const [activeTab, setActiveTab] = useState<string>(initialTab);
+  const [hover, setHover] = useState<number | null>(null);
 
   useEffect(() => {
     const tabParam = searchParams.get('tab');
@@ -35,17 +36,26 @@ export default function ProductTabs({ productType, product }: ProductDetails) {
   };
 
   return (
-    <div className="m-4">
-      <nav className="my-6">
-        <ul className="grid grid-cols-4 justify-between items-center gap-4">
+    <div className="m-4 relative">
+      <nav className="my-6 sticky top-15 bg-(--color-white)">
+        <ul className="grid grid-cols-4 justify-between items-center gap-4  border-b-1 border-black/1">
           {tabs.map((tab, index) => (
-            <li key={index} className="p-4 text-center relative">
+            <li
+              key={index}
+              className="p-4 text-center relative"
+              onMouseEnter={() => setHover(index)}
+              onMouseLeave={() => setHover(null)}
+            >
               <button onClick={() => onClickTab(tab)} className={`pb-2 ${JudsonFont.className}`}>
                 {tab}
               </button>
               <span
-                className={`absolute left-1/2 bottom-0 -translate-x-1/2 w-full
-                  ${activeTab === tab ? 'border-b-3 border-(--color-primary)' : 'border-b-2 border-(--color-white)'}`}
+                className={`absolute left-1/2 bottom-0 -translate-x-1/2 w-full    transition-all duration-200 delay-100
+                     ${
+                       activeTab === tab || hover === index
+                         ? 'border-b-[3px] border-[color:var(--color-primary)]'
+                         : 'border-b-2 border-[color:var(--color-white)]'
+                     }`}
               ></span>
             </li>
           ))}
