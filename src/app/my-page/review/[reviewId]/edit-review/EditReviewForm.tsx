@@ -128,6 +128,7 @@ function EditReviewForm({ review }: { review: Review }) {
 
   return (
     <>
+      {!productData && <div className="pb-4 border-b-[.0625rem] border-gray-150 box-content h-[3.125rem]"></div>}
       {productData && <ProductItem item={productData} />}
 
       <form className="mb-6" action={formAction}>

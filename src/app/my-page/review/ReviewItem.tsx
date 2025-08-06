@@ -71,6 +71,11 @@ function ReviewItem({ setRefreshKey, showProductInfo = false, review }: ReviewIt
             <ProductItem item={productData} />
           </div>
         )}
+        {showProductInfo && !productData && (
+          <div className="mb-5">
+            <div className="pb-4 border-b-[.0625rem] border-gray-150 box-content h-[3.125rem]"></div>
+          </div>
+        )}
         <div className="flex justify-between gap-4">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1">
