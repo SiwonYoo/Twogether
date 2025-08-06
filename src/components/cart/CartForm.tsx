@@ -28,7 +28,13 @@ export default function CartForm() {
 
   return (
     <form onSubmit={orderSubmit}>
-      <Button type="submit" shape="square" bg="light" size="lg">
+      <Button
+        type="submit"
+        shape="square"
+        bg={checkedIds.length === 0 ? 'disabled' : 'light'}
+        size="lg"
+        disabled={checkedIds.length === 0}
+      >
         선택상품주문
       </Button>
     </form>
