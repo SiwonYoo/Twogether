@@ -14,7 +14,6 @@ export default function QnaRegist({ boardType }: { boardType: string }) {
   const [productName, setProductName] = useState(1);
   const [products, setProducts] = useState<Product[]>([]);
   const [state, formAction, isLoading] = useActionState(createPost, null);
-  console.log(isLoading, state);
 
   const { user } = useUserStore();
 
