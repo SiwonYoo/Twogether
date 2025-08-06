@@ -68,8 +68,16 @@ export default function DetailsPage({ product }: ProductDetails) {
     return (
       <ul className="grid grid-cols-3 text-center  bg-(--color-gray-150) rounded">
         {product.extra.washingInfo.map((info) => (
-          <li key={info._id} className="flex justify-center flex-col items-center px-4 py-2">
-            <Image src={`/images/washing_info/washing_info_${info._id}.png`} alt={info.label} width="50" height="50" />
+          <li key={info._id} className="flex justify-between flex-col items-center px-4 py-2">
+            <p className="w-[4rem] py-2">
+              <Image
+                src={`/images/washing_info/washing_info_${info._id}.png`}
+                alt={info.label}
+                width="64"
+                height="64"
+                className="h-full object-cover"
+              />
+            </p>
             {info.label}
           </li>
         ))}
@@ -78,27 +86,27 @@ export default function DetailsPage({ product }: ProductDetails) {
   };
 
   return (
-    <div className="text-[.75rem]">
+    <section className="text-[.75rem]">
       {/* 사이즈 안내 시작 */}
-      <div>
+      <article>
         <h2 className={`${JudsonFont.className} text-2xl mb-4`}>Size Info</h2>
         <div>{defaultSizeLayout()}</div>
-      </div>
+      </article>
       {/* 사이즈 안내 종료 */}
 
       {/* 원단 안내 시작 */}
-      <div className=" my-4">
+      <article className=" my-4">
         <h2 className={`${JudsonFont.className} text-2xl mb-4`}>Fabric Info</h2>
         <div>{fabricLayout()}</div>
-      </div>
+      </article>
       {/* 원단 안내 종료 */}
 
       {/* 세탁 안내 시작 */}
-      <div>
+      <article>
         <h2 className={`${JudsonFont.className} text-2xl mb-4`}>Washing Info</h2>
         <div>{washingLayout()}</div>
-      </div>
+      </article>
       {/* 세탁 안내 종료 */}
-    </div>
+    </section>
   );
 }
