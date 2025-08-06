@@ -1,3 +1,5 @@
+import { Product } from '@/types/product';
+
 // 장바구니 응답 전체
 export interface CartResponse {
   ok: number;
@@ -20,40 +22,9 @@ export interface Cart {
   quantity: number;
   createdAt: string;
   updatedAt: string;
-  product: {
-    _id: number;
-    name: string;
-    price: number;
-    quantity: number;
-    buyQuantity: number;
-    image: {
-      _id: number;
+  product: Product & {
+    image?: {
       path: string;
-      name: string;
-    };
-    extra: {
-      isBest: boolean;
-      isSale: boolean;
-      category: string;
-      isLike: boolean;
-      salePrice: number;
-      size: {
-        value: string;
-        text: string;
-      }[];
-      SizeInfo: {
-        headers: string[];
-        values: string[];
-      }[];
-      FabricInfo: {
-        label: string;
-        values: string[];
-        selected: string[];
-      }[];
-      washingInfo: {
-        _id: number;
-        label: string;
-      }[];
     };
   };
   extra: {

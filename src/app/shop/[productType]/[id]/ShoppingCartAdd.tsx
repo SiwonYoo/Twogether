@@ -7,6 +7,8 @@ import useUserStore from '@/stores/useUserStore';
 import { ShoppingBag } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useActionState } from 'react';
+import { getCarts } from '@/data/functions/cart';
+import useCartStore from '@/stores/useCartStore';
 
 interface ShoppingCartAddProps {
   product_id: number;
@@ -17,9 +19,42 @@ export default function ShoppingCartAdd({ product_id, quantity }: ShoppingCartAd
   const [isOpen, setOpen] = useState(false);
   const [state, action, isLoading] = useActionState(addCart, null);
   const { user } = useUserStore();
+  const { setItems, setCheckedIds } = useCartStore();
 
   useEffect(() => {
     if (state?.ok) {
+      const userLocalStorage = localStorage.getItem('user');
+      let accessToken = '';
+
+      if (userLocalStorage) {
+        try {
+          const parsed = JSON.parse(userLocalStorage);
+          accessToken = parsed?.state?.user?.token?.accessToken;
+          console.log('액세스 토큰 :', accessToken);
+        } catch (err) {
+          console.error('액세스 토큰 파싱 실패', err);
+        }
+      }
+
+      // 장바구니 API에서 목록 조회 후 장바구니 전역 상태에 set
+      async function fetchCarts() {
+        if (!accessToken) return;
+
+        try {
+          const res = await getCarts(accessToken);
+          console.log('장바구니 데이터 :', res);
+
+          if (res.ok && res.item) {
+            setItems(res.item);
+            setCheckedIds(res.item.map((item) => item._id));
+          }
+        } catch (err) {
+          console.error('장바구니 API 호출 실패', err);
+        }
+      }
+
+      fetchCarts();
+
       setOpen(true);
     }
   }, [state]);

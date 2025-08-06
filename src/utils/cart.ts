@@ -1,39 +1,49 @@
-// utils/cart.ts
-import { Cart } from '@/types/cart';
 import { BASIC_DELIVERY_FEE, DELIVERY_FREE_MIN_PRICE } from '@/constants/money';
+import { Product } from '@/types';
+import { Cart } from '@/types/cart';
 
 /**
- * 총 상품금액(정가 그대로)을 계산하여 반환하는 함수입니다.
- *
- * @param items 장바구니 아이템 배열
- * @returns 총 상품금액
+ * Cart | Product 모두에서 가격과 수량을 가져오는 헬퍼
  */
-export const calculateTotalPrice = (items: Cart[]): number =>
-  items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+function getPriceAndQuantity(item: Cart | Product) {
+  if ('product' in item) {
+    // Cart 타입
+    return { price: item.product.price, salePrice: item.product.extra.salePrice, quantity: item.quantity };
+  }
+  // Product 타입
+  return { price: item.price, salePrice: item.extra.salePrice, quantity: item.quantity };
+}
 
 /**
- * 총 할인금액을 계산하여 반환하는 함수입니다.
- *
- * @param items 장바구니 아이템 배열
- * @returns 총 할인금액
+ * 총 상품금액
  */
-export const calculateTotalDiscount = (items: Cart[]): number =>
-  items.reduce((sum, item) => sum + (item.product.price - item.product.extra.salePrice) * item.quantity, 0);
+export function calculateTotalPrice<T extends Cart | Product>(items: T[]): number {
+  return (items ?? []).reduce((sum, item) => {
+    const { price, quantity } = getPriceAndQuantity(item);
+    return sum + price * quantity;
+  }, 0);
+}
 
 /**
- * 결제예정금액(정가-할인금액의 총합)을 계산하여 반환하는 함수입니다.
- *
- * @param items 장바구니 아이템 배열
- * @returns 총 상품금액
+ * 총 할인금액
  */
-export const calculateFinalAmount = (items: Cart[]): number =>
-  calculateTotalPrice(items) - calculateTotalDiscount(items) + calculateDeliveryFee(items);
+export function calculateTotalDiscount<T extends Cart | Product>(items: T[]): number {
+  return (items ?? []).reduce((sum, item) => {
+    const { price, salePrice, quantity } = getPriceAndQuantity(item);
+    return sum + (price - (salePrice ?? price)) * quantity;
+  }, 0);
+}
 
 /**
- * 배송비(5만원 이상 무료, 기본 3천원)를 계산하여 반환하는 함수입니다.
- *
- * @param items 장바구니 아이템 배열
- * @returns 배송비
+ * 결제 예정 금액
  */
-export const calculateDeliveryFee = (items: Cart[]): number =>
-  calculateTotalPrice(items) - calculateTotalDiscount(items) >= DELIVERY_FREE_MIN_PRICE ? 0 : BASIC_DELIVERY_FEE;
+export function calculateFinalAmount<T extends Cart | Product>(items: T[]): number {
+  return calculateTotalPrice(items) - calculateTotalDiscount(items) + calculateDeliveryFee(items);
+}
+
+/**
+ * 배송비
+ */
+export function calculateDeliveryFee<T extends Cart | Product>(items: T[]): number {
+  return calculateTotalPrice(items) - calculateTotalDiscount(items) >= DELIVERY_FREE_MIN_PRICE ? 0 : BASIC_DELIVERY_FEE;
+}
