@@ -37,7 +37,7 @@ export default function OverviewPage({ productType, product }: ProductDetails) {
           <ul className="flex flex-col gap-4  w-full">
             {product.extra.productImg.map((item, index) => (
               <li key={`productImg-${index}`}>
-                <Image src={item} width={100} height={100} alt="상품 설명" />
+                <Image src={item} width={1000} height={1000} alt="상품 설명" />
               </li>
             ))}
           </ul>

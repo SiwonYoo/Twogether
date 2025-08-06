@@ -16,8 +16,8 @@ export default function QnA({ product }: ProductDetails) {
   const [noticePage, setNoticePag] = useState<Post[]>([]);
   const [qnaPage, setQnaPag] = useState<GetPost[]>([]);
   const [error, setError] = useState('');
-  
-    useEffect(() => {
+
+  useEffect(() => {
     async function noticeApi() {
       const res = await getPosts('notice');
       if (res.ok === 0) {
@@ -37,6 +37,7 @@ export default function QnA({ product }: ProductDetails) {
       }
       if (res.ok === 1) {
         setQnaPag(res.item);
+        console.log(res.item);
       }
     }
     noticeApi();
