@@ -16,10 +16,7 @@ export default function OrderFetcher() {
       try {
         const parsed = JSON.parse(userLocalStorage);
         accessToken = parsed?.state?.user?.token?.accessToken;
-        console.log('액세스 토큰 :', accessToken);
-      } catch (err) {
-        console.error('액세스 토큰 파싱 실패', err);
-      }
+      } catch (err) {}
     }
 
     async function fetchOrder() {
@@ -27,14 +24,11 @@ export default function OrderFetcher() {
 
       try {
         const res = await getOrders(accessToken);
-        console.log('주문 내역 데이터 :', res);
 
         if (res.ok && res.item) {
           setOrders(res.item);
         }
-      } catch (err) {
-        console.error('주문 내역 API 호출 실패', err);
-      }
+      } catch (err) {}
     }
 
     fetchOrder();

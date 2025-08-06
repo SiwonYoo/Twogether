@@ -22,9 +22,6 @@ function OrderSummaryCard({ _id, date, products }: OrderSummaryCardProps) {
       <div>
         <div className="flex justify-between items-center py-4">
           <h3 className={`text-2xl ${JudsonFont.className}`}>{date}</h3>
-          <Link href={`/my-page/order-list/${_id}`} className="hover:underline">
-            주문상세
-          </Link>
         </div>
         {products.map((item) => (
           <div key={item._id} className="flex flex-col gap-4 py-4 border-b-[.0625rem] border-gray-150">
@@ -46,9 +43,9 @@ function OrderSummaryCard({ _id, date, products }: OrderSummaryCardProps) {
             </div>
             <div className="flex gap-4">
               {/* 주문 취소 페이지로 이동 후 취소: LinkButton 또는 바로 취소: Button */}
-              <Button shape="square" size="lg" bg="white">
-                주문취소
-              </Button>
+              <LinkButton href={`/my-page/order-list/${_id}`} shape="square" size="lg" bg="white">
+                주문상세
+              </LinkButton>
               <LinkButton
                 href={`/my-page/order-list/${_id}/${item._id}/review-post`}
                 shape="square"
