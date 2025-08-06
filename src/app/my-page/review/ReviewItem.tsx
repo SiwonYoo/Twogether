@@ -1,15 +1,16 @@
 'use client';
 
-import ProductItem from '@/app/my-page/order-list/[orderId]/ProductItem';
+import ProductItem, { ProductItemProps } from '@/app/my-page/order-list/[orderId]/ProductItem';
 import ReviewDeleteForm from '@/app/my-page/review/ReviewDeleteForm';
 import ReviewImagesModal from '@/app/my-page/review/ReviewImagesModal';
+import { getProductById } from '@/data/functions/shop';
 import useUserStore from '@/stores/useUserStore';
 import { Review } from '@/types/review';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 interface ReviewItemProps {
   setRefreshKey?: Dispatch<SetStateAction<number>>;
@@ -21,6 +22,7 @@ function ReviewItem({ setRefreshKey, showProductInfo = false, review }: ReviewIt
   const [fullContent, setFullContent] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const path = usePathname();
+  const [productData, setProductData] = useState<ProductItemProps>();
 
   const loginUser = useUserStore((state) => state.user) || null;
 
@@ -41,20 +43,34 @@ function ReviewItem({ setRefreshKey, showProductInfo = false, review }: ReviewIt
     );
   }
 
-  let item;
-  if (review.product) {
-    item = {
-      _id: review.product._id,
-      image: { path: review.product.image.path },
-      name: review.product.name,
-      price: review.extra.productPrice,
-    };
-  }
+  useEffect(() => {
+    if (!showProductInfo) return;
+
+    async function getProductData() {
+      const data = await getProductById(review.product._id);
+
+      if (data.ok) {
+        setProductData({
+          _id: data.item._id,
+          image: { path: data.item.mainImages[0].path },
+          name: data.item.name,
+          price: data.item.price,
+          extra: { salePrice: data.item.extra.salePrice, isSale: data.item.extra.isSale },
+        });
+      }
+    }
+
+    getProductData();
+  }, []);
 
   return (
     <>
       <div className="p-4 rounded-md border-[.0625rem] border-gray-150">
-        {showProductInfo && <div className="mb-5">{item && <ProductItem item={item} />}</div>}
+        {showProductInfo && productData && (
+          <div className="mb-5">
+            <ProductItem item={productData} />
+          </div>
+        )}
         <div className="flex justify-between gap-4">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1">
