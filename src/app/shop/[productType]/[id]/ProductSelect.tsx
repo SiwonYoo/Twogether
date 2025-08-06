@@ -63,7 +63,7 @@ export default function ProductSelect({ item }: ProductSelectProps) {
                 bg={selectedValue !== '' ? 'primary' : 'disabled'}
                 disabled={isLoading}
               >
-                {selectedValue !== '' ? '구매하기' : '사이즈를 선택해주세요'}
+                {selectedValue !== '' ? '구매하기' : `옵션 선택`}
               </Button>
 
               <input type="hidden" name="product_id" value={item._id} />
