@@ -60,8 +60,6 @@ function FindEmailForm() {
     }
   };
 
-  useEffect(() => {}, [foundEmail]);
-
   return (
     <>
       <div>

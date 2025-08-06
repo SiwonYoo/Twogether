@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form';
 
 const nameExp = /^[^\d]*$/;
 const phoneExp = /^(01[016789]{1})[0-9]{4}[0-9]{4}$/;
-const passwordExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
+const passwordExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
 
 function EditProfileForm() {
   const router = useRouter();
