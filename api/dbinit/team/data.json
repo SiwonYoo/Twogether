@@ -358,9 +358,7 @@
           "uploadFiles/products_shortSleeve_3_model-4.webp",
           "uploadFiles/products_shortSleeve_3_model-5.webp",
           "uploadFiles/products_shortSleeve_3_model-6.webp",
-          "uploadFiles/products_shortSleeve_3_model-7.webp",
-          "uploadFiles/products_shortSleeve_3_model-8.webp",
-          "uploadFiles/products_shortSleeve_3_model-9.webp"
+          "uploadFiles/products_shortSleeve_3_model-7.webp"
         ],
         "size": [
           {
@@ -1211,7 +1209,11 @@
         "isSale": false,
         "salePrice": 12000,
         "category": "acc",
-        "productImg": ["uploadFiles/products_acc_1_model-1.webp", "uploadFiles/products_acc_1_model-2.webp", "uploadFiles/products_acc_1_model-3.webp"],
+        "productImg": [
+          "uploadFiles/products_acc_1_model-1.webp",
+          "uploadFiles/products_acc_1_model-2.webp",
+          "uploadFiles/products_acc_1_model-3.webp"
+        ],
         "size": [
           {
             "value": "FREE",
@@ -1368,7 +1370,11 @@
         "isSale": true,
         "salePrice": 1500,
         "category": "acc",
-        "productImg": ["uploadFiles/products_acc_3_model-1.webp", "uploadFiles/products_acc_3_model-2.webp", "uploadFiles/products_acc_3_model-3.webp"],
+        "productImg": [
+          "uploadFiles/products_acc_3_model-1.webp",
+          "uploadFiles/products_acc_3_model-2.webp",
+          "uploadFiles/products_acc_3_model-3.webp"
+        ],
         "size": [
           {
             "value": "FREE",
@@ -1508,8 +1514,8 @@
         "_id": 1,
         "name": "투게더"
       },
-      "title": "[Twogether] 25/7/30(수) 고객센터 휴무 안내",
-      "content": "안녕하세요. 투게더 입니다.",
+      "title": "[Twogether] 배송안내",
+      "content": "[Twogether] 배송안내 안녕하세요, Twogether 고객님! 결제 완료 즉시 주문 확인이 진행되며 평일 기준 1~2영업일 이내에 출고됩니다. 특별 기획·예약 판매 상품은 출고 준비 기간이 최대 3~5영업일 소요될 수 있습니다. 발송 후 일반 지역은 평균 2~4일(영업일 기준), 수도권은 1~3일 내에 받아보실 수 있으며 제주·도서산간은 3~7일 소요되고 추가 배송비가 발생합니다. 50,000원 이상 구매 시 무료배송이며 50,000원 미만 시 기본 배송비 3,000원이 부과됩니다. 기본 배송사는 CJ대한통운과 한진택배 등이며 발송 안내 문자의 운송장 번호로 실시간 배송 조회가 가능합니다. 공휴일·명절·택배 파업 등 외부 상황으로 배송이 지연될 수 있으며 출고 후 5영업일 내에 미수령 시 고객센터로 연락 바랍니다. 주문 변경·취소는 출고 전까지 가능하며 출고 후 취소 시 반품 절차로 진행되고 고객 부담 반품비 2,500원이 발생합니다. 상품 불량·오배송의 경우 반품비를 Twogether에서 전액 부담하며 반품 요청은 수령 후 7일 이내에 해주시기 바랍니다. 모든 상품은 에어캡과 완충재로 안전하게 포장되며 파손 시 포장재와 제품 사진을 고객센터로 보내주시면 신속하게 처리해드립니다. 감사합니다! 😊",
       "createdAt": "2025.07.22 12:08:25",
       "updatedAt": "2025.07.22 12:08:25",
       "seller_id": null
@@ -1521,8 +1527,8 @@
         "_id": 1,
         "name": "투게더"
       },
-      "title": "[Twogether] 25/7/31(목) 고객센터 휴무 안내",
-      "content": "안녕하세요. 투게더 입니다.",
+      "title": "[Twogether] 교환 및 반품 안내",
+      "content": "[Twogether] 교환 및 반품 안내 신청 기간: 상품 수령 후 7일 이내 신청 방법: 마이페이지 → 교환·반품 신청 배송비: 단순 변심 2,500원 고객 부담 / 불량·오배송 무료 주의 사항: 상품 훼손 시 반품 불가 문의: 고객센터로 연락주세요.",
       "createdAt": "2025.07.24 14:08:25",
       "updatedAt": "2025.07.24 14:08:25",
       "seller_id": null
@@ -1616,7 +1622,8 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1629,7 +1636,8 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1642,7 +1650,8 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1655,7 +1664,8 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1668,7 +1678,8 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1681,7 +1692,8 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1694,7 +1706,8 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1707,7 +1720,8 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1720,7 +1734,8 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1733,7 +1748,8 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1746,7 +1762,8 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1759,7 +1776,8 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1772,7 +1790,8 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1785,7 +1804,8 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1798,7 +1818,8 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1811,7 +1832,8 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1824,7 +1846,8 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1837,7 +1860,8 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1850,7 +1874,8 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1863,7 +1888,8 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1876,7 +1902,8 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1889,7 +1916,8 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1902,7 +1930,8 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1915,7 +1944,8 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1928,7 +1958,8 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1941,7 +1972,8 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1954,7 +1986,8 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1967,7 +2000,8 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1980,7 +2014,8 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -1993,7 +2028,8 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2006,7 +2042,8 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2019,7 +2056,8 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2032,7 +2070,8 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2045,7 +2084,8 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2058,7 +2098,8 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2071,7 +2112,8 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2084,7 +2126,8 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2097,7 +2140,8 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2110,7 +2154,8 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2123,7 +2168,8 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2136,7 +2182,8 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2149,7 +2196,8 @@
         "name": "김준성",
         "email": "kjskjs@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2162,7 +2210,8 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2175,7 +2224,8 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2188,7 +2238,8 @@
         "name": "구성연",
         "email": "ksyksy@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2214,7 +2265,8 @@
         "name": "유시원",
         "email": "yswysw@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     },
     {
       "type": "qna",
@@ -2227,7 +2279,8 @@
         "name": "최승진",
         "email": "csjcsj@naver.com",
         "image": "files/team/favicon.svg"
-      }
+      },
+      "views": 2
     }
   ],
   "code": [
