@@ -3,6 +3,7 @@
 import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
 import { verifyEmail } from '@/data/actions/user';
+import useUserStore from '@/stores/useUserStore';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 
@@ -20,6 +21,7 @@ function VerifyForm() {
   const [attemptCount, setAttemptCount] = useState(0);
   const [leftTime, setLeftTime] = useState(5 * 60);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const user = useUserStore((state) => state.user);
 
   // 랜덤 코드 생성 함수 (숫자 6자리)
   function createRandomCode() {
@@ -105,6 +107,11 @@ function VerifyForm() {
   // 이메일 전송 함수 ('이메일 전송' 버튼 클릭 시)
   const handleClickSendEmail = async (event: FormEvent) => {
     event.preventDefault();
+    if (user?.email !== email) {
+      alert('본인 계정의 이메일을 입력해 주세요.');
+      return;
+    }
+
     createRandomCode();
   };
 
