@@ -37,6 +37,8 @@ function LoginForm() {
   const [rememberEmail, setRememberEmail] = useState<boolean>(false);
   const setUser = useUserStore((state) => state.login);
 
+  const redirect = searchParam.get('redirect');
+
   useEffect(() => {
     const getEmail = localStorage.getItem('email');
     if (getEmail) {
@@ -64,7 +66,6 @@ function LoginForm() {
 
       alert('로그인이 완료되었습니다.');
 
-      const redirect = searchParam.get('redirect');
       router.replace(redirect || '/');
     } else {
       if (!res?.ok && res?.message) {
@@ -83,6 +84,7 @@ function LoginForm() {
 
   return (
     <>
+      {redirect && <h3 className="text-center mt-2 mb-[-2rem]">로그인이 필요한 서비스입니다.</h3>}
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 mt-14 mb-4">
         <fieldset className="contents">
           <legend className="sr-only">로그인</legend>
