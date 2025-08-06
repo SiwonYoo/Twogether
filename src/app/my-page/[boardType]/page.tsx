@@ -1,7 +1,7 @@
 import { Judson } from 'next/font/google';
 import { Metadata } from 'next';
 import MyQnaList from './MyQnaList';
-import SearchForm from '@/components/common/SearchForm';
+import SearchForm from '@/components/post/QnaSearchForm';
 import LinkButton from '@/components/common/LinkButton';
 import { notFound } from 'next/navigation';
 

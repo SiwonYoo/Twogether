@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import EventList from '@/app/community/EventList';
 import NoticeList from '@/app/community/NoticeList';
-import SearchForm from '@/components/common/SearchForm';
+import SearchForm from '@/components/post/SearchForm';
 import { getPost, getPosts } from '@/data/functions/post';
 import { Post } from '@/types/post';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
