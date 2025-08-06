@@ -67,7 +67,7 @@ export default async function ProductDetilPage({ params }: ProductCardItemProps)
       </div>
       {/* 서버통신이 성공이면 나오는 메시지 */}
       <div className="mt-6">
-        <h2 className="text-2xl font-bold">{data.item.name}</h2>
+        <h1 className="text-2xl font-bold">{data.item.name}</h1>
         <p className={`mt-4 mb-2 ${data.item.extra.isSale ? '' : 'text-2xl font-bold'}`}>
           {data.item.extra.isSale ? (
             <span className="text-(--color-gray-450) line-through decoration-2 decoration-(--color-error)">
