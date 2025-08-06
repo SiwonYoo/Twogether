@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const emailExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const passwordExp = /^[A-Za-z0-9]{6,12}$/;
+const passwordExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
 
 type LoginFormType = {
   email: string;
@@ -36,6 +36,8 @@ function LoginForm() {
   const [isPasswordVisible, setPasswordVisible] = useState<boolean>(false);
   const [rememberEmail, setRememberEmail] = useState<boolean>(false);
   const setUser = useUserStore((state) => state.login);
+
+  const redirect = searchParam.get('redirect');
 
   useEffect(() => {
     const getEmail = localStorage.getItem('email');
@@ -64,11 +66,10 @@ function LoginForm() {
 
       alert('로그인이 완료되었습니다.');
 
-      const redirect = searchParam.get('redirect');
       router.replace(redirect || '/');
     } else {
       if (!res?.ok && res?.message) {
-        alert('아이디와 비밀번호를 확인해주세요.');
+        alert(res.message);
       }
     }
 
@@ -83,6 +84,7 @@ function LoginForm() {
 
   return (
     <>
+      {redirect && <h3 className="text-center mt-2 mb-[-2rem]">로그인이 필요한 서비스입니다.</h3>}
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 mt-14 mb-4">
         <fieldset className="contents">
           <legend className="sr-only">로그인</legend>
@@ -115,7 +117,7 @@ function LoginForm() {
                 required: '비밀번호를 입력해주세요.',
                 pattern: {
                   value: passwordExp,
-                  message: '영문/숫자 6자 이상 12자 이하로 입력해주세요.',
+                  message: '영문, 숫자 포함 6자 이상 12자 이하로 입력해주세요.',
                 },
               })}
             />

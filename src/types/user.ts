@@ -57,4 +57,5 @@ export interface GetAllUsersType {
   phone: string;
   type: string;
   loginType: string;
+  extra: { emailConfirm: boolean };
 }

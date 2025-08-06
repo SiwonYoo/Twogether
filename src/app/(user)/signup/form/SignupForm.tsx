@@ -2,8 +2,9 @@
 
 import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
-import { signup } from '@/data/actions/user';
-import { checkEmail } from '@/data/functions/user';
+import { signup, verifySignUpEmail } from '@/data/actions/user';
+import { checkEmail, getAllUsers } from '@/data/functions/user';
+import { GetAllUsersType } from '@/types';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -20,12 +21,15 @@ type SignupForm = {
 
 const nameExp = /^[^\d]*$/;
 const emailExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const passwordExp = /^[A-Za-z0-9]{6,12}$/;
+const passwordExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
 const phoneExp = /^(01[016789]{1})[0-9]{4}[0-9]{4}$/;
 
 function SignupForm() {
   const router = useRouter();
   const [isEmailAvailable, setEmailAvailable] = useState<boolean | null>(null);
+  const [isPhoneAvailable, setPhoneAvailable] = useState<boolean | null>(null);
+  const [userList, setUserList] = useState<GetAllUsersType[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -38,30 +42,77 @@ function SignupForm() {
     defaultValues: { name: '', email: '', password: '', phone: '010' },
   });
 
+  // 첫 렌더링 시 유저 정보 GET
+  useEffect(() => {
+    async function getUserList() {
+      const data = await getAllUsers();
+      if (data.ok) setUserList(data.item);
+    }
+    getUserList();
+  }, []);
+
+  // 이메일 변경 시 사용 가능 상태 초기화
   useEffect(() => {
     setEmailAvailable(null);
   }, [watch('email')]);
 
-  const handleCheck = async () => {
+  // 이메일 중복 확인 (이메일 '중복 확인' 버튼 클릭 시)
+  const handleCheckEmail = async () => {
     const currentEmail = getValues('email');
-    if (currentEmail === '') return;
+    if (!emailExp.test(currentEmail)) return;
     const res = await checkEmail(currentEmail);
     if (res.ok) setEmailAvailable(true);
     else setEmailAvailable(false);
   };
 
+  // 휴대폰 번호 변경 시 사용 가능 상태 초기화
+  useEffect(() => {
+    setPhoneAvailable(null);
+  }, [watch('phone')]);
+
+  // 휴대폰 번호 중복 확인 (휴대폰 번호 '중복 확인' 버튼 클릭 시)
+  const handleCheckPhone = async () => {
+    const currentPhone = getValues('phone');
+    if (!phoneExp.test(currentPhone)) return;
+
+    let isPhoneDuplicated = false;
+
+    userList.map((item) => {
+      if (item.phone === getValues('phone')) {
+        setPhoneAvailable(false);
+        isPhoneDuplicated = true;
+      }
+    });
+
+    if (!isPhoneDuplicated) setPhoneAvailable(true);
+  };
+
+  // 폼 제출 이벤트 ('회원가입' 버튼 클릭 시)
   const onSubmit = async (user: SignupForm) => {
     if (isEmailAvailable === null) {
       alert('이메일 중복 여부를 확인해주세요.');
       return;
     }
+
+    if (isPhoneAvailable === null) {
+      alert('휴대폰 번호 중복 여부를 확인해주세요.');
+      return;
+    }
+
+    setIsLoading(true);
+
     const { checkPassword, ...data } = user;
     const res = await signup(data);
+
     if (res.ok) {
-      router.replace('/signup/success');
+      const verifyEmailRes = await verifySignUpEmail(getValues('email'));
+
+      if (verifyEmailRes.ok) router.replace('/signup/success');
     } else if (!res.ok && res) {
       console.log(res.message);
     }
+
+    setIsLoading(false);
   };
 
   return (
@@ -106,16 +157,16 @@ function SignupForm() {
                 },
               })}
             >
-              <Button type="button" bg="white" shape="square" onClick={handleCheck}>
+              <Button type="button" bg="white" shape="square" onClick={handleCheckEmail}>
                 중복 확인
               </Button>
             </Input>
             {errors.email && <p className="text-error text-sm mt-1">{errors.email.message}</p>}
             {!errors.email && isEmailAvailable && (
-              <p className="text-success text-sm mb-1">사용 가능한 이메일입니다.</p>
+              <p className="text-success text-sm mt-1">사용 가능한 이메일입니다.</p>
             )}
             {!errors.email && isEmailAvailable === false && (
-              <p className="text-error text-sm mb-1">이미 등록된 이메일입니다.</p>
+              <p className="text-error text-sm mt-1">이미 등록된 이메일입니다.</p>
             )}
           </div>
 
@@ -130,7 +181,7 @@ function SignupForm() {
                 required: '비밀번호를 입력해주세요.',
                 pattern: {
                   value: passwordExp,
-                  message: '영문/숫자 6자 이상 12자 이하로 입력해주세요.',
+                  message: '영문, 숫자 포함 6자 이상 12자 이하로 입력해주세요.',
                 },
               })}
             />
@@ -166,8 +217,16 @@ function SignupForm() {
                   message: '휴대폰 번호 양식에 맞지 않습니다.',
                 },
               })}
-            />
-            {errors.phone && <p className="text-error text-sm mb-1">{errors.phone.message}</p>}
+            >
+              <Button type="button" bg="white" shape="square" onClick={handleCheckPhone}>
+                중복 확인
+              </Button>
+            </Input>
+            {errors.phone && <p className="text-error text-sm mt-1">{errors.phone.message}</p>}
+            {!errors.phone && isPhoneAvailable && <p className="text-success text-sm mt-1">사용 가능한 번호입니다.</p>}
+            {!errors.phone && isPhoneAvailable === false && (
+              <p className="text-error text-sm mt-1">이미 등록된 번호입니다.</p>
+            )}
           </div>
         </fieldset>
         <div className="flex gap-4 mt-11">
@@ -193,6 +252,15 @@ function SignupForm() {
           </Button>
         </div>
       </form>
+
+      {isLoading && (
+        <div className="fixed flex h-dvh min-w-[400px] max-w-[768px] mx-auto inset-0 justify-center items-center bg-black/50 z-10">
+          <div className="w-full mb-5 text-center text-white">
+            <p className="text-xl font-bold">회원가입 진행 중입니다.</p>
+            <p>잠시만 기다려주세요.</p>
+          </div>
+        </div>
+      )}
     </>
   );
 }
