@@ -11,7 +11,7 @@ Twogether는 사용자 경험을 최우선으로 고려한 모던 잠옷 쇼핑�
 
 ## 배포 사이트
 
-<img src="/Users/yusiwon/likelion-bootcamp/febc13/04_final-project/Final-02-Twogether/src/app/favicon.ico" /> [Twogether 바로가기](https://final-02-twogether.vercel.app)
+<img src="src/app/favicon.ico" /> [Twogether 바로가기](https://final-02-twogether.vercel.app)
 
 ## 팀원 소개
 
@@ -62,7 +62,7 @@ npm run dev
 <table>
   <tr>
     <td>
-      <img src='/Users/yusiwon/likelion-bootcamp/febc13/04_final-project/Final-02-Twogether/public/images/readme/mainpage.gif' alt='메인 페이지'>
+      <img src='public/images/readme/mainpage.gif' alt='메인 페이지'>
     </td>
   </tr>
 </table>
