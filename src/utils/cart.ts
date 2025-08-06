@@ -18,7 +18,7 @@ export const calculateTotalPrice = (items: Cart[]): number =>
  * @returns 총 할인금액
  */
 export const calculateTotalDiscount = (items: Cart[]): number =>
-  items.reduce((sum, item) => sum + item.product.extra.salePrice * item.quantity, 0);
+  items.reduce((sum, item) => sum + (item.product.price - item.product.extra.salePrice) * item.quantity, 0);
 
 /**
  * 결제예정금액(정가-할인금액의 총합)을 계산하여 반환하는 함수입니다.
