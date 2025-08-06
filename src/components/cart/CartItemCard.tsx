@@ -22,7 +22,7 @@ export default function CartItemCard({ cartItem, selected = true, onCheckBoxChan
   const { user } = useUserStore();
   const { updateQuantity, deleteItem } = useCartStore();
 
-  const salePrice = cartItem.product.extra.salePrice * cartItem.quantity;
+  const salePrice = cartItem.product.extra.salePrice! * cartItem.quantity;
 
   const quantityFormRef = useRef<HTMLFormElement>(null);
   const deleteFormRef = useRef<HTMLFormElement>(null);
@@ -55,6 +55,7 @@ export default function CartItemCard({ cartItem, selected = true, onCheckBoxChan
     deleteFormRef.current?.requestSubmit();
   };
 
+  console.log('cartItem.product', cartItem.product);
   return (
     <article className="flex flex-col gap-3 px-2 py-3">
       {/* 체크박스, 상품 이미지, 이름, 삭제 버튼 */}
@@ -69,7 +70,7 @@ export default function CartItemCard({ cartItem, selected = true, onCheckBoxChan
         />
 
         <figure className="shrink-0 self-center">
-          <Image src={cartItem.product.image.path} width="80" height="108" alt="상품 썸네일 이미지" />
+          <Image src={cartItem.product.image!.path} width="80" height="108" alt="상품 썸네일 이미지" />
           <figcaption className="sr-only">{cartItem.product.name} 이미지</figcaption>
         </figure>
 
@@ -77,7 +78,7 @@ export default function CartItemCard({ cartItem, selected = true, onCheckBoxChan
           <p>{cartItem.product.name}</p>
           <p>{cartItem.product.price.toLocaleString()}원</p>
           <p className="text-error">
-            -{(cartItem.product.price - cartItem.product.extra.salePrice).toLocaleString()}원
+            -{(cartItem.product.price - cartItem.product.extra.salePrice!).toLocaleString()}원
           </p>
         </div>
 

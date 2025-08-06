@@ -16,16 +16,12 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { deleteCarts } from '@/data/actions/cart';
 import { getCarts } from '@/data/functions/cart';
+import useOrderStore from '@/stores/useOrderStore';
 
 const ADDRESS_NAME = '집';
 const ADDRESS_VALUE = '서울 종로구 종로3길 17 D1동 16층, 17층[03155]';
 
-interface OrderFormProps {
-  isDirectlyOrdered?: boolean;
-  directlyOrderedProductId?: number;
-}
-
-export default function OrderForm({ isDirectlyOrdered = false, directlyOrderedProductId = 0 }: OrderFormProps) {
+export default function OrderForm() {
   // 결제 방법 상태 관리
   const [selectedPayment, setSelectedPayment] = useState<'credit' | 'bank'>('credit');
 
@@ -71,59 +67,26 @@ export default function OrderForm({ isDirectlyOrdered = false, directlyOrderedPr
   const allRequiredChecked = termInfos.filter((term) => term.required).every((term) => checkedTerms[term.title]);
 
   const { user } = useUserStore();
-  const { items, setItems, checkedIds, setCheckedIds } = useCartStore();
-
-  useEffect(() => {
-    // 상품 상세보기 페이지에서 바로 구매하기로 접근했을 때!
-    if (!isDirectlyOrdered || directlyOrderedProductId === 0) return;
-
-    async function fetchCarts() {
-      try {
-        const res = await getCarts(user?.token?.accessToken || '');
-        console.log('장바구니 데이터 :', res);
-
-        if (res.ok && res.item) {
-          const filtered = res.item.filter((item) => item.product_id === directlyOrderedProductId);
-          setItems(filtered);
-          setCheckedIds(filtered.map((item) => item._id));
-        }
-      } catch (err) {
-        console.error('장바구니 API 호출 실패', err);
-      }
-    }
-
-    fetchCarts();
-  }, [isDirectlyOrdered, directlyOrderedProductId, user?.token?.accessToken]);
-
-  // items중 체크박스 선택된 놈만
-  const selectedItems = items.filter((item) => checkedIds.includes(item._id));
+  const { orderItems, setOrderItems } = useOrderStore();
 
   // api 제출용
-  const orderItems = selectedItems.map((item) => ({
-    _id: item.product_id,
+  const orderComfirmedItems = orderItems.map((item) => ({
+    _id: item._id,
     quantity: item.quantity,
   }));
 
   const [state, action, isLoading] = useActionState(addOrder, null);
 
-  const router = useRouter();
-
-  // 주문 성공 / 샐피
   useEffect(() => {
-    if (state?.ok) {
-      // 주문한 아이템들 전역 상태에서 삭제
-      const formData = new FormData();
-      formData.set('cartIDs', checkedIds.join(','));
-      formData.set('accessToken', user?.token?.accessToken || '');
-
-      deleteCarts(null, formData);
+    if (state?.ok === 1) {
+      setOrderItems([]);
 
       // 주문 완료 페이지로 이동
       router.replace('/order-complete');
-    } else if (state?.ok === 0 && state?.message) {
-      alert(`주문 실패: ${state.message}`);
     }
-  }, [state, router]);
+  }, [state]);
+
+  const router = useRouter();
 
   return (
     <form action={action} className="flex flex-col gap-6">
@@ -131,9 +94,9 @@ export default function OrderForm({ isDirectlyOrdered = false, directlyOrderedPr
       <ShippingDetailsSection name={user?.name} address={user?.address} phone={user?.phone} />
 
       {/* 주문상품 리스트 */}
-      <OrderListSection orderItems={selectedItems} />
+      <OrderListSection orderItems={orderItems} />
 
-      <PriceDetailsSection />
+      <PriceDetailsSection where="order" />
 
       {/* 결제 방법 (상태 관리) */}
       <PaymentOptionSection selected={selectedPayment} onChange={setSelectedPayment} />
@@ -146,7 +109,7 @@ export default function OrderForm({ isDirectlyOrdered = false, directlyOrderedPr
         주문하기
       </Button>
 
-      <input type="hidden" name="orderItems" value={JSON.stringify(orderItems)} />
+      <input type="hidden" name="orderItems" value={JSON.stringify(orderComfirmedItems)} />
       <input type="hidden" name="addressName" value={ADDRESS_NAME} />
       <input type="hidden" name="address" value={user?.address || ADDRESS_VALUE} />
       <input type="hidden" name="accessToken" value={user?.token?.accessToken || ''} />

@@ -11,6 +11,10 @@ import useUserStore from '@/stores/useUserStore';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import LikeToggleButton from '@/components/product/LikeButton';
+import useCartStore from '@/stores/useCartStore';
+import { getCarts } from '@/data/functions/cart';
+import useOrderStore from '@/stores/useOrderStore';
+import { Quando } from 'next/font/google';
 
 interface ProductSelectProps {
   item: Product;
@@ -22,10 +26,15 @@ export default function ProductSelect({ item }: ProductSelectProps) {
   const [state, action, isLoading] = useActionState(addCart, null);
   const { user } = useUserStore();
   const router = useRouter();
+  const { setItems, setCheckedIds } = useCartStore();
+  const { setOrderItems } = useOrderStore();
 
   useEffect(() => {
     if (state?.ok === 1) {
-      router.push(`/order?direct=true&product_id=${item._id}`);
+      item.quantity = priseDate;
+      setOrderItems([item]);
+
+      router.push(`/order`);
     }
   }, [state, router]);
 

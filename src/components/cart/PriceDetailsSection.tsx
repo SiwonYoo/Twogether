@@ -1,10 +1,24 @@
 'use client';
 import useCartStore from '@/stores/useCartStore';
+import { Product } from '@/types';
 import { calculateTotalPrice, calculateDeliveryFee, calculateTotalDiscount, calculateFinalAmount } from '@/utils/cart';
+import useOrderStore from '@/stores/useOrderStore';
 
-export default function PriceDetailsSection() {
-  // 전역 상태 연결
+interface PriceDetailsSectionProps {
+  where: string;
+}
+
+export default function PriceDetailsSection({ where }: PriceDetailsSectionProps) {
   const { items } = useCartStore();
+  const { orderItems } = useOrderStore();
+
+  let data;
+
+  if (where === 'cart') {
+    data = items;
+  } else {
+    data = orderItems;
+  }
 
   return (
     <section className="flex flex-col gap-3 p-4 border-1 mb-4">
