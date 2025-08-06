@@ -196,8 +196,7 @@ export async function verifySignUpEmail(emailAddr: string): ApiResPromise<Verify
   const body = {
     to: emailAddr,
     serviceName: 'Twogether',
-    // TODO 배포 주소로 수정
-    serviceUrl: 'http://localhost:3000/login',
+    serviceUrl: 'https://final-02-twogether.vercel.app/login',
     subject: '[Twogether] 이메일 인증 안내입니다.',
     content: `<div style="margin: 0 auto; padding: 20px; max-width: 600px;">
               <h1 style="color: #2e1f42;"><b>Twogether</b></h1>
