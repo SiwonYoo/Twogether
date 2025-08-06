@@ -15,24 +15,19 @@ const JudsonFont = Judson({
 export default function QnA({ product }: ProductDetails) {
   const [noticePage, setNoticePag] = useState<Post[]>([]);
   const [qnaPage, setQnaPag] = useState<GetPost[]>([]);
-
   const [error, setError] = useState('');
-  const { user } = useUserStore();
+
   useEffect(() => {
-    const token = user?.token?.accessToken;
     async function noticeApi() {
-      if (!user && !token) {
-        return null;
-      }
       const res = await getPosts('notice');
       if (res.ok === 0) {
         setError(res.message);
         return;
       }
 
-      if (res.ok === 1) {
-        setNoticePag(res.item);
-      }
+      const items = Array.isArray(res.item) ? res.item : [];
+      const sliced = [...items].sort(() => Math.random() - 0.5).slice(0, 2);
+      setNoticePag(sliced);
     }
 
     async function QnAApi() {

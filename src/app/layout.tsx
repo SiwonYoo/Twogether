@@ -12,12 +12,6 @@ const pretendard = localFont({
 import Mainlayout from '@/app/Mainlayout';
 import Script from 'next/script';
 
-// declare global {
-//   interface Window {
-//     Kakao: any;
-//   }
-// }
-
 export default function RootLayout({
   children,
 }: Readonly<{
