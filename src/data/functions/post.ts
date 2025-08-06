@@ -44,8 +44,6 @@ export async function getSearchPosts(boardType: string, keyword: string = ''): A
 
     query.set('keyword', keyword.trim());
 
-    console.log(query);
-
     const res = await fetch(`${API_URL}/posts?type=${boardType}&keyword=${keyword}`, {
       headers: {
         'Client-Id': CLIENT_ID,
@@ -138,12 +136,22 @@ export async function getProductPost(boardType: string, id: number): ApiResPromi
 
 // Q&A 전용
 
-export async function getUserPosts(boardType: string, accessToken: string, page = 1, limit = 5): ApiResPromise<Post[]> {
+export async function getUserPosts(
+  boardType: string,
+  accessToken: string,
+  page = 1,
+  limit = 5,
+  keyword?: string
+): ApiResPromise<Post[]> {
   try {
     const query = new URLSearchParams();
+    query.set('type', boardType);
     query.set('page', page.toString());
     query.set('limit', limit.toString());
-    const res = await fetch(`${API_URL}/posts/users?type=${boardType}&${query.toString()}`, {
+    if (keyword) {
+      query.set('keyword', keyword);
+    }
+    const res = await fetch(`${API_URL}/posts/users?${query.toString()}`, {
       headers: {
         'Client-Id': CLIENT_ID,
         Authorization: `Bearer ${accessToken}`,
