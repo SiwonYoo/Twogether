@@ -14,6 +14,7 @@ interface OrderDetailFetcherProps {
 export default function OrderDetailFetcher({ orderId }: OrderDetailFetcherProps) {
   const [order, setOrder] = useState<Order>();
   const { user } = useUserStore();
+  const [discount, setDiscount] = useState<number>(0);
 
   useEffect(() => {
     const userLocalStorage = localStorage.getItem('user');
@@ -46,6 +47,17 @@ export default function OrderDetailFetcher({ orderId }: OrderDetailFetcherProps)
 
     fetchOrder(orderId);
   }, []);
+
+  // 총 할인 금액 계산
+  useEffect(() => {
+    let totalDiscount = 0;
+    order?.products.map((item) => {
+      if (item.extra.isSale) {
+        totalDiscount += item.extra.salePrice || 0;
+      }
+    });
+    setDiscount(totalDiscount);
+  }, [order]);
 
   return (
     <div className="flex flex-col gap-4 mb-20">
@@ -89,18 +101,18 @@ export default function OrderDetailFetcher({ orderId }: OrderDetailFetcherProps)
           <div>
             <div className="flex justify-between mb-2">
               <span>총 할인 금액</span>
-              <span>{order?.cost.discount.products.toLocaleString()}원</span>
+              <span>{discount.toLocaleString()}원</span>
             </div>
             <div className="flex justify-between text-gray-350 text-sm">
               <span>- 기간할인</span>
-              <span>{order?.cost.discount.products.toLocaleString()}원</span>
+              <span>{discount.toLocaleString()}원</span>
             </div>
           </div>
         </div>
       </section>
       <div className="flex justify-between mb-5">
         <span>결제 금액</span>
-        <span>{order?.cost.total.toLocaleString()}원</span>
+        <span>{order?.cost.total && (order.cost.total - discount).toLocaleString()}원</span>
       </div>
       <LinkButton href="/my-page/order-list" size="lg">
         뒤로 가기

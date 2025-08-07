@@ -37,7 +37,6 @@ function FindEmailForm() {
   useEffect(() => {
     async function getUserList() {
       const data = await getAllUsers();
-      console.log(data);
       if (data.ok) setUserList(data.item);
     }
     getUserList();

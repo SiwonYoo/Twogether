@@ -108,8 +108,6 @@ function SignupForm() {
       const verifyEmailRes = await verifySignUpEmail(getValues('email'));
 
       if (verifyEmailRes.ok) router.replace('/signup/success');
-    } else if (!res.ok && res) {
-      console.log(res.message);
     }
 
     setIsLoading(false);

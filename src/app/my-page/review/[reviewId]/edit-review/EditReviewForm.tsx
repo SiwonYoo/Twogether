@@ -2,15 +2,17 @@
 
 import Radio, { RadioItem } from '@/app/my-page/order-list/[orderId]/[productId]/review-post/Radio';
 import Rating from '@/app/my-page/order-list/[orderId]/[productId]/review-post/Rating';
+import ProductItem, { ProductItemProps } from '@/app/my-page/order-list/[orderId]/ProductItem';
 import Button from '@/components/common/Button';
 import { editReview } from '@/data/actions/review';
+import { getProductById } from '@/data/functions/shop';
 import useUserStore from '@/stores/useUserStore';
 import { ApiRes } from '@/types';
 import { Review } from '@/types/review';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
-import { useActionState, useState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 
 type formValueType = {
   height: string | null;
@@ -28,6 +30,7 @@ function EditReviewForm({ review }: { review: Review }) {
   const user = useUserStore((state) => state.user);
   const searchParam = useSearchParams();
   const redirect = searchParam.get('redirect');
+  const [productData, setProductData] = useState<ProductItemProps>();
 
   const [formValues, setFormValues] = useState<formValueType>({
     height: review.extra.height ?? null,
@@ -105,8 +108,29 @@ function EditReviewForm({ review }: { review: Review }) {
     setFormValues((prev) => ({ ...prev, [name]: value }));
   };
 
+  useEffect(() => {
+    async function getProductData() {
+      const data = await getProductById(review.product._id);
+
+      if (data.ok) {
+        setProductData({
+          _id: data.item._id,
+          image: { path: data.item.mainImages[0].path },
+          name: data.item.name,
+          price: data.item.price,
+          extra: { salePrice: data.item.extra.salePrice, isSale: data.item.extra.isSale },
+        });
+      }
+    }
+
+    getProductData();
+  }, []);
+
   return (
     <>
+      {!productData && <div className="pb-4 border-b-[.0625rem] border-gray-150 box-content h-[3.125rem]"></div>}
+      {productData && <ProductItem item={productData} />}
+
       <form className="mb-6" action={formAction}>
         <input type="hidden" name="accessToken" value={user?.token?.accessToken || ''} />
         <input type="hidden" name="_id" value={review._id} />
@@ -190,7 +214,7 @@ function EditReviewForm({ review }: { review: Review }) {
           <textarea
             name="content"
             id="content"
-            className="p-2 h-60 w-full resize-none rounded-lg bg-gray-150 focus:outline-none focus:border-[1px] focus:border-primary"
+            className="p-4 h-60 w-full resize-none rounded-lg bg-gray-150 focus:outline-none focus:border-[1px] focus:border-primary"
             value={formValues.content || ''}
             onChange={inputChange}
             placeholder="200자 이하로 작성해 주세요."

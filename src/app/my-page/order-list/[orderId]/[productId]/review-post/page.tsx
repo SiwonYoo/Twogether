@@ -25,7 +25,7 @@ async function ReviewPost({ params }: { params: Promise<{ orderId: string; produ
   const { orderId, productId } = await params;
 
   const data = await getProductById(Number(productId));
-  console.log(data);
+
   let item;
   if (data.ok) {
     item = {
@@ -33,6 +33,7 @@ async function ReviewPost({ params }: { params: Promise<{ orderId: string; produ
       image: { path: data.item.mainImages[0].path },
       name: data.item.name,
       price: data.item.price,
+      extra: { salePrice: data.item.extra.salePrice, isSale: data.item.extra.isSale },
     };
   }
 
