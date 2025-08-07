@@ -10,27 +10,18 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  */
 export async function getOrders(accessToken: string): Promise<OrderListResponse> {
   try {
-    console.log('[getOrders] 호출됨');
-    console.log('[getOrders] API URL:', `${API_URL}/orders`);
-    console.log('[getOrders] 전달된 accessToken:', accessToken ? '있음' : '없음');
-
     const res = await fetch(`${API_URL}/orders`, {
       headers: {
         'Client-Id': CLIENT_ID,
         Authorization: `Bearer ${accessToken}`,
       },
-      cache: 'force-cache',
+      cache: 'no-store',
     });
-
-    console.log('[getOrders] 응답 상태 코드:', res.status);
 
     const data = (await res.json()) as OrderListResponse;
 
-    console.log('[getOrders] 응답 데이터:', data);
-
     return data;
   } catch (error) {
-    console.error('[getOrders] 오류 발생:', error);
     return {
       ok: 0,
       item: [],
@@ -56,14 +47,12 @@ export async function getOrder(accessToken: string, orderId: number): Promise<Si
         'Client-Id': CLIENT_ID,
         Authorization: `Bearer ${accessToken}`,
       },
-      cache: 'force-cache',
+      cache: 'no-store',
     });
 
     const data = (await res.json()) as SingleOrderResponse;
     return data;
   } catch (error) {
-    console.error('[getOrder] 오류 발생:', error);
-
     const emptyOrder: Order = {
       _id: 0,
       products: [],

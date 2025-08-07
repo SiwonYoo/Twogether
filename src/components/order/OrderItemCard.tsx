@@ -3,13 +3,17 @@ import { Cart } from '@/types/cart';
 import { Product } from '@/types';
 
 interface OrderItemCardProps {
-  orderItem: Product;
+  orderItem: Product & {
+    image?: {
+      path: string;
+    };
+  };
 }
 
 export default function OrderItemCard({ orderItem }: OrderItemCardProps) {
   return (
     <article className="flex flex-row px-2 py-3 gap-4 bg-[#ffffff] rounded-lg shadow">
-      <Image src={orderItem.mainImages[0].path} width="80" height="108" alt="상품 썸네일 이미지" className="" />
+      <Image src={orderItem.image!.path} width="80" height="108" alt="상품 썸네일 이미지" className="" />
       <div className="flex flex-col w-full justify-between">
         <p>{orderItem.name}</p>
         <div>
