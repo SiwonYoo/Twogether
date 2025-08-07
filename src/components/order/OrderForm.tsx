@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import Button from '@/components/common/Button';
 import ShippingDetailsSection from '@/components/order/ShippingDetailsSection';
 import OrderListSection from '@/components/order/OrderListSection';
@@ -8,14 +8,11 @@ import PriceDetailsSection from '@/components/cart/PriceDetailsSection';
 import PaymentOptionSection from '@/components/order/PaymentOptionSection';
 import TermsSection from '@/components/order/TermsSection';
 import { TermInfo } from '@/components/order/TermsSection';
-import useCartStore from '@/stores/useCartStore';
 import useUserStore from '@/stores/useUserStore';
 import { addOrder } from '@/data/actions/order';
 import { useActionState } from 'react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { deleteCarts } from '@/data/actions/cart';
-import { getCarts } from '@/data/functions/cart';
 import useOrderStore from '@/stores/useOrderStore';
 
 const ADDRESS_NAME = '집';
@@ -111,7 +108,6 @@ export default function OrderForm() {
 
       <input type="hidden" name="orderItems" value={JSON.stringify(orderComfirmedItems)} />
       <input type="hidden" name="addressName" value={ADDRESS_NAME} />
-      <input type="hidden" name="address" value={user?.address || ADDRESS_VALUE} />
       <input type="hidden" name="accessToken" value={user?.token?.accessToken || ''} />
     </form>
   );
