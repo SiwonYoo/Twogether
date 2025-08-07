@@ -29,7 +29,7 @@ export default function EventSlider() {
 
   return (
     <>
-      <div className="swiper-container h-[21.25rem] overflow-hidden">
+      <div className="swiper-container overflow-hidden">
         <Swiper
           modules={[Autoplay]} // 모듈 등록, 아래 파일 사용시
           loop={true} // 슬라이드 루프
