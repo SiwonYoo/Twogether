@@ -11,9 +11,16 @@ interface OrderItemCardProps {
 }
 
 export default function OrderItemCard({ orderItem }: OrderItemCardProps) {
+  console.log(orderItem);
   return (
     <article className="flex flex-row px-2 py-3 gap-4 bg-[#ffffff] rounded-lg shadow">
-      <Image src={orderItem.image!.path} width="80" height="108" alt="상품 썸네일 이미지" className="" />
+      <Image
+        src={orderItem.mainImages?.[0]?.path ?? orderItem.image?.path}
+        width="80"
+        height="108"
+        alt="상품 썸네일 이미지"
+        className=""
+      />
       <div className="flex flex-col w-full justify-between">
         <p>{orderItem.name}</p>
         <div>
