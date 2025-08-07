@@ -15,7 +15,7 @@ export async function getCarts(accessToken: string): Promise<CartResponse> {
         'Client-Id': CLIENT_ID,
         Authorization: `Bearer ${accessToken}`,
       },
-      cache: 'force-cache',
+      cache: 'no-store',
     });
     return res.json() as Promise<CartResponse>;
   } catch (error) {
