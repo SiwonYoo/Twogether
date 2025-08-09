@@ -1,5 +1,6 @@
 'use client';
 
+import Alert from '@/app/shop/[productType]/[id]/Alert';
 import Button from '@/components/common/Button';
 import CheckBox from '@/components/common/CheckBox';
 import Input from '@/components/common/Input';
@@ -23,6 +24,7 @@ function EditProfileForm() {
   const [userList, setUserList] = useState<GetAllUsersType[]>([]);
   const [isPhoneAvailable, setPhoneAvailable] = useState<boolean | null>(null);
   const setUser = useUserStore((state) => state.login);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
   const {
     register,
     handleSubmit,
@@ -88,7 +90,7 @@ function EditProfileForm() {
   const onSubmit = async (editData: EditProfileType) => {
     if (!user) return;
     if (isPhoneAvailable === false) {
-      alert('이미 등록된 휴대폰 번호입니다. 다시 입력해 주세요.');
+      setIsAlertOpen(true);
       return;
     }
 
@@ -237,6 +239,14 @@ function EditProfileForm() {
           완료
         </Button>
       </form>
+
+      <Alert isOpen={isAlertOpen} setOpen={setIsAlertOpen}>
+        <p className="break-keep text-center">
+          이미 등록된 휴대폰 번호입니다.
+          <br />
+          다시 입력해 주세요.
+        </p>
+      </Alert>
     </>
   );
 }

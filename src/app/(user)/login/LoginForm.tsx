@@ -1,5 +1,6 @@
 'use client';
 
+import Alert from '@/app/shop/[productType]/[id]/Alert';
 import Button from '@/components/common/Button';
 import CheckBox from '@/components/common/CheckBox';
 import Input from '@/components/common/Input';
@@ -7,7 +8,7 @@ import { login } from '@/data/actions/user';
 import useUserStore from '@/stores/useUserStore';
 import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -20,7 +21,6 @@ type LoginFormType = {
 };
 
 function LoginForm() {
-  const router = useRouter();
   const searchParam = useSearchParams();
   const {
     register,
@@ -36,6 +36,9 @@ function LoginForm() {
   const [isPasswordVisible, setPasswordVisible] = useState<boolean>(false);
   const [rememberEmail, setRememberEmail] = useState<boolean>(false);
   const setUser = useUserStore((state) => state.login);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertReplacePath, setAlertReplacePath] = useState<string | null>(null);
 
   const redirect = searchParam.get('redirect');
 
@@ -64,12 +67,14 @@ function LoginForm() {
         loginType: 'email',
       });
 
-      alert('로그인이 완료되었습니다.');
-
-      router.replace(redirect || '/');
+      setAlertMessage('로그인이 완료되었습니다.');
+      setIsAlertOpen(true);
+      setAlertReplacePath(redirect || '/');
     } else {
       if (!res?.ok && res?.message) {
-        alert(res.message);
+        setAlertMessage(res.message);
+        setIsAlertOpen(true);
+        setAlertReplacePath(null);
       }
     }
 
@@ -159,6 +164,10 @@ function LoginForm() {
           로그인
         </Button>
       </form>
+
+      <Alert isOpen={isAlertOpen} setOpen={setIsAlertOpen} replacePath={alertReplacePath}>
+        <p className="break-keep text-center">{alertMessage}</p>
+      </Alert>
     </>
   );
 }

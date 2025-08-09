@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/components/common/Button';
-import Dialog from '@/components/common/SubDialog';
+import SubDialog from '@/components/common/SubDialog';
 import { addCart } from '@/data/actions/cart';
 import useUserStore from '@/stores/useUserStore';
 import { ShoppingBag } from 'lucide-react';
@@ -75,7 +75,7 @@ export default function ShoppingCartAdd({ product_id, quantity }: ShoppingCartAd
         </Button>
       </form>
 
-      <Dialog isOpen={isOpen} setOpen={setOpen} />
+      <SubDialog isOpen={isOpen} setOpen={setOpen} />
     </>
   );
 }

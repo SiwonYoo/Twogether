@@ -1,17 +1,16 @@
 'use client';
 
+import Alert from '@/app/shop/[productType]/[id]/Alert';
 import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
 import { verifyEmail } from '@/data/actions/user';
 import useUserStore from '@/stores/useUserStore';
-import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 
 const emailExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const verificationCodeExp = /^[0-9]$/;
 
 function VerifyForm() {
-  const router = useRouter();
   const [email, setEmail] = useState('');
   const [userCode, setUserCode] = useState(['', '', '', '', '', '']);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -22,6 +21,9 @@ function VerifyForm() {
   const [leftTime, setLeftTime] = useState(5 * 60);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const user = useUserStore((state) => state.user);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertReplacePath, setAlertReplacePath] = useState<string | null>(null);
 
   // 랜덤 코드 생성 함수 (숫자 6자리)
   function createRandomCode() {
@@ -108,7 +110,8 @@ function VerifyForm() {
   const handleClickSendEmail = async (event: FormEvent) => {
     event.preventDefault();
     if (user?.email !== email) {
-      alert('본인 계정의 이메일을 입력해 주세요.');
+      setAlertMessage('본인 계정의 이메일을 입력해 주세요.');
+      setIsAlertOpen(true);
       return;
     }
 
@@ -127,22 +130,23 @@ function VerifyForm() {
     event.preventDefault();
 
     if (verificationCode === '') {
-      alert(`인증에 실패했습니다. 다시 시도해 주세요.\n(유효 시간 만료)`);
-      verificationReset();
       return;
     }
 
     const userCodeFull = userCode.join('');
     if (userCodeFull === verificationCode) {
-      alert('인증되었습니다.');
-      router.replace('/my-page/edit-profile/form');
+      setAlertMessage('인증되었습니다.');
+      setIsAlertOpen(true);
+      setAlertReplacePath('/my-page/edit-profile/form');
     } else {
       if (attemptCount < 2) {
-        alert(`인증에 실패했습니다. 다시 입력해 주세요.\n(시도 횟수: ${attemptCount + 1}/3)`);
+        setAlertMessage(`인증에 실패했습니다. 다시 입력해 주세요.\n(시도 횟수: ${attemptCount + 1}/3)`);
+        setIsAlertOpen(true);
         setAttemptCount((prev) => prev + 1);
         setUserCode([]);
       } else {
-        alert(`인증에 실패했습니다. 다시 시도해 주세요.\n(시도 횟수 초과)`);
+        setAlertMessage(`인증에 실패했습니다. 다시 시도해 주세요.\n(시도 횟수 초과)`);
+        setIsAlertOpen(true);
         verificationReset();
       }
     }
@@ -220,7 +224,7 @@ function VerifyForm() {
               <Button
                 type="submit"
                 bg={userCode.join().length > 10 && leftTime > 0 ? 'primary' : 'disabled'}
-                disabled={!(userCode.join().length > 10)}
+                disabled={!(userCode.join().length > 10) || leftTime === 0}
                 shape="square"
                 size="lg"
               >
@@ -230,6 +234,10 @@ function VerifyForm() {
           </form>
         )}
       </div>
+
+      <Alert isOpen={isAlertOpen} setOpen={setIsAlertOpen} replacePath={alertReplacePath}>
+        <p className="break-keep text-center whitespace-pre-line">{alertMessage}</p>
+      </Alert>
     </>
   );
 }
