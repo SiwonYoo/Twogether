@@ -56,9 +56,8 @@ function EditProfileForm() {
   // 휴대폰 중복 확인 (실시간, 정규식 만족 시)
   useEffect(() => {
     const currentPhone = getValues('phone');
-    if (!phoneExp.test(currentPhone)) return;
-    if (currentPhone === user?.phone) {
-      if (isPhoneAvailable === false) setPhoneAvailable(true);
+    if (!phoneExp.test(currentPhone) || currentPhone === user?.phone) {
+      setPhoneAvailable(null);
       return;
     }
 
@@ -88,7 +87,7 @@ function EditProfileForm() {
   // 폼 제출 이벤트 ('완료' 버튼 클릭 시)
   const onSubmit = async (editData: EditProfileType) => {
     if (!user) return;
-    if (!isPhoneAvailable) {
+    if (isPhoneAvailable === false) {
       alert('이미 등록된 휴대폰 번호입니다. 다시 입력해 주세요.');
       return;
     }
