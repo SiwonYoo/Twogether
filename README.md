@@ -124,17 +124,16 @@ npm run dev
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 |  |   | 1 | 2 | 3 | 4 | 5 |
 | 6 | 7 | [8](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0708) | [9](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0709) | [10](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0710) | [11](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0711) | 12 |
-| 13 | 14 | 15 | 16 | 17 | 18 | 19 |
-| 20 | 21 | 22 | 23 | 24 | 25 | 26 |
-| 27 | 28 | 29 | 30 | 31 |   |  |
-
+| 13 | [14](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0714) | [15](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0715) | [16](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0716) | [17](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0717) | 18 | 19 |
+| 20 | [21](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0721) | [22](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0722) | [23](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0723) | [24](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0724) | [25](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0725) | 26 | 
+| [27](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0727) | [28](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0728) | [29](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0729) | [30](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0730) | [31](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0729)  |  |
 
 **2025년 8월**
 <br />
 | 일  | 월  | 화  | 수  | 목  | 금  | 토  |
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 |    |    |    |    |    | 1  | 2  |
-| 3  | 4  | 5  | 6  | 7  | 8  | 9  |
+| 3 | [4](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0804) | [5](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0805) | [6](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0806) | [7](https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether/wiki/scrum-0807) | 8 | 9 |
 | 10 | 11 | 12 | 13 | 14 | 15 | 16 |
 | 17 | 18 | 19 | 20 | 21 | 22 | 23 |
 | 24 | 25 | 26 | 27 | 28 | 29 | 30 |
