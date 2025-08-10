@@ -2,7 +2,7 @@
 
 import Radio, { RadioItem } from '@/app/my-page/order-list/[orderId]/[productId]/review-post/Radio';
 import Rating from '@/app/my-page/order-list/[orderId]/[productId]/review-post/Rating';
-import Alert from '@/app/shop/[productType]/[id]/Alert';
+import Alert from '@/components/common/Alert';
 import Button from '@/components/common/Button';
 import { createReview } from '@/data/actions/review';
 import useUserStore from '@/stores/useUserStore';

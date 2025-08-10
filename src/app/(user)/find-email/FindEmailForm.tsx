@@ -1,6 +1,6 @@
 'use client';
 
-import Alert from '@/app/shop/[productType]/[id]/Alert';
+import Alert from '@/components/common/Alert';
 import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
 import LinkButton from '@/components/common/LinkButton';

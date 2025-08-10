@@ -1,6 +1,6 @@
 'use client';
 
-import Alert from '@/app/shop/[productType]/[id]/Alert';
+import Alert from '@/components/common/Alert';
 import Button from '@/components/common/Button';
 import { editProfileImage } from '@/data/actions/user';
 import useUserStore from '@/stores/useUserStore';

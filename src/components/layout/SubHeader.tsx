@@ -4,7 +4,7 @@ import { MoveLeft, ShoppingBag } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import useUserStore from '@/stores/useUserStore';
 import { useState } from 'react';
-import Alert from '@/app/shop/[productType]/[id]/Alert';
+import Alert from '@/components/common/Alert';
 
 interface SubHeaderProps {
   title?: string;

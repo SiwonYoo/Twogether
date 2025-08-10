@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { Judson } from 'next/font/google'; // 구글 폰트 사용
 import useUserStore from '@/stores/useUserStore';
 import { useState } from 'react';
-import Alert from '@/app/shop/[productType]/[id]/Alert';
+import Alert from '@/components/common/Alert';
 
 const JudsonFont = Judson({
   subsets: ['latin'],

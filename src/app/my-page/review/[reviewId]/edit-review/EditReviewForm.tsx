@@ -3,7 +3,7 @@
 import Radio, { RadioItem } from '@/app/my-page/order-list/[orderId]/[productId]/review-post/Radio';
 import Rating from '@/app/my-page/order-list/[orderId]/[productId]/review-post/Rating';
 import ProductItem, { ProductItemProps } from '@/app/my-page/order-list/[orderId]/ProductItem';
-import Alert from '@/app/shop/[productType]/[id]/Alert';
+import Alert from '@/components/common/Alert';
 import Button from '@/components/common/Button';
 import { editReview } from '@/data/actions/review';
 import { getProductById } from '@/data/functions/shop';
