@@ -71,43 +71,43 @@ npm run dev
 <table>
   <tr>
     <td>
-      <img width="297" height="642" alt="로그인 페이지" src="https://github.com/user-attachments/assets/bc1260d2-e6a9-45fc-bc53-7096d7f5b662" />
+      <img width="297" height="642" alt="로그인 페이지" src="public/images/readme/login.png" />
     </td>
     <td>
-      <img width="297" height="642" alt="상품 목록 페이지" src="https://github.com/user-attachments/assets/dee1d016-7685-468c-8358-796591cfa9c3" />
+      <img width="297" height="642" alt="상품 목록 페이지" src="public/images/readme/productlist.png" />
     </td>
     <td>
-      <img width="297" height="642" alt="검색 페이지" src="https://github.com/user-attachments/assets/6f9fab23-055f-49ff-8ac6-12832e8dc414" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <img width="297" height="642" alt="About us 페이지" src="https://github.com/user-attachments/assets/0bf8fb8e-fca2-41f0-b85a-0e6e906167d8" />
-    </td>
-    <td>
-      <img width="297" height="642" alt="NOTICE 페이지" src="https://github.com/user-attachments/assets/a3a76d9a-8a33-4c3d-b402-6c127c878996" />
-    </td>
-    <td>
-      <img width="297" height="642" alt="Q&A 상세 페이지" src="https://github.com/user-attachments/assets/5282beba-e8ae-45f2-a60f-d39f02db5db0" />
+      <img width="297" height="642" alt="검색 페이지" src="public/images/readme/search.png" />
     </td>
   </tr>
   <tr>
     <td>
-      <img width="297" height="642" alt="제품 상세 페이지" src="https://github.com/user-attachments/assets/3d885ce3-8334-4cec-a5ea-23d6e0fe09fa" />
+      <img width="297" height="642" alt="About us 페이지" src="public/images/readme/aboutus.png" />
     </td>
     <td>
-      <img width="297" height="642" alt="결제 페이지" src="https://github.com/user-attachments/assets/af4ac2aa-13c0-477e-84f1-88178954e395" />
+      <img width="297" height="642" alt="NOTICE 페이지" src="public/images/readme/notice.png" />
     </td>
     <td>
-      <img width="297" height="642" alt="장바구니 페이지" src="https://github.com/user-attachments/assets/139722e2-7b14-473f-a5d5-870c16986988" />
+      <img width="297" height="642" alt="Q&A 상세 페이지" src="public/images/readme/qna.png" />
     </td>
   </tr>
   <tr>
     <td>
-      <img width="297" height="642" alt="찜 페이지" src="https://github.com/user-attachments/assets/fc8697c7-3e67-4e5a-87fb-9b7367e555be" />
+      <img width="297" height="642" alt="제품 상세 페이지" src="public/images/readme/productdetail.png" />
     </td>
     <td>
-      <img width="297" height="642" alt="마이 페이지" src="https://github.com/user-attachments/assets/ced95249-18c4-4bfc-bf71-847e06ddfb77" />
+      <img width="297" height="642" alt="결제 페이지" src="public/images/readme/order.png" />
+    </td>
+    <td>
+      <img width="297" height="642" alt="장바구니 페이지" src="public/images/readme/cart.png" />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img width="297" height="642" alt="찜 페이지" src="public/images/readme/like.png" />
+    </td>
+    <td>
+      <img width="297" height="642" alt="마이 페이지" src="public/images/readme/mypage.png" />
     </td>
     <td>
     </td>
