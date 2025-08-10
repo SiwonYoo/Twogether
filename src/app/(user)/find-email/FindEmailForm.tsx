@@ -1,5 +1,6 @@
 'use client';
 
+import Alert from '@/components/common/Alert';
 import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
 import LinkButton from '@/components/common/LinkButton';
@@ -33,6 +34,7 @@ function FindEmailForm() {
   const [isFound, setIsFound] = useState<boolean>(false);
   const searchParams = useSearchParams();
   const redirect = searchParams.get('redirect');
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   useEffect(() => {
     async function getUserList() {
@@ -45,17 +47,18 @@ function FindEmailForm() {
   const onSubmit = () => {
     let flag = false;
 
-    userList.map((item) => {
+    for (const item of userList) {
       if (item.name === getValues('name') && item.phone === getValues('phone')) {
         const fullEmail = item.email.split('@');
         const maskedEmail = fullEmail[0].slice(0, 2) + '*'.repeat(fullEmail[0].length - 2);
         setFoundEmail(maskedEmail + '@' + fullEmail[1]);
         setIsFound(true);
         flag = true;
+        break;
       }
-    });
+    }
     if (!flag) {
-      alert('입력하신 정보와 일치하는 회원이 없습니다.');
+      setIsAlertOpen(true);
     }
   };
 
@@ -132,6 +135,10 @@ function FindEmailForm() {
           </div>
         )}
       </div>
+
+      <Alert isOpen={isAlertOpen} setOpen={setIsAlertOpen}>
+        <p className="break-keep text-center">입력하신 정보와 일치하는 회원이 없습니다.</p>
+      </Alert>
     </>
   );
 }

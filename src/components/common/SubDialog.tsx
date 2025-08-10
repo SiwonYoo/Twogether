@@ -4,7 +4,7 @@ import Button from '@/components/common/Button';
 import LinkButton from '@/components/common/LinkButton';
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 
-interface DialogProps {
+interface SubDialogProps {
   isOpen: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
@@ -16,7 +16,7 @@ interface DialogProps {
  * @param {Dispatch<SetStateAction<boolean>>} setOpen - 다이얼로그 상태 제어 함수
  */
 
-function Dialog({ isOpen, setOpen }: DialogProps) {
+function SubDialog({ isOpen, setOpen }: SubDialogProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -62,4 +62,4 @@ function Dialog({ isOpen, setOpen }: DialogProps) {
   );
 }
 
-export default Dialog;
+export default SubDialog;

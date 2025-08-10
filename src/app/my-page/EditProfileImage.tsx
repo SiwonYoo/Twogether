@@ -1,5 +1,6 @@
 'use client';
 
+import Alert from '@/components/common/Alert';
 import Button from '@/components/common/Button';
 import { editProfileImage } from '@/data/actions/user';
 import useUserStore from '@/stores/useUserStore';
@@ -12,6 +13,8 @@ function EditProfileImage() {
   const setUser = useUserStore((state) => state.login);
   const [profileImage, setProfileImage] = useState('/images/icon/default_profile.svg');
   const [isOpen, setOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   useEffect(() => {
     if (user?.image) setProfileImage(`${user?.image}`);
@@ -26,7 +29,8 @@ function EditProfileImage() {
     const maxSizeKB = 300;
     const maxSizsBytes = maxSizeKB * 1024;
     if (uploadImage.size > maxSizsBytes) {
-      alert(`파일 크기는 ${maxSizeKB}KB 이하만 업로드 가능합니다.`);
+      setAlertMessage(`파일 크기는 ${maxSizeKB}KB 이하만 업로드 가능합니다.`);
+      setIsAlertOpen(true);
       event.target.value = '';
       return;
     }
@@ -116,6 +120,10 @@ function EditProfileImage() {
           </div>
         </div>
       </div>
+
+      <Alert isOpen={isAlertOpen} setOpen={setIsAlertOpen}>
+        <p className="break-keep text-center">{alertMessage}</p>
+      </Alert>
     </>
   );
 }

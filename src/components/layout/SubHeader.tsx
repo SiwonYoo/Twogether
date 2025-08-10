@@ -3,6 +3,8 @@
 import { MoveLeft, ShoppingBag } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import useUserStore from '@/stores/useUserStore';
+import { useState } from 'react';
+import Alert from '@/components/common/Alert';
 
 interface SubHeaderProps {
   title?: string;
@@ -11,11 +13,15 @@ interface SubHeaderProps {
 function SubHeader({ title = '상세보기' }: SubHeaderProps) {
   const { isLoggedIn } = useUserStore();
   const router = useRouter();
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertReplacePath, setAlertReplacePath] = useState<string | null>(null);
 
   const onCartClick = () => {
     if (!isLoggedIn) {
-      alert('로그인이 필요한 서비스 입니다.');
-      router.push('/login?redirect=/cart');
+      setAlertMessage('로그인이 필요한 서비스 입니다.');
+      setIsAlertOpen(true);
+      setAlertReplacePath('/login?redirect=/cart');
     } else {
       router.push('/cart');
     }
@@ -37,6 +43,10 @@ function SubHeader({ title = '상세보기' }: SubHeaderProps) {
           <ShoppingBag color="var(--color-black)" size={20} />
         </button>
       </header>
+
+      <Alert isOpen={isAlertOpen} setOpen={setIsAlertOpen} replacePath={alertReplacePath}>
+        <p className="break-keep text-center">{alertMessage}</p>
+      </Alert>
     </>
   );
 }

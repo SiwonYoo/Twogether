@@ -1,5 +1,6 @@
 'use client';
 
+import Alert from '@/components/common/Alert';
 import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
 import { signup, verifySignUpEmail } from '@/data/actions/user';
@@ -41,6 +42,8 @@ function SignupForm() {
     criteriaMode: 'firstError',
     defaultValues: { name: '', email: '', password: '', phone: '010' },
   });
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   // 첫 렌더링 시 유저 정보 GET
   useEffect(() => {
@@ -90,12 +93,14 @@ function SignupForm() {
   // 폼 제출 이벤트 ('회원가입' 버튼 클릭 시)
   const onSubmit = async (user: SignupForm) => {
     if (isEmailAvailable === null) {
-      alert('이메일 중복 여부를 확인해주세요.');
+      setAlertMessage('이메일 중복 여부를 확인해주세요.');
+      setIsAlertOpen(true);
       return;
     }
 
     if (isPhoneAvailable === null) {
-      alert('휴대폰 번호 중복 여부를 확인해주세요.');
+      setAlertMessage('휴대폰 번호 중복 여부를 확인해주세요.');
+      setIsAlertOpen(true);
       return;
     }
 
@@ -259,6 +264,10 @@ function SignupForm() {
           </div>
         </div>
       )}
+
+      <Alert isOpen={isAlertOpen} setOpen={setIsAlertOpen}>
+        <p className="break-keep text-center">{alertMessage}</p>
+      </Alert>
     </>
   );
 }

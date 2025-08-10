@@ -1,5 +1,6 @@
 'use client';
 
+import Alert from '@/components/common/Alert';
 import Button from '@/components/common/Button';
 import CheckBox from '@/components/common/CheckBox';
 import Input from '@/components/common/Input';
@@ -23,6 +24,7 @@ function EditProfileForm() {
   const [userList, setUserList] = useState<GetAllUsersType[]>([]);
   const [isPhoneAvailable, setPhoneAvailable] = useState<boolean | null>(null);
   const setUser = useUserStore((state) => state.login);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
   const {
     register,
     handleSubmit,
@@ -56,9 +58,8 @@ function EditProfileForm() {
   // 휴대폰 중복 확인 (실시간, 정규식 만족 시)
   useEffect(() => {
     const currentPhone = getValues('phone');
-    if (!phoneExp.test(currentPhone)) return;
-    if (currentPhone === user?.phone) {
-      if (isPhoneAvailable === false) setPhoneAvailable(true);
+    if (!phoneExp.test(currentPhone) || currentPhone === user?.phone) {
+      setPhoneAvailable(null);
       return;
     }
 
@@ -88,8 +89,8 @@ function EditProfileForm() {
   // 폼 제출 이벤트 ('완료' 버튼 클릭 시)
   const onSubmit = async (editData: EditProfileType) => {
     if (!user) return;
-    if (!isPhoneAvailable) {
-      alert('이미 등록된 휴대폰 번호입니다. 다시 입력해 주세요.');
+    if (isPhoneAvailable === false) {
+      setIsAlertOpen(true);
       return;
     }
 
@@ -238,6 +239,14 @@ function EditProfileForm() {
           완료
         </Button>
       </form>
+
+      <Alert isOpen={isAlertOpen} setOpen={setIsAlertOpen}>
+        <p className="break-keep text-center">
+          이미 등록된 휴대폰 번호입니다.
+          <br />
+          다시 입력해 주세요.
+        </p>
+      </Alert>
     </>
   );
 }

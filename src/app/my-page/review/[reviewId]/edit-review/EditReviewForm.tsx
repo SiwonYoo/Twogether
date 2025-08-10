@@ -3,6 +3,7 @@
 import Radio, { RadioItem } from '@/app/my-page/order-list/[orderId]/[productId]/review-post/Radio';
 import Rating from '@/app/my-page/order-list/[orderId]/[productId]/review-post/Rating';
 import ProductItem, { ProductItemProps } from '@/app/my-page/order-list/[orderId]/ProductItem';
+import Alert from '@/components/common/Alert';
 import Button from '@/components/common/Button';
 import { editReview } from '@/data/actions/review';
 import { getProductById } from '@/data/functions/shop';
@@ -31,6 +32,8 @@ function EditReviewForm({ review }: { review: Review }) {
   const searchParam = useSearchParams();
   const redirect = searchParam.get('redirect');
   const [productData, setProductData] = useState<ProductItemProps>();
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   const [formValues, setFormValues] = useState<formValueType>({
     height: review.extra.height ?? null,
@@ -80,7 +83,8 @@ function EditReviewForm({ review }: { review: Review }) {
 
     Array.from(files).map((item) => {
       if (item.size > maxSizsBytes) {
-        alert(`파일 크기는 ${maxSizeMB}MB 이하만 업로드 가능합니다.`);
+        setAlertMessage(`파일 크기는 ${maxSizeMB}MB 이하만 업로드 가능합니다.`);
+        setIsAlertOpen(true);
         event.target.value = '';
         return;
       }
@@ -90,7 +94,8 @@ function EditReviewForm({ review }: { review: Review }) {
       setSelectedFiles((prev) => [...prev, ...Array.from(files)]);
       setPreviewFiles((prev) => [...prev, ...Array.from(files).map((item) => URL.createObjectURL(item))]);
     } else {
-      alert('사진은 최대 5장까지 첨부할 수 있습니다.');
+      setAlertMessage('사진은 최대 5장까지 첨부할 수 있습니다.');
+      setIsAlertOpen(true);
     }
   };
 
@@ -233,6 +238,10 @@ function EditReviewForm({ review }: { review: Review }) {
           </div>
         </div>
       )}
+
+      <Alert isOpen={isAlertOpen} setOpen={setIsAlertOpen}>
+        <p className="break-keep text-center">{alertMessage}</p>
+      </Alert>
     </>
   );
 }
