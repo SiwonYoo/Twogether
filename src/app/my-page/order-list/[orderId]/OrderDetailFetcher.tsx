@@ -24,7 +24,6 @@ export default function OrderDetailFetcher({ orderId }: OrderDetailFetcherProps)
       try {
         const parsed = JSON.parse(userLocalStorage);
         accessToken = parsed?.state?.user?.token?.accessToken;
-        console.log('액세스 토큰 :', accessToken);
       } catch (err) {
         console.error('액세스 토큰 파싱 실패', err);
       }
@@ -35,7 +34,6 @@ export default function OrderDetailFetcher({ orderId }: OrderDetailFetcherProps)
 
       try {
         const res = await getOrder(accessToken, orderId);
-        console.log('주문 내역 데이터 :', res);
 
         if (res.ok && res.item) {
           setOrder(res.item);

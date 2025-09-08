@@ -44,7 +44,7 @@ export function useProductLike(productId: number) {
         await fetchLikes();
       }
     } catch (error) {
-      console.log('찜 추가 실패:', error);
+      console.error('찜 추가 실패:', error);
       // 실패 시 전체 목록 다시 가져와서 동기화
       await fetchLikes();
     }
@@ -60,11 +60,11 @@ export function useProductLike(productId: number) {
         if (res.ok === 1) {
           removeLike(likeId);
         } else {
-          console.log('찜 삭제 API 실패:', res);
+          console.error('찜 삭제 API 실패:', res);
           await fetchLikes();
         }
       } catch (error) {
-        console.log('찜 삭제 실패:', error);
+        console.error('찜 삭제 실패:', error);
         await fetchLikes();
       }
     },

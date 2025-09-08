@@ -56,7 +56,6 @@ const useCartStore = create<CartStore>((set) => ({
         (item) => !(item.product_id === id && item.product.extra.size[0].text === option)
       );
 
-      console.log('DeleteItem 실행, newItems : ', newItems);
       return { items: newItems };
     }),
 
@@ -64,7 +63,6 @@ const useCartStore = create<CartStore>((set) => ({
     set((state) => {
       const newItems = state.items.filter((item) => !(item._id === id));
 
-      console.log('DeleteItem 실행, newItems : ', newItems);
       return { items: newItems };
     }),
 

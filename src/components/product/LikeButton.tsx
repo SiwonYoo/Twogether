@@ -25,16 +25,10 @@ export default function LikeToggleButton({ data }: LikeToggleButtonProps) {
   }, [token]);
 
   const handleToggle = useCallback(async () => {
-
     if (!token) {
       if (confirm('로그인이 필요한 서비스입니다 로그인 하시겠습니까?')) {
         redirect('/login');
       }
-      return;
-    }
-
-    if (isPending || isProcessingRef.current) {
-      console.log('이미 처리 중입니다.');
       return;
     }
 
@@ -43,14 +37,11 @@ export default function LikeToggleButton({ data }: LikeToggleButtonProps) {
     try {
       if (isLiked && currentLike?._id) {
         await unlike(currentLike._id);
-        console.log('삭제 완료');
       } else {
         await like();
-        console.log('추가 완료');
       }
       fetchLikes();
     } catch (error) {
-      console.log('찜 토글 실패:', error);
     } finally {
       setIsPending(false);
       isProcessingRef.current = false;

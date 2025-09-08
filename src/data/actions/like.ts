@@ -40,7 +40,7 @@ export async function PostLikeList(id: number, token: string): ApiResPromise<Lik
 
     return (data = await res.json());
   } catch (error) {
-    console.log('error', error);
+    console.error('error', error);
     return { ok: 0, message: '북마크 목록을 불러오지 못했습니다' };
   }
 }
@@ -74,7 +74,7 @@ export async function DeleteLikeList(id: number, token: string): ApiResPromise<L
 
     return (data = await res.json());
   } catch (error) {
-    console.log('error', error);
+    console.error('error', error);
     return { ok: 0, message: '북마크 목록을 불러오지 못했습니다' };
   }
 }

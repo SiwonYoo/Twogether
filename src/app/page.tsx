@@ -32,7 +32,7 @@ export default function Home() {
         height="322"
         alt="여성 잠옷 모델 이미지"
       />
-      <main className="text-center">
+      <main className="text-center flex flex-col gap-10 mb-20">
         {/* 배스트 섹션 시작 */}
         <section className="mt-6">
           <h2 className={`text-2xl font-bold my-6 ${JudsonFont.className}`}>BEST</h2>
