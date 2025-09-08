@@ -30,10 +30,10 @@ export default function ProductCardItem({ productType, data }: ProductCardItemPr
             <Link href={`/shop/${productType}/${item._id}`} className="block h-[15.625rem]">
               <ImagesSwiper data={item} height={'15.625rem'} />
             </Link>
-            <div className="flex justify-between mt-4">
-              <Link href={`/shop/${productType}/${item._id}`}>
+            <div className="flex gap-1 justify-between mt-4">
+              <Link href={`/shop/${productType}/${item._id}`} className="flex-1 min-w-0">
                 <div className="text-left">
-                  <h3 className="font-bold">{item.name}</h3>
+                  <h3 className="font-bold truncate">{item.name}</h3>
                   <div className="flex items-center gap-2">
                     <p
                       className={`text-[.75rem] ${
@@ -42,9 +42,11 @@ export default function ProductCardItem({ productType, data }: ProductCardItemPr
                           : ''
                       }`}
                     >
-                      {item.price}
+                      {item.price.toLocaleString() + '원'}
                     </p>
-                    <p className="text-[.75rem]">{item.extra.isSale ? item.extra.salePrice : ''}</p>
+                    <p className="text-[.75rem]">
+                      {item.extra.isSale ? item.extra.salePrice?.toLocaleString() + '원' : ''}
+                    </p>
                   </div>
                 </div>
               </Link>
