@@ -11,7 +11,6 @@ interface OrderItemCardProps {
 }
 
 export default function OrderItemCard({ orderItem }: OrderItemCardProps) {
-  console.log(orderItem);
   return (
     <article className="flex flex-row px-2 py-3 gap-4 bg-[#ffffff] rounded-lg shadow">
       <Image

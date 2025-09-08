@@ -55,7 +55,6 @@ export default function CartItemCard({ cartItem, selected = true, onCheckBoxChan
     deleteFormRef.current?.requestSubmit();
   };
 
-  console.log('cartItem.product', cartItem.product);
   return (
     <article className="flex flex-col gap-3 px-2 py-3">
       {/* 체크박스, 상품 이미지, 이름, 삭제 버튼 */}

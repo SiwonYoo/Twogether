@@ -30,7 +30,6 @@ export default function ShoppingCartAdd({ product_id, quantity }: ShoppingCartAd
         try {
           const parsed = JSON.parse(userLocalStorage);
           accessToken = parsed?.state?.user?.token?.accessToken;
-          console.log('액세스 토큰 :', accessToken);
         } catch (err) {
           console.error('액세스 토큰 파싱 실패', err);
         }
@@ -42,7 +41,6 @@ export default function ShoppingCartAdd({ product_id, quantity }: ShoppingCartAd
 
         try {
           const res = await getCarts(accessToken);
-          console.log('장바구니 데이터 :', res);
 
           if (res.ok && res.item) {
             setItems(res.item);
