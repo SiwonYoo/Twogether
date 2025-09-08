@@ -8,6 +8,7 @@ import { createReview } from '@/data/actions/review';
 import useUserStore from '@/stores/useUserStore';
 import { ApiRes } from '@/types';
 import { Review } from '@/types/review';
+import imageCompression from 'browser-image-compression';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 import { useActionState, useState } from 'react';
@@ -68,7 +69,21 @@ function ReviewPostForm({
 
   async function uploadAction(prevState: ApiRes<Review> | null, formData: FormData) {
     formData.delete('attach');
-    selectedFiles.forEach((file: File) => formData.append('attach', file));
+
+    // 이미지 압축
+    const options = {
+      maxSizeMB: 0.5,
+      maxWidthOrHeight: 1024,
+      initialQuality: 0.9,
+      preserveExif: false,
+      alwaysKeepResolution: false,
+      // onProgress: (progress: number) => console.log(`압축 진행: ${progress}%`),
+    };
+
+    const compressedFiles = await Promise.all(selectedFiles.map((file) => imageCompression(file, options)));
+
+    compressedFiles.forEach((file: File) => formData.append('attach', file));
+
     return await createReview(prevState, formData);
   }
 
@@ -78,7 +93,7 @@ function ReviewPostForm({
     if (!files) return;
 
     // 최대 용량 설정
-    const maxSizeMB = 1;
+    const maxSizeMB = 2;
     const maxSizsBytes = maxSizeMB * 1024 * 1024;
 
     Array.from(files).map((item) => {
