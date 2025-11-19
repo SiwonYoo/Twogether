@@ -7,6 +7,7 @@ import useUserStore from '@/stores/useUserStore';
 import { SwitchCamera } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import imageCompression from 'browser-image-compression';
 
 function EditProfileImage() {
   const user = useUserStore((state) => state.user);
@@ -26,31 +27,50 @@ function EditProfileImage() {
     const uploadImage = event.target.files?.[0];
 
     // 최대 용량 설정
-    const maxSizeKB = 300;
-    const maxSizsBytes = maxSizeKB * 1024;
+    const maxSizeMB = 1;
+    const maxSizsBytes = maxSizeMB * 1024 * 1024;
+
     if (uploadImage.size > maxSizsBytes) {
-      setAlertMessage(`파일 크기는 ${maxSizeKB}KB 이하만 업로드 가능합니다.`);
+      setAlertMessage(`파일 크기는 ${maxSizeMB}MB 이하만 업로드 가능합니다.`);
       setIsAlertOpen(true);
       event.target.value = '';
       return;
     }
 
-    setOpen(false);
     setProfileImage('/images/icon/profile_loading.gif');
+
+    // 이미지 압축
+    const options = {
+      maxSizeMB: 0.3,
+      maxWidthOrHeight: 512,
+      initialQuality: 0.7,
+      preserveExif: false,
+      alwaysKeepResolution: false,
+      // onProgress: (progress: number) => console.log(`압축 진행: ${progress}%`),
+    };
+
+    console.time('Compression + Upload Time');
+
+    const compressedFile = await imageCompression(uploadImage, options);
 
     const data = {
       accessToken: user.token?.accessToken || '',
       _id: user._id,
-      imageFile: uploadImage,
+      imageFile: compressedFile,
     };
 
+    console.time('Upload Time');
     const res = await editProfileImage(data);
+    console.timeEnd('Upload Time');
+
     if (res.ok) {
       setUser({ ...user, image: res.item.image });
       setProfileImage(`${res.item.image}`);
     } else {
       setProfileImage('/images/icon/default_profile.svg');
     }
+
+    console.timeEnd('Compression + Upload Time');
   };
 
   const deleteImage = async () => {
