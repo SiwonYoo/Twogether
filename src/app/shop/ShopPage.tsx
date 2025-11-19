@@ -51,7 +51,7 @@ export default function ShopPage() {
   return (
     <>
       <h2 className={`${JudsonFont.className} text-2xl`}>ALL</h2>
-      <ul className="grid grid-cols-2 gap-4 my-6">
+      <ul className="grid grid-cols-2 gap-4 my-6 mb-20">
         {product.map((item) => {
           return <ProductCardItem key={item._id} productType={item.extra.category} data={[item]} />;
         })}
