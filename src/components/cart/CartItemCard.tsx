@@ -92,7 +92,7 @@ export default function CartItemCard({ cartItem, selected = true, onCheckBoxChan
       </div>
 
       {/* 옵션 표시 */}
-      <div className="flex flex-row justify-between bg-secondary-2 text-white px-5 py-4 text-xs">
+      <div className="flex flex-row justify-between bg-secondary-1 text-white px-5 py-4 text-xs">
         <span>[옵션 : {cartItem.product.extra.size[0].text}]</span>
         <a href="#" className="underline underline-offset-2">
           옵션 변경

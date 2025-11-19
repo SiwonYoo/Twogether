@@ -50,7 +50,7 @@ function OrderSummaryCard({ _id, date, products }: OrderSummaryCardProps) {
                 href={`/my-page/order-list/${_id}/${item._id}/review-post`}
                 shape="square"
                 size="lg"
-                bg="light"
+                bg="primary"
               >
                 리뷰작성
               </LinkButton>

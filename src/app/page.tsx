@@ -32,9 +32,9 @@ export default function Home() {
         height="322"
         alt="여성 잠옷 모델 이미지"
       />
-      <main className="text-center flex flex-col gap-10 mb-20">
+      <main className="text-center flex flex-col gap-5 mt-5 mb-20">
         {/* 배스트 섹션 시작 */}
-        <section className="mt-6">
+        <section>
           <h2 className={`text-2xl font-bold my-6 ${JudsonFont.className}`}>BEST</h2>
           <div className="relative mt-4">
             <div className="h-[21.875rem] overflow-hidden">
@@ -62,7 +62,7 @@ export default function Home() {
         {/* 배스트 섹션 종로 */}
 
         {/* 세일 섹션 시작 */}
-        <section className="mt-6">
+        <section>
           <h2 className={`text-2xl font-bold my-6 ${JudsonFont.className}`}>SALE</h2>
           <div className="relative mt-4">
             <div className="h-[21.875rem] overflow-hidden">
@@ -90,7 +90,7 @@ export default function Home() {
         {/* 세일 섹션 종료 */}
 
         {/* 이벤트 섹션 시작 */}
-        <section className="mt-6">
+        <section>
           <h2 className={`text-2xl font-bold my-6 ${JudsonFont.className}`}>EVENT</h2>
           <div className="mx-4">
             <EventSlider />
