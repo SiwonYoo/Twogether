@@ -1,7 +1,6 @@
 import { Judson } from 'next/font/google';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import LinkButton from '@/components/common/LinkButton';
 
 const JudsonFont = Judson({
   subsets: ['latin'],
@@ -88,7 +87,7 @@ export default function Menu() {
       </ul>
       <section className="mt-20">
         <h2 className="font-bold mb-4">고객센터 운영시간</h2>
-        <p className="text-sm">오전 10시 ~ 17시 (토,일, 공휴일 휴무)</p>
+        <p className="text-sm mb-10">오전 10시 ~ 17시 (토,일, 공휴일 휴무)</p>
       </section>
     </main>
   );

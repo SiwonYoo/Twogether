@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={`flex flex-col items-center justify-center min-h-screen bg-white ${pretendard.className} `}>
         <div className="flex flex-col relative w-full max-w-[768px] min-h-dvh bg-white">
           <Mainlayout />
-          <div className="flex-1 min-h-[calc(100dvh-144px)]">{children}</div>
+          <div className="flex-1 min-h-[calc(100dvh-128px)]">{children}</div>
           <Footer />
           <Navigation />
         </div>

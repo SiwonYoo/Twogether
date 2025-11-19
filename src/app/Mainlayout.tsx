@@ -43,5 +43,10 @@ export default function Mainlayout() {
     title = 'Notice';
   }
 
+  if (path.startsWith('/my-page/qna/')) {
+    useSubHeader = true;
+    title = 'Q&A';
+  }
+
   return <>{useSubHeader ? <SubHeader title={title} /> : <Header />}</>;
 }
