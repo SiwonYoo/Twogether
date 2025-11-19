@@ -31,7 +31,7 @@ export default function CartForm() {
       <Button
         type="submit"
         shape="square"
-        bg={checkedIds.length === 0 ? 'disabled' : 'light'}
+        bg={checkedIds.length === 0 ? 'disabled' : 'primary'}
         size="lg"
         disabled={checkedIds.length === 0}
       >

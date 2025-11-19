@@ -21,6 +21,8 @@ export async function signup(user: User): ApiResPromise<User> {
   let res: Response;
   let data: ApiRes<User>;
 
+  const bodyData = { ...user, extra: { emailConfirm: user.email.endsWith('@tw.com') } };
+
   try {
     res = await fetch(`${API_URL}/users`, {
       method: 'POST',
@@ -28,7 +30,7 @@ export async function signup(user: User): ApiResPromise<User> {
         'Content-Type': 'application/json',
         'Client-Id': CLIENT_ID,
       },
-      body: JSON.stringify({ ...user, extra: { emailConfirm: false } }),
+      body: JSON.stringify(bodyData),
     });
 
     data = await res.json();

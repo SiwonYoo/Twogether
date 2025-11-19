@@ -86,7 +86,7 @@ export default function CartListSection() {
   const isAllChecked = checkedIds.length === items.length;
 
   const deleteFormRef = useRef<HTMLFormElement>(null);
-  const [deleteState, deleteAction, deleteLoading] = useActionState(deleteCarts, null);
+  const [deleteState, deleteAction] = useActionState(deleteCarts, null);
 
   const handleSelectedDelete = () => {
     const idsToDelete = [...checkedIds];
@@ -105,7 +105,7 @@ export default function CartListSection() {
     <>
       <section>
         <div className="flex flex-row my-4">
-          <h2 className="w-full font-bold">장바구니 상품</h2>
+          <h2 className="w-full">장바구니 상품</h2>
 
           <button
             id="cart-list-toggle"
@@ -119,7 +119,7 @@ export default function CartListSection() {
           </button>
         </div>
 
-        <ul className={`flex flex-col px-3 bg-[#ffffff] gap-3 ${isOpen ? '' : 'hidden'}`}>
+        <ul className={`flex flex-col px-3 border border-gray-150 gap-3 ${isOpen ? '' : 'hidden'}`}>
           {/* 전역상태의 items(장바구니 리스트)를 바탕으로 장바구니 카드 동적 생성 */}
           {items.map((item, index) => (
             <CartListItem
@@ -157,7 +157,7 @@ export default function CartListSection() {
             <input type="hidden" name="accessToken" value={user?.token?.accessToken || ''} />
             <button
               type="button"
-              className="text-secondary-2 text-xs border-1 px-6 py-1.5 cursor-pointer"
+              className="text-secondary-1 text-xs border-1 px-6 py-1.5 cursor-pointer"
               onClick={handleSelectedDelete}
             >
               선택삭제

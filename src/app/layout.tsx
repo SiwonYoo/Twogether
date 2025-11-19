@@ -21,9 +21,9 @@ export default function RootLayout({
     <html lang="ko">
       <Script src="https://developers.kakao.com/sdk/js/kakao.js" strategy="afterInteractive" />
       <body className={`flex flex-col items-center justify-center min-h-screen bg-white ${pretendard.className} `}>
-        <div className="flex flex-col relative w-full min-w-[400px] max-w-[768px] min-h-dvh bg-white">
+        <div className="flex flex-col relative w-full max-w-[768px] min-h-dvh bg-white">
           <Mainlayout />
-          <div className="flex-1">{children}</div>
+          <div className="flex-1 min-h-[calc(100dvh-128px)]">{children}</div>
           <Footer />
           <Navigation />
         </div>

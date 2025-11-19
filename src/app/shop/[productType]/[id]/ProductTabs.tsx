@@ -32,7 +32,7 @@ export default function ProductTabs({ productType, product }: ProductDetails) {
   const onClickTab = (tab: string) => {
     setActiveTab(tab);
     // 스크롤 위치 고정 옵션 추가
-    router.push(`${pathname}?tab=${encodeURIComponent(tab)}`, { scroll: false });
+    router.replace(`${pathname}?tab=${encodeURIComponent(tab)}`, { scroll: false });
   };
 
   return (
@@ -50,40 +50,23 @@ export default function ProductTabs({ productType, product }: ProductDetails) {
                 {tab}
               </button>
               <span
-                className={`absolute left-1/2 bottom-0 -translate-x-1/2 w-full    transition-all duration-200 delay-100
-                     ${
-                       activeTab === tab || hover === index
-                         ? 'border-b-[3px] border-[color:var(--color-primary)]'
-                         : 'border-b-2 border-[color:var(--color-white)]'
-                     }`}
+                className={`absolute left-1/2 bottom-0 -translate-x-1/2 w-full    transition-all duration-200 delay-100 ${
+                  activeTab === tab || hover === index
+                    ? 'border-b-[3px] border-[color:var(--color-primary)]'
+                    : 'border-b-2 border-[color:var(--color-white)]'
+                }`}
               ></span>
             </li>
           ))}
         </ul>
       </nav>
 
-      <>
-        {activeTab === 'Overview' && (
-          <>
-            <OverviewPage productType={productType} product={product} />
-          </>
-        )}
-        {activeTab === 'Details' && (
-          <>
-            <DetailsPage productType={productType} product={product} />
-          </>
-        )}
-        {activeTab === 'Review' && (
-          <>
-            <ReviewPage product={product} />
-          </>
-        )}
-        {activeTab === 'Q&A' && (
-          <>
-            <QnAPage productType={productType} product={product} />
-          </>
-        )}
-      </>
+      <div className="mb-20">
+        {activeTab === 'Overview' && <OverviewPage productType={productType} product={product} />}
+        {activeTab === 'Details' && <DetailsPage productType={productType} product={product} />}
+        {activeTab === 'Review' && <ReviewPage product={product} />}
+        {activeTab === 'Q&A' && <QnAPage productType={productType} product={product} />}
+      </div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import Alert from '@/components/common/Alert';
 import Button from '@/components/common/Button';
 import CheckBox from '@/components/common/CheckBox';
 import Input from '@/components/common/Input';
+import Tooltip from '@/components/common/Tooltip';
 import { login } from '@/data/actions/user';
 import useUserStore from '@/stores/useUserStore';
 import { Eye, EyeOff } from 'lucide-react';
@@ -89,8 +90,13 @@ function LoginForm() {
 
   return (
     <>
-      {redirect && <h3 className="text-center mt-2 mb-[-2rem]">로그인이 필요한 서비스입니다.</h3>}
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 mt-14 mb-4">
+      {redirect && <h3 className="text-center mt-2">로그인이 필요한 서비스입니다.</h3>}
+
+      <Tooltip label="ID: test11@tw.com / PW: test11">
+        <p className="mt-2 text-sm text-center text-gray-500">ⓘ 포트폴리오용 로그인 정보</p>
+      </Tooltip>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 mt-10 mb-4">
         <fieldset className="contents">
           <legend className="sr-only">로그인</legend>
 

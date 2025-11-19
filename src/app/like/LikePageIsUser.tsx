@@ -10,14 +10,17 @@ import LinkButton from '@/components/common/LinkButton';
 
 const JudsonFont = Judson({
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['700'],
 });
 
 export default function LikePageIsUser() {
   const user = useUserStore((s) => s.user);
   const [likes, setLikes] = useState<LikeItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    setLoading(true);
+
     async function fetchLikes() {
       // 토큰이 없으면 함수 종료
       if (!user?.token?.accessToken) {
@@ -32,15 +35,16 @@ export default function LikePageIsUser() {
         return res;
       } catch (error) {
         console.error('fetchLikes 에러:', error);
+      } finally {
+        setLoading(false);
       }
     }
 
     // user가 존재하고 token이 있을 때만 호출
     if (user && user.token && user.token.accessToken) {
       fetchLikes();
-    } else {
-      console.log('사용자가 로그인되지 않았습니다.');
     }
+
     const likerefresh = setInterval(() => {
       fetchLikes();
     }, 1000 * 5);
@@ -53,30 +57,26 @@ export default function LikePageIsUser() {
   // 찜 상품이 있는지 확인
   const hasAnyProduct = likes.filter((item) => !!item.product);
 
-  // 찜 상품이 없을 경우
-  if (hasAnyProduct.length === 0) {
-    return (
-      <main className="mx-4">
-        <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
-          <p className="text-3xl mb-4">고객님, 찜한 상품이 없습니다!</p>
-          <p className="text-gray-500">관심 있는 상품을 찜하면 이곳에 보여드릴게요.</p>
-          <p className="text-gray-500 my-2">마음에 드는 상품을 발견하셨다면 하트를 눌러 찜해보세요.</p>
-          <p className="text-gray-500">찜한 상품을 한눈에 모아보고 싶다면, 지금 바로 다양한 상품을 둘러보세요.</p>
-          <p className="text-gray-500 mb-4 mt-2">고객님의 취향에 꼭 맞는 상품을 준비해두고 기다리고 있답니다.</p>
-          <LinkButton href="/shop">상품 보러가기</LinkButton>
-        </div>
-      </main>
-    );
-  }
-
   return (
     <main className="mx-4">
-      <h2 className={`font-bold text-4xl text-center ${JudsonFont.className}`}>LIKE</h2>
-      <ul className="grid grid-cols-2 gap-4 my-6">
-        {likes.map((item) => (
-          <ProductCardItem key={item._id} productType={item.product.extra.category} data={[item.product]} />
-        ))}
-      </ul>
+      <h2 className={`mt-4 mb-6 text-2xl text-center ${JudsonFont.className}`}>LIKES</h2>
+
+      {loading ? (
+        <p className="text-center">로딩 중..</p>
+      ) : hasAnyProduct.length > 0 ? (
+        <ul className="grid grid-cols-2 gap-4 my-6">
+          {likes.map((item) => (
+            <ProductCardItem key={item._id} productType={item.product.extra.category} data={[item.product]} />
+          ))}
+        </ul>
+      ) : (
+        <div className="text-center py-8 rounded-2xl my-6 p-4">
+          <p className="mb-4">찜한 상품이 없습니다!</p>
+          <p className="text-gray-500 mt-2">지금 바로 다양한 상품을 둘러보고,</p>
+          <p className="text-gray-500 mb-4">마음에 드는 상품을 찜해보세요.</p>
+          <LinkButton href="/shop">상품 보러가기</LinkButton>
+        </div>
+      )}
     </main>
   );
 }

@@ -25,7 +25,7 @@ async function OrderList() {
   return (
     <>
       <main className="mx-4">
-        <h2 className={`mb-6 text-2xl text-center ${JudsonFont.className}`}>ORDER HISTORY</h2>
+        <h2 className={`mt-4 mb-6 text-2xl text-center ${JudsonFont.className}`}>ORDER HISTORY</h2>
 
         <div className="mb-20">
           <OrderFetcher />

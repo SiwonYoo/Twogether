@@ -69,21 +69,10 @@ export default function QnaSearchClient() {
     fetchSearchResults();
   }, [keyword, user]);
 
-  // 로딩 상태
-  if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center">
-          <p>검색 중...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="container mx-auto px-4 py-8">
       {/* 페이지 제목 */}
-      <h2 className="text-2xl font-bold mb-6">1:1 문의 검색</h2>
+      <h2 className="text-lg text-center mb-6">[1:1 문의] 검색</h2>
 
       {/* QnA 전용 검색 폼 */}
       <div className="mb-8">
@@ -107,7 +96,15 @@ export default function QnaSearchClient() {
       )}
 
       {/* 검색 결과 */}
-      {!error && keyword && <QnaSearchList posts={posts} />}
+      {loading ? (
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center">
+            <p>검색 중...</p>
+          </div>
+        </div>
+      ) : (
+        !error && keyword && <QnaSearchList posts={posts} />
+      )}
 
       {/* 검색어가 없을 때 안내 메시지 */}
       {!keyword && !error && (

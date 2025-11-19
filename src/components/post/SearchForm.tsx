@@ -33,8 +33,8 @@ export default function SearchForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex mt-8">
-      <div className="flex-1">
+    <form onSubmit={handleSubmit} className="flex">
+      <div className="flex-1 pb-4">
         <Input
           id="search"
           label="검색"

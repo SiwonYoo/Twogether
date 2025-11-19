@@ -67,7 +67,7 @@ function SearchForm() {
   return (
     <>
       <form onSubmit={handleSubmit} className="flex">
-        <div className="flex-1">
+        <div className="mt-4 flex-1">
           <Input
             id="search"
             label="검색"

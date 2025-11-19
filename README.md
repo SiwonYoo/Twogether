@@ -1,6 +1,6 @@
 # Twogether
 
-멋쟁이사자처럼 Final Project 2팀 Twogether입니다.
+안녕하세요, 팀 Twogether입니다.
 
 ## 프로젝트 개요
 
@@ -12,6 +12,14 @@ Twogether는 사용자 경험을 최우선으로 고려한 모던 잠옷 쇼핑�
 ## 배포 사이트
 
 <img src="src/app/favicon.ico" /> [Twogether 바로가기](https://final-02-twogether.vercel.app)
+
+### 데모 계정 안내
+- **로그인**: 로그인 화면에서 바로 사용 가능합니다.
+  - ID: `test11@tw.com` / PW: `test11`  
+
+- **회원가입**: 이메일 입력란에 `원하는 값 + @tw.com` 형식으로 입력하면, 별도의 인증 과정 없이 자동으로 가입이 완료됩니다.
+  - 예시: `any@tw.com`
+
 
 ## 팀원 소개
 
@@ -52,8 +60,8 @@ Twogether는 사용자 경험을 최우선으로 고려한 모던 잠옷 쇼핑�
 ## 설치 및 실행 방법
 
 ```bash
-git clone https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether.git
-cd Final-02-Twogether
+git clone https://github.com/SiwonYoo/Twogether.git
+cd Twogether
 npm install
 npm run dev
 ```

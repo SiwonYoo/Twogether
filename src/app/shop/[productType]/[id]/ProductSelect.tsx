@@ -11,10 +11,7 @@ import useUserStore from '@/stores/useUserStore';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import LikeToggleButton from '@/components/product/LikeButton';
-import useCartStore from '@/stores/useCartStore';
-import { getCarts } from '@/data/functions/cart';
 import useOrderStore from '@/stores/useOrderStore';
-import { Quando } from 'next/font/google';
 
 interface ProductSelectProps {
   item: Product;
@@ -22,11 +19,10 @@ interface ProductSelectProps {
 
 export default function ProductSelect({ item }: ProductSelectProps) {
   const [selectedValue, setSelectedSize] = useState<string>('');
-  const [priseDate, setPriseDate] = useState(1);
+  const [priseDate, setPriseDate] = useState(0);
   const [state, action, isLoading] = useActionState(addCart, null);
   const { user } = useUserStore();
   const router = useRouter();
-  const { setItems, setCheckedIds } = useCartStore();
   const { setOrderItems } = useOrderStore();
 
   useEffect(() => {
@@ -38,6 +34,10 @@ export default function ProductSelect({ item }: ProductSelectProps) {
     }
   }, [state, router]);
 
+  useEffect(() => {
+    if (priseDate === 0) setSelectedSize('');
+  }, [priseDate]);
+
   return (
     <>
       <div className="border my-6 p-4 border-(--color-gray-350)">
@@ -46,18 +46,22 @@ export default function ProductSelect({ item }: ProductSelectProps) {
           label="사이즈"
           items={item.extra.size}
           placeHolder="사이즈를 선택해주세요"
+          value={selectedValue}
           onChange={(event: ChangeEvent<HTMLSelectElement>) => {
             setSelectedSize(event.target.value);
+            setPriseDate((prev) => prev + 1);
           }}
         />
       </div>
-      <div className=" bg-(--color-gray-250) p-4">
-        <ProductTypeIdItem
-          item={item}
-          selectedValue={selectedValue}
-          priseDate={priseDate}
-          onPriseDateChange={setPriseDate}
-        />
+      <div className="border-y border-(--color-gray-350) p-4">
+        {priseDate > 0 && (
+          <ProductTypeIdItem
+            item={item}
+            selectedValue={selectedValue}
+            priseDate={priseDate}
+            onPriseDateChange={setPriseDate}
+          />
+        )}
         <div className="flex justify-between items-center gap-2">
           <div className="flex justify-center items-center border border-(--color-primary) text-center w-1/4  px-6 py-2 bg-(--color-white) relative">
             <LikeToggleButton data={item} />
@@ -78,7 +82,6 @@ export default function ProductSelect({ item }: ProductSelectProps) {
               <input type="hidden" name="product_id" value={item._id} />
               <input type="hidden" name="quantity" value={priseDate} />
               <input type="hidden" name="accessToken" value={user?.token?.accessToken || ''} />
-              {/* <input type="hidden" name="size" value={}/> */}
             </form>
           </div>
         </div>

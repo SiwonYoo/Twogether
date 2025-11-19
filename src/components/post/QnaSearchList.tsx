@@ -11,7 +11,7 @@ export default function QnaSearchList({ posts }: { posts: Post[] }) {
   return (
     <ul className="mt-4">
       {posts.map((post) => (
-        <li key={post._id} className="border-b-1 border-b-gray-250">
+        <li key={post._id} className="border-b-1 pb-1 border-b-gray-250">
           <div className="flex gap-7 my-4">
             <Link href={`/my-page/qna/${post._id}`}>
               <span>{post.title}</span>

@@ -41,7 +41,7 @@ export default function ProductTypeIdItem({
     <>
       <div className="flex justify-between items-start">
         <div>
-          <h2 className="mb-2">{item.name}</h2>
+          <h2 className="mb-2 text-ellipsis line-clamp-1">{item.name}</h2>
           <p aria-label={`선택된`}>사이즈: {selectedValue || '사이즈를 선택해주세요'}</p>
         </div>
         <div className="flex justify-between items-center gap-4">
@@ -54,15 +54,12 @@ export default function ProductTypeIdItem({
               +
             </button>
           </div>
-          <p>
-            <X />
-          </p>
         </div>
       </div>
       <div className="flex justify-between my-4">
         <p className={`${JudsonFont.className}`}>TOTAL</p>
         <div>
-          <span className="text-2xl font-bold">{totalPrice} 원</span>
+          <span className="text-2xl font-bold">{totalPrice.toLocaleString()} 원</span>
           <span className="text-(--color-gray-350)"> ({priseDate}개)</span>
         </div>
       </div>

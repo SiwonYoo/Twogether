@@ -117,15 +117,15 @@ export default function MyQnaList() {
       {/* 게시글 목록 */}
       <ul className="mt-4">
         {posts.map((post) => (
-          <li key={post._id} className="border-b-1 border-b-gray-250">
+          <li key={post._id} className="border-b-1 pb-1 border-b-gray-250">
             {/* 게시글 제목 (클릭하면 상세 페이지로 이동) */}
-            <div className="flex gap-7 my-4">
+            <div className="flex gap-7 my-2">
               <Link href={`/my-page/qna/${post._id}`}>
                 <span>{post.title}</span>
               </Link>
             </div>
             {/* 게시글 정보 (작성자, 작성일) */}
-            <div className="flex gap-4 text-sm">
+            <div className="flex gap-4 text-sm text-gray-350">
               <span>{post.user.name}</span>
               <span>{post.createdAt}</span>
             </div>

@@ -22,7 +22,7 @@ async function Review() {
   return (
     <>
       <main className="px-4 mb-20">
-        <h2 className={`mb-6 text-2xl text-center ${JudsonFont.className}`}>MY REVIEWS</h2>
+        <h2 className={`mt-4 mb-6 text-2xl text-center ${JudsonFont.className}`}>MY REVIEWS</h2>
         <ReviewList />
       </main>
     </>

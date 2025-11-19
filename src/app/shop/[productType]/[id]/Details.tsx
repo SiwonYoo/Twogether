@@ -68,17 +68,17 @@ export default function DetailsPage({ product }: ProductDetails) {
     return (
       <ul className="grid grid-cols-3 text-center  bg-(--color-gray-150) rounded">
         {product.extra.washingInfo.map((info) => (
-          <li key={info._id} className="flex justify-between flex-col items-center px-4 py-2">
-            <p className="w-[4rem] py-2">
+          <li key={info._id} className="flex flex-col justify-center items-center p-4">
+            <div className="flex h-20">
               <Image
                 src={`/images/washing_info/washing_info_${info._id}.png`}
                 alt={info.label}
-                width="64"
-                height="64"
-                className="h-full object-cover"
+                width="40"
+                height="40"
+                className="object-contain"
               />
-            </p>
-            {info.label}
+            </div>
+            <div className="flex-1">{info.label}</div>
           </li>
         ))}
       </ul>
@@ -86,24 +86,24 @@ export default function DetailsPage({ product }: ProductDetails) {
   };
 
   return (
-    <section className="text-[.75rem]">
+    <section className="flex flex-col gap-10 text-[.75rem]">
       {/* 사이즈 안내 시작 */}
       <article>
-        <h2 className={`${JudsonFont.className} text-2xl mb-4`}>Size Info</h2>
+        <h2 className={`mb-5 ${JudsonFont.className} text-2xl text-center`}>Size Info</h2>
         <div>{defaultSizeLayout()}</div>
       </article>
       {/* 사이즈 안내 종료 */}
 
       {/* 원단 안내 시작 */}
-      <article className=" my-4">
-        <h2 className={`${JudsonFont.className} text-2xl mb-4`}>Fabric Info</h2>
+      <article>
+        <h2 className={`mb-5 ${JudsonFont.className} text-2xl text-center`}>Fabric Info</h2>
         <div>{fabricLayout()}</div>
       </article>
       {/* 원단 안내 종료 */}
 
       {/* 세탁 안내 시작 */}
       <article>
-        <h2 className={`${JudsonFont.className} text-2xl mb-4`}>Washing Info</h2>
+        <h2 className={`mb-5 ${JudsonFont.className} text-2xl text-center`}>Washing Info</h2>
         <div>{washingLayout()}</div>
       </article>
       {/* 세탁 안내 종료 */}

@@ -13,7 +13,7 @@ export default function NoticeList({
   return (
     <>
       {/* 게시판 목록 */}
-      <li className="border-b-1 border-b-gray-250">
+      <li className="pb-4 border-b-1 border-b-gray-250">
         <div className="flex gap-7 my-4">
           {isNotice ? <span className="font-bold">공지</span> : <span>공지</span>}
           <Link href={`/community/${boardType}/${post._id}`}>
