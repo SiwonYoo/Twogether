@@ -92,30 +92,11 @@ export default function Home() {
         {/* 이벤트 섹션 시작 */}
         <section className="mt-6">
           <h2 className={`text-2xl font-bold my-6 ${JudsonFont.className}`}>EVENT</h2>
-          <EventSlider />
+          <div className="mx-4">
+            <EventSlider />
+          </div>
         </section>
         {/* 이벤트 섹션 종료 */}
-
-        {/* 인포 섹션 시작 */}
-        <section className="mt-6">
-          <h2 className={`text-2xl font-bold my-6 ${JudsonFont.className}`}>INFO</h2>
-          <div className="my-2">
-            <h3 className="font-bold mb-2">신규회원 5% 쿠폰</h3>
-            <p className="text-[.75rem]">즉시 사용 5% 쿠폰 발급</p>
-            <p className="text-[.75rem]">회원가입하러가기</p>
-          </div>
-          <div className="my-2">
-            <h3 className="font-bold mb-2">리뷰퀸 적립금</h3>
-            <p className="text-[.75rem]">리뷰퀸 선정 최대 5,000원 적립금</p>
-            <p className="text-[.75rem]">매월 세 분께 증정합니다</p>
-          </div>
-          <div className="my-2">
-            <h3 className="font-bold mb-2">무료배송</h3>
-            <p className="text-[.75rem]">전상품 5만원 이상 결제시 무료배송</p>
-            <p className="text-[.75rem]">인기제품 보러가기</p>
-          </div>
-        </section>
-        {/* 인포 섹션 종료 */}
       </main>
     </>
   );
