@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function Menu() {
   return (
     <main className="mx-4">
-      <h2 className={`${JudsonFont.className} mb-5 mt-5 text-4xl`}>SPECIAL</h2>
+      <h2 className={`${JudsonFont.className} mb-5 mt-5 text-2xl`}>SPECIAL</h2>
       <ul className="grid grid-cols-2 gap-4 items-center">
         <li className="ml-4">
           <Link href="/shop/best" className={`${JudsonFont.className}`}>
@@ -33,7 +33,7 @@ export default function Menu() {
           </Link>
         </li>
       </ul>
-      <h2 className={`${JudsonFont.className} mb-5 mt-10 text-4xl`}>SHOP</h2>
+      <h2 className={`${JudsonFont.className} mb-5 mt-10 text-2xl`}>SHOP</h2>
       <ul className="grid grid-cols-2 gap-4 items-center">
         <li className="ml-4">
           <Link href="/shop" className={`${JudsonFont.className}`}>
@@ -65,7 +65,7 @@ export default function Menu() {
         </li>
       </ul>
 
-      <h2 className={`${JudsonFont.className} mb-5 mt-10 text-4xl`}>COMMUNITY</h2>
+      <h2 className={`${JudsonFont.className} mb-5 mt-10 text-2xl`}>COMMUNITY</h2>
       <ul className="grid grid-cols-2 gap-4 items-center">
         <li className="ml-4">
           <Link href="/community/notice" className={`${JudsonFont.className}`}>
@@ -78,7 +78,7 @@ export default function Menu() {
           </Link>
         </li>
       </ul>
-      <h2 className={`${JudsonFont.className} mb-5 mt-10 text-4xl`}>BRAND</h2>
+      <h2 className={`${JudsonFont.className} mb-5 mt-10 text-2xl`}>BRAND</h2>
       <ul className="grid grid-cols-2 gap-4 items-center">
         <li className="ml-4">
           <Link href="/brand" className={`${JudsonFont.className}`}>
@@ -86,11 +86,9 @@ export default function Menu() {
           </Link>
         </li>
       </ul>
-      <section className="my-10">
+      <section className="mt-20">
         <h2 className="font-bold mb-4">고객센터 운영시간</h2>
         <p className="text-sm">오전 10시 ~ 17시 (토,일, 공휴일 휴무)</p>
-        <p className="text-sm mb-4">rn5184@naver.com</p>
-        <LinkButton href="https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether">GITHUB</LinkButton>
       </section>
     </main>
   );
