@@ -3,6 +3,7 @@
 import Alert from '@/components/common/Alert';
 import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
+import Tooltip from '@/components/common/Tooltip';
 import { signup, verifySignUpEmail } from '@/data/actions/user';
 import { checkEmail, getAllUsers } from '@/data/functions/user';
 import { GetAllUsersType } from '@/types';
@@ -62,6 +63,7 @@ function SignupForm() {
   // 이메일 중복 확인 (이메일 '중복 확인' 버튼 클릭 시)
   const handleCheckEmail = async () => {
     const currentEmail = getValues('email');
+
     if (!emailExp.test(currentEmail)) return;
     const res = await checkEmail(currentEmail);
     if (res.ok) setEmailAvailable(true);
@@ -92,13 +94,13 @@ function SignupForm() {
 
   // 폼 제출 이벤트 ('회원가입' 버튼 클릭 시)
   const onSubmit = async (user: SignupForm) => {
-    if (isEmailAvailable === null) {
+    if (isEmailAvailable !== true) {
       setAlertMessage('이메일 중복 여부를 확인해주세요.');
       setIsAlertOpen(true);
       return;
     }
 
-    if (isPhoneAvailable === null) {
+    if (isPhoneAvailable !== true) {
       setAlertMessage('휴대폰 번호 중복 여부를 확인해주세요.');
       setIsAlertOpen(true);
       return;
@@ -147,9 +149,16 @@ function SignupForm() {
           </div>
 
           <div>
+            <div>
+              <span>이메일</span>
+              <Tooltip label="원하는값@tw.com → 자동 인증" direction="right">
+                <span className="ml-1 text-sm text-gray-500">ⓘ</span>
+              </Tooltip>
+            </div>
             <Input
               id="email"
               label="이메일"
+              hideLabel
               placeholder="이메일 양식에 맞게 작성해주세요."
               autoComplete="email"
               {...register('email', {
