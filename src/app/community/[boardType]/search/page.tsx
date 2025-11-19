@@ -3,12 +3,6 @@ import NoticeList from '@/app/community/NoticeList';
 import SearchForm from '@/components/post/SearchForm';
 import { getSearchPosts } from '@/data/functions/post';
 import { Metadata } from 'next';
-import { Judson } from 'next/font/google';
-
-const JudsonFont = Judson({
-  subsets: ['latin'],
-  weight: '400',
-});
 
 export interface SearchPageProps {
   params: Promise<{
@@ -49,7 +43,7 @@ export default async function SearchPage({ params, searchParams }: SearchPagePro
   return (
     <div className="container mx-auto px-4 py-8">
       {/* 페이지 제목 */}
-      <h2 className="text-2xl font-bold mb-6">{boardType === 'notice' ? '공지사항' : '이벤트'} 검색</h2>
+      <h2 className="text-lg text-center mb-6">[{boardType === 'notice' ? '공지사항' : '이벤트'}] 검색</h2>
 
       {/* 검색 폼 */}
       <div className="mb-8">

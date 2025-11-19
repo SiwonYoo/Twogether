@@ -59,7 +59,7 @@ export default function LikePageIsUser() {
 
   return (
     <main className="mx-4">
-      <h2 className={`mb-6 text-2xl text-center ${JudsonFont.className}`}>LIKES</h2>
+      <h2 className={`mt-4 mb-6 text-2xl text-center ${JudsonFont.className}`}>LIKES</h2>
 
       {loading ? (
         <p className="text-center">로딩 중..</p>

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 function MyPage() {
   return (
     <>
-      <main className="mx-4">
+      <main className="mx-4 mt-4">
         <MypageMain />
       </main>
     </>

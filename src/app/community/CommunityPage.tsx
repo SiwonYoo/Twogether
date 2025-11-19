@@ -7,6 +7,8 @@ import SearchForm from '@/components/post/SearchForm';
 import { getPost, getPosts } from '@/data/functions/post';
 import { Post } from '@/types/post';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Button from '@/components/common/Button';
+import Link from 'next/link';
 
 interface CommunityPageProps {
   boardType: string; // 'notice' 또는 'event'
@@ -112,14 +114,6 @@ export default function CommunityPage({ boardType }: CommunityPageProps) {
   };
 
   // 7. 조건부 렌더링
-  if (loading) {
-    return (
-      <div className="text-center py-8">
-        <p>게시글을 불러오는 중...</p>
-      </div>
-    );
-  }
-
   if (error) {
     return (
       <div className="text-center py-8">
@@ -131,41 +125,67 @@ export default function CommunityPage({ boardType }: CommunityPageProps) {
   // 8. 메인 렌더링
   return (
     <>
-      <ul className="mb-25">
-        {/* 공지사항: 고정 공지사항 (_id 1, 2번 게시글 - 항상 표시) */}
-        {isNoticeBoard && pinnedPosts.length > 0 && (
-          <>
-            {pinnedPosts.map((post) => (
-              <NoticeList key={`pinned-${post._id}`} post={post} boardType={boardType} isNotice={true} />
-            ))}
-          </>
+      <div className="sticky top-16 bg-white">
+        {boardType !== 'qna' && (
+          <div className="flex gap-2.5 justify-center py-2">
+            <Link href="/community/notice">
+              <Button bg={boardType === 'notice' ? 'primary' : 'white'} shape="square" lang="eng">
+                NOTICE
+              </Button>
+            </Link>
+            <Link href="/community/event">
+              <Button bg={boardType === 'event' ? 'primary' : 'white'} shape="square" lang="eng">
+                EVENT
+              </Button>
+            </Link>
+          </div>
         )}
 
-        {/* 공지사항 게시글 목록  */}
-        {isNoticeBoard && posts.length > 0 && (
-          <>
-            {posts.map((post) => (
-              <NoticeList key={`regular-${post._id}`} post={post} boardType={boardType} isNotice={false} />
-            ))}
-          </>
-        )}
+        {/* 검색 폼 */}
+        <SearchForm />
+      </div>
 
-        {/* 이벤트 게시글 목록 */}
-        {isEventBoard && posts.length > 0 && (
-          <>
-            {posts.map((post, i) => (
-              <EventList key={post._id} post={post} boardType={boardType} />
-            ))}
-          </>
-        )}
+      {loading ? (
+        <div className="text-center py-8">
+          <p>게시글을 불러오는 중...</p>
+        </div>
+      ) : (
+        <ul className="mb-25">
+          {/* 공지사항: 고정 공지사항 (_id 1, 2번 게시글 - 항상 표시) */}
+          {isNoticeBoard && pinnedPosts.length > 0 && (
+            <>
+              {pinnedPosts.map((post) => (
+                <NoticeList key={`pinned-${post._id}`} post={post} boardType={boardType} isNotice={true} />
+              ))}
+            </>
+          )}
 
-        {/* 게시글이 없을 때 */}
-        {posts.length === 0 && !loading && (
-          <li className="text-center py-8">
-            <p>등록된 게시글이 없습니다.</p>
-          </li>
-        )}
-      </ul>
+          {/* 공지사항 게시글 목록  */}
+          {isNoticeBoard && posts.length > 0 && (
+            <>
+              {posts.map((post) => (
+                <NoticeList key={`regular-${post._id}`} post={post} boardType={boardType} isNotice={false} />
+              ))}
+            </>
+          )}
+
+          {/* 이벤트 게시글 목록 */}
+          {isEventBoard && posts.length > 0 && (
+            <>
+              {posts.map((post, i) => (
+                <EventList key={post._id} post={post} boardType={boardType} />
+              ))}
+            </>
+          )}
+
+          {/* 게시글이 없을 때 */}
+          {posts.length === 0 && !loading && (
+            <li className="text-center py-8">
+              <p>등록된 게시글이 없습니다.</p>
+            </li>
+          )}
+        </ul>
+      )}
 
       {/* 페이지네이션 */}
       {totalPages > 1 && (
@@ -202,11 +222,6 @@ export default function CommunityPage({ boardType }: CommunityPageProps) {
           </button>
         </div>
       )}
-
-      {/* 검색 폼 */}
-      <div className="mb-20">
-        <SearchForm />
-      </div>
     </>
   );
 }

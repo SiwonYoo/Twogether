@@ -33,5 +33,15 @@ export default function Mainlayout() {
     title = '리뷰 작성';
   }
 
+  if (path.startsWith('/community/event/')) {
+    useSubHeader = true;
+    title = 'Event';
+  }
+
+  if (path.startsWith('/community/notice/')) {
+    useSubHeader = true;
+    title = 'Notice';
+  }
+
   return <>{useSubHeader ? <SubHeader title={title} /> : <Header />}</>;
 }
