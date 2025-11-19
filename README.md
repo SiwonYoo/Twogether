@@ -1,6 +1,6 @@
 # Twogether
 
-멋쟁이사자처럼 Final Project 2팀 Twogether입니다.
+안녕하세요, 팀 Twogether입니다.
 
 ## 프로젝트 개요
 
@@ -52,8 +52,8 @@ Twogether는 사용자 경험을 최우선으로 고려한 모던 잠옷 쇼핑�
 ## 설치 및 실행 방법
 
 ```bash
-git clone https://github.com/FRONTENDBOOTCAMP-13th/Final-02-Twogether.git
-cd Final-02-Twogether
+git clone https://github.com/SiwonYoo/Twogether.git
+cd Twogether
 npm install
 npm run dev
 ```
