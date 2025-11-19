@@ -47,13 +47,14 @@ export default async function ProductDetilPage({ params }: ProductCardItemProps)
 
   if (data.ok === 0) {
     return (
-      <div className="font-bold text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4">
-        <p className="text-3xl mb-4">고객님, 진심으로 사과드립니다.</p>
-        <p className="text-gray-500">서버 문제로 인해 상품 정보 제공에 차질이 발생했습니다.</p>
-        <p className="text-gray-500 my-2">이로 인해 오랜 시간 기다리시게 된 점 깊이 죄송합니다.</p>
-        <p className="text-gray-500">빠른 시일 내에 정상화된 상품을 갖추어 찾아뵐 수 있도록 최선을 다하겠습니다.</p>
-        <p className="text-gray-500 mb-4 mt-2">불편을 드린 점 다시 한번 사과드리며, 너그러운 양해 부탁드립니다.</p>
-        <LinkButton href="/">홈으로 바로가기</LinkButton>
+      <div className="text-center py-8 bg-(--color-gray-150) rounded-2xl my-6 p-4 text-gray-500">
+        <p className="text-xl mb-4 text-black">고객님, 죄송합니다.</p>
+        <p>현재 보여드릴 상품이 없습니다.</p>
+        <p>최대한 빠른 시일 내에 새로운 상품을 갖추어</p>
+        <p className="mb-5">다시 찾아뵐 수 있도록 최선을 다하겠습니다.</p>
+        <LinkButton href="/" lang="eng">
+          HOME
+        </LinkButton>
       </div>
     );
   }
@@ -71,23 +72,25 @@ export default async function ProductDetilPage({ params }: ProductCardItemProps)
         <p className={`mt-4 mb-2 ${data.item.extra.isSale ? '' : 'text-2xl font-bold'}`}>
           {data.item.extra.isSale ? (
             <span className="text-(--color-gray-450) line-through decoration-2 decoration-(--color-error)">
-              {data.item.price} 원
+              {data.item.price.toLocaleString()} 원
             </span>
           ) : (
-            `${data.item.price} 원`
+            `${data.item.price.toLocaleString()} 원`
           )}{' '}
         </p>
-        <p className="font-bold text-2xl">{data.item.extra.isSale ? `${data.item.extra.salePrice} 원` : ''}</p>
+        <p className="font-bold text-2xl">
+          {data.item.extra.isSale ? `${data.item.extra.salePrice?.toLocaleString()} 원` : ''}
+        </p>
         <p className="mt-2 mb-4">
           <span>적립금: </span>
           <span>
-            {Math.floor(Number(data.item.price) * 0.02)} {'(2%)'}
+            {Math.floor(Number(data.item.price) * 0.02).toLocaleString()} {'(2%)'}
           </span>
         </p>
         <p>
           <span>배송금: </span>
           <span>
-            {data.item.shippingFees}원{' (50,000원 이상 구매시 무료 배송)'}
+            {data.item.shippingFees.toLocaleString()}원{' (50,000원 이상 구매시 무료 배송)'}
           </span>
         </p>
 
