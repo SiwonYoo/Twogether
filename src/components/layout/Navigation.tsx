@@ -32,7 +32,7 @@ function Navigation() {
           {isClient ? (
             <>
               <Link
-                href={user ? '/like' : '/login'}
+                href={user ? '/like' : '/login?redirect=/like'}
                 className="flex flex-col justify-center items-center content-center flex-1 h-full"
               >
                 <Heart size={20} />

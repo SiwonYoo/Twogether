@@ -29,7 +29,7 @@ function Header() {
 
   return (
     <>
-      <header className="sticky top-0 flex justify-between h-24 w-full px-5 bg-white z-10">
+      <header className="sticky top-0 flex justify-between h-16 w-full px-5 bg-white/80 z-10">
         <button
           onClick={() => router.push('/')}
           className={`content-center text-3xl text-black ${JudsonFont.className} hover:cursor-pointer`}
