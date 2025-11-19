@@ -41,7 +41,7 @@ export default async function SearchPage({ params, searchParams }: SearchPagePro
   const res = await getSearchPosts(boardType, keyword);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container px-4 py-8">
       {/* 페이지 제목 */}
       <h2 className="text-lg text-center mb-6">[{boardType === 'notice' ? '공지사항' : '이벤트'}] 검색</h2>
 

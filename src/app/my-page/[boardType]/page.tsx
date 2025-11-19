@@ -37,15 +37,15 @@ export default async function QnaPage({ params }: ListPageProps) {
     notFound();
   }
   return (
-    <main className="mx-4 mb-20">
+    <main className="mx-4 mt-4 mb-20">
       <h2 className={`${JudsonFont.className} text-2xl text-center`}>Q&A</h2>
-      <MyQnaList /> {/* API 요청은 이 안에서 함 */}
+      <SearchForm />
       <div className="text-right mt-4 mx-4">
         <LinkButton href="/my-page/qna/new" shape="square">
           작성
         </LinkButton>
       </div>
-      <SearchForm />
+      <MyQnaList /> {/* API 요청은 이 안에서 함 */}
     </main>
   );
 }
