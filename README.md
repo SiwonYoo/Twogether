@@ -13,6 +13,14 @@ Twogether는 사용자 경험을 최우선으로 고려한 모던 잠옷 쇼핑�
 
 <img src="src/app/favicon.ico" /> [Twogether 바로가기](https://final-02-twogether.vercel.app)
 
+### 데모 계정 안내
+- **로그인**: 로그인 화면에서 바로 사용 가능합니다.
+  - ID: `test11@tw.com` / PW: `test11`  
+
+- **회원가입**: 이메일 입력란에 `원하는 값 + @tw.com` 형식으로 입력하면, 별도의 인증 과정 없이 자동으로 가입이 완료됩니다.
+  - 예시: `any@tw.com`
+
+
 ## 팀원 소개
 
 <table>
