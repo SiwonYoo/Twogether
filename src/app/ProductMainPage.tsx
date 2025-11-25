@@ -13,6 +13,8 @@ export default async function ProductMainPage({ category }: ProductMainPageProps
     customQuery = encodeURIComponent(JSON.stringify({ 'extra.isBest': true }));
   } else if (category === 'sale') {
     customQuery = encodeURIComponent(JSON.stringify({ 'extra.isSale': true }));
+  } else if (category === 'all') {
+    customQuery = encodeURIComponent(JSON.stringify({}));
   } else {
     return null;
   }
@@ -22,6 +24,7 @@ export default async function ProductMainPage({ category }: ProductMainPageProps
   if (data.ok === 0 || !data.item || data.item.length === 0) {
     return null;
   }
+  console.log(data);
 
   // best, sale 상품을 렌덤으로 보여줌
   function shuffleArray(array: Product[]): Product[] {
@@ -29,12 +32,14 @@ export default async function ProductMainPage({ category }: ProductMainPageProps
   }
 
   const shuffled = shuffleArray(data.item);
-  const selected = shuffled.slice(0, 2);
+  let selected;
+  if (category === 'all') selected = shuffled.slice(0, 12);
+  else selected = shuffled.slice(0, 2);
 
   return (
     <>
       {selected.map((item) => (
-        <ProductCardItem key={item._id} productType={category} data={[item]} />
+        <ProductCardItem key={item._id} productType={category} data={[item]} autoplay={category !== 'all'} />
       ))}
     </>
   );

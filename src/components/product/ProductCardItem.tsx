@@ -6,6 +6,7 @@ import Link from 'next/link';
 interface ProductCardItemProps {
   productType?: string;
   data: Product[];
+  autoplay?: boolean;
 }
 
 /**
@@ -21,14 +22,14 @@ interface ProductCardItemProps {
  * @returns {JSX.Element} 상품 목록 UI를 포함한 JSX 엘리먼트
  */
 
-export default function ProductCardItem({ productType, data }: ProductCardItemProps) {
+export default function ProductCardItem({ productType, data, autoplay = true }: ProductCardItemProps) {
   return (
     <>
       {data.map((item, index) => {
         return (
           <li key={`ProductItem-${index}`}>
             <Link href={`/shop/${productType}/${item._id}`} className="block h-[15.625rem]">
-              <ImagesSwiper data={item} height={'15.625rem'} />
+              <ImagesSwiper data={item} height={'15.625rem'} autoplay={autoplay} />
             </Link>
             <div className="flex gap-1 justify-between mt-4">
               <Link href={`/shop/${productType}/${item._id}`} className="flex-1 min-w-0">
