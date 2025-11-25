@@ -7,13 +7,13 @@ const JudsonFont = Judson({
   weight: '700',
 });
 
-export default function OverviewPage({ productType, product }: ProductDetails) {
+export default function OverviewPage({ product }: ProductDetails) {
   return (
     <>
-      <div>
+      <div className="w-full lg:w-[80%] place-self-center">
         <h2 className={`${JudsonFont.className} font-bold text-4xl text-center text-(--color-primary)`}>Twogether</h2>
         <p className="text-center my-4">{product.content}</p>
-        <ul className="flex flex-col gap-4  w-full">
+        <ul className="flex flex-col gap-4 text-center w-full">
           {product.mainImages.map((item) => {
             return (
               <li key={item._id}>
@@ -33,10 +33,10 @@ export default function OverviewPage({ productType, product }: ProductDetails) {
           <p>{product.content}</p>
         </div>
 
-        <ul className="flex flex-col gap-4  w-full">
+        <ul className="flex flex-col gap-4 w-full">
           {product.extra.productImg.map((item, index) => (
             <li key={`productImg-${index}`}>
-              <Image src={item} width={1000} height={1000} alt="상품 설명" />
+              <Image src={item} width={1600} height={1600} alt="상품 설명" className="w-full" />
             </li>
           ))}
         </ul>

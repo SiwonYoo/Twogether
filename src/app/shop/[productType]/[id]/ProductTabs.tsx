@@ -37,7 +37,7 @@ export default function ProductTabs({ productType, product }: ProductDetails) {
 
   return (
     <div className="m-4 relative">
-      <nav className="my-6 sticky top-15 bg-(--color-white)">
+      <nav className="my-6 sticky top-16 xl:top-20 bg-white/80">
         <ul className="grid grid-cols-4 justify-between items-center gap-4  border-b-1 border-black/1">
           {tabs.map((tab, index) => (
             <li

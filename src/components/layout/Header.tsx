@@ -1,5 +1,5 @@
 import { ShoppingBag } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Judson } from 'next/font/google'; // 구글 폰트 사용
 import useUserStore from '@/stores/useUserStore';
 import { useState } from 'react';
@@ -14,6 +14,7 @@ const JudsonFont = Judson({
 function Header() {
   const { isLoggedIn } = useUserStore();
   const router = useRouter();
+  const path = usePathname();
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertReplacePath, setAlertReplacePath] = useState<string | null>(null);
@@ -30,7 +31,7 @@ function Header() {
 
   return (
     <>
-      <header className="sticky top-0 flex justify-between items-center h-16 lg:h-16 xl:h-20 w-full mx-auto px-4 lg:px-16 max-w-7xl bg-white lg:bg-white/80 z-10 shadow-b-xs">
+      <header className="sticky top-0 flex justify-between items-center h-16 xl:h-20 w-full mx-auto px-4 lg:px-16 max-w-7xl bg-white/80 z-10 shadow-b-xs">
         <button
           onClick={() => router.push('/')}
           className={`content-center text-3xl text-black ${JudsonFont.className} hover:cursor-pointer`}
@@ -39,16 +40,27 @@ function Header() {
         </button>
         <ul className="flex-1 flex gap-4 place-content-end mr-4 max-md:hidden">
           <li>
-            <Link href={'/shop/all'}>SHOP</Link>
+            <Link href={'/shop/all'} className={`${path.startsWith('/shop') && 'underline'}`}>
+              SHOP
+            </Link>
           </li>
           <li>
-            <Link href={'/community/notice'}>COMMUNITY</Link>
+            <Link href={'/community/notice'} className={`${path.startsWith('/community') && 'underline'}`}>
+              COMMUNITY
+            </Link>
           </li>
           <li>
-            <Link href={'/brand'}>ABOUT-US</Link>
+            <Link href={'/brand'} className={`${path.startsWith('/brand') && 'underline'}`}>
+              ABOUT-US
+            </Link>
           </li>
           <li>
-            <Link href={'/my-page'}>MY-PAGE</Link>
+            <Link
+              href={`${isLoggedIn ? '/my-page' : '/login?redirect=/my-page'}`}
+              className={`${path.startsWith('/my-page') && 'underline'}`}
+            >
+              MY-PAGE
+            </Link>
           </li>
         </ul>
         <button onClick={onCartClick} className="content-center hover:cursor-pointer">

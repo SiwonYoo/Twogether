@@ -6,6 +6,7 @@ import EventSlider from '@/app/eventSlider';
 import Image from 'next/image';
 import ProductMainPage from '@/app/ProductMainPage';
 import LinkButton from '@/components/common/LinkButton';
+import Link from 'next/link';
 
 const JudsonFont = Judson({
   subsets: ['latin'],
@@ -124,6 +125,9 @@ export default function Home() {
           <h2 className={`text-2xl font-bold my-6 ${JudsonFont.className}`}>EVENT</h2>
           <div className="mx-4">
             <EventSlider />
+            <Link href={'/community/event'} className="block mt-4 text-right hover:underline">
+              이벤트 더보기
+            </Link>
           </div>
         </section>
         {/* 이벤트 섹션 종료 */}

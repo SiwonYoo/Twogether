@@ -3,12 +3,14 @@
 import SubHeader from '@/components/layout/SubHeader';
 import Header from '@/components/layout/Header';
 import { usePathname } from 'next/navigation';
+import { useWindowWidth } from '@/hooks/useWindowWidth';
 
-export default function Mainlayout() {
+export default function HeaderLayout() {
+  const path = usePathname();
+  const width = useWindowWidth();
+
   let useSubHeader = false;
   let title: string | undefined = undefined;
-
-  const path = usePathname();
 
   // 1path를 '/' 기준으로 나눔
   // segments 예: ['shop', 'shortSleeve', '456']
@@ -47,6 +49,8 @@ export default function Mainlayout() {
     useSubHeader = true;
     title = 'Q&A';
   }
+
+  if (width >= 768) return <Header />;
 
   return <>{useSubHeader ? <SubHeader title={title} /> : <Header />}</>;
 }
