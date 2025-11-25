@@ -125,7 +125,7 @@ export default function CommunityPage({ boardType }: CommunityPageProps) {
   // 8. 메인 렌더링
   return (
     <>
-      <div className="sticky top-16 bg-white">
+      <div className="sticky top-16 xl:top-20 bg-white/80">
         {boardType !== 'qna' && (
           <div className="flex gap-2.5 justify-center py-2">
             <Link href="/community/notice">
@@ -140,10 +140,10 @@ export default function CommunityPage({ boardType }: CommunityPageProps) {
             </Link>
           </div>
         )}
-
-        {/* 검색 폼 */}
-        <SearchForm />
       </div>
+
+      {/* 검색 폼 */}
+      <SearchForm />
 
       {loading ? (
         <div className="text-center py-8">
@@ -171,11 +171,11 @@ export default function CommunityPage({ boardType }: CommunityPageProps) {
 
           {/* 이벤트 게시글 목록 */}
           {isEventBoard && posts.length > 0 && (
-            <>
-              {posts.map((post, i) => (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 place-items-center mx-10">
+              {posts.map((post) => (
                 <EventList key={post._id} post={post} boardType={boardType} />
               ))}
-            </>
+            </div>
           )}
 
           {/* 게시글이 없을 때 */}

@@ -25,7 +25,7 @@ function MypageMain() {
           <EditProfileImage />
           <span>{user?.name} 님</span>
         </div>
-        <div className="flex justify-between items-center p-5 rounded-lg border-[.0625rem] border-gray-150 text-sm">
+        <div className="flex justify-between items-center p-5 md:px-10 lg:px-20 rounded-lg border-[.0625rem] border-gray-150 text-sm">
           <div className="flex flex-col gap-1 items-center">
             <span className="text-lg">0</span>
             <span>입금 전</span>

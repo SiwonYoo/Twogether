@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 function Success() {
   return (
     <>
-      <div className="min-h-full flex flex-col gap-4 items-center">
+      <div className="flex flex-col gap-4 items-center">
         <p className="text-center">
           개인 정보 수정이 완료되었습니다.
           <br />

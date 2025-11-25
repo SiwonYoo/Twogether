@@ -14,27 +14,49 @@ interface ProductLayoutProps {
 export default function ProductLayout({ productType }: ProductLayoutProps) {
   const data = [
     {
+      _id: 0,
+      value: 'ALL',
+      link: 'all',
+      image: '/images/products/shortSleeve/5/detail-4.png',
+      alt: 'ALL 상품입니다.',
+    },
+    {
       _id: 1,
+      value: 'BEST',
+      link: 'best',
+      image: '/images/products/shortSleeve/5/detail-1.png',
+      alt: 'SHORT 상품입니다.',
+    },
+    {
+      _id: 2,
+      value: 'SALE',
+      link: 'sale',
+      image: '/images/products/shortSleeve/5/detail-1.png',
+      alt: 'SHORT 상품입니다.',
+    },
+    {
+      _id: 3,
       value: 'SHORT',
       link: 'shortSleeve',
       image: '/images/products/shortSleeve/5/detail-1.png',
       alt: 'SHORT 상품입니다.',
     },
     {
-      _id: 2,
+      _id: 4,
       value: 'LONG',
       link: 'longSleeve',
       image: '/images/products/longSleeve/3/detail-1.png',
       alt: 'LONG 상품입니다.',
     },
-    { _id: 3, value: 'ROBE', link: 'robe', image: '/images/products/robe/3/detail-1.png', alt: 'ROBE 상품입니다.' },
-    { _id: 4, value: 'ACC', link: 'acc', image: '/images/products/acc/1/detail-1.png', alt: 'ACC 상품입니다.' },
+    { _id: 5, value: 'ROBE', link: 'robe', image: '/images/products/robe/3/detail-1.png', alt: 'ROBE 상품입니다.' },
+    { _id: 6, value: 'ACC', link: 'acc', image: '/images/products/acc/1/detail-1.png', alt: 'ACC 상품입니다.' },
   ];
 
   return (
     <>
-      <ul className="grid grid-cols-4 gap-4">
-        {data.map((item, index) => {
+      {/* MOBILE */}
+      <ul className="grid grid-cols-4 gap-4 md:hidden">
+        {data.slice(3).map((item, index) => {
           return (
             <li key={index}>
               <Link href={`/shop/${item.link}`} className="flex flex-col justify-center items-center gap-2">
@@ -46,6 +68,25 @@ export default function ProductLayout({ productType }: ProductLayoutProps) {
                   <Image src={item.image} alt={item.alt} width={100} height={100} />
                 </p>
                 <p className={`${JudsonFont.className}`}>{item.value}</p>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+
+      {/* PC */}
+      <ul className="grid grid-cols-7 gap-4 max-md:hidden">
+        {data.map((item, index) => {
+          return (
+            <li key={index}>
+              <Link href={`/shop/${item.link}`} className="flex flex-col justify-center items-center gap-2">
+                <p
+                  className={`${JudsonFont.className} ${
+                    productType === item.link ? 'bg-(--color-primary)' : 'bg-(--color-gray-250)'
+                  } w-full text-center py-1 text-white`}
+                >
+                  {item.value}
+                </p>
               </Link>
             </li>
           );

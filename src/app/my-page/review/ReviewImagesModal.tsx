@@ -28,7 +28,7 @@ function ReviewImagesModal({ isOpen, setOpen, images }: ReviewImagesModalProps) 
         onClick={() => {
           setOpen(false);
         }}
-        className="fixed flex h-dvh min-w-[400px] max-w-[768px] mx-auto inset-0 justify-center items-center bg-black/70 z-10"
+        className="fixed flex h-dvh inset-0 justify-center items-center bg-black/70 z-10"
       >
         <div
           role="dialog"

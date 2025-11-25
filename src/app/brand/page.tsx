@@ -18,9 +18,8 @@ export const metadata: Metadata = {
 
 export default function BrandPage() {
   return (
-    <main>
-      <Image src="/images/model/main-model1.png" alt="브랜드 모델" width={768} height={512} className="w-full h-auto" />
-      <section className="my-12 mx-4">
+    <main className="mb-20">
+      <section className="my-12 mx-4 lg:text-center">
         <h2 className={`${JudsonFont.className} text-2xl`}>Twogether</h2>
         <p className="mt-4">하루를 함께 마무리하고</p>
         <p>
@@ -33,7 +32,7 @@ export default function BrandPage() {
         <p>그 밤이 더 따뜻하고 부드럽게 감싸지길 바라며</p>
         <p>정성스럽게 만들기 시작했습니다.</p>
       </section>
-      <Image src="/images/model/main-model2.png" width={768} height={500} alt="브랜드 모델" />
+      <Image src="/images/model/main-model2.png" width={768} height={500} alt="브랜드 모델" className="w-full" />
       <section className="flex flex-col justify-center items-center my-12 mx-4">
         <h2 className={`${JudsonFont.className} text-2xl`}>Twogether, </h2>
         <p>당신의 밤과 함께</p>
@@ -48,8 +47,8 @@ export default function BrandPage() {
         <p>꼼꼼한 제작 과정을 통해 신뢰를 만듭니다.</p>
       </section>
       <div className="relative">
-        <Image src="/images/model/main-model3.png" width={768} height={500} alt="브랜드 모델" />
-        <p className={`absolute bottom-5 ${JudsonFont.className} text-2xl text-white`}>Twogether</p>
+        <Image src="/images/model/main-model3.png" width={768} height={500} alt="브랜드 모델" className="w-full" />
+        <p className={`absolute bottom-5 left-5 ${JudsonFont.className} text-2xl text-white`}>Twogether</p>
       </div>
     </main>
   );

@@ -5,11 +5,12 @@ import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Product } from '@/types/product';
-import { Autoplay } from 'swiper/modules';
+import { A11y, Autoplay } from 'swiper/modules';
 
 interface ProductCardItemProps {
   data: Product;
   height: string;
+  autoplay?: boolean;
 }
 
 /**
@@ -26,12 +27,12 @@ interface ProductCardItemProps {
  * @returns {JSX.Element} Swiper 기반 이미지 슬라이드 JSX
  */
 
-export default function ImagesSwiper({ data, height }: ProductCardItemProps) {
+export default function ImagesSwiper({ data, height, autoplay }: ProductCardItemProps) {
   return (
     <>
       <div className="swiper-container">
         <Swiper
-          modules={[Autoplay]} // 모듈 등록, 아래 파일 사용시
+          modules={[autoplay ? Autoplay : A11y]} // 모듈 등록, 아래 파일 사용시
           loop={true} // 슬라이드 루프
           spaceBetween={0} // 슬라이스 사이 간격
           slidesPerView={1} // 보여질 슬라이스 수

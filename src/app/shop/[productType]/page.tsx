@@ -46,6 +46,8 @@ export default async function productPage({ params }: ListPageProps) {
     customQuery = encodeURIComponent(JSON.stringify({ 'extra.isBest': true }));
   } else if (productType === 'sale') {
     customQuery = encodeURIComponent(JSON.stringify({ 'extra.isSale': true }));
+  } else if (productType === 'all') {
+    customQuery = encodeURIComponent(JSON.stringify({}));
   } else {
     customQuery = encodeURIComponent(JSON.stringify({ 'extra.category': `${productType}` }));
   }
@@ -85,7 +87,7 @@ export default async function productPage({ params }: ListPageProps) {
       ) : (
         <>
           {/* 상품 렌더링 시작 */}
-          <ul className="grid grid-cols-2 gap-4 my-6">
+          <ul className="grid grid-cols-2 lg:grid-cols-4 gap-4 my-6">
             {data.item.map((product) => {
               return (
                 <ProductCardItemLayout
@@ -98,7 +100,7 @@ export default async function productPage({ params }: ListPageProps) {
           </ul>
         </>
       )}
-      {/* 상품작렌더링 종료 */}
+      {/* 상품 렌더링 종료 */}
     </>
   );
 }
