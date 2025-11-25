@@ -30,13 +30,10 @@ function Dialog({ title, isOpen, setOpen, children }: DialogProps) {
 
   return (
     <>
-      <div
-        hidden={!isOpen}
-        className="fixed flex h-dvh min-w-[400px] max-w-[768px] mx-auto inset-0 justify-center items-center bg-black/50 z-10"
-      >
+      <div hidden={!isOpen} className="fixed flex h-dvh w-full justify-center items-center bg-black/50 z-10">
         <div
           role="dialog"
-          className="flex flex-col p-8 w-[80%] h-[80%] rounded-4xl bg-white z-10 animate-fade-in-scale"
+          className="flex flex-col p-8 lg:p-12 w-[80%] lg:w-[60%] h-[80%] lg:h-[60%] rounded-4xl bg-white z-10 animate-fade-in-scale"
         >
           <div className="flex w-full mb-5">
             <h2 className="flex-1 text-xl font-bold">{title}</h2>

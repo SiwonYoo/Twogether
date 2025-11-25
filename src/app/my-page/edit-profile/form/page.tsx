@@ -14,13 +14,11 @@ export const metadata: Metadata = {
 
 function Form() {
   return (
-    <>
-      <div className="">
-        <p className="text-center">개인 정보를 입력해 주세요.</p>
-        <p className="mb-5 text-xs text-gray-350 text-center">[완료] 버튼을 누르면 입력하신 정보가 반영됩니다. </p>
-        <EditProfileForm />
-      </div>
-    </>
+    <div>
+      <p className="text-center">개인 정보를 입력해 주세요.</p>
+      <p className="mb-5 text-xs text-gray-350 text-center">[완료] 버튼을 누르면 입력하신 정보가 반영됩니다. </p>
+      <EditProfileForm />
+    </div>
   );
 }
 

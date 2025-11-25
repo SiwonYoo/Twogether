@@ -24,7 +24,6 @@ export default async function ProductMainPage({ category }: ProductMainPageProps
   if (data.ok === 0 || !data.item || data.item.length === 0) {
     return null;
   }
-  console.log(data);
 
   // best, sale 상품을 렌덤으로 보여줌
   function shuffleArray(array: Product[]): Product[] {

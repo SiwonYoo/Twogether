@@ -52,7 +52,7 @@ function Alert({ isOpen, setOpen, replacePath = null, children }: AlertProps) {
   return (
     <>
       {isOpen && (
-        <div className="fixed flex h-dvh min-w-[25rem] max-w-[48rem] mx-auto inset-0 justify-center items-center bg-black/50 z-10">
+        <div className="fixed flex h-dvh mx-auto inset-0 justify-center items-center bg-black/50 z-10">
           <div
             role="dialog"
             className="flex flex-col gap-8 items-center p-8 w-[90%] max-w-[25rem] rounded-4xl bg-white z-10"

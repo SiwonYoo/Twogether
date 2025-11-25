@@ -33,7 +33,7 @@ export default function SearchForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex">
+    <form onSubmit={handleSubmit} className="flex gap-4">
       <div className="flex-1 pb-4">
         <Input
           id="search"

@@ -10,7 +10,7 @@ import { A11y, Autoplay } from 'swiper/modules';
 interface ProductCardItemProps {
   data: Product;
   height: string;
-  autoplay: boolean;
+  autoplay?: boolean;
 }
 
 /**
