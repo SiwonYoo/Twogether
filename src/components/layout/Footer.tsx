@@ -22,13 +22,15 @@ function Footer() {
 
   return (
     <>
-      <footer className="content-center px-5 h-44 w-full bg-gray-550 text-gray-250 pb-16">
-        <p className={`${JudsonFont.className}`}>Twogether</p>
-        <div className="text-xs">
-          <button onClick={handleClickPolicy}>개인정보 처리 방침</button> |{' '}
-          <button onClick={handleClickTermsOpen}>사이트 이용 약관</button>
+      <footer className="content-center px-5 h-44 md:h-30 w-full bg-gray-550 text-gray-250 max-md:pb-16">
+        <div className="mx-auto px-4 lg:px-16 max-w-7xl">
+          <p className={`${JudsonFont.className}`}>Twogether</p>
+          <div className="text-xs">
+            <button onClick={handleClickPolicy}>개인정보 처리 방침</button> |{' '}
+            <button onClick={handleClickTermsOpen}>사이트 이용 약관</button>
+          </div>
+          <small className="text-xs">© 2025 Twogether. All rights reserved.</small>
         </div>
-        <small className="text-xs">© 2025 Twogether. All rights reserved.</small>
       </footer>
       <Dialog isOpen={isPolicyOpen} setOpen={setPolicyOpen} title="개인정보 처리 방침">
         <div className="flex flex-col gap-2 text-xs">

@@ -14,7 +14,7 @@ function Navigation() {
   }, []);
 
   return (
-    <nav className="fixed bottom-0 w-full min-w-[400px] max-w-[768px] bg-white z-[1] shadow-2xl">
+    <nav className="fixed bottom-0 w-full min-w-[400px] max-w-[768px] bg-white z-[1] shadow-2xl md:hidden">
       <ul className="flex justify-between h-16">
         <li className="contents">
           <Link href="/menu" className="flex flex-col justify-center items-center content-center flex-1 h-full">
