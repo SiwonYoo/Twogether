@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 function ResendVerification() {
   return (
     <>
-      <main className="mx-4 mb-20">
+      <main className="mx-4 lg:px-20 mb-20">
         <p className="text-center">이메일 재인증 페이지입니다.</p>
         <p className="mb-5 text-xs text-gray-350 text-center">회원 가입 시 사용하신 이메일을 입력해 주세요.</p>
         <div className="mx-4">

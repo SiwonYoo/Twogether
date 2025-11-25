@@ -27,7 +27,7 @@ function EditProfile({
           <ChevronRight color={'#B0B0B0'} />
           <span className={path === '/my-page/edit-profile/success' ? 'text-black' : 'text-gray-250'}>3. 수정완료</span>
         </div>
-        <div className="py-6 px-4">{children}</div>
+        <div className="py-6 px-4 lg:px-20">{children}</div>
       </main>
     </>
   );

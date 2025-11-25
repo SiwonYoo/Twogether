@@ -18,7 +18,7 @@ function Signup({
 
   return (
     <>
-      <main className="h-full mx-4">
+      <main className="lg:px-20 mx-4 mb-20">
         <h2 className={`mt-5 text-2xl text-center ${JudsonFont.className}`}>SIGN UP</h2>
         <div className="flex gap-4 justify-center py-6 border-b-2 border-gray-350">
           <span className={path === '/signup/terms' ? 'text-black' : 'text-gray-250'}>1. 약관동의</span>
