@@ -1,0 +1,43 @@
+
+> final-02-twogether@0.1.0 build
+> next build
+
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+   ▲ Next.js 15.3.6
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 14.0s
+   Linting and checking validity of types ...
+
+./src/app/shop/[productType]/[id]/ShareBtn.tsx
+17:12  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/components/order/ShippingDetailsSection.tsx
+28:20  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+29:35  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+   Collecting page data ...
+   Generating static pages (0/25) ...
+   Generating static pages (6/25) 
+   Generating static pages (12/25) 
+TypeError: Failed to parse URL from undefined/products?custom=%7B%22extra.isBest%22%3Atrue%7D
+    at async n (.next/server/chunks/3759.js:1:216)
+    at async d (.next/server/app/page.js:1:4933) {
+  [cause]: TypeError: Invalid URL
+      at async n (.next/server/chunks/3759.js:1:216)
+      at async d (.next/server/app/page.js:1:4933) {
+    code: 'ERR_INVALID_URL',
+    input: 'undefined/products?custom=%7B%22extra.isBest%22%3Atrue%7D'
+  }
+}
+   Generating static pages (18/25) 
+Failed to build /page: / (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /page: / (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /page: / after 3 attempts.
+Export encountered an error on /page: /, exiting the build.
+ ⨯ Next.js build worker exited with code: 1 and signal: null
